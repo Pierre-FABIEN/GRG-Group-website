@@ -2,7 +2,6 @@
 	import { MoonIcon, SunIcon, Minimize2Icon, Maximize2Icon } from 'lucide-svelte';
 	import { toggleMode } from 'mode-watcher';
 	import { Switch } from '$shadcn/switch/index.js';
-	import { updateSceneColors } from '$lib/store/scene3DStore';
 
 	const DARK_MODE_KEY = 'mode-watcher-mode';
 	let darkMod = $state(false);
@@ -44,9 +43,7 @@
 			// });
 			
 			darkMod = newState;
-			
-			// ✨ CORRECTION : Mettre à jour les couleurs du BackgroundCanvas
-			updateSceneColors();
+		
 		}, 50);
 	}
 

@@ -2,6 +2,13 @@ import { decodeBase64 } from '@oslojs/encoding';
 import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
 import { ENCRYPTION_KEY } from '$env/static/private';
 
+// Validation de la clé d'encryption
+if (!ENCRYPTION_KEY) {
+	throw new Error(
+		'ENCRYPTION_KEY is not defined in environment variables. Please check your .env file.'
+	);
+}
+
 // Décodage de la clé d'encryption à partir de l'environnement
 const key = decodeBase64(ENCRYPTION_KEY);
 

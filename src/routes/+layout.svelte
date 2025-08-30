@@ -19,8 +19,6 @@
 
 	import { setCart } from '$lib/store/Data/cartStore';
 	import { startSync } from '$lib/store/Data/cartSync';
-	import Threltre from '$lib/components/threlte/Threltre.svelte';
-	import BackgroundCanvas from '$lib/components/BackgroundCanvas.svelte';
 	import SmoothScrollBarStore from '$lib/store/SmoothScrollBarStore';
 
 	let { children, data } = $props();
@@ -94,18 +92,12 @@
 {/if}
 {#if $isClient}
 	<div class="wappper">
-		<BackgroundCanvas />
 		<ModeWatcher />
 
 		<div class="container ccc">
 			<div class="wrapperScroll">
-				<Navigation {data} />
 				<SmoothScrollBar>
 					<main class="mainLayout">
-						<!-- Threltre avec texture dynamique -->
-						<div class="canva">
-							<Threltre />
-						</div>
 						<div class="content ccc" bind:this={contentRef}>
 							{@render children()}
 						</div>
