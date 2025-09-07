@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Navigation from './../lib/components/Navigation.svelte';
 	import '@fontsource-variable/open-sans';
 	import '@fontsource-variable/raleway';
 	import '../app.css';
@@ -34,17 +33,6 @@
 		setFirstOpen(true);
 		setRessourceToValide(true);
 
-		if (data.user === null) {
-		} else {
-			const items = data.pendingOrder;
-
-			if (!cartInitialized) {
-				setCart(items.id, items.userId, items.items, items.subtotal, items.tax, items.total);
-				cartInitialized = true;
-			}
-
-			startSync();
-		}
 
 		return unsubscribe;
 	});
