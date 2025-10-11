@@ -7,8 +7,8 @@
 	const bentoItems = [
 		{
 			id: 1,
-			title: 'Lorem Ipsum Dolor',
-			subtitle: 'Sit amet consectetur adipiscing elit',
+			title: 'Lorem Ipsum',
+			subtitle: 'Dolor sit amet consectetur adipiscing elit',
 			hoverText:
 				'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.',
 			icon: '🍱',
@@ -85,10 +85,10 @@
 				class="bento-card {item.cardClass}"
 				class:hovered={hoveredCard === item.id}
 				class:same-row={isInSameRow(item)}
-				on:mouseenter={() => handleCardHover(item.id)}
-				on:mouseleave={handleCardLeave}
-				on:click={() => handleCardClick(item)}
-				on:keypress={(e) => e.key === 'Enter' && handleCardClick(item)}
+				onmouseenter={() => handleCardHover(item.id)}
+				onmouseleave={handleCardLeave}
+				onclick={() => handleCardClick(item)}
+				onkeypress={(e) => e.key === 'Enter' && handleCardClick(item)}
 				role="button"
 				tabindex="0"
 				in:scale={{ delay: i * 100, duration: 600 }}
@@ -119,6 +119,7 @@
 		padding: 1.5rem;
 		overflow: hidden;
 		box-sizing: border-box;
+		font-family: 'open-sans', sans-serif;
 	}
 
 	.bento-container {

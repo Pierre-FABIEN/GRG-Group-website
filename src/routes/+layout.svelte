@@ -2,6 +2,7 @@
 	// --- IMPORTS INCHANGÉS ---
 	import '@fontsource-variable/open-sans';
 	import '@fontsource-variable/raleway';
+	import '@fontsource-variable/inter';
 	import '../app.css';
 
 	import { initializeLayoutState, setupNavigationEffect, isClient } from './layout.svelte';
@@ -266,7 +267,7 @@
 		height: 100vh;
 		overflow: hidden;
 		background: #f8fafc;
-		font-family: 'Open Sans Variable', sans-serif;
+		font-family: 'inter', sans-serif;
 		transition: background 0.3s ease;
 	}
 
