@@ -85,10 +85,10 @@
 				class="bento-card {item.cardClass}"
 				class:hovered={hoveredCard === item.id}
 				class:same-row={isInSameRow(item)}
-				on:mouseenter={() => handleCardHover(item.id)}
-				on:mouseleave={handleCardLeave}
-				on:click={() => handleCardClick(item)}
-				on:keypress={(e) => e.key === 'Enter' && handleCardClick(item)}
+				onmouseenter={() => handleCardHover(item.id)}
+				onmouseleave={handleCardLeave}
+				onclick={() => handleCardClick(item)}
+				onkeypress={(e) => e.key === 'Enter' && handleCardClick(item)}
 				role="button"
 				tabindex="0"
 				in:scale={{ delay: i * 100, duration: 600 }}
@@ -362,11 +362,20 @@
 	@media (max-width: 768px) {
 		.page-wrapper {
 			padding: 1rem;
+			height: auto;
+			min-height: 100vh;
+			overflow-y: auto;
 		}
 
 		.bento-container {
 			flex-direction: column;
 			max-height: none;
+			height: auto;
+		}
+
+		.bento-card {
+			transition: none !important;
+			padding: 1.75rem;
 		}
 
 		.card-1,
@@ -375,7 +384,15 @@
 		.card-4,
 		.card-5 {
 			width: 100% !important;
-			height: 150px !important;
+			height: auto !important;
+			min-height: 150px;
+		}
+
+		/* Désactiver toutes les animations de largeur sur mobile */
+		.bento-card.hovered,
+		.bento-card.same-row {
+			width: 100% !important;
+			transition: none !important;
 		}
 
 		.card-icon {
@@ -392,10 +409,6 @@
 
 		.hover-text {
 			font-size: 0.95rem !important;
-		}
-
-		.bento-card {
-			padding: 1.75rem;
 		}
 	}
 </style>

@@ -200,7 +200,7 @@
 			</nav>
 
 			<div class="sidebar-footer">
-				<button class="theme-toggle" on:click={handleToggleMode} type="button">
+				<button class="theme-toggle" onclick={handleToggleMode} type="button">
 					<span class="theme-icon-light">☀️</span>
 					<span class="theme-icon-dark">🌙</span>
 				</button>
@@ -212,8 +212,9 @@
 							class="theme-dot"
 							class:active={currentTheme.name === theme.name}
 							style="background-color: {theme.color}"
-							on:click={() => changeTheme(theme)}
+							onclick={() => changeTheme(theme)}
 							title={theme.name}
+							aria-label="Changer le thème vers {theme.name}"
 							type="button"
 						></button>
 					{/each}
@@ -482,7 +483,7 @@
 	/* === CONTAINER === */
 	.container {
 		flex: 1;
-		height: 100vh;
+		//height: 100vh;
 		margin-left: 280px;
 		overflow: hidden;
 		position: relative;
@@ -506,7 +507,7 @@
 
 	.content {
 		width: 100%;
-		height: 100vh;
+		//height: 100vh;
 		overflow: hidden;
 	}
 
