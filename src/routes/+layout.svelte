@@ -173,8 +173,8 @@
 		<!-- SIDEBAR BENTO STYLE -->
 		<aside class="sidebar">
 			<div class="sidebar-header">
-				<div class="logo">🍱</div>
-				<span class="logo-text">Bento</span>
+				<div class="logo"> <img src="/image/path1.svg" alt=""> </div>
+			
 			</div>
 			
 			<nav class="sidebar-nav">
@@ -311,8 +311,10 @@
 	}
 
 	.logo {
-		font-size: 2.5rem;
 		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+		max-width:150px;
+		height:auto;
+		margin-left:15%;
 	}
 
 	.logo-text {
