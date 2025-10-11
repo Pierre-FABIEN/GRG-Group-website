@@ -364,6 +364,7 @@
 			padding: 1rem;
 			height: auto;
 			min-height: 100vh;
+			width: 100%;
 			overflow-y: auto;
 		}
 

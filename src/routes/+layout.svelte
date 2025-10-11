@@ -488,6 +488,10 @@
 		overflow: hidden;
 		position: relative;
 		transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+		@media (max-width: 768px) {
+			margin-left: 70px !important;
+		}
 	}
 
 	.wrapperScroll {
