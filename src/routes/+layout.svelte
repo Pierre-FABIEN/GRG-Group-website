@@ -182,11 +182,11 @@
 					<span class="nav-icon">🏠</span>
 					<span class="nav-text">Accueil</span>
 				</a>
-				<a href="/a-propos" class="nav-link" class:active={currentPath === '/a-propos'}>
+				<a href="/propos" class="nav-link" class:active={currentPath === '/propos'}>
 					<span class="nav-icon">ℹ️</span>
 					<span class="nav-text">À propos</span>
 				</a>
-				<a href="/services" class="nav-link" class:active={currentPath === '/services'}>
+				<a href="/services-" class="nav-link" class:active={currentPath === '/services'}>
 					<span class="nav-icon">⚙️</span>
 					<span class="nav-text">Services</span>
 				</a>
