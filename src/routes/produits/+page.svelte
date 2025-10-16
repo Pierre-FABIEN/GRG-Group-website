@@ -4,56 +4,58 @@
 	import { scale } from 'svelte/transition';
 
 	// 5 cellules avec leurs lignes (rows)
-	const bentoItems = [
-		{
-			id: 1,
-			title: 'Lorem Ipsum',
-			subtitle: 'Dolor sit amet consectetur adipiscing elit',
-			hoverText:
-				'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.',
-			icon: '🍱',
-			cardClass: 'card-1',
-			row: 'top'
-		},
-		{
-			id: 2,
-			title: 'Consectetur Adipiscing',
-			subtitle: 'Elit sed do eiusmod',
-			hoverText:
-				'Tempor incididunt ut labore et dolore magna aliqua quis nostrud exercitation ullamco.',
-			icon: '🎨',
-			cardClass: 'card-2',
-			row: 'top'
-		},
-		{
-			id: 3,
-			title: 'Tempor Incididunt',
-			subtitle: 'Ut labore et dolore',
-			hoverText: 'Magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi.',
-			icon: '🏆',
-			cardClass: 'card-3',
-			row: 'top'
-		},
-		{
-			id: 4,
-			title: 'Magna Aliqua Enim',
-			subtitle: 'Ad minim veniam quis nostrud',
-			hoverText:
-				'Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.',
-			icon: '🎯',
-			cardClass: 'card-4',
-			row: 'bottom'
-		},
-		{
-			id: 5,
-			title: 'Exercitation Ullamco',
-			subtitle: 'Laboris nisi ut aliquip',
-			hoverText: 'Ex ea commodo consequat duis aute irure dolor in reprehenderit voluptate velit.',
-			icon: '🎥',
-			cardClass: 'card-5',
-			row: 'bottom'
-		}
-	];
+const bentoItems = [
+	{
+		id: 1,
+		title: 'Lorem Ipsum',
+		subtitle: 'Dolor sit amet consectetur adipiscing elit',
+		hoverText:
+			'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.',
+		icon: '🍱',
+		cardClass: 'card-1',
+		row: 'top'
+	},
+	{
+		id: 2,
+		title: 'Consectetur Adipiscing',
+		subtitle: 'Elit sed do eiusmod',
+		hoverText:
+			'Tempor incididunt ut labore et dolore magna aliqua quis nostrud exercitation ullamco.',
+		icon: '🎨',
+		cardClass: 'card-2',
+		row: 'top'
+	},
+	{
+		id: 3,
+		title: 'Tempor Incididunt',
+		subtitle: 'Ut labore et dolore',
+		hoverText: 'Magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi.',
+		icon: '🏆',
+		cardClass: 'card-3',
+		row: 'top'
+	},
+	// <-- inversion ici : on met d'abord card-5
+	{
+		id: 5,
+		title: 'Exercitation Ullamco',
+		subtitle: 'Laboris nisi ut aliquip',
+		hoverText: 'Ex ea commodo consequat duis aute irure dolor in reprehenderit voluptate velit.',
+		icon: '🎥',
+		cardClass: 'card-5',
+		row: 'bottom'
+	},
+	{
+		id: 4,
+		title: 'Magna Aliqua Enim',
+		subtitle: 'Ad minim veniam quis nostrud',
+		hoverText:
+			'Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.',
+		icon: '🎯',
+		cardClass: 'card-4',
+		row: 'bottom'
+	}
+];
+
 
 	let hoveredCard = $state<number | null>(null);
 	let hoveredRow = $state<string | null>(null);

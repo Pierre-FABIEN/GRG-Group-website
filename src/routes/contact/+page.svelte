@@ -3,7 +3,7 @@
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
 
-	// 5 cellules avec leurs lignes (rows)
+	// 4 cellules avec leurs lignes (rows)
 	const bentoItems = [
 		{
 			id: 1,
@@ -32,7 +32,7 @@
 			hoverText: 'Magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi.',
 			icon: '🏆',
 			cardClass: 'card-3',
-			row: 'top'
+			row: 'bottom'
 		},
 		{
 			id: 4,
@@ -42,15 +42,6 @@
 				'Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.',
 			icon: '🎯',
 			cardClass: 'card-4',
-			row: 'bottom'
-		},
-		{
-			id: 5,
-			title: 'Exercitation Ullamco',
-			subtitle: 'Laboris nisi ut aliquip',
-			hoverText: 'Ex ea commodo consequat duis aute irure dolor in reprehenderit voluptate velit.',
-			icon: '🎥',
-			cardClass: 'card-5',
 			row: 'bottom'
 		}
 	];
@@ -138,107 +129,84 @@
 		padding: 2.5rem;
 		cursor: pointer;
 		overflow: hidden;
-		transition: width 0.1s cubic-bezier(0.34, 1.56, 0.64, 1),
-			opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+			opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		flex-shrink: 0;
 	}
 
-	/* Application des gradients depuis les variables CSS */
+	/* === VARIANTE 4 - Disposition 50/50 === */
 	.card-1 {
 		background: var(--gradient-card1);
 		color: var(--text-color-1);
-		width: calc(33.33% - 0.84rem);
+		width: calc(50% - 0.625rem);
 		height: calc(50% - 0.625rem);
 	}
 
 	.card-2 {
 		background: var(--gradient-card2);
 		color: var(--text-color-2);
-		width: calc(33.33% - 0.84rem);
+		width: calc(50% - 0.625rem);
 		height: calc(50% - 0.625rem);
 	}
 
 	.card-3 {
 		background: var(--gradient-card3);
 		color: var(--text-color-3);
-		width: calc(33.33% - 0.84rem);
+		width: calc(50% - 0.625rem);
 		height: calc(50% - 0.625rem);
 	}
 
 	.card-4 {
 		background: var(--gradient-card4);
 		color: var(--text-color-4);
-		width: calc(66.66% - 0.625rem);
+		width: calc(50% - 0.625rem);
 		height: calc(50% - 0.625rem);
 	}
 
-	.card-5 {
-		background: var(--gradient-card5);
-		color: var(--text-color-5);
-		width: calc(33.33% - 0.84rem);
-		height: calc(50% - 0.625rem);
-		margin-left: auto;
-	}
-
-	/* Carte survolée : agrandissement en width */
+	/* Carte survolée : agrandissement latéral */
 	.bento-card.hovered {
-		width: calc(var(--base-width) * 1.1) !important;
+		width: calc(var(--base-width) * 1.07) !important;
 		z-index: 10;
 	}
 
 	.card-1.hovered {
-		--base-width: calc(33.33% - 0.84rem);
+		--base-width: calc(50% - 0.625rem);
 	}
 
 	.card-2.hovered {
-		--base-width: calc(33.33% - 0.84rem);
+		--base-width: calc(50% - 0.625rem);
 	}
 
 	.card-3.hovered {
-		--base-width: calc(33.33% - 0.84rem);
+		--base-width: calc(50% - 0.625rem);
 	}
 
 	.card-4.hovered {
-		--base-width: calc(66.66% - 0.625rem);
+		--base-width: calc(50% - 0.625rem);
 	}
 
-	.card-5.hovered {
-		--base-width: calc(33.33% - 0.84rem);
-	}
-
-	/* Autres cartes de la MÊME ROW : rétrécissent proportionnellement */
-	/* ROW 1 (top) : PAS DE MODIFICATION - on garde le comportement original */
+	/* Cartes de la même row : réduction latérale */
 	.card-1.same-row {
-		width: calc(var(--base-width) * 0.95) !important;
-		--base-width: calc(33.33% - 0.84rem);
+		width: calc(var(--base-width) * 0.93) !important;
+		--base-width: calc(50% - 0.625rem);
 		opacity: 0.8;
 	}
 
 	.card-2.same-row {
-		width: calc(var(--base-width) * 0.95) !important;
-		--base-width: calc(33.33% - 0.84rem);
+		width: calc(var(--base-width) * 0.93) !important;
+		--base-width: calc(50% - 0.625rem);
 		opacity: 0.8;
 	}
 
 	.card-3.same-row {
-		width: calc(var(--base-width) * 0.95) !important;
-		--base-width: calc(33.33% - 0.84rem);
+		width: calc(var(--base-width) * 0.93) !important;
+		--base-width: calc(50% - 0.625rem);
 		opacity: 0.8;
 	}
 
-	/* ROW 2 (bottom) : MODIFICATION SPÉCIALE pour éviter le glissement */
-	/* Quand card-4 est survolée, card-5 doit BEAUCOUP rétrécir (card-4 fait 66% de base) */
-	.card-5.same-row {
-		width: calc(var(--base-width) * 0.78) !important;
-		--base-width: calc(33.33% - 0.84rem);
-		opacity: 0.8;
-		margin-left: auto;
-	}
-
-	/* Quand card-5 est survolée, card-4 rétracte moins (elle est déjà grande) */
 	.card-4.same-row {
 		width: calc(var(--base-width) * 0.93) !important;
-		--base-width: calc(66.66% - 0.625rem);
+		--base-width: calc(50% - 0.625rem);
 		opacity: 0.8;
 	}
 
@@ -249,7 +217,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		transition: opacity 0.1s ease, transform 0.1s ease;
+		transition: opacity 0.3s ease, transform 0.3s ease;
 	}
 
 	.card-content.hide-content {
@@ -263,20 +231,11 @@
 		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 	}
 
-	.card-1 .card-icon {
-		font-size: 4.5rem;
-	}
-
 	.card-title {
 		font-size: 1.75rem;
 		font-weight: 700;
 		margin: 0 0 0.5rem;
 		line-height: 1.2;
-	}
-
-	.card-1 .card-title {
-		font-size: 2.5rem;
-		font-weight: 800;
 	}
 
 	.card-subtitle {
@@ -285,10 +244,6 @@
 		margin: 0;
 		opacity: 0.85;
 		line-height: 1.5;
-	}
-
-	.card-1 .card-subtitle {
-		font-size: 1.15rem;
 	}
 
 	/* Overlay sombre avec blur au survol */
@@ -301,7 +256,7 @@
 		background: rgba(0, 0, 0, 0.7);
 		backdrop-filter: blur(8px);
 		opacity: 0;
-		transition: opacity 0.2s ease;
+		transition: opacity 0.3s ease;
 		z-index: 1;
 	}
 
@@ -319,7 +274,7 @@
 		width: 85%;
 		text-align: center;
 		opacity: 0;
-		transition: opacity 0.2s ease 0.0s;
+		transition: opacity 0.3s ease 0.1s;
 		pointer-events: none;
 	}
 
@@ -334,14 +289,6 @@
 		font-weight: 500;
 		margin: 0;
 		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-	}
-
-	.card-1 .hover-text {
-		font-size: 1.25rem;
-	}
-
-	.card-4 .hover-text {
-		font-size: 1.15rem;
 	}
 
 	/* === RESPONSIVE === */
@@ -373,8 +320,7 @@
 		.card-1,
 		.card-2,
 		.card-3,
-		.card-4,
-		.card-5 {
+		.card-4 {
 			width: 100% !important;
 			height: 150px !important;
 		}

@@ -32,7 +32,7 @@
 			hoverText: 'Magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi.',
 			icon: '🏆',
 			cardClass: 'card-3',
-			row: 'top'
+			row: 'bottom'
 		},
 		{
 			id: 4,
@@ -143,7 +143,8 @@
 		flex-shrink: 0;
 	}
 
-	/* Application des gradients depuis les variables CSS */
+	/* === VARIANTE 3 - Disposition alternative === */
+	/* ROW 1 (top) - 2 cartes : 33.33% et 66.66% */
 	.card-1 {
 		background: var(--gradient-card1);
 		color: var(--text-color-1);
@@ -154,10 +155,11 @@
 	.card-2 {
 		background: var(--gradient-card2);
 		color: var(--text-color-2);
-		width: calc(33.33% - 0.84rem);
+		width: calc(66.66% - 0.625rem);
 		height: calc(50% - 0.625rem);
 	}
 
+	/* ROW 2 (bottom) - 3 cartes : 33.33% chacune */
 	.card-3 {
 		background: var(--gradient-card3);
 		color: var(--text-color-3);
@@ -168,7 +170,7 @@
 	.card-4 {
 		background: var(--gradient-card4);
 		color: var(--text-color-4);
-		width: calc(66.66% - 0.625rem);
+		width: calc(33.33% - 0.84rem);
 		height: calc(50% - 0.625rem);
 	}
 
@@ -177,7 +179,6 @@
 		color: var(--text-color-5);
 		width: calc(33.33% - 0.84rem);
 		height: calc(50% - 0.625rem);
-		margin-left: auto;
 	}
 
 	/* Carte survolée : agrandissement en width */
@@ -191,7 +192,7 @@
 	}
 
 	.card-2.hovered {
-		--base-width: calc(33.33% - 0.84rem);
+		--base-width: calc(66.66% - 0.625rem);
 	}
 
 	.card-3.hovered {
@@ -199,46 +200,42 @@
 	}
 
 	.card-4.hovered {
-		--base-width: calc(66.66% - 0.625rem);
+		--base-width: calc(33.33% - 0.84rem);
 	}
 
 	.card-5.hovered {
 		--base-width: calc(33.33% - 0.84rem);
 	}
 
-	/* Autres cartes de la MÊME ROW : rétrécissent proportionnellement */
-	/* ROW 1 (top) : PAS DE MODIFICATION - on garde le comportement original */
+	/* ROW 1 (top) : 2 cartes asymétriques 33% et 66% */
 	.card-1.same-row {
-		width: calc(var(--base-width) * 0.95) !important;
+		width: calc(var(--base-width) * 0.78) !important;
 		--base-width: calc(33.33% - 0.84rem);
 		opacity: 0.8;
 	}
 
 	.card-2.same-row {
-		width: calc(var(--base-width) * 0.95) !important;
-		--base-width: calc(33.33% - 0.84rem);
+		width: calc(var(--base-width) * 0.93) !important;
+		--base-width: calc(66.66% - 0.625rem);
 		opacity: 0.8;
 	}
 
+	/* ROW 2 (bottom) : 3 cartes égales */
 	.card-3.same-row {
 		width: calc(var(--base-width) * 0.95) !important;
 		--base-width: calc(33.33% - 0.84rem);
 		opacity: 0.8;
 	}
 
-	/* ROW 2 (bottom) : MODIFICATION SPÉCIALE pour éviter le glissement */
-	/* Quand card-4 est survolée, card-5 doit BEAUCOUP rétrécir (card-4 fait 66% de base) */
-	.card-5.same-row {
-		width: calc(var(--base-width) * 0.78) !important;
+	.card-4.same-row {
+		width: calc(var(--base-width) * 0.95) !important;
 		--base-width: calc(33.33% - 0.84rem);
 		opacity: 0.8;
-		margin-left: auto;
 	}
 
-	/* Quand card-5 est survolée, card-4 rétracte moins (elle est déjà grande) */
-	.card-4.same-row {
-		width: calc(var(--base-width) * 0.93) !important;
-		--base-width: calc(66.66% - 0.625rem);
+	.card-5.same-row {
+		width: calc(var(--base-width) * 0.95) !important;
+		--base-width: calc(33.33% - 0.84rem);
 		opacity: 0.8;
 	}
 
@@ -263,7 +260,7 @@
 		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 	}
 
-	.card-1 .card-icon {
+	.card-2 .card-icon {
 		font-size: 4.5rem;
 	}
 
@@ -274,7 +271,7 @@
 		line-height: 1.2;
 	}
 
-	.card-1 .card-title {
+	.card-2 .card-title {
 		font-size: 2.5rem;
 		font-weight: 800;
 	}
@@ -287,7 +284,7 @@
 		line-height: 1.5;
 	}
 
-	.card-1 .card-subtitle {
+	.card-2 .card-subtitle {
 		font-size: 1.15rem;
 	}
 
@@ -336,12 +333,8 @@
 		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 	}
 
-	.card-1 .hover-text {
+	.card-2 .hover-text {
 		font-size: 1.25rem;
-	}
-
-	.card-4 .hover-text {
-		font-size: 1.15rem;
 	}
 
 	/* === RESPONSIVE === */
