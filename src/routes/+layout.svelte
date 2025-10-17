@@ -269,14 +269,16 @@
 
 	.layout-wrapper {
 		display: flex;
-		width: 100%;
+		width: 100vw;
 		height: 100vh;
-		height: 100dvh; /* Utilise la hauteur dynamique du viewport */
+		height: 100dvh;
 		overflow: hidden;
 		background: #f8fafc;
 		font-family: 'inter', sans-serif;
 		transition: background 0.3s ease;
-		position: relative;
+		position: fixed;
+		top: 0;
+		left: 0;
 	}
 
 	:global(.dark) .layout-wrapper {
@@ -500,11 +502,13 @@
 
 	/* === CONTAINER === */
 	.container {
-		flex: 1;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: calc(100vw - 280px);
 		height: 100vh;
 		height: 100dvh;
 		overflow: hidden;
-		position: relative;
 		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
@@ -597,6 +601,10 @@
 		.sidebar:hover .sidebar-nav {
 			gap: 0.5rem;
 		}
+
+		.container {
+			width: calc(100vw - 80px);
+		}
 	}
 
 	@media (max-width: 768px) {
@@ -651,6 +659,10 @@
 			width: 38px;
 			height: 38px;
 			font-size: 1.2rem;
+		}
+
+		.container {
+			width: calc(100vw - 70px);
 		}
 
 		.content {
@@ -711,6 +723,10 @@
 		.theme-dot {
 			width: 12px;
 			height: 12px;
+		}
+
+		.container {
+			width: calc(100vw - 60px);
 		}
 	}
 
