@@ -313,22 +313,241 @@
 
 .card-overlay.show { opacity: 1; }
 
-/* RESPONSIVE */
+/* RESPONSIVE - VERSION OPTIMISÉE */
 @media (max-width: 1024px) {
-	.bento-row { flex-direction: column; gap: 1rem; }
-	.bento-card { flex-basis: 100% !important; height: 150px !important; }
-	.card-icon { font-size: 2.5rem; }
-	.card-title { font-size: 1.4rem; }
-	.card-subtitle { font-size: 0.9rem; }
-	.hover-text { font-size: 0.95rem; }
+	.page-wrapper {
+		height: auto;
+		min-height: 100vh;
+		padding: 1.5rem;
+		justify-content: flex-start;
+	}
+
+	.bento-row {
+		flex-direction: column;
+		gap: 1rem;
+		height: auto;
+		margin-bottom: 1rem;
+	}
+
+	.bento-row:last-child {
+		margin-bottom: 0;
+	}
+
+	.bento-card {
+		flex: 1 1 auto !important;
+		height: 200px !important;
+		opacity: 1 !important;
+	}
+
+	/* Désactiver l'agrandissement horizontal sur mobile */
+	.bento-card.hovered {
+		flex: 1 1 auto !important;
+		height: 280px !important; /* Agrandissement vertical seulement */
+	}
+
+	.bento-card.same-row {
+		flex: 1 1 auto !important;
+		opacity: 1 !important;
+	}
+
+	.card-icon { 
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.card-title { 
+		font-size: 1.6rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.card-1 .card-title {
+		font-size: 1.8rem;
+	}
+
+	.card-subtitle { 
+		font-size: 1.05rem;
+	}
+
+	.card-1 .card-subtitle {
+		font-size: 1.15rem;
+	}
+
+	.hover-text { 
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+
+	.card-1 .hover-text {
+		font-size: 1.05rem;
+	}
+
+	.card-hover-content {
+		width: 90%;
+	}
 }
 
 @media (max-width: 768px) {
-	.page-wrapper { padding: 1rem; }
-	.bento-card { padding: 1.5rem; }
-	.card-icon { font-size: 2rem; }
-	.card-title { font-size: 1.2rem; }
-	.card-subtitle { font-size: 0.85rem; }
-	.hover-text { font-size: 0.9rem; }
+	.page-wrapper { 
+		padding: 1rem;
+	}
+
+	.bento-row {
+		gap: 0.875rem;
+	}
+
+	.bento-card { 
+		padding: 1.75rem;
+		height: 180px !important;
+		border-radius: 1.5rem;
+	}
+
+	.bento-card.hovered {
+		height: 260px !important;
+	}
+
+	.card-icon { 
+		font-size: 2.25rem;
+		margin-bottom: 0.875rem;
+	}
+
+	.card-title { 
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.card-1 .card-title {
+		font-size: 1.65rem;
+	}
+
+	.card-subtitle { 
+		font-size: 1rem;
+	}
+
+	.card-1 .card-subtitle {
+		font-size: 1.1rem;
+	}
+
+	.hover-text { 
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+
+	.card-1 .hover-text {
+		font-size: 1rem;
+	}
+
+	.card-4 .hover-text {
+		font-size: 0.95rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.page-wrapper {
+		padding: 0.875rem;
+	}
+
+	.bento-row {
+		gap: 0.75rem;
+	}
+
+	.bento-card {
+		padding: 1.5rem;
+		height: 160px !important;
+		border-radius: 1.25rem;
+	}
+
+	.bento-card.hovered {
+		height: 240px !important;
+	}
+
+	.card-icon {
+		font-size: 2rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.card-title {
+		font-size: 1.35rem;
+		margin-bottom: 0.4rem;
+	}
+
+	.card-1 .card-title {
+		font-size: 1.5rem;
+	}
+
+	.card-subtitle {
+		font-size: 0.95rem;
+	}
+
+	.card-1 .card-subtitle {
+		font-size: 1.05rem;
+	}
+
+	.hover-text {
+		font-size: 0.85rem;
+		line-height: 1.45;
+	}
+
+	.card-1 .hover-text {
+		font-size: 0.95rem;
+	}
+
+	.card-4 .hover-text {
+		font-size: 0.9rem;
+	}
+
+	.card-hover-content {
+		width: 92%;
+	}
+}
+
+/* Amélioration du scroll sur mobile */
+@media (max-width: 1024px) {
+	.page-wrapper {
+		-webkit-overflow-scrolling: touch;
+	}
+
+	/* Meilleure lisibilité du texte hover sur mobile */
+	.card-hover-content.show {
+		animation: fadeInUp 0.3s ease;
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translate(-50%, -45%);
+		}
+		to {
+			opacity: 1;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
+
+/* Adaptation pour les très petits écrans */
+@media (max-width: 360px) {
+	.bento-card {
+		padding: 1.25rem;
+		height: 140px !important;
+	}
+
+	.bento-card.hovered {
+		height: 220px !important;
+	}
+
+	.card-icon {
+		font-size: 1.75rem;
+	}
+
+	.card-title {
+		font-size: 1.2rem;
+	}
+
+	.card-subtitle {
+		font-size: 0.875rem;
+	}
+
+	.hover-text {
+		font-size: 0.8rem;
+	}
 }
 </style>

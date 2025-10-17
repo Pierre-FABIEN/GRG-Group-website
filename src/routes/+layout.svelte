@@ -239,6 +239,7 @@
 	</div>
 {/if}
 
+
 <style lang="scss">
 	:global(:root) {
 		--theme-color: #7c3aed;
@@ -259,17 +260,26 @@
 		overflow: hidden;
 		margin: 0;
 		padding: 0;
+		width: 100%;
+		height: 100%;
+		/* Support pour les appareils mobiles avec barre d'adresse */
+		height: 100vh;
+		height: 100dvh; /* Dynamic viewport height */
 	}
-
 
 	.layout-wrapper {
 		display: flex;
 		width: 100vw;
+		width: 100dvw;
 		height: 100vh;
+		height: 100dvh; /* Utilise la hauteur dynamique du viewport */
 		overflow: hidden;
 		background: #f8fafc;
 		font-family: 'inter', sans-serif;
 		transition: background 0.3s ease;
+		position: fixed;
+		top: 0;
+		left: 0;
 	}
 
 	:global(.dark) .layout-wrapper {
@@ -281,6 +291,7 @@
 		width: 280px;
 		min-width: 280px;
 		height: 100vh;
+		height: 100dvh;
 		background: #ffffff;
 		border-right: 1px solid rgba(0, 0, 0, 0.08);
 		display: flex;
@@ -291,6 +302,7 @@
 		left: 0;
 		top: 0;
 		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		overflow: hidden;
 	}
 
 	:global(.dark) .sidebar {
@@ -302,9 +314,10 @@
 		display: flex;
 		align-items: center;
 		gap: 1rem;
-		padding: 0 1rem 2rem;
+		padding: 0 1rem 1.5rem;
 		border-bottom: 2px solid rgba(0, 0, 0, 0.05);
-		margin-bottom: 2rem;
+		margin-bottom: 1.5rem;
+		flex-shrink: 0;
 	}
 
 	:global(.dark) .sidebar-header {
@@ -313,9 +326,9 @@
 
 	.logo {
 		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-		max-width:150px;
-		height:auto;
-		margin-left:15%;
+		max-width: 150px;
+		height: auto;
+		margin-left: 15%;
 	}
 
 	.logo-text {
@@ -329,6 +342,8 @@
 		flex-direction: column;
 		gap: 0.5rem;
 		flex: 1;
+		overflow: hidden;
+		justify-content: center;
 	}
 
 	.nav-link {
@@ -339,11 +354,12 @@
 		color: #64748b;
 		font-weight: 600;
 		font-size: 0.95rem;
-		padding: 1rem 1.25rem;
+		padding: 0.875rem 1.25rem;
 		border-radius: 1rem;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		position: relative;
 		overflow: hidden;
+		flex-shrink: 0;
 	}
 
 	:global(.dark) .nav-link {
@@ -403,7 +419,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 1rem;
+		gap: 0.875rem;
+		flex-shrink: 0;
 	}
 
 	:global(.dark) .sidebar-footer {
@@ -413,10 +430,10 @@
 	.theme-toggle {
 		background: color-mix(in srgb, var(--theme-color) 10%, transparent);
 		border: none;
-		width: 48px;
-		height: 48px;
+		width: 44px;
+		height: 44px;
 		border-radius: 50%;
-		font-size: 1.5rem;
+		font-size: 1.35rem;
 		cursor: pointer;
 		transition: all 0.3s ease;
 		display: flex;
@@ -453,16 +470,17 @@
 	/* Sélecteur de thèmes */
 	.theme-selector {
 		display: flex;
-		gap: 0.75rem;
+		gap: 0.625rem;
 		align-items: center;
 		justify-content: center;
+		flex-wrap: wrap;
 	}
 
 	.theme-dot {
-		width: 18px;
-		height: 18px;
+		width: 16px;
+		height: 16px;
 		border-radius: 50%;
-		border: 3px solid transparent;
+		border: 2.5px solid transparent;
 		cursor: pointer;
 		transition: all 0.3s ease;
 		position: relative;
@@ -487,6 +505,7 @@
 	.container {
 		flex: 1;
 		height: 100vh;
+		height: 100dvh;
 		margin-left: 280px;
 		overflow: hidden;
 		position: relative;
@@ -510,7 +529,8 @@
 
 	.content {
 		width: 100%;
-		height: 100vh;
+		min-height: 100vh;
+		min-height: 100dvh;
 		overflow: hidden;
 	}
 
@@ -519,10 +539,33 @@
 		.sidebar {
 			width: 80px;
 			min-width: 80px;
+			padding: 1rem 0.5rem;
 		}
 
 		.sidebar:hover {
 			width: 280px;
+			padding: 2rem 1rem;
+		}
+
+		.sidebar-header {
+			padding: 0 0.5rem 1rem;
+			margin-bottom: 1rem;
+		}
+
+		.sidebar:hover .sidebar-header {
+			padding: 0 1rem 1.5rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.logo {
+			margin-left: 0;
+			max-width: 50px;
+			transition: max-width 0.3s ease;
+		}
+
+		.sidebar:hover .logo {
+			max-width: 150px;
+			margin-left: 15%;
 		}
 
 		.logo-text,
@@ -530,13 +573,31 @@
 			opacity: 0;
 			width: 0;
 			overflow: hidden;
-			transition: opacity 0.3s ease;
+			transition: opacity 0.3s ease, width 0.3s ease;
 		}
 
 		.sidebar:hover .logo-text,
 		.sidebar:hover .nav-text {
 			opacity: 1;
 			width: auto;
+		}
+
+		.nav-link {
+			justify-content: center;
+			padding: 0.75rem 0.5rem;
+		}
+
+		.sidebar:hover .nav-link {
+			justify-content: flex-start;
+			padding: 0.875rem 1.25rem;
+		}
+
+		.sidebar-nav {
+			gap: 0.375rem;
+		}
+
+		.sidebar:hover .sidebar-nav {
+			gap: 0.5rem;
 		}
 
 		.container {
@@ -551,11 +612,23 @@
 	@media (max-width: 768px) {
 		.sidebar {
 			width: 70px;
-			padding: 1rem 0.5rem;
+			min-width: 70px;
+			padding: 0.875rem 0.375rem;
 		}
 
 		.sidebar:hover {
 			width: 70px;
+			padding: 0.875rem 0.375rem;
+		}
+
+		.sidebar-header {
+			padding: 0 0 0.875rem;
+			margin-bottom: 0.875rem;
+		}
+
+		.logo {
+			max-width: 38px;
+			margin-left: 0;
 		}
 
 		.logo-text,
@@ -565,12 +638,32 @@
 
 		.sidebar-header {
 			justify-content: center;
-			padding: 0 0 1rem;
 		}
 
 		.nav-link {
 			justify-content: center;
-			padding: 1rem 0.5rem;
+			padding: 0.75rem 0.375rem;
+			gap: 0;
+			font-size: 0.875rem;
+		}
+
+		.nav-icon {
+			font-size: 1.35rem;
+		}
+
+		.sidebar-nav {
+			gap: 0.3rem;
+		}
+
+		.sidebar-footer {
+			padding-top: 0.75rem;
+			gap: 0.625rem;
+		}
+
+		.theme-toggle {
+			width: 38px;
+			height: 38px;
+			font-size: 1.2rem;
 		}
 
 		.container {
@@ -582,13 +675,75 @@
 		}
 
 		.theme-selector {
-			flex-wrap: wrap;
 			gap: 0.5rem;
 		}
 
 		.theme-dot {
-			width: 24px;
-			height: 24px;
+			width: 14px;
+			height: 14px;
+			border-width: 2px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.sidebar {
+			width: 60px;
+			min-width: 60px;
+			padding: 0.75rem 0.25rem;
+		}
+
+		.sidebar-header {
+			padding: 0 0 0.625rem;
+			margin-bottom: 0.625rem;
+		}
+
+		.logo {
+			max-width: 32px;
+		}
+
+		.nav-link {
+			padding: 0.625rem 0.25rem;
+			border-radius: 0.75rem;
+		}
+
+		.nav-icon {
+			font-size: 1.2rem;
+		}
+
+		.sidebar-nav {
+			gap: 0.25rem;
+		}
+
+		.sidebar-footer {
+			padding-top: 0.625rem;
+			gap: 0.5rem;
+		}
+
+		.theme-toggle {
+			width: 34px;
+			height: 34px;
+			font-size: 1.1rem;
+		}
+
+		.theme-dot {
+			width: 12px;
+			height: 12px;
+		}
+
+		.container {
+			margin-left: 60px;
+		}
+	}
+
+	/* Support pour les appareils avec encoche (notch) */
+	@supports (padding: max(0px)) {
+		.sidebar {
+			padding-left: max(1rem, env(safe-area-inset-left));
+			padding-right: max(1rem, env(safe-area-inset-right));
+		}
+
+		.container {
+			padding-right: env(safe-area-inset-right);
 		}
 	}
 </style>
