@@ -510,6 +510,7 @@
 		overflow: hidden;
 		position: relative;
 		transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		width: calc(100vw - 280px);
 	}
 
 	.wrapperScroll {
@@ -522,6 +523,7 @@
 	}
 
 	.mainLayout {
+		width: 100%;
 		max-width: 100%;
 		height: 100%;
 		overflow: hidden;
@@ -602,10 +604,12 @@
 
 		.container {
 			margin-left: 80px;
+			width: calc(100vw - 80px);
 		}
 
 		.sidebar:hover ~ .container {
 			margin-left: 280px;
+			width: calc(100vw - 280px);
 		}
 	}
 
@@ -624,6 +628,7 @@
 		.sidebar-header {
 			padding: 0 0 0.875rem;
 			margin-bottom: 0.875rem;
+			justify-content: center;
 		}
 
 		.logo {
@@ -634,10 +639,6 @@
 		.logo-text,
 		.nav-text {
 			display: none;
-		}
-
-		.sidebar-header {
-			justify-content: center;
 		}
 
 		.nav-link {
@@ -668,6 +669,7 @@
 
 		.container {
 			margin-left: 70px;
+			width: calc(100vw - 70px);
 		}
 
 		.content {
@@ -732,6 +734,7 @@
 
 		.container {
 			margin-left: 60px;
+			width: calc(100vw - 60px);
 		}
 	}
 
