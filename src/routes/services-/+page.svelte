@@ -4,12 +4,53 @@
 	import { scale } from 'svelte/transition';
 
 	const bentoItems = [
-		{ id: 1, title: 'Lorem Ipsum', subtitle: 'Dolor sit amet', hoverText: 'Sed do eiusmod...', icon: '🍱', cardClass: 'card-1', row: 'top' },
-		{ id: 2, title: 'Consectetur Adipiscing', subtitle: 'Elit sed do', hoverText: 'Tempor incididunt...', icon: '🎨', cardClass: 'card-2', row: 'top' },
-		{ id: 3, title: 'Tempor Incididunt', subtitle: 'Ut labore', hoverText: 'Magna aliqua...', icon: '🏆', cardClass: 'card-3', row: 'top' },
-		{ id: 4, title: 'Magna Aliqua Enim', subtitle: 'Ad minim', hoverText: 'Exercitation ullamco...', icon: '🎯', cardClass: 'card-4', row: 'bottom' },
-		{ id: 5, title: 'Exercitation Ullamco', subtitle: 'Laboris nisi', hoverText: 'Ex ea commodo...', icon: '🎥', cardClass: 'card-5', row: 'bottom' }
-	];
+    { 
+        id: 1, 
+        title: 'Formats & Conditionnements', 
+        subtitle: 'Canettes, bouteilles, shots…', 
+        hoverText: 'Nous proposons une large gamme de formats : canettes, bouteilles en verre ou PET, shots, piluliers et bien plus encore, pour s’adapter à chaque type de projet.', 
+        icon: '🥫', 
+        cardClass: 'card-1', 
+        row: 'top' 
+    },
+    { 
+        id: 2, 
+        title: 'Flexibilité Industrielle', 
+        subtitle: 'Adaptation & Réactivité', 
+        hoverText: 'Notre réseau industriel européen garantit une capacité d’adaptation rapide, pour répondre efficacement aux évolutions du marché et aux besoins spécifiques de chaque client.', 
+        icon: '⚙️', 
+        cardClass: 'card-2', 
+        row: 'top' 
+    },
+    { 
+        id: 3, 
+        title: 'Qualité & Sécurité', 
+        subtitle: 'Normes Européennes', 
+        hoverText: 'Nos sites partenaires respectent les standards de qualité les plus exigeants, assurant des produits sûrs, traçables et conformes aux réglementations internationales.', 
+        icon: '🔒', 
+        cardClass: 'card-3', 
+        row: 'bottom' 
+    },
+    { 
+        id: 4, 
+        title: 'Production Multi-sites', 
+        subtitle: 'Un réseau européen', 
+        hoverText: 'Grâce à notre réseau industriel réparti sur plusieurs sites européens, nous assurons une continuité de production et une grande disponibilité logistique.', 
+        icon: '🌍', 
+        cardClass: 'card-4', 
+        row: 'bottom' 
+    },
+    { 
+        id: 5, 
+        title: 'Accompagnement Technique', 
+        subtitle: 'De l’idée au produit fini', 
+        hoverText: 'Nos équipes techniques accompagnent chaque étape du développement produit, du choix du format à la mise en production, avec un haut niveau d’expertise.', 
+        icon: '🧰', 
+        cardClass: 'card-5', 
+        row: 'bottom' 
+    }
+];
+
 
 	let hoveredCard: number | null = null;
 	let hoveredRow: string | null = null;
@@ -213,8 +254,18 @@
 .card-1 .hover-text { font-size: 1.25rem; }
 .card-4 .hover-text { font-size: 1.15rem; }
 
+
+
+
+/* BACKGROUND IMAGES ET GRADIENTS */
+.card-1 {
+	background: url('/box.jpg') center/cover no-repeat;
+	position: relative;
+}
+
+
 /* GRADIENTS PAR CARTE */
-.card-1 { background: var(--gradient-card1); }
+
 .card-2 { background: var(--gradient-card2); }
 .card-3 { background: var(--gradient-card3); }
 .card-4 { background: var(--gradient-card4); }

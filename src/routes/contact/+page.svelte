@@ -202,6 +202,12 @@
 	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+
+
+
+
+
+
 /* CARTES ET GRADIENTS */
 .card-1 { background: var(--gradient-card1); }
 .card-2 { background: var(--gradient-card2); }
