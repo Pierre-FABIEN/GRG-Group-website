@@ -262,10 +262,10 @@
 		padding: 0;
 		width: 100%;
 		height: 100%;
-		/* Support pour les appareils mobiles avec barre d'adresse */
 		height: 100vh;
-		height: 100dvh; /* Dynamic viewport height */
+		height: 100dvh;
 		position: fixed;
+		overscroll-behavior: none;
 	}
 
 	.layout-wrapper {
@@ -297,13 +297,14 @@
 		display: flex;
 		flex-direction: column;
 		padding: 2rem 1rem;
-		z-index: 100;
+		z-index: 1000;
 		position: fixed;
 		left: 0;
 		top: 0;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: none;
 		overflow: hidden;
-		will-change: width;
+		transform: translateZ(0);
+		backface-visibility: hidden;
 	}
 
 	:global(.dark) .sidebar {
@@ -544,12 +545,13 @@
 			width: 80px;
 			min-width: 80px;
 			padding: 1rem 0.5rem;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 		}
 
 		.sidebar:hover {
 			width: 280px;
 			padding: 2rem 1rem;
-			z-index: 200;
+			z-index: 1001;
 		}
 
 		.sidebar-header {
@@ -606,23 +608,23 @@
 		}
 
 		.container {
-			width: 80px;
 			left: 80px;
-			right: auto;
-			width: calc(100% - 80px);
+			right: 0;
+			width: auto;
 		}
 	}
 
 	@media (max-width: 768px) {
 		.sidebar {
-			width: 70px;
-			min-width: 70px;
-			padding: 0.875rem 0.375rem;
+			width: 70px !important;
+			min-width: 70px !important;
+			padding: 0.875rem 0.375rem !important;
+			transition: none !important;
 		}
 
 		.sidebar:hover {
-			width: 70px;
-			padding: 0.875rem 0.375rem;
+			width: 70px !important;
+			padding: 0.875rem 0.375rem !important;
 		}
 
 		.sidebar-header {
@@ -668,10 +670,9 @@
 		}
 
 		.container {
-			width: 70px;
 			left: 70px;
-			right: auto;
-			width: calc(100% - 70px);
+			right: 0;
+			width: auto;
 		}
 
 		.content {
@@ -691,9 +692,9 @@
 
 	@media (max-width: 480px) {
 		.sidebar {
-			width: 60px;
-			min-width: 60px;
-			padding: 0.75rem 0.25rem;
+			width: 60px !important;
+			min-width: 60px !important;
+			padding: 0.75rem 0.25rem !important;
 		}
 
 		.sidebar-header {
@@ -735,10 +736,9 @@
 		}
 
 		.container {
-			width: 60px;
 			left: 60px;
-			right: auto;
-			width: calc(100% - 60px);
+			right: 0;
+			width: auto;
 		}
 	}
 
