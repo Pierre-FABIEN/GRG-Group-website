@@ -261,6 +261,7 @@
 		padding: 0;
 	}
 
+
 	.layout-wrapper {
 		display: flex;
 		width: 100vw;

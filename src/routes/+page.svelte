@@ -3,65 +3,63 @@
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
 
-	// 5 cellules avec leurs lignes (rows)
-	const bentoItems = [
-		{
-			id: 1,
-			title: 'Lorem Ipsum',
-			subtitle: 'Dolor sit amet consectetur adipiscing elit',
-			hoverText:
-				'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.',
-			icon: '🍱',
-			cardClass: 'card-1',
-			row: 'top'
-		},
-		{
-			id: 2,
-			title: 'Consectetur Adipiscing',
-			subtitle: 'Elit sed do eiusmod',
-			hoverText:
-				'Tempor incididunt ut labore et dolore magna aliqua quis nostrud exercitation ullamco.',
-			icon: '🎨',
-			cardClass: 'card-2',
-			row: 'top'
-		},
-		{
-			id: 3,
-			title: 'Tempor Incididunt',
-			subtitle: 'Ut labore et dolore',
-			hoverText: 'Magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi.',
-			icon: '🏆',
-			cardClass: 'card-3',
-			row: 'top'
-		},
-		{
-			id: 4,
-			title: 'Magna Aliqua Enim',
-			subtitle: 'Ad minim veniam quis nostrud',
-			hoverText:
-				'Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.',
-			icon: '🎯',
-			cardClass: 'card-4',
-			row: 'bottom'
-		},
-		{
-			id: 5,
-			title: 'Exercitation Ullamco',
-			subtitle: 'Laboris nisi ut aliquip',
-			hoverText: 'Ex ea commodo consequat duis aute irure dolor in reprehenderit voluptate velit.',
-			icon: '🎥',
-			cardClass: 'card-5',
-			row: 'bottom'
-		}
-	];
+const bentoItems = [
+    { 
+        id: 1, 
+        title: 'Notre Histoire', 
+        subtitle: 'Depuis 2007', 
+        hoverText: 'GRG Groupe Food & Beverage accompagne depuis plus de 15 ans les marques et porteurs de projet dans le développement de boissons et compléments alimentaires.', 
+        icon: '📖', 
+        cardClass: 'card-1', 
+        row: 'top' 
+    },
+    { 
+        id: 2, 
+        title: 'Notre Mission', 
+        subtitle: 'Création & Qualité', 
+        hoverText: 'Nous combinons expertise scientifique et créativité pour concevoir des produits uniques et fiables, de la formulation à la production.', 
+        icon: '🎯', 
+        cardClass: 'card-2', 
+        row: 'top' 
+    },
+    { 
+        id: 3, 
+        title: 'Notre Vision', 
+        subtitle: 'Innovation & Accompagnement', 
+        hoverText: 'Nous accompagnons marques et distributeurs dans chaque étape clé, avec flexibilité et rigueur, pour amener leurs idées sur le marché.', 
+        icon: '🚀', 
+        cardClass: 'card-3', 
+        row: 'top' 
+    },
+    { 
+        id: 4, 
+        title: 'Nos Valeurs', 
+        subtitle: 'Qualité & Fiabilité', 
+        hoverText: 'Notre priorité : des produits de qualité, sûrs et conformes, qui répondent aux attentes des consommateurs et aux normes industrielles.', 
+        icon: '💎', 
+        cardClass: 'card-4', 
+        row: 'bottom' 
+    },
+    { 
+        id: 5, 
+        title: 'Notre Approche', 
+        subtitle: 'Partenaire de vos projets', 
+        hoverText: 'Nous travaillons main dans la main avec chaque client, pour transformer vos idées en produits concrets et prêts à commercialiser.', 
+        icon: '🤝', 
+        cardClass: 'card-5', 
+        row: 'bottom' 
+    }
+];
 
-	let hoveredCard = $state<number | null>(null);
-	let hoveredRow = $state<string | null>(null);
+
+
+	let hoveredCard: number | null = null;
+	let hoveredRow: string | null = null;
 
 	function handleCardHover(id: number) {
 		hoveredCard = id;
-		const card = bentoItems.find((item) => item.id === id);
-		hoveredRow = card ? card.row : null;
+		const card = bentoItems.find(item => item.id === id);
+		hoveredRow = card?.row || null;
 	}
 
 	function handleCardLeave() {
@@ -79,8 +77,9 @@
 </script>
 
 <div class="page-wrapper">
-	<div class="bento-container">
-		{#each bentoItems as item, i (item.id)}
+	<!-- Ligne du haut -->
+	<div class="bento-row top">
+		{#each bentoItems.filter(i => i.row === 'top') as item, i (item.id)}
 			<div
 				class="bento-card {item.cardClass}"
 				class:hovered={hoveredCard === item.id}
@@ -88,7 +87,35 @@
 				onmouseenter={() => handleCardHover(item.id)}
 				onmouseleave={handleCardLeave}
 				onclick={() => handleCardClick(item)}
-				onkeypress={(e) => e.key === 'Enter' && handleCardClick(item)}
+				role="button"
+				tabindex="0"
+				in:scale={{ delay: i * 100, duration: 600 }}
+			>
+				<div class="card-content" class:hide-content={hoveredCard === item.id}>
+					<div class="card-icon">{item.icon}</div>
+					<h3 class="card-title">{item.title}</h3>
+					<p class="card-subtitle">{item.subtitle}</p>
+				</div>
+
+				<div class="card-hover-content" class:show={hoveredCard === item.id}>
+					<p class="hover-text">{item.hoverText}</p>
+				</div>
+
+				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
+			</div>
+		{/each}
+	</div>
+
+	<!-- Ligne du bas -->
+	<div class="bento-row bottom">
+		{#each bentoItems.filter(i => i.row === 'bottom') as item, i (item.id)}
+			<div
+				class="bento-card {item.cardClass}"
+				class:hovered={hoveredCard === item.id}
+				class:same-row={isInSameRow(item)}
+				onmouseenter={() => handleCardHover(item.id)}
+				onmouseleave={handleCardLeave}
+				onclick={() => handleCardClick(item)}
 				role="button"
 				tabindex="0"
 				in:scale={{ delay: i * 100, duration: 600 }}
@@ -109,294 +136,226 @@
 	</div>
 </div>
 
+
 <style lang="scss">
-	.page-wrapper {
-		width: 100%;
-		height: 100vh;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 1.5rem;
-		overflow: hidden;
-		box-sizing: border-box;
-		font-family: 'open-sans', sans-serif;
-	}
+.page-wrapper {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 1.5rem;
+	box-sizing: border-box;
+	font-family: 'open-sans', sans-serif;
+	overflow: hidden;
+}
 
-	.bento-container {
-		width: 100%;
-		max-width: 1500px;
-		height: 100%;
-		max-height: 850px;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1.25rem;
-	}
+.bento-row {
+	display: flex;
+	width: 100%;
+	max-width: 1500px;
+	gap: 1.25rem;
+	margin-bottom: 1.25rem;
+	height: 50%;
+	box-sizing: border-box;
+}
 
-	.bento-card {
-		position: relative;
-		border-radius: 1.75rem;
-		padding: 2.5rem;
-		cursor: pointer;
-		overflow: hidden;
-		transition: width 0.1s cubic-bezier(0.34, 1.56, 0.64, 1),
-			opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-		flex-shrink: 0;
-	}
+.bento-card {
+	position: relative;
+	border-radius: 1.75rem;
+	padding: 2.5rem;
+	cursor: pointer;
+	overflow: hidden;
+	box-sizing: border-box;
+	min-width: 0;
+	max-width: 100%;
+	flex: 1 1 0;
+	transition: flex 0.3s ease, opacity 0.2s ease;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
 
-	/* Application des gradients depuis les variables CSS */
-	.card-1 {
-		background: var(--gradient-card1);
-		color: var(--text-color-1);
-		width: calc(33.33% - 0.84rem);
-		height: calc(50% - 0.625rem);
-	}
+.bento-card.hovered {
+	flex: 2 1 0;
+}
 
-	.card-2 {
-		background: var(--gradient-card2);
-		color: var(--text-color-2);
-		width: calc(33.33% - 0.84rem);
-		height: calc(50% - 0.625rem);
-	}
+.bento-card.same-row {
+	flex: 1 1 0;
+	opacity: 0.8;
+}
 
-	.card-3 {
-		background: var(--gradient-card3);
-		color: var(--text-color-3);
-		width: calc(33.33% - 0.84rem);
-		height: calc(50% - 0.625rem);
-	}
+/* CONTENU CARTE - TEXTES */
+.card-content {
+	position: relative;
+	z-index: 2;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: start;
+	transition: opacity 0.1s ease, transform 0.1s ease;
+}
 
-	.card-4 {
-		background: var(--gradient-card4);
-		color: var(--text-color-4);
-		width: calc(66.66% - 0.625rem);
-		height: calc(50% - 0.625rem);
-	}
+.card-content.hide-content {
+	opacity: 0;
+	transform: translateY(-10px);
+}
 
-	.card-5 {
-		background: var(--gradient-card5);
-		color: var(--text-color-5);
-		width: calc(33.33% - 0.84rem);
-		height: calc(50% - 0.625rem);
-		margin-left: auto;
-	}
+.card-icon {
+	font-size: 3.5rem;
+	margin-bottom: 1.25rem;
+}
 
-	/* Carte survolée : agrandissement en width */
-	.bento-card.hovered {
-		width: calc(var(--base-width) * 1.1) !important;
-		z-index: 10;
-	}
+/* TITRES ET SOUS-TITRES - MAJUSCULES ET PLUS GRANDS */
+.card-title {
+	font-size: 2rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	margin: 0 0 0.75rem;
+	line-height: 1.2;
+	color: var(--text-color-1);
+}
 
-	.card-1.hovered {
-		--base-width: calc(33.33% - 0.84rem);
-	}
+.card-subtitle {
+	font-size: 1.25rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin: 0;
+	opacity: 0.85;
+	line-height: 1.4;
+	color: var(--text-color-2);
+}
 
-	.card-2.hovered {
-		--base-width: calc(33.33% - 0.84rem);
-	}
+/* Ajustement carte 1 */
+.card-1 .card-title {
+	font-size: 2.5rem;
+}
+.card-1 .card-subtitle {
+	font-size: 1.4rem;
+}
 
-	.card-3.hovered {
-		--base-width: calc(33.33% - 0.84rem);
-	}
+/* HOVER TEXT */
+.card-hover-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 3;
+	width: 85%;
+	text-align: center;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	pointer-events: none;
+	color: white;
+}
 
-	.card-4.hovered {
-		--base-width: calc(66.66% - 0.625rem);
-	}
+.card-hover-content.show {
+	opacity: 1;
+}
 
-	.card-5.hovered {
-		--base-width: calc(33.33% - 0.84rem);
-	}
+.hover-text {
+	color: white;
+	font-size: 1.1rem;
+	line-height: 1.6;
+	font-weight: 500;
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
 
-	/* Autres cartes de la MÊME ROW : rétrécissent proportionnellement */
-	/* ROW 1 (top) : PAS DE MODIFICATION - on garde le comportement original */
-	.card-1.same-row {
-		width: calc(var(--base-width) * 0.95) !important;
-		--base-width: calc(33.33% - 0.84rem);
-		opacity: 0.8;
-	}
+////////////////////////////////////////
 
-	.card-2.same-row {
-		width: calc(var(--base-width) * 0.95) !important;
-		--base-width: calc(33.33% - 0.84rem);
-		opacity: 0.8;
-	}
+.card-1 .card-title,
+.card-4 .card-title,
+.card-5 .card-title {
+    color: white;
+}
 
-	.card-3.same-row {
-		width: calc(var(--base-width) * 0.95) !important;
-		--base-width: calc(33.33% - 0.84rem);
-		opacity: 0.8;
-	}
 
-	/* ROW 2 (bottom) : MODIFICATION SPÉCIALE pour éviter le glissement */
-	/* Quand card-4 est survolée, card-5 doit BEAUCOUP rétrécir (card-4 fait 66% de base) */
-	.card-5.same-row {
-		width: calc(var(--base-width) * 0.78) !important;
-		--base-width: calc(33.33% - 0.84rem);
-		opacity: 0.8;
-		margin-left: auto;
-	}
+/// 
+/// 
 
-	/* Quand card-5 est survolée, card-4 rétracte moins (elle est déjà grande) */
-	.card-4.same-row {
-		width: calc(var(--base-width) * 0.93) !important;
-		--base-width: calc(66.66% - 0.625rem);
-		opacity: 0.8;
-	}
+.card-1 .hover-text {
+	font-size: 1.25rem;
+}
+.card-4 .hover-text {
+	font-size: 1.15rem;
+}
 
-	.card-content {
-		position: relative;
-		z-index: 2;
-		height: 100%;
-		display: flex;
+/* BACKGROUND IMAGES ET GRADIENTS */
+.card-1 {
+	background: url('/beer-can.jpg') center/cover no-repeat;
+	position: relative;
+}
+
+.card-5 {
+	background: url('/approach.jpg') center/cover no-repeat;
+	position: relative;
+}
+.card-2 { background: var(--gradient-card2); }
+.card-3 { background: var(--gradient-card3); }
+
+.card-4 {
+  background: 
+    url('/path1.png') center/cover no-repeat,   /* image au-dessus */
+    var(--gradient-card4);                           /* gradient en dessous */
+  position: relative;
+}
+
+
+/* Overlay sombre pour lisibilité du texte */
+.card-1::before,
+.card-5::before {
+	content: '';
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0,0,0,0.45);
+	border-radius: 1.75rem;
+	z-index: 1;
+}
+
+/* OVERLAY ET HOVER */
+.card-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.7);
+	backdrop-filter: blur(8px);
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	z-index:1;
+}
+
+.card-overlay.show {
+	opacity: 1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+	.bento-row {
 		flex-direction: column;
-		justify-content: center;
-		transition: opacity 0.1s ease, transform 0.1s ease;
+		gap: 1rem;
 	}
-
-	.card-content.hide-content {
-		opacity: 0;
-		transform: translateY(-10px);
+	.bento-card {
+		flex-basis: 100% !important;
+		height: 150px !important;
 	}
+	.card-icon { font-size: 2.5rem; }
+	.card-title { font-size: 1.6rem; }
+	.card-subtitle { font-size: 1.05rem; }
+	.hover-text { font-size: 0.95rem; }
+}
 
-	.card-icon {
-		font-size: 3.5rem;
-		margin-bottom: 1.25rem;
-		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-	}
-
-	.card-1 .card-icon {
-		font-size: 4.5rem;
-	}
-
-	.card-title {
-		font-size: 1.75rem;
-		font-weight: 700;
-		margin: 0 0 0.5rem;
-		line-height: 1.2;
-	}
-
-	.card-1 .card-title {
-		font-size: 2.5rem;
-		font-weight: 800;
-	}
-
-	.card-subtitle {
-		font-size: 1rem;
-		font-weight: 500;
-		margin: 0;
-		opacity: 0.85;
-		line-height: 1.5;
-	}
-
-	.card-1 .card-subtitle {
-		font-size: 1.15rem;
-	}
-
-	/* Overlay sombre avec blur au survol */
-	.card-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(0, 0, 0, 0.7);
-		backdrop-filter: blur(8px);
-		opacity: 0;
-		transition: opacity 0.2s ease;
-		z-index: 1;
-	}
-
-	.card-overlay.show {
-		opacity: 1;
-	}
-
-	/* Texte révélé au survol */
-	.card-hover-content {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		z-index: 3;
-		width: 85%;
-		text-align: center;
-		opacity: 0;
-		transition: opacity 0.2s ease 0.0s;
-		pointer-events: none;
-	}
-
-	.card-hover-content.show {
-		opacity: 1;
-	}
-
-	.hover-text {
-		color: white;
-		font-size: 1.1rem;
-		line-height: 1.6;
-		font-weight: 500;
-		margin: 0;
-		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-	}
-
-	.card-1 .hover-text {
-		font-size: 1.25rem;
-	}
-
-	.card-4 .hover-text {
-		font-size: 1.15rem;
-	}
-
-	/* === RESPONSIVE === */
-	@media (max-width: 1200px) {
-		.page-wrapper {
-			padding: 1.25rem;
-		}
-
-		.bento-container {
-			max-width: 1200px;
-			max-height: 750px;
-		}
-
-		.hover-text {
-			font-size: 1rem !important;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.page-wrapper {
-			padding: 1rem;
-		}
-
-		.bento-container {
-			flex-direction: column;
-			max-height: none;
-		}
-
-		.card-1,
-		.card-2,
-		.card-3,
-		.card-4,
-		.card-5 {
-			width: 100% !important;
-			height: 150px !important;
-		}
-
-		.card-icon {
-			font-size: 2.5rem !important;
-		}
-
-		.card-title {
-			font-size: 1.4rem !important;
-		}
-
-		.card-subtitle {
-			font-size: 0.9rem !important;
-		}
-
-		.hover-text {
-			font-size: 0.95rem !important;
-		}
-
-		.bento-card {
-			padding: 1.75rem;
-		}
-	}
+@media (max-width: 768px) {
+	.page-wrapper { padding: 1rem; }
+	.bento-card { padding: 1.5rem; }
+	.card-icon { font-size: 2rem; }
+	.card-title { font-size: 1.4rem; }
+	.card-subtitle { font-size: 1rem; }
+	.hover-text { font-size: 0.9rem; }
+}
 </style>
+
+
