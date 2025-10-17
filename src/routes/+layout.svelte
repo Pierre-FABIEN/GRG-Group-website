@@ -265,6 +265,7 @@
 		/* Support pour les appareils mobiles avec barre d'adresse */
 		height: 100vh;
 		height: 100dvh; /* Dynamic viewport height */
+		position: fixed;
 	}
 
 	.layout-wrapper {
@@ -302,6 +303,7 @@
 		top: 0;
 		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 		overflow: hidden;
+		will-change: width;
 	}
 
 	:global(.dark) .sidebar {
@@ -509,7 +511,8 @@
 		height: 100vh;
 		height: 100dvh;
 		overflow: hidden;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: none;
+		will-change: auto;
 	}
 
 	.wrapperScroll {
@@ -603,7 +606,10 @@
 		}
 
 		.container {
-			width: calc(100vw - 80px);
+			width: 80px;
+			left: 80px;
+			right: auto;
+			width: calc(100% - 80px);
 		}
 	}
 
@@ -662,7 +668,10 @@
 		}
 
 		.container {
-			width: calc(100vw - 70px);
+			width: 70px;
+			left: 70px;
+			right: auto;
+			width: calc(100% - 70px);
 		}
 
 		.content {
@@ -726,7 +735,10 @@
 		}
 
 		.container {
-			width: calc(100vw - 60px);
+			width: 60px;
+			left: 60px;
+			right: auto;
+			width: calc(100% - 60px);
 		}
 	}
 
