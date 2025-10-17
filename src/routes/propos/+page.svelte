@@ -182,7 +182,7 @@
 	opacity: 0.8;
 }
 
-/* CONTENU CARTE - TEXTES */
+/* CONTENU CARTE - TEXTES */ 
 .card-content {
 	position: relative;
 	z-index: 2;
