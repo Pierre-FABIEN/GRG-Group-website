@@ -235,6 +235,7 @@
 .card-1 .card-subtitle { font-size: 1.15rem; }
 
 .card-1 .card-title,
+.card-4 .card-title,
 .card-5 .card-title{
 
     color: white;
@@ -248,6 +249,12 @@
 	position: relative;
 }
 
+
+.card-4 {
+	background: url('/xplicit-drink.jpg') center/cover no-repeat;
+	position: relative;
+}
+
 .card-5 {
 	background: url('/friendship.jpg') center/cover no-repeat;
 	position: relative;
@@ -255,6 +262,7 @@
 
 
 .card-1::before,
+.card-4::before,
 .card-5::before {
 	content: '';
 	position: absolute;
@@ -297,7 +305,7 @@
 
 .card-2 { background: var(--gradient-card2); }
 .card-3 { background: var(--gradient-card3); }
-.card-4 { background: var(--gradient-card4); }
+
 
 
 /* OVERLAY */

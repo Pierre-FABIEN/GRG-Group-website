@@ -33,8 +33,8 @@ const bentoItems = [
     },
     { 
         id: 4, 
-        title: 'Nos Valeurs', 
-        subtitle: 'Qualité & Fiabilité', 
+        title: 'FOOD', 
+        subtitle: 'AND BEVERAGE', 
         hoverText: 'Notre priorité : des produits de qualité, sûrs et conformes, qui répondent aux attentes des consommateurs et aux normes industrielles.', 
         icon: '💎', 
         cardClass: 'card-4', 

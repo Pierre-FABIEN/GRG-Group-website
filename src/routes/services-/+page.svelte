@@ -7,7 +7,7 @@
     { 
         id: 1, 
         title: 'Formats & Conditionnements', 
-        subtitle: 'Canettes, bouteilles, shots…', 
+        subtitle: '', 
         hoverText: 'Nous proposons une large gamme de formats : canettes, bouteilles en verre ou PET, shots, piluliers et bien plus encore, pour s’adapter à chaque type de projet.', 
         icon: '🥫', 
         cardClass: 'card-1', 
@@ -43,8 +43,8 @@
     { 
         id: 5, 
         title: 'Accompagnement Technique', 
-        subtitle: 'De l’idée au produit fini', 
-        hoverText: 'Nos équipes techniques accompagnent chaque étape du développement produit, du choix du format à la mise en production, avec un haut niveau d’expertise.', 
+        subtitle: '', 
+        hoverText: 'De l’idée au produit fini : Nos équipes techniques accompagnent chaque étape du développement produit, du choix du format à la mise en production, avec un haut niveau d’expertise.', 
         icon: '🧰', 
         cardClass: 'card-5', 
         row: 'bottom' 
@@ -255,6 +255,13 @@
 .card-4 .hover-text { font-size: 1.15rem; }
 
 
+.card-4 .card-title,
+.card-2 .card-title
+{
+
+    color: white;
+}
+
 
 
 /* BACKGROUND IMAGES ET GRADIENTS */
@@ -262,14 +269,35 @@
 	background: url('/box.jpg') center/cover no-repeat;
 	position: relative;
 }
+.card-2 {
+	background: url('/nature.jpg') center/cover no-repeat;
+	position: relative;
+}
+
+.card-5 {
+	background: url('/soda-can.png') center/cover no-repeat;
+	position: relative;
+}
+
+
+/* Overlay sombre pour lisibilité du texte */
+
+// .card-2::before,
+// .card-5::before {
+// 	content: '';
+// 	position: absolute;
+// 	top: 0; left: 0; right: 0; bottom: 0;
+// 	background: rgba(0,0,0,0.45);
+// 	border-radius: 1.75rem;
+// 	z-index: 1;
+// }
+
 
 
 /* GRADIENTS PAR CARTE */
 
-.card-2 { background: var(--gradient-card2); }
 .card-3 { background: var(--gradient-card3); }
 .card-4 { background: var(--gradient-card4); }
-.card-5 { background: var(--gradient-card5); }
 
 /* OVERLAY */
 .card-overlay {

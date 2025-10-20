@@ -3,16 +3,63 @@
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
 
-	const bentoItems = [
-		// Ligne du haut : 2 cartes, grande à droite
-		{ id: 1, title: 'Lorem Ipsum', subtitle: 'Dolor sit amet', hoverText: 'Sed do eiusmod...', icon: '🍱', cardClass: 'card-1', row: 'top' },
-		{ id: 2, title: 'Consectetur Adipiscing', subtitle: 'Elit sed do', hoverText: 'Tempor incididunt...', icon: '🎨', cardClass: 'card-2', row: 'top' , double: true},
+const bentoItems = [
+  {
 
-		// Ligne du bas : 3 cartes petites
-		{ id: 3, title: 'Tempor Incididunt', subtitle: 'Ut labore', hoverText: 'Magna aliqua...', icon: '🏆', cardClass: 'card-3', row: 'bottom' },
-		{ id: 4, title: 'Magna Aliqua Enim', subtitle: 'Ad minim', hoverText: 'Exercitation ullamco...', icon: '🎯', cardClass: 'card-4', row: 'bottom' },
-		{ id: 5, title: 'Exercitation Ullamco', subtitle: 'Laboris nisi', hoverText: 'Ex ea commodo...', icon: '🎥', cardClass: 'card-5', row: 'bottom' }
-	];
+  id: 1,
+  title: "XPLICITDRINK®",
+  subtitle: "",
+  hoverText: `Boisson énergisantes premiu, ne marque née à Toulouse en 2007. Recettes plus gourmandes, plus de jus et moins de sucre.`,
+  icon: "⚡",
+  cardClass: "card-1",
+  row: "top",
+  link: "https://xplicitdrinks.com"
+}
+,
+  {
+    id: 2,
+    title: "Recettes sur mesure",
+    subtitle: "Création & formulation",
+    hoverText: `Création de recettes boissons et compléments selon vos objectifs : énergie, bien-être, sport, focus ou sommeil. 
+    Nous réalisons mapping ingrédients, échantillons, fiches techniques et certificats d’analyse.`,
+    icon: "🧪",
+    cardClass: "card-2",
+    row: "top"
+  },
+  {
+    id: 3,
+    title: "Compléments alimentaires",
+    subtitle: "Formules et formats variés",
+    hoverText: `Développement de compléments en gélules, piluliers, poudres, shots ou gummies. 
+    Des solutions clés en main, prêtes à la mise en marché sous votre marque.`,
+    icon: "💊",
+    cardClass: "card-3",
+    row: "bottom"
+  },
+  {
+    id: 4,
+    title: "Conditionnement multi-format",
+    subtitle: "Canettes, bouteilles, sachets...",
+    hoverText: `Production européenne flexible : canettes aluminium, bouteilles verre ou PET, sticks, sachets, piluliers... 
+    Standards qualité élevés et adaptation rapide aux besoins du marché.`,
+    icon: "🏭",
+    cardClass: "card-4",
+    row: "bottom"
+  },
+  {
+    id: 5,
+    title: "Personnalisation & design",
+    subtitle: "Identité & packaging",
+    hoverText: `Accompagnement graphique et packaging complet : 
+    conception visuelle, habillages de produits, étiquettes, PLV et supports numériques. 
+    Des solutions créatives prêtes à produire.`,
+    icon: "🎨",
+    cardClass: "card-5",
+    row: "bottom"
+  }
+];
+
+
 
 	let hoveredCard: number | null = null;
 	let hoveredRow: string | null = null;
@@ -180,6 +227,62 @@
 }
 .card-1 .card-subtitle { font-size: 1.15rem; }
 
+
+
+.card-1 .card-title,
+.card-2 .card-title,
+.card-3 .card-title,
+.card-4 .card-title{
+
+    color: white;
+}
+
+
+
+/* BACKGROUND IMAGES ET GRADIENTS */
+.card-1 {
+	background: url('/X2-scaled.jpg') center/cover no-repeat;
+	position: relative;
+}
+.card-2 {
+	background: url('/mixed-fruits.jpg') center/cover no-repeat;
+	position: relative;
+}
+
+.card-3 {
+	background: url('/pils.jpg') center/cover no-repeat;
+	position: relative;
+}
+
+
+/* Overlay sombre pour lisibilité du texte */
+
+.card-1::before,
+.card-2::before,
+.card-3::before {
+	content: '';
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0,0,0,0.45);
+	border-radius: 1.75rem;
+	z-index: 1;
+}
+
+
+
+/* GRADIENTS PAR CARTE */
+
+
+.card-4 { background: var(--gradient-card4); }
+.card-5 { background: var(--gradient-card5); }
+
+
+
+
+
+
+
+
 /* HOVER CONTENT */
 .card-hover-content {
 	position: absolute;
@@ -206,12 +309,7 @@
 .card-1 .hover-text { font-size: 1.25rem; }
 .card-4 .hover-text { font-size: 1.15rem; }
 
-/* GRADIENTS PAR CARTE */
-.card-1 { background: var(--gradient-card1); }
-.card-2 { background: var(--gradient-card2); }
-.card-3 { background: var(--gradient-card3); }
-.card-4 { background: var(--gradient-card4); }
-.card-5 { background: var(--gradient-card5); }
+
 
 /* OVERLAY */
 .card-overlay {
