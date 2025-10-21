@@ -20,8 +20,8 @@ hoverText: `Visitez notre page <a href="https://www.linkedin.com/company/grg-gro
 			id: 2,
 			title: "Facebook GRG GROUPE",
 			subtitle: "Notre communauté",
-			icon: "📘",
-			hoverText: `Rejoignez-nous sur <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="hover-link">Facebook</a> pour découvrir nos nouveautés.`,
+			icon: "👍",
+			hoverText: `Rejoignez-nous sur <a href="https://www.facebook.com/GRFBSmilkteasupplies/" target="_blank" rel="noopener noreferrer" class="hover-link">Facebook</a> pour découvrir nos nouveautés.`,
 			cardClass: "card-2",
 			row: "top"
 		},
@@ -37,7 +37,7 @@ hoverText: `Visitez notre page <a href="https://www.linkedin.com/company/grg-gro
 		{
 			id: 4,
 			title: "Contact Email",
-			subtitle: "Écrivez-nous directement",
+			subtitle: "",
 			icon: "✉️",
 			hoverText: `Envoyez un message à <a href="mailto:contact@grggroupe.com" class="hover-link">contact@grggroupe.com</a>`,
 			cardClass: "card-4",
@@ -67,6 +67,47 @@ hoverText: `Visitez notre page <a href="https://www.linkedin.com/company/grg-gro
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
 </script>
+<h1 style="
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  clip:rect(0 0 0 0);
+  overflow:hidden;
+  white-space:nowrap;
+">
+  GRG Groupe : Food and Beverages
+</h1>
+
+<h2 style="
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  clip:rect(0 0 0 0);
+  overflow:hidden;
+  white-space:nowrap;
+">
+  Marque blanche de boissons et compléments alimentaires
+</h2>
+
+<h2 style="
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  clip:rect(0 0 0 0);
+  overflow:hidden;
+  white-space:nowrap;
+">
+  Création, production et personnalisation de boissons fonctionnelles
+</h2>
 
 <div class="page-wrapper">
 	<!-- Ligne du haut : 2 cartes -->
@@ -201,8 +242,8 @@ hoverText: `Visitez notre page <a href="https://www.linkedin.com/company/grg-gro
 }
 
 .card-title {
-	font-size: 1.75rem;
-	font-weight: 700;
+	font-size: 2rem;
+	font-weight: 800;
 	margin: 0 0 0.5rem;
 	line-height: 1.2;
 	color: var(--text-color-1);
@@ -210,8 +251,8 @@ hoverText: `Visitez notre page <a href="https://www.linkedin.com/company/grg-gro
 }
 
 .card-subtitle {
-	font-size: 1rem;
-	font-weight: 500;
+	font-size: 1.25rem;
+	font-weight: 600;
 	margin: 0;
 	opacity: 0.85;
 	line-height: 1.5;
@@ -262,11 +303,56 @@ hoverText: `Visitez notre page <a href="https://www.linkedin.com/company/grg-gro
 	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+
+
+.card-1 .card-title,
+.card-2 .card-title,
+.card-3 .card-title{
+
+    color: white;
+}
+
+/* BACKGROUND IMAGES ET GRADIENTS */
+.card-1 {
+	background: url('/IN.png') center/cover no-repeat;
+	position: relative;
+}
+.card-2 {
+	background: url('/grgFB.png') center/cover no-repeat;
+	position: relative;
+}
+
+.card-3 {
+	background: url('/FB.png') center/cover no-repeat;
+	position: relative;
+}
+
+.card-4 {
+	background: url('/mail.png') center/cover no-repeat;
+	position: relative;
+}
+
+
+/* Overlay sombre pour lisibilité du texte */
+
+.card-1::before,
+.card-2::before,
+.card-3::before {
+	content: '';
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0,0,0,0.45);
+	border-radius: 1.75rem;
+	z-index: 1;
+}
+
+
+
 /* CARTES ET GRADIENTS */
-.card-1 { background: var(--gradient-card1); }
-.card-2 { background: var(--gradient-card2); }
-.card-3 { background: var(--gradient-card3); }
-.card-4 { background: var(--gradient-card4); }
+// .card-1 { background: var(--gradient-card1); }
+// .card-2 { background: var(--gradient-card2); }
+// .card-3 { background: var(--gradient-card3); }
+// .card-4 { background: var(--gradient-card4); }
 
 /* OVERLAY */
 .card-overlay {

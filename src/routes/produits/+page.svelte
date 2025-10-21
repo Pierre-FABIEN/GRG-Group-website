@@ -83,6 +83,47 @@ const bentoItems = [
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
 </script>
+<h1 style="
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  clip:rect(0 0 0 0);
+  overflow:hidden;
+  white-space:nowrap;
+">
+  GRG Groupe : Food and Beverages
+</h1>
+
+<h2 style="
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  clip:rect(0 0 0 0);
+  overflow:hidden;
+  white-space:nowrap;
+">
+  Marque blanche de boissons et compléments alimentaires
+</h2>
+
+<h2 style="
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  clip:rect(0 0 0 0);
+  overflow:hidden;
+  white-space:nowrap;
+">
+  Création, production et personnalisation de boissons fonctionnelles
+</h2>
 
 <div class="page-wrapper">
 	<!-- Ligne du haut : 2 cartes -->
@@ -209,8 +250,8 @@ const bentoItems = [
 .card-icon { font-size: 3.5rem; margin-bottom: 1.25rem; }
 
 .card-title {
-	font-size: 1.75rem;
-	font-weight: 700;
+	font-size: 2rem;
+	font-weight: 800;
 	margin: 0 0 0.5rem;
 	line-height: 1.2;
 	color: var(--text-color-1);
@@ -218,7 +259,7 @@ const bentoItems = [
 .card-1 .card-title { font-size: 2.5rem; font-weight: 800; }
 
 .card-subtitle {
-	font-size: 1rem;
+	font-size: 1.25rem;
 	font-weight: 500;
 	margin: 0;
 	opacity: 0.85;

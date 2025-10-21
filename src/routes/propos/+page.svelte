@@ -75,6 +75,47 @@
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
 </script>
+<h1 style="
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  clip:rect(0 0 0 0);
+  overflow:hidden;
+  white-space:nowrap;
+">
+  GRG Groupe : Food and Beverages
+</h1>
+
+<h2 style="
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  clip:rect(0 0 0 0);
+  overflow:hidden;
+  white-space:nowrap;
+">
+  Marque blanche de boissons et compléments alimentaires
+</h2>
+
+<h2 style="
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+  clip:rect(0 0 0 0);
+  overflow:hidden;
+  white-space:nowrap;
+">
+  Création, production et personnalisation de boissons fonctionnelles
+</h2>
 
 <div class="page-wrapper">
 	<!-- Ligne du haut (2 cartes) -->
