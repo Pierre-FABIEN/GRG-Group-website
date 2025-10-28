@@ -98,6 +98,8 @@
 		"@fontsource/open-sans": "^5.2.5",
 		"@gcornut/valibot-json-schema": "^0.42.0",
 		"@hookform/resolvers": "^5.0.1",
+		"@inlang/paraglide-js": "^2.4.0",
+		"@inlang/paraglide-sveltekit": "^0.16.1",
 		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@node-rs/argon2": "^2.0.2",
 		"@oslojs/crypto": "^1.0.1",
