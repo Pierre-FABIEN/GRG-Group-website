@@ -1,0 +1,27 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "home_item1_title": "Nuestra Historia",
+  "home_item1_subtitle": "Desde 2007",
+  "home_item1_hoverText": "GRG Grupo Food & Beverage acompaña desde hace más de 15 años a marcas y promotores de proyectos en el desarrollo de bebidas y complementos alimenticios.",
+  "home_item1_icon": "📖",
+  
+  "home_item2_title": "Nuestra Misión",
+  "home_item2_subtitle": "Creación y Calidad",
+  "home_item2_hoverText": "Combinamos experiencia científica y creatividad para diseñar productos únicos y fiables, desde la formulación hasta la producción.",
+  "home_item2_icon": "🎯",
+  
+  "home_item3_title": "Nuestra Visión",
+  "home_item3_subtitle": "Innovación y Acompañamiento",
+  "home_item3_hoverText": "Acompañamos a marcas y distribuidores en cada etapa clave, con flexibilidad y rigor, para llevar sus ideas al mercado.",
+  "home_item3_icon": "🚀",
+  
+  "home_item4_title": "FOOD",
+  "home_item4_subtitle": "AND BEVERAGE",
+  "home_item4_hoverText": "Nuestra prioridad: productos de calidad, seguros y conformes, que respondan a las expectativas de los consumidores y a las normas industriales.",
+  "home_item4_icon": "💎",
+  
+  "home_item5_title": "Nuestro Enfoque",
+  "home_item5_subtitle": "Socio de sus proyectos",
+  "home_item5_hoverText": "Trabajamos codo a codo con cada cliente para transformar sus ideas en productos concretos y listos para comercializar.",
+  "home_item5_icon": "🤝"
+}
