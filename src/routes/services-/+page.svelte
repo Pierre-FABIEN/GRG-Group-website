@@ -2,50 +2,52 @@
 	import '@fontsource-variable/open-sans';
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
+	import { m } from '$lib/paraglide/messages.js';
+
 
 	const bentoItems = [
     { 
         id: 1, 
-        title: 'Formats & Conditionnements', 
-        subtitle: '', 
-        hoverText: 'Nous proposons une large gamme de formats : canettes, bouteilles en verre ou PET, shots, piluliers et bien plus encore, pour s’adapter à chaque type de projet.', 
-        icon: '🥫', 
+        title: m.services_item1_title(),
+        subtitle: m.services_item1_subtitle(),
+        hoverText: m.services_item1_hoverText(),
+        icon: m.services_item1_icon(),
         cardClass: 'card-1', 
         row: 'top' 
     },
     { 
         id: 2, 
-        title: 'Flexibilité Industrielle', 
-        subtitle: 'Adaptation & Réactivité', 
-        hoverText: 'Notre réseau industriel européen garantit une capacité d’adaptation rapide, pour répondre efficacement aux évolutions du marché et aux besoins spécifiques de chaque client.', 
-        icon: '⚙️', 
+        title: m.services_item2_title(),
+        subtitle: m.services_item2_subtitle(),
+        hoverText: m.services_item2_hoverText(),
+        icon: m.services_item2_icon(),
         cardClass: 'card-2', 
         row: 'top' 
     },
     { 
         id: 3, 
-        title: 'Qualité & Sécurité', 
-        subtitle: 'Normes Européennes', 
-        hoverText: 'Nos sites partenaires respectent les standards de qualité les plus exigeants, assurant des produits sûrs, traçables et conformes aux réglementations internationales.', 
-        icon: '🔒', 
+        title: m.services_item3_title(),
+        subtitle: m.services_item3_subtitle(),
+        hoverText: m.services_item3_hoverText(),
+        icon: m.services_item3_icon(),
         cardClass: 'card-3', 
         row: 'bottom' 
     },
     { 
         id: 4, 
-        title: 'Production Multi-sites', 
-        subtitle: 'Un réseau européen', 
-        hoverText: 'Grâce à notre réseau industriel réparti sur plusieurs sites européens, nous assurons une continuité de production et une grande disponibilité logistique.', 
-        icon: '🌍', 
+        title: m.services_item4_title(),
+        subtitle: m.services_item4_subtitle(),
+        hoverText: m.services_item4_hoverText(),
+        icon: m.services_item4_icon(),
         cardClass: 'card-4', 
         row: 'bottom' 
     },
     { 
         id: 5, 
-        title: 'Accompagnement Technique', 
-        subtitle: '', 
-        hoverText: 'De l’idée au produit fini : Nos équipes techniques accompagnent chaque étape du développement produit, du choix du format à la mise en production, avec un haut niveau d’expertise.', 
-        icon: '🧰', 
+        title: m.services_item5_title(),
+        subtitle: m.services_item5_subtitle(),
+        hoverText: m.services_item5_hoverText(),
+        icon: m.services_item5_icon(),
         cardClass: 'card-5', 
         row: 'bottom' 
     }

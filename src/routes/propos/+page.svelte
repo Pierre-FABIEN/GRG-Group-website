@@ -2,51 +2,53 @@
 	import '@fontsource-variable/open-sans';
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
+	import { m } from '$lib/paraglide/messages.js';
+
 
 	// Rows inversées : 2 cartes en haut, 3 cartes en bas
-	const bentoItems = [
+const bentoItems = [
     { 
         id: 1, 
-        title: 'Notre Force', 
-        subtitle: 'Agilité & Réactivité', 
-        hoverText: 'Une approche agile, une structure réactive et des volumes de production accessibles, parfaitement adaptés aux lancements de marque, séries limitées ou extensions de gamme.', 
-        icon: '⚡', 
+        title: m.about_item1_title(),
+        subtitle: m.about_item1_subtitle(),
+        hoverText: m.about_item1_hoverText(),
+        icon: m.about_item1_icon(),
         cardClass: 'card-1', 
         row: 'top' 
     },
     { 
         id: 2, 
-        title: 'Création de Recettes', 
-        subtitle: 'Boissons & Compléments', 
-        hoverText: 'Nous réalisons le mapping des matières premières, les échantillons, les fiches techniques et les certificats d’analyse pour chaque produit.', 
-        icon: '🧪', 
+        title: m.about_item2_title(),
+        subtitle: m.about_item2_subtitle(),
+        hoverText: m.about_item2_hoverText(),
+        icon: m.about_item2_icon(),
         cardClass: 'card-2', 
         row: 'top' 
     },
     { 
         id: 3, 
-        title: 'Production en Marque Blanche', 
-        subtitle: 'Formules éprouvées', 
-        hoverText: 'Un catalogue de formules immédiatement personnalisables, adaptées à vos besoins de production et aux exigences du marché.', 
-        icon: '🏭', 
+        title: m.about_item3_title(),
+        subtitle: m.about_item3_subtitle(),
+        hoverText: m.about_item3_hoverText(),
+        icon: m.about_item3_icon(),
         cardClass: 'card-3', 
         row: 'bottom' 
     },
     { 
         id: 4, 
-        title: 'Conception Visuelle', 
-        subtitle: 'Packaging & Créativité', 
-        hoverText: 'Des solutions créatives pour le packaging, avec la possibilité de déléguer partiellement ou totalement cette phase selon vos besoins.', 
-        icon: '🎨', 
+        title: m.about_item4_title(),
+        subtitle: m.about_item4_subtitle(),
+        hoverText: m.about_item4_hoverText(),
+        icon: m.about_item4_icon(),
         cardClass: 'card-4', 
         row: 'bottom' 
     },
     { 
         id: 5, 
-        title: 'Votre Partenaire', 
-        subtitle: 'Accompagnement complet', 
-        hoverText: 'GRG Groupe vous accompagne dans toutes les étapes du projet, de l’idée à la mise sur le marché, avec expertise et flexibilité.', 
-        icon: '🤝', 
+        title: m.about_item5_title(),
+        subtitle: m.about_item5_subtitle(),
+        hoverText: m.about_item5_hoverText(),
+        icon: m.about_item5_icon(),
         cardClass: 'card-5', 
         row: 'bottom' 
     }

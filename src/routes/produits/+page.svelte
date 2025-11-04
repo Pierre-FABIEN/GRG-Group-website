@@ -2,61 +2,55 @@
 	import '@fontsource-variable/open-sans';
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
+	import { m } from '$lib/paraglide/messages.js';
+
 
 const bentoItems = [
-  {
-
-  id: 1,
-  title: "XPLICITDRINK®",
-  subtitle: "",
-  hoverText: `Boisson énergisantes premiu, ne marque née à Toulouse en 2007. Recettes plus gourmandes, plus de jus et moins de sucre.`,
-  icon: "⚡",
-  cardClass: "card-1",
-  row: "top",
-  link: "https://xplicitdrinks.com"
-}
-,
-  {
-    id: 2,
-    title: "Recettes sur mesure",
-    subtitle: "Création & formulation",
-    hoverText: `Création de recettes boissons et compléments selon vos objectifs : énergie, bien-être, sport, focus ou sommeil. 
-    Nous réalisons mapping ingrédients, échantillons, fiches techniques et certificats d’analyse.`,
-    icon: "🧪",
-    cardClass: "card-2",
-    row: "top"
-  },
-  {
-    id: 3,
-    title: "Compléments alimentaires",
-    subtitle: "Formules et formats variés",
-    hoverText: `Développement de compléments en gélules, piluliers, poudres, shots ou gummies. 
-    Des solutions clés en main, prêtes à la mise en marché sous votre marque.`,
-    icon: "💊",
-    cardClass: "card-3",
-    row: "bottom"
-  },
-  {
-    id: 4,
-    title: "Conditionnement multi-format",
-    subtitle: "Canettes, bouteilles, sachets...",
-    hoverText: `Production européenne flexible : canettes aluminium, bouteilles verre ou PET, sticks, sachets, piluliers... 
-    Standards qualité élevés et adaptation rapide aux besoins du marché.`,
-    icon: "🏭",
-    cardClass: "card-4",
-    row: "bottom"
-  },
-  {
-    id: 5,
-    title: "Personnalisation & design",
-    subtitle: "Identité & packaging",
-    hoverText: `Accompagnement graphique et packaging complet : 
-    conception visuelle, habillages de produits, étiquettes, PLV et supports numériques. 
-    Des solutions créatives prêtes à produire.`,
-    icon: "🎨",
-    cardClass: "card-5",
-    row: "bottom"
-  }
+    { 
+        id: 1, 
+        title: m.products_item1_title(),
+        subtitle: m.products_item1_subtitle(),
+        hoverText: m.products_item1_hoverText(),
+        icon: m.products_item1_icon(),
+        cardClass: 'card-1', 
+        row: 'top' 
+    },
+    { 
+        id: 2, 
+        title: m.products_item2_title(),
+        subtitle: m.products_item2_subtitle(),
+        hoverText: m.products_item2_hoverText(),
+        icon: m.products_item2_icon(),
+        cardClass: 'card-2', 
+        row: 'top' 
+    },
+    { 
+        id: 3, 
+        title: m.products_item3_title(),
+        subtitle: m.products_item3_subtitle(),
+        hoverText: m.products_item3_hoverText(),
+        icon: m.products_item3_icon(),
+        cardClass: 'card-3', 
+        row: 'bottom' 
+    },
+    { 
+        id: 4, 
+        title: m.products_item4_title(),
+        subtitle: m.products_item4_subtitle(),
+        hoverText: m.products_item4_hoverText(),
+        icon: m.products_item4_icon(),
+        cardClass: 'card-4', 
+        row: 'bottom' 
+    },
+    { 
+        id: 5, 
+        title: m.products_item5_title(),
+        subtitle: m.products_item5_subtitle(),
+        hoverText: m.products_item5_hoverText(),
+        icon: m.products_item5_icon(),
+        cardClass: 'card-5', 
+        row: 'bottom' 
+    }
 ];
 
 

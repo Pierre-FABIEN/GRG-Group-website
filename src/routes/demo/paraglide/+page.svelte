@@ -7,6 +7,7 @@
 
 <h1>{m.home_item1_title()}</h1>
 <div>
+	<button onclick={() => setLocale('fr')}>fr</button>
 	<button onclick={() => setLocale('en')}>en</button>
 	<button onclick={() => setLocale('es')}>es</button>
 </div>

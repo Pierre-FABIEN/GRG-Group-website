@@ -2,55 +2,55 @@
 	import '@fontsource-variable/open-sans';
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
+	import { m } from '$lib/paraglide/messages.js';
 
 const bentoItems = [
     { 
         id: 1, 
-        title: 'Notre Histoire', 
-        subtitle: 'Depuis 2007', 
-        hoverText: 'GRG Groupe Food & Beverage accompagne depuis plus de 15 ans les marques et porteurs de projet dans le développement de boissons et compléments alimentaires.', 
-        icon: '📖', 
+        title: m.home_item1_title(),
+        subtitle: m.home_item1_subtitle(),
+        hoverText: m.home_item1_hoverText(),
+        icon: m.home_item1_icon(),
         cardClass: 'card-1', 
         row: 'top' 
     },
     { 
         id: 2, 
-        title: 'Notre Mission', 
-        subtitle: 'Création & Qualité', 
-        hoverText: 'Nous combinons expertise scientifique et créativité pour concevoir des produits uniques et fiables, de la formulation à la production.', 
-        icon: '🎯', 
+        title: m.home_item2_title(),
+        subtitle: m.home_item2_subtitle(),
+        hoverText: m.home_item2_hoverText(),
+        icon: m.home_item2_icon(),
         cardClass: 'card-2', 
         row: 'top' 
     },
     { 
         id: 3, 
-        title: 'Notre Vision', 
-        subtitle: 'Innovation & Accompagnement', 
-        hoverText: 'Nous accompagnons marques et distributeurs dans chaque étape clé, avec flexibilité et rigueur, pour amener leurs idées sur le marché.', 
-        icon: '🚀', 
+        title: m.home_item3_title(),
+        subtitle: m.home_item3_subtitle(),
+        hoverText: m.home_item3_hoverText(),
+        icon: m.home_item3_icon(),
         cardClass: 'card-3', 
         row: 'top' 
     },
     { 
         id: 4, 
-        title: 'FOOD', 
-        subtitle: 'AND BEVERAGE', 
-        hoverText: 'Notre priorité : des produits de qualité, sûrs et conformes, qui répondent aux attentes des consommateurs et aux normes industrielles.', 
-        icon: '💎', 
+        title: m.home_item4_title(),
+        subtitle: m.home_item4_subtitle(),
+        hoverText: m.home_item4_hoverText(),
+        icon: m.home_item4_icon(),
         cardClass: 'card-4', 
         row: 'bottom' 
     },
     { 
         id: 5, 
-        title: 'Notre Approche', 
-        subtitle: 'Partenaire de vos projets', 
-        hoverText: 'Nous travaillons main dans la main avec chaque client, pour transformer vos idées en produits concrets et prêts à commercialiser.', 
-        icon: '🤝', 
+        title: m.home_item5_title(),
+        subtitle: m.home_item5_subtitle(),
+        hoverText: m.home_item5_hoverText(),
+        icon: m.home_item5_icon(),
         cardClass: 'card-5', 
         row: 'bottom' 
     }
 ];
-
 
 
 	let hoveredCard: number | null = null;

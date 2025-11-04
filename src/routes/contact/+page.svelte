@@ -2,49 +2,46 @@
 	import '@fontsource-variable/open-sans';
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
+	import { m } from '$lib/paraglide/messages.js';
 
 const bentoItems = [
-		{
-			id: 1,
-			title: "LinkedIn",
-			subtitle: "Rejoignez notre réseau",
-			icon: "💼",
-hoverText: `Visitez notre page <a href="https://www.linkedin.com/company/grg-groupe-sarl/" 
-	target="_blank" 
-	rel="noopener noreferrer" 
-	class="hover-link">LinkedIn</a> pour suivre nos actualités.`,
-			cardClass: "card-1",
-			row: "top"
-		},
-		{
-			id: 2,
-			title: "Facebook GRG GROUPE",
-			subtitle: "Notre communauté",
-			icon: "👍",
-			hoverText: `Rejoignez-nous sur <a href="https://www.facebook.com/GRFBSmilkteasupplies/" target="_blank" rel="noopener noreferrer" class="hover-link">Facebook</a> pour découvrir nos nouveautés.`,
-			cardClass: "card-2",
-			row: "top"
-		},
-		{
-			id: 3,
-			title: "Facebook XPLICITDRINKS",
-			subtitle: "Découvrez notre marque",
-			icon: "⚡",
-			hoverText: `Suivez <a href="https://www.facebook.com/xplicitdrink" target="_blank" rel="noopener noreferrer" class="hover-link">XPLICITDRINKS</a> pour explorer nos boissons et innovations.`,
-			cardClass: "card-3",
-			row: "bottom"
-		},
-		{
-			id: 4,
-			title: "Contact Email",
-			subtitle: "",
-			icon: "✉️",
-			hoverText: `Envoyez un message à <a href="mailto:contact@grggroupe.com" class="hover-link">contact@grggroupe.com</a>`,
-			cardClass: "card-4",
-			row: "bottom"
-		}
-	];
-
+    { 
+        id: 1, 
+        title: m.contact_item1_title(),
+        subtitle: m.contact_item1_subtitle(),
+        hoverText: m.contact_item1_hoverText(),
+        icon: m.contact_item1_icon(),
+        cardClass: 'card-1', 
+        row: 'top' 
+    },
+    { 
+        id: 2, 
+        title: m.contact_item2_title(),
+        subtitle: m.contact_item2_subtitle(),
+        hoverText: m.contact_item2_hoverText(),
+        icon: m.contact_item2_icon(),
+        cardClass: 'card-2', 
+        row: 'top' 
+    },
+    { 
+        id: 3, 
+        title: m.contact_item3_title(),
+        subtitle: m.contact_item3_subtitle(),
+        hoverText: m.contact_item3_hoverText(),
+        icon: m.contact_item3_icon(),
+        cardClass: 'card-3', 
+        row: 'bottom' 
+    },
+    { 
+        id: 4, 
+        title: m.contact_item4_title(),
+        subtitle: m.contact_item4_subtitle(),
+        hoverText: m.contact_item4_hoverText(),
+        icon: m.contact_item4_icon(),
+        cardClass: 'card-4', 
+        row: 'bottom' 
+    }
+];
 	let hoveredCard: number | null = null;
 	let hoveredRow: string | null = null;
 

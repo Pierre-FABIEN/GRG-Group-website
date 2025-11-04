@@ -17,6 +17,16 @@
 	import { page } from '$app/stores';
 	import SmoothScrollBarStore from '$lib/store/SmoothScrollBarStore';
 
+				// paraglide
+
+	import { setLocale } from '$lib/paraglide/runtime';
+	// import { page } from '$app/state';
+	import { goto } from '$app/navigation';
+	import Fr from '$lib/components/flag/Fr.svelte';
+	import En from '$lib/components/flag/En.svelte';
+	import Es from '$lib/components/flag/Es.svelte';
+	
+
 	// --- PROPS & STATE INCHANGÉS ---
 	let { children, data } = $props();
 	
@@ -219,6 +229,29 @@
 						></button>
 					{/each}
 				</div>
+
+			<div style="display: inline-flex; gap: 6px; align-items: center; margin-bottom:-5px;">
+			<div style="display: flex; gap: 6px; align-items: center;">
+	<button 
+		on:click={() => setLocale('fr')}
+		style="padding: 0; border: none; background: none; cursor: pointer;">
+		<Fr/>
+	</button>
+
+	<button 
+		on:click={() => setLocale('en')}
+		style="padding: 0; border: none; background: none; cursor: pointer;">
+		<En/>
+	</button>
+
+	<button 
+		on:click={() => setLocale('es')}
+		style="padding: 0; border: none; background: none; cursor: pointer;">
+		<Es/>
+	</button>
+</div>
+
+			</div>
 			</div>
 		</aside>
 
@@ -234,7 +267,9 @@
 				</SmoothScrollBar>
 			</div>
 		</div>
-		
+		<div>
+	
+</div>
 		<Toaster />
 	</div>
 {/if}
