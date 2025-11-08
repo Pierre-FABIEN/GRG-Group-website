@@ -17,16 +17,13 @@
 	import { page } from '$app/stores';
 	import SmoothScrollBarStore from '$lib/store/SmoothScrollBarStore';
 
-				// paraglide
-
+	// paraglide
 	import { setLocale } from '$lib/paraglide/runtime';
-	// import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import Fr from '$lib/components/flag/Fr.svelte';
 	import En from '$lib/components/flag/En.svelte';
 	import Es from '$lib/components/flag/Es.svelte';
 	
-
 	// --- PROPS & STATE INCHANGÉS ---
 	let { children, data } = $props();
 	
@@ -76,6 +73,54 @@
 	function handleToggleMode(event: MouseEvent) {
 		event.preventDefault();
 		toggleMode();
+	}
+
+	// État pour la langue active avec persistance
+	let currentLanguage = $state('fr');
+
+	// Initialiser la langue depuis le localStorage
+	$effect(() => {
+		if (typeof window !== 'undefined') {
+			const savedLanguage = localStorage.getItem('selectedLanguage');
+			if (savedLanguage && ['fr', 'en', 'es'].includes(savedLanguage)) {
+				currentLanguage = savedLanguage as 'fr' | 'en' | 'es';
+				setLocale(savedLanguage);
+			}
+		}
+	});
+
+	// Traductions des éléments de menu
+	const translations = {
+		fr: {
+			home: 'Accueil',
+			about: 'À propos',
+			services: 'Services',
+			products: 'Produits',
+			contact: 'Contact'
+		},
+		en: {
+			home: 'Home',
+			about: 'About',
+			services: 'Services',
+			products: 'Products',
+			contact: 'Contact'
+		},
+		es: {
+			home: 'Inicio',
+			about: 'Acerca de',
+			services: 'Servicios',
+			products: 'Productos',
+			contact: 'Contacto'
+		}
+	};
+
+	function changeLanguage(lang: 'fr' | 'en' | 'es') {
+		currentLanguage = lang;
+		setLocale(lang);
+		// Sauvegarder la langue dans le localStorage
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('selectedLanguage', lang);
+		}
 	}
 
 	// Thèmes de couleurs
@@ -184,29 +229,28 @@
 		<aside class="sidebar">
 			<div class="sidebar-header">
 				<div class="logo"> <img src="/image/path1.svg" alt=""> </div>
-			
 			</div>
 			
 			<nav class="sidebar-nav">
 				<a href="/" class="nav-link" class:active={currentPath === '/'}>
 					<span class="nav-icon">🏠</span>
-					<span class="nav-text">Accueil</span>
+					<span class="nav-text">{translations[currentLanguage].home}</span>
 				</a>
 				<a href="/propos" class="nav-link" class:active={currentPath === '/propos'}>
 					<span class="nav-icon">ℹ️</span>
-					<span class="nav-text">À propos</span>
+					<span class="nav-text">{translations[currentLanguage].about}</span>
 				</a>
 				<a href="/services-" class="nav-link" class:active={currentPath === '/services'}>
 					<span class="nav-icon">⚙️</span>
-					<span class="nav-text">Services</span>
+					<span class="nav-text">{translations[currentLanguage].services}</span>
 				</a>
 				<a href="/produits" class="nav-link" class:active={currentPath === '/produits'}>
 					<span class="nav-icon">📦</span>
-					<span class="nav-text">Produits</span>
+					<span class="nav-text">{translations[currentLanguage].products}</span>
 				</a>
 				<a href="/contact" class="nav-link" class:active={currentPath === '/contact'}>
 					<span class="nav-icon">✉️</span>
-					<span class="nav-text">Contact</span>
+					<span class="nav-text">{translations[currentLanguage].contact}</span>
 				</a>
 			</nav>
 
@@ -230,28 +274,35 @@
 					{/each}
 				</div>
 
-			<div style="display: inline-flex; gap: 6px; align-items: center; margin-bottom:-5px;">
-			<div style="display: flex; gap: 6px; align-items: center;">
-	<button 
-		on:click={() => setLocale('fr')}
-		style="padding: 0; border: none; background: none; cursor: pointer;">
-		<Fr/>
-	</button>
+				<!-- Sélecteur de langue -->
+				<div class="language-selector">
+					<button 
+						class="language-button"
+						class:active={currentLanguage === 'fr'}
+						on:click={() => changeLanguage('fr')}
+						type="button"
+						title="Français">
+						<Fr/>
+					</button>
 
-	<button 
-		on:click={() => setLocale('en')}
-		style="padding: 0; border: none; background: none; cursor: pointer;">
-		<En/>
-	</button>
+					<button 
+						class="language-button"
+						class:active={currentLanguage === 'en'}
+						on:click={() => changeLanguage('en')}
+						type="button"
+						title="English">
+						<En/>
+					</button>
 
-	<button 
-		on:click={() => setLocale('es')}
-		style="padding: 0; border: none; background: none; cursor: pointer;">
-		<Es/>
-	</button>
-</div>
-
-			</div>
+					<button 
+						class="language-button"
+						class:active={currentLanguage === 'es'}
+						on:click={() => changeLanguage('es')}
+						type="button"
+						title="Español">
+						<Es/>
+					</button>
+				</div>
 			</div>
 		</aside>
 
@@ -267,13 +318,10 @@
 				</SmoothScrollBar>
 			</div>
 		</div>
-		<div>
-	
-</div>
+
 		<Toaster />
 	</div>
 {/if}
-
 
 <style lang="scss">
 	:global(:root) {
@@ -331,7 +379,7 @@
 		border-right: 1px solid rgba(0, 0, 0, 0.08);
 		display: flex;
 		flex-direction: column;
-		padding: 2rem 1rem;
+		padding: 2rem 1rem 0.5rem 2rem;
 		z-index: 1000;
 		position: fixed;
 		left: 0;
@@ -368,12 +416,6 @@
 		margin-left: 15%;
 	}
 
-	.logo-text {
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: var(--theme-color);
-	}
-
 	.sidebar-nav {
 		display: flex;
 		flex-direction: column;
@@ -381,6 +423,7 @@
 		flex: 1;
 		overflow: hidden;
 		justify-content: center;
+		min-height: 0;
 	}
 
 	.nav-link {
@@ -451,13 +494,14 @@
 	}
 
 	.sidebar-footer {
-		padding-top: 1rem;
+		padding-top: 0.75rem;
 		border-top: 2px solid rgba(0, 0, 0, 0.05);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.875rem;
+		gap: 0.625rem;
 		flex-shrink: 0;
+		margin-top: auto;
 	}
 
 	:global(.dark) .sidebar-footer {
@@ -467,10 +511,10 @@
 	.theme-toggle {
 		background: color-mix(in srgb, var(--theme-color) 10%, transparent);
 		border: none;
-		width: 44px;
-		height: 44px;
+		width: 40px;
+		height: 40px;
 		border-radius: 50%;
-		font-size: 1.35rem;
+		font-size: 1.25rem;
 		cursor: pointer;
 		transition: all 0.3s ease;
 		display: flex;
@@ -507,17 +551,17 @@
 	/* Sélecteur de thèmes */
 	.theme-selector {
 		display: flex;
-		gap: 0.625rem;
+		gap: 0.5rem;
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
 	}
 
 	.theme-dot {
-		width: 16px;
-		height: 16px;
+		width: 14px;
+		height: 14px;
 		border-radius: 50%;
-		border: 2.5px solid transparent;
+		border: 2px solid transparent;
 		cursor: pointer;
 		transition: all 0.3s ease;
 		position: relative;
@@ -536,6 +580,42 @@
 
 	:global(.dark) .theme-dot.active {
 		border-color: #1e293b;
+	}
+
+	/* Sélecteur de langue */
+	.language-selector {
+		display: flex;
+		gap: 0.375rem;
+		align-items: center;
+		justify-content: center;
+		margin-top: 0.75rem;
+		padding-bottom: 0.5rem;
+	}
+
+	.language-button {
+		padding: 0;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		transition: all 0.25s ease;
+		border-radius: 0.375rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 22px;
+		height: 22px;
+		opacity: 0.5;
+	}
+
+	.language-button:hover {
+		opacity: 1;
+		transform: scale(1.1);
+		filter: brightness(1.2) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+	}
+
+	.language-button.active {
+		opacity: 1;
+		filter: brightness(1.3) drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
 	}
 
 	/* === CONTAINER === */
@@ -610,7 +690,6 @@
 			margin-left: 15%;
 		}
 
-		.logo-text,
 		.nav-text {
 			opacity: 0;
 			width: 0;
@@ -618,7 +697,6 @@
 			transition: opacity 0.3s ease, width 0.3s ease;
 		}
 
-		.sidebar:hover .logo-text,
 		.sidebar:hover .nav-text {
 			opacity: 1;
 			width: auto;
@@ -673,7 +751,6 @@
 			margin-left: 0;
 		}
 
-		.logo-text,
 		.nav-text {
 			display: none;
 		}
@@ -695,7 +772,7 @@
 
 		.sidebar-footer {
 			padding-top: 0.75rem;
-			gap: 0.625rem;
+			gap: 0.75rem;
 		}
 
 		.theme-toggle {
@@ -722,6 +799,17 @@
 			width: 14px;
 			height: 14px;
 			border-width: 2px;
+		}
+
+		.language-button {
+			width: 20px;
+			height: 20px;
+		}
+
+		.language-selector {
+			gap: 0.25rem;
+			margin-top: 1rem;
+			padding-bottom: 0.375rem;
 		}
 	}
 
@@ -756,7 +844,7 @@
 
 		.sidebar-footer {
 			padding-top: 0.625rem;
-			gap: 0.5rem;
+			gap: 0.625rem;
 		}
 
 		.theme-toggle {
@@ -768,6 +856,17 @@
 		.theme-dot {
 			width: 12px;
 			height: 12px;
+		}
+
+		.language-button {
+			width: 18px;
+			height: 18px;
+		}
+
+		.language-selector {
+			gap: 0.25rem;
+			margin-top: 0.875rem;
+			padding-bottom: 0.25rem;
 		}
 
 		.container {
