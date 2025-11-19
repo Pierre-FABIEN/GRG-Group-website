@@ -13,7 +13,8 @@
         hoverText: m.services_item1_hoverText(),
         icon: m.services_item1_icon(),
         cardClass: 'card-1', 
-        row: 'top' 
+        row: 'top',
+        iconClass: 'white-icon' // Icône blanche pour la première carte
     },
     { 
         id: 2, 
@@ -31,7 +32,8 @@
         hoverText: m.services_item3_hoverText(),
         icon: m.services_item3_icon(),
         cardClass: 'card-3', 
-        row: 'bottom' 
+        row: 'bottom',
+        iconClass: 'black-icon' // Icône noire pour la troisième carte
     },
     { 
         id: 4, 
@@ -52,7 +54,6 @@
         row: 'bottom' 
     }
 ];
-
 
 	let hoveredCard: number | null = null;
 	let hoveredRow: string | null = null;
@@ -134,7 +135,7 @@
 				in:scale={{ delay: i * 100, duration: 600 }}
 			>
 				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-					<div class="card-icon">{item.icon}</div>
+					<div class="card-icon {item.iconClass}">{item.icon}</div> <!-- Ajout de {item.iconClass} -->
 					<h3 class="card-title">{item.title}</h3>
 					<p class="card-subtitle">{item.subtitle}</p>
 				</div>
@@ -148,11 +149,11 @@
 		{/each}
 	</div>
 
-	<!-- Ligne du bas : 2 cartes, une double largeur -->
+	<!-- Ligne du bas : 3 cartes de largeur égale -->
 	<div class="bento-row bottom">
 		{#each bentoItems.filter(i => i.row === 'bottom') as item, i (item.id)}
 			<div
-				class="bento-card {item.cardClass} {item.id === 4 ? 'double' : ''}"
+				class="bento-card {item.cardClass}"
 				class:hovered={hoveredCard === item.id}
 				class:same-row={isInSameRow(item)}
 				on:mouseenter={() => handleCardHover(item.id)}
@@ -163,7 +164,7 @@
 				in:scale={{ delay: i * 100, duration: 600 }}
 			>
 				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-					<div class="card-icon">{item.icon}</div>
+					<div class="card-icon {item.iconClass}">{item.icon}</div> <!-- Ajout de {item.iconClass} -->
 					<h3 class="card-title">{item.title}</h3>
 					<p class="card-subtitle">{item.subtitle}</p>
 				</div>
@@ -179,6 +180,29 @@
 </div>
 
 <style lang="scss">
+
+/* FORCER l'icône blanche sur les cartes avec images */
+.card-1 .card-icon,
+.card-2 .card-icon,
+.card-5 .card-icon {
+    filter: brightness(0) invert(1) !important; /* Icône blanche forcée */
+}
+
+:global(.dark) .card-1 .card-icon,
+:global(.dark) .card-2 .card-icon,
+:global(.dark) .card-5 .card-icon {
+    filter: brightness(0) invert(1) !important; /* Reste blanche en mode sombre */
+}
+
+/* FORCER l'icône noire sur la carte 3 */
+.card-3 .card-icon {
+    filter: brightness(0) !important; /* Icône noire forcée */
+}
+
+:global(.dark) .card-3 .card-icon {
+    filter: brightness(0) invert(0.1) !important; /* Icône presque noire en mode sombre */
+}
+
 .page-wrapper {
 	width: 100%;
 	height: 100vh;
@@ -190,6 +214,11 @@
 	box-sizing: border-box;
 	font-family: 'open-sans', sans-serif;
 	overflow: hidden;
+	background: var(--gray-50, #fafafa);
+}
+
+:global(.dark) .page-wrapper {
+	background: var(--gray-900, #171717);
 }
 
 .bento-row {
@@ -218,11 +247,27 @@
 	flex-direction: column;
 }
 
-.bento-card.double { flex: 2 1 0; }
-.bento-card.double.hovered { flex: 3 1 0; }
+/* CORRECTION : Les 3 cartes de la ligne du bas font la même largeur (1/3) */
+.bento-row.bottom .bento-card {
+	flex: 1 1 0; /* Chaque carte prend 1/3 de l'espace */
+}
 
-.bento-card.hovered { flex: 2 1 0; }
-.bento-card.same-row { flex: 1 1 0; opacity: 0.8; }
+.bento-card.double { 
+	flex: 2 1 0; 
+}
+
+.bento-card.hovered { 
+	flex: 2 1 0; 
+}
+
+.bento-card.double.hovered { 
+	flex: 3 1 0; 
+}
+
+.bento-card.same-row { 
+	flex: 1 1 0; 
+	opacity: 0.8; 
+}
 
 /* === TEXTE ET CONTENU CARTE === */
 .card-content {
@@ -241,20 +286,68 @@
 	transform: translateY(-10px);
 }
 
+/* ICÔNES - COULEURS SPÉCIFIQUES */
 .card-icon {
 	font-size: 3.5rem;
 	margin-bottom: 1.25rem;
+	filter: brightness(0.9);
 }
 
+.card-icon.white-icon {
+	filter: brightness(0) invert(1); /* Icône blanche */
+}
+
+.card-icon.black-icon {
+	filter: brightness(0); /* Icône noire */
+}
+
+/* FORCER l'icône noire sur la carte 3 */
+.card-3 .card-icon {
+	filter: brightness(0) !important; /* Icône noire forcée */
+}
+
+:global(.dark) .card-icon {
+	filter: brightness(1.1);
+}
+
+:global(.dark) .card-icon.white-icon {
+	filter: brightness(0) invert(1); /* Reste blanche en mode sombre */
+}
+
+:global(.dark) .card-icon.black-icon {
+	filter: brightness(0) invert(0.9); /* Légèrement plus claire en mode sombre */
+}
+
+:global(.dark) .card-3 .card-icon {
+	filter: brightness(0) invert(0.1) !important; /* Icône presque noire en mode sombre */
+}
+
+.bento-card:hover .card-icon {
+	transform: scale(1.05);
+}
+
+/* Hover spécifique pour les icônes normales */
+.bento-card:hover .card-icon:not(.white-icon):not(.black-icon) {
+	filter: grayscale(1) brightness(0.9);
+}
+
+:global(.dark) .bento-card:hover .card-icon:not(.white-icon):not(.black-icon) {
+	filter: grayscale(1) brightness(1.5);
+}
+
+/* TITRES ET SOUS-TITRES - COULEURS MONOCHROMES */
 .card-title {
 	font-size: 2rem;
 	font-weight: 800;
 	margin: 0 0 0.5rem;
 	line-height: 1.2;
-	color: var(--text-color-1);
+	color: var(--gray-900, #171717);
 }
 
-.card-1 .card-title { font-size: 2.5rem; font-weight: 800; }
+.card-1 .card-title { 
+	font-size: 2.5rem; 
+	font-weight: 800; 
+}
 
 .card-subtitle {
 	font-size: 1.25rem;
@@ -262,10 +355,73 @@
 	margin: 0;
 	opacity: 0.85;
 	line-height: 1.5;
-	color: var(--text-color-2);
+	color: var(--gray-700, #404040);
 }
 
-.card-1 .card-subtitle { font-size: 1.15rem; }
+.card-1 .card-subtitle { 
+	font-size: 1.15rem; 
+}
+
+/* CORRECTION COULEURS : Première case texte blanc, dernière case texte blanc */
+.card-1 .card-title,
+.card-1 .card-subtitle,
+.card-5 .card-title,  /* Dernière case texte blanc */
+.card-5 .card-subtitle,
+.card-2 .card-title,
+.card-2 .card-subtitle,
+.card-4 .card-title,
+.card-4 .card-subtitle {
+    color: var(--gray-100, #f5f5f5);
+}
+
+/* BACKGROUNDS MONOCHROMES - PLUS LÉGERS */
+.card-1 {
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Réduit l'opacité */
+		url('/box.jpg') center/cover no-repeat;
+	position: relative;
+}
+
+.card-2 {
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Réduit l'opacité */
+		url('/nature.jpg') center/cover no-repeat;
+	position: relative;
+}
+
+.card-5 {
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Réduit l'opacité */
+		url('/soda-can.png') center/cover no-repeat;
+	position: relative;
+}
+
+.card-3 { 
+	background: var(--gradient-card3, linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%)); 
+}
+
+.card-4 { 
+	background: var(--gradient-card4, linear-gradient(135deg, #737373 0%, #525252 100%)); 
+}
+
+/* Overlay plus léger pour cartes avec images */
+.card-1::before,
+.card-2::before,
+.card-5::before {
+	content: '';
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0, 0, 0, 0.3); /* Réduit de 0.4 à 0.3 */
+	border-radius: 1.75rem;
+	z-index: 1;
+	transition: background 0.3s ease;
+}
+
+.card-1:hover::before,
+.card-2:hover::before,
+.card-5:hover::before {
+	background: rgba(0, 0, 0, 0.5); /* Réduit de 0.6 à 0.5 */
+}
 
 /* HOVER CONTENT */
 .card-hover-content {
@@ -279,7 +435,6 @@
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	pointer-events: none;
-	color: white;
 }
 
 .card-hover-content.show {
@@ -287,76 +442,56 @@
 }
 
 .hover-text {
-	color: white;
+	color: var(--gray-100, #f5f5f5);
 	font-size: 1.1rem;
 	line-height: 1.6;
 	font-weight: 500;
-	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-.card-1 .hover-text { font-size: 1.25rem; }
-.card-4 .hover-text { font-size: 1.15rem; }
-
-
-.card-4 .card-title,
-.card-2 .card-title
-{
-
-    color: white;
+.card-1 .hover-text { 
+	font-size: 1.25rem; 
+	color: var(--gray-50, #fafafa);
+	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-
-
-/* BACKGROUND IMAGES ET GRADIENTS */
-.card-1 {
-	background: url('/box.jpg') center/cover no-repeat;
-	position: relative;
-}
-.card-2 {
-	background: url('/nature.jpg') center/cover no-repeat;
-	position: relative;
+.card-4 .hover-text { 
+	font-size: 1.15rem; 
+	color: var(--gray-50, #fafafa);
+	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-.card-5 {
-	background: url('/soda-can.png') center/cover no-repeat;
-	position: relative;
-}
-
-
-/* Overlay sombre pour lisibilité du texte */
-
-// .card-2::before,
-// .card-5::before {
-// 	content: '';
-// 	position: absolute;
-// 	top: 0; left: 0; right: 0; bottom: 0;
-// 	background: rgba(0,0,0,0.45);
-// 	border-radius: 1.75rem;
-// 	z-index: 1;
-// }
-
-
-
-/* GRADIENTS PAR CARTE */
-
-.card-3 { background: var(--gradient-card3); }
-.card-4 { background: var(--gradient-card4); }
-
-/* OVERLAY */
+/* OVERLAY - PLUS LÉGER */
 .card-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0,0,0,0.7);
-	backdrop-filter: blur(8px);
+	background: rgba(0, 0, 0, 0.6); /* Réduit de 0.8 à 0.6 */
+	backdrop-filter: blur(6px); /* Réduit de 8px à 6px */
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	z-index: 1;
 }
 
-.card-overlay.show { opacity: 1; }
+.card-overlay.show { 
+	opacity: 1; 
+}
+
+/* MODE SOMBRE - AJUSTEMENTS */
+:global(.dark) .card-title {
+	color: var(--gray-100, #f5f5f5);
+}
+
+:global(.dark) .card-subtitle {
+	color: var(--gray-300, #d4d4d4);
+}
+
+:global(.dark) .card-3 .card-title,
+:global(.dark) .card-3 .card-subtitle {
+	color: var(--gray-900, #171717);
+}
 
 /* RESPONSIVE - VERSION OPTIMISÉE */
 @media (max-width: 1024px) {
@@ -384,10 +519,9 @@
 		opacity: 1 !important;
 	}
 
-	/* Désactiver l'agrandissement horizontal sur mobile */
 	.bento-card.hovered {
 		flex: 1 1 auto !important;
-		height: 280px !important; /* Agrandissement vertical seulement */
+		height: 280px !important;
 	}
 
 	.bento-card.same-row {

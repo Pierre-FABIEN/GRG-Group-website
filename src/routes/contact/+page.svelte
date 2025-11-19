@@ -7,7 +7,7 @@
 const bentoItems = [
     { 
         id: 1, 
-        title: m.contact_item1_title(),
+        title: m.contact_item1_title(),        // LinkedIn
         subtitle: m.contact_item1_subtitle(),
         hoverText: m.contact_item1_hoverText(),
         icon: m.contact_item1_icon(),
@@ -16,7 +16,7 @@ const bentoItems = [
     },
     { 
         id: 2, 
-        title: m.contact_item2_title(),
+        title: m.contact_item2_title(),        // Facebook GRG
         subtitle: m.contact_item2_subtitle(),
         hoverText: m.contact_item2_hoverText(),
         icon: m.contact_item2_icon(),
@@ -25,7 +25,7 @@ const bentoItems = [
     },
     { 
         id: 3, 
-        title: m.contact_item3_title(),
+        title: m.contact_item3_title(),        // AVIS CLIENT 1 (nouveau)
         subtitle: m.contact_item3_subtitle(),
         hoverText: m.contact_item3_hoverText(),
         icon: m.contact_item3_icon(),
@@ -34,11 +34,20 @@ const bentoItems = [
     },
     { 
         id: 4, 
-        title: m.contact_item4_title(),
+        title: m.contact_item4_title(),        // AVIS CLIENT 2 (nouveau)
         subtitle: m.contact_item4_subtitle(),
         hoverText: m.contact_item4_hoverText(),
         icon: m.contact_item4_icon(),
         cardClass: 'card-4', 
+        row: 'bottom' 
+    },
+    { 
+        id: 5, 
+        title: m.contact_item5_title(),        // Contact Email
+        subtitle: m.contact_item5_subtitle(),
+        hoverText: m.contact_item5_hoverText(),
+        icon: m.contact_item5_icon(),
+        cardClass: 'card-5', 
         row: 'bottom' 
     }
 ];
@@ -129,7 +138,7 @@ const bentoItems = [
 				</div>
 
 				<div class="card-hover-content" class:show={hoveredCard === item.id}>
-<p class="hover-text">{@html item.hoverText}</p>
+					<p class="hover-text">{@html item.hoverText}</p>
 				</div>
 
 				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
@@ -137,7 +146,7 @@ const bentoItems = [
 		{/each}
 	</div>
 
-	<!-- Ligne du bas : 2 cartes -->
+	<!-- Ligne du bas : 3 cartes (nouvelle configuration) -->
 	<div class="bento-row bottom">
 		{#each bentoItems.filter(i => i.row === 'bottom') as item, i (item.id)}
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -159,7 +168,7 @@ const bentoItems = [
 				</div>
 
 				<div class="card-hover-content" class:show={hoveredCard === item.id}>
-<p class="hover-text">{@html item.hoverText}</p>
+					<p class="hover-text">{@html item.hoverText}</p>
 				</div>
 
 				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
@@ -180,6 +189,11 @@ const bentoItems = [
 	box-sizing: border-box;
 	font-family: 'open-sans', sans-serif;
 	overflow: hidden;
+	background: var(--gray-50, #fafafa);
+}
+
+:global(.dark) .page-wrapper {
+	background: var(--gray-900, #171717);
 }
 
 .bento-row {
@@ -233,17 +247,59 @@ const bentoItems = [
 	transform: translateY(-10px);
 }
 
+/* EMOJIS MONOCHROMES */
 .card-icon {
 	font-size: 3.5rem;
 	margin-bottom: 1.25rem;
+	filter: grayscale(1) brightness(0.7);
+	transition: all 0.3s ease;
 }
 
+:global(.dark) .card-icon {
+	filter: grayscale(1) brightness(1.3);
+}
+
+/* FORCER les icônes de la ligne 1 en blanc */
+.bento-row.top .card-icon {
+    filter: brightness(0) invert(1) !important; /* Icônes blanches forcées */
+}
+
+:global(.dark) .bento-row.top .card-icon {
+    filter: brightness(0) invert(1) !important; /* Restent blanches en mode sombre */
+}
+
+/* Cartes avec images - emojis plus visibles */
+.card-1 .card-icon,
+.card-2 .card-icon,
+.card-3 .card-icon,
+.card-4 .card-icon,
+.card-5 .card-icon {
+	filter: grayscale(1) brightness(2);
+}
+
+/* Hover effect */
+.bento-card:hover .card-icon {
+	filter: grayscale(1) brightness(0.9);
+	transform: scale(1.05);
+}
+
+/* Hover effect pour la ligne 1 */
+.bento-row.top .bento-card:hover .card-icon {
+    filter: brightness(0) invert(1) !important; /* Restent blanches au hover */
+    transform: scale(1.05);
+}
+
+:global(.dark) .bento-card:hover .card-icon {
+	filter: grayscale(1) brightness(1.5);
+}
+
+/* TITRES ET SOUS-TITRES - COULEURS MONOCHROMES */
 .card-title {
 	font-size: 2rem;
 	font-weight: 800;
 	margin: 0 0 0.5rem;
 	line-height: 1.2;
-	color: var(--text-color-1);
+	color: var(--gray-900, #171717);
 	text-transform: uppercase;
 }
 
@@ -253,8 +309,81 @@ const bentoItems = [
 	margin: 0;
 	opacity: 0.85;
 	line-height: 1.5;
-	color: var(--text-color-2);
+	color: var(--gray-700, #404040);
 	text-transform: uppercase;
+}
+
+/* Cartes avec images - texte blanc */
+.card-1 .card-title,
+.card-1 .card-subtitle,
+.card-2 .card-title,
+.card-2 .card-subtitle,
+.card-3 .card-title,
+.card-3 .card-subtitle,
+.card-4 .card-title,
+.card-4 .card-subtitle,
+.card-5 .card-title,
+.card-5 .card-subtitle {
+    color: var(--gray-100, #f5f5f5);
+}
+
+/* BACKGROUNDS MONOCHROMES */
+.card-1 {
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		url('/IN.png') center/cover no-repeat;
+	position: relative;
+}
+
+.card-2 {
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		url('/FB.png') center/cover no-repeat;
+	position: relative;
+}
+
+.card-3 {
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		url('/default-avatar.jpg') center/cover no-repeat; /* À remplacer */
+	position: relative;
+}
+
+.card-4 {
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		url('/default-avatar.jpg') center/cover no-repeat; /* À remplacer */
+	position: relative;
+}
+
+.card-5 {
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		url('/mail.png') center/cover no-repeat;
+	position: relative;
+}
+
+/* Overlay amélioré pour toutes les cartes avec images */
+.card-1::before,
+.card-2::before,
+.card-3::before,
+.card-4::before,
+.card-5::before {
+	content: '';
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0, 0, 0, 0.4);
+	border-radius: 1.75rem;
+	z-index: 1;
+	transition: background 0.3s ease;
+}
+
+.card-1:hover::before,
+.card-2:hover::before,
+.card-3:hover::before,
+.card-4:hover::before,
+.card-5:hover::before {
+	background: rgba(0, 0, 0, 0.6);
 }
 
 /* HOVER CONTENT */
@@ -269,87 +398,32 @@ const bentoItems = [
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	pointer-events: auto; /* 👈 maintenant les liens peuvent être cliqués */
-	color: white;
 }
-
-
-.hover-text {
-	color: #058090;
-	font-weight: 600;
-	text-decoration: underline;
-	transition: opacity 0.2s ease, text-shadow 0.2s ease;
-}
-
-.hover-text:hover {
-	opacity: 0.85;
-	text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-}
-
-
-
 
 .card-hover-content.show {
 	opacity: 1;
 }
 
 .hover-text {
-	color: white;
+	color: var(--gray-100, #f5f5f5);
 	font-size: 1.1rem;
 	line-height: 1.6;
 	font-weight: 500;
-	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-
-
-.card-1 .card-title,
-.card-2 .card-title,
-.card-3 .card-title{
-
-    color: white;
+/* Styles pour les liens dans le hover text */
+.hover-link {
+	color: var(--gray-300, #d4d4d4);
+	font-weight: 600;
+	text-decoration: underline;
+	transition: all 0.2s ease;
 }
 
-/* BACKGROUND IMAGES ET GRADIENTS */
-.card-1 {
-	background: url('/IN.png') center/cover no-repeat;
-	position: relative;
+.hover-link:hover {
+	color: var(--gray-100, #f5f5f5);
+	text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
-.card-2 {
-	background: url('/grgFB.png') center/cover no-repeat;
-	position: relative;
-}
-
-.card-3 {
-	background: url('/FB.png') center/cover no-repeat;
-	position: relative;
-}
-
-.card-4 {
-	background: url('/mail.png') center/cover no-repeat;
-	position: relative;
-}
-
-
-/* Overlay sombre pour lisibilité du texte */
-
-.card-1::before,
-.card-2::before,
-.card-3::before {
-	content: '';
-	position: absolute;
-	top: 0; left: 0; right: 0; bottom: 0;
-	background: rgba(0,0,0,0.45);
-	border-radius: 1.75rem;
-	z-index: 1;
-}
-
-
-
-/* CARTES ET GRADIENTS */
-// .card-1 { background: var(--gradient-card1); }
-// .card-2 { background: var(--gradient-card2); }
-// .card-3 { background: var(--gradient-card3); }
-// .card-4 { background: var(--gradient-card4); }
 
 /* OVERLAY */
 .card-overlay {
@@ -358,13 +432,25 @@ const bentoItems = [
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0,0,0,0.7);
+	background: rgba(0, 0, 0, 0.8);
 	backdrop-filter: blur(8px);
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	z-index: 1;
 }
-.card-overlay.show { opacity: 1; }
+
+.card-overlay.show { 
+	opacity: 1; 
+}
+
+/* MODE SOMBRE - AJUSTEMENTS */
+:global(.dark) .card-title {
+	color: var(--gray-100, #f5f5f5);
+}
+
+:global(.dark) .card-subtitle {
+	color: var(--gray-300, #d4d4d4);
+}
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
@@ -380,6 +466,10 @@ const bentoItems = [
 		gap: 1rem;
 		height: auto;
 		margin-bottom: 1rem;
+	}
+
+	.bento-row:last-child {
+		margin-bottom: 0;
 	}
 
 	.bento-card {
@@ -398,45 +488,159 @@ const bentoItems = [
 		opacity: 1 !important;
 	}
 
-	.card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-	.card-title { font-size: 1.6rem; margin-bottom: 0.5rem; }
-	.card-subtitle { font-size: 1.05rem; }
-	.hover-text { font-size: 0.95rem; line-height: 1.5; }
-	.card-hover-content { width: 90%; }
+	.card-icon { 
+		font-size: 2.5rem; 
+		margin-bottom: 1rem; 
+	}
+	
+	.card-title { 
+		font-size: 1.6rem; 
+		margin-bottom: 0.5rem; 
+	}
+	
+	.card-subtitle { 
+		font-size: 1.05rem; 
+	}
+	
+	.hover-text { 
+		font-size: 0.95rem; 
+		line-height: 1.5; 
+	}
+	
+	.card-hover-content { 
+		width: 90%; 
+	}
 }
 
 @media (max-width: 768px) {
-	.page-wrapper { padding: 1rem; }
-	.bento-row { gap: 0.875rem; }
-	.bento-card { padding: 1.75rem; height: 180px !important; border-radius: 1.5rem; }
-	.bento-card.hovered { height: 260px !important; }
-	.card-icon { font-size: 2.25rem; margin-bottom: 0.875rem; }
-	.card-title { font-size: 1.5rem; margin-bottom: 0.5rem; }
-	.card-subtitle { font-size: 1rem; }
-	.hover-text { font-size: 0.9rem; line-height: 1.5; }
+	.page-wrapper { 
+		padding: 1rem; 
+	}
+	
+	.bento-row { 
+		gap: 0.875rem; 
+	}
+	
+	.bento-card { 
+		padding: 1.75rem; 
+		height: 180px !important; 
+		border-radius: 1.5rem; 
+	}
+	
+	.bento-card.hovered { 
+		height: 260px !important; 
+	}
+	
+	.card-icon { 
+		font-size: 2.25rem; 
+		margin-bottom: 0.875rem; 
+	}
+	
+	.card-title { 
+		font-size: 1.5rem; 
+		margin-bottom: 0.5rem; 
+	}
+	
+	.card-subtitle { 
+		font-size: 1rem; 
+	}
+	
+	.hover-text { 
+		font-size: 0.9rem; 
+		line-height: 1.5; 
+	}
 }
 
 @media (max-width: 480px) {
-	.page-wrapper { padding: 0.875rem; }
-	.bento-row { gap: 0.75rem; }
-	.bento-card { padding: 1.5rem; height: 160px !important; border-radius: 1.25rem; }
-	.bento-card.hovered { height: 240px !important; }
-	.card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
-	.card-title { font-size: 1.35rem; margin-bottom: 0.4rem; }
-	.card-subtitle { font-size: 0.95rem; }
-	.hover-text { font-size: 0.85rem; line-height: 1.45; }
-	.card-hover-content { width: 92%; }
+	.page-wrapper { 
+		padding: 0.875rem; 
+	}
+	
+	.bento-row { 
+		gap: 0.75rem; 
+	}
+	
+	.bento-card { 
+		padding: 1.5rem; 
+		height: 160px !important; 
+		border-radius: 1.25rem; 
+	}
+	
+	.bento-card.hovered { 
+		height: 240px !important; 
+	}
+	
+	.card-icon { 
+		font-size: 2rem; 
+		margin-bottom: 0.75rem; 
+	}
+	
+	.card-title { 
+		font-size: 1.35rem; 
+		margin-bottom: 0.4rem; 
+	}
+	
+	.card-subtitle { 
+		font-size: 0.95rem; 
+	}
+	
+	.hover-text { 
+		font-size: 0.85rem; 
+		line-height: 1.45; 
+	}
+	
+	.card-hover-content { 
+		width: 92%; 
+	}
 }
 
 /* Scroll et animation */
 @media (max-width: 1024px) {
-	.page-wrapper { -webkit-overflow-scrolling: touch; }
+	.page-wrapper { 
+		-webkit-overflow-scrolling: touch; 
+	}
+	
 	.card-hover-content.show {
 		animation: fadeInUp 0.3s ease;
 	}
+	
 	@keyframes fadeInUp {
-		from { opacity: 0; transform: translate(-50%, -45%); }
-		to { opacity: 1; transform: translate(-50%, -50%); }
+		from { 
+			opacity: 0; 
+			transform: translate(-50%, -45%); 
+		}
+		to { 
+			opacity: 1; 
+			transform: translate(-50%, -50%); 
+		}
+	}
+}
+
+/* Adaptation pour les très petits écrans */
+@media (max-width: 360px) {
+	.bento-card {
+		padding: 1.25rem;
+		height: 140px !important;
+	}
+
+	.bento-card.hovered {
+		height: 220px !important;
+	}
+
+	.card-icon {
+		font-size: 1.75rem;
+	}
+
+	.card-title {
+		font-size: 1.2rem;
+	}
+
+	.card-subtitle {
+		font-size: 0.875rem;
+	}
+
+	.hover-text {
+		font-size: 0.8rem;
 	}
 }
 </style>

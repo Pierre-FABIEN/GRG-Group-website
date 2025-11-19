@@ -193,6 +193,11 @@ const bentoItems = [
 	box-sizing: border-box;
 	font-family: 'open-sans', sans-serif;
 	overflow: hidden;
+	background: var(--gray-50, #fafafa);
+}
+
+:global(.dark) .page-wrapper {
+	background: var(--gray-900, #171717);
 }
 
 .bento-row {
@@ -239,18 +244,53 @@ const bentoItems = [
 	transition: opacity 0.1s ease, transform 0.1s ease;
 }
 
-.card-content.hide-content { opacity: 0; transform: translateY(-10px); }
+.card-content.hide-content { 
+	opacity: 0; 
+	transform: translateY(-10px); 
+}
 
-.card-icon { font-size: 3.5rem; margin-bottom: 1.25rem; }
+/* EMOJIS MONOCHROMES */
+.card-icon { 
+	font-size: 3.5rem; 
+	margin-bottom: 1.25rem;
+	filter: grayscale(1) brightness(0.7);
+	transition: all 0.3s ease;
+}
 
+:global(.dark) .card-icon {
+	filter: grayscale(1) brightness(1.3);
+}
+
+/* Cartes avec images - emojis plus visibles */
+.card-1 .card-icon,
+.card-2 .card-icon,
+.card-3 .card-icon {
+	filter: grayscale(1) brightness(2);
+}
+
+/* Hover effect */
+.bento-card:hover .card-icon {
+	filter: grayscale(1) brightness(0.9);
+	transform: scale(1.05);
+}
+
+:global(.dark) .bento-card:hover .card-icon {
+	filter: grayscale(1) brightness(1.5);
+}
+
+/* TITRES ET SOUS-TITRES - COULEURS MONOCHROMES */
 .card-title {
 	font-size: 2rem;
 	font-weight: 800;
 	margin: 0 0 0.5rem;
 	line-height: 1.2;
-	color: var(--text-color-1);
+	color: var(--gray-900, #171717);
 }
-.card-1 .card-title { font-size: 2.5rem; font-weight: 800; }
+
+.card-1 .card-title { 
+	font-size: 2.5rem; 
+	font-weight: 800; 
+}
 
 .card-subtitle {
 	font-size: 1.25rem;
@@ -258,65 +298,72 @@ const bentoItems = [
 	margin: 0;
 	opacity: 0.85;
 	line-height: 1.5;
-	color: var(--text-color-2);
+	color: var(--gray-700, #404040);
 }
-.card-1 .card-subtitle { font-size: 1.15rem; }
 
+.card-1 .card-subtitle { 
+	font-size: 1.15rem; 
+}
 
-
+/* Cartes avec images - texte blanc */
 .card-1 .card-title,
+.card-1 .card-subtitle,
 .card-2 .card-title,
+.card-2 .card-subtitle,
 .card-3 .card-title,
-.card-4 .card-title{
-
-    color: white;
+.card-3 .card-subtitle,
+.card-4 .card-title {
+    color: var(--gray-100, #f5f5f5);
 }
 
-
-
-/* BACKGROUND IMAGES ET GRADIENTS */
+/* BACKGROUNDS MONOCHROMES */
 .card-1 {
-	background: url('/X2-scaled.jpg') center/cover no-repeat;
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		url('/ligne_production.png') center/cover no-repeat;
 	position: relative;
 }
+
 .card-2 {
-	background: url('/mixed-fruits.jpg') center/cover no-repeat;
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		url('/mixed-fruits.jpg') center/cover no-repeat;
 	position: relative;
 }
 
 .card-3 {
-	background: url('/pils.jpg') center/cover no-repeat;
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		url('/pils.jpg') center/cover no-repeat;
 	position: relative;
 }
 
+.card-4 { 
+	background: var(--gradient-card4, linear-gradient(135deg, #737373 0%, #525252 100%)); 
+}
 
-/* Overlay sombre pour lisibilité du texte */
+.card-5 { 
+	background: var(--gradient-card5, linear-gradient(135deg, #404040 0%, #262626 100%)); 
+}
 
+/* Overlay amélioré */
 .card-1::before,
 .card-2::before,
 .card-3::before {
 	content: '';
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
-	background: rgba(0,0,0,0.45);
+	background: rgba(0, 0, 0, 0.4);
 	border-radius: 1.75rem;
 	z-index: 1;
+	transition: background 0.3s ease;
 }
 
-
-
-/* GRADIENTS PAR CARTE */
-
-
-.card-4 { background: var(--gradient-card4); }
-.card-5 { background: var(--gradient-card5); }
-
-
-
-
-
-
-
+.card-1:hover::before,
+.card-2:hover::before,
+.card-3:hover::before {
+	background: rgba(0, 0, 0, 0.6);
+}
 
 /* HOVER CONTENT */
 .card-hover-content {
@@ -330,21 +377,31 @@ const bentoItems = [
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	pointer-events: none;
-	color: white;
 }
-.card-hover-content.show { opacity: 1; }
+
+.card-hover-content.show { 
+	opacity: 1; 
+}
 
 .hover-text {
-	color: white;
+	color: var(--gray-100, #f5f5f5);
 	font-size: 1.1rem;
 	line-height: 1.6;
 	font-weight: 500;
-	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
-.card-1 .hover-text { font-size: 1.25rem; }
-.card-4 .hover-text { font-size: 1.15rem; }
 
+.card-1 .hover-text { 
+	font-size: 1.25rem; 
+	color: var(--gray-50, #fafafa);
+	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
 
+.card-4 .hover-text { 
+	font-size: 1.15rem; 
+	color: var(--gray-50, #fafafa);
+	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
 
 /* OVERLAY */
 .card-overlay {
@@ -353,13 +410,32 @@ const bentoItems = [
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0,0,0,0.7);
+	background: rgba(0, 0, 0, 0.8);
 	backdrop-filter: blur(8px);
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	z-index: 1;
 }
-.card-overlay.show { opacity: 1; }
+
+.card-overlay.show { 
+	opacity: 1; 
+}
+
+/* MODE SOMBRE - AJUSTEMENTS */
+:global(.dark) .card-title {
+	color: var(--gray-100, #f5f5f5);
+}
+
+:global(.dark) .card-subtitle {
+	color: var(--gray-300, #d4d4d4);
+}
+
+:global(.dark) .card-4 .card-title,
+:global(.dark) .card-4 .card-subtitle,
+:global(.dark) .card-5 .card-title,
+:global(.dark) .card-5 .card-subtitle {
+	color: var(--gray-900, #171717);
+}
 
 /* RESPONSIVE - VERSION OPTIMISÉE */
 @media (max-width: 1024px) {
@@ -387,10 +463,9 @@ const bentoItems = [
 		opacity: 1 !important;
 	}
 
-	/* Désactiver l'agrandissement horizontal sur mobile */
 	.bento-card.hovered {
 		flex: 1 1 auto !important;
-		height: 280px !important; /* Agrandissement vertical seulement */
+		height: 280px !important;
 	}
 
 	.bento-card.same-row {
@@ -545,29 +620,6 @@ const bentoItems = [
 
 	.card-hover-content {
 		width: 92%;
-	}
-}
-
-/* Amélioration du scroll sur mobile */
-@media (max-width: 1024px) {
-	.page-wrapper {
-		-webkit-overflow-scrolling: touch;
-	}
-
-	/* Meilleure lisibilité du texte hover sur mobile */
-	.card-hover-content.show {
-		animation: fadeInUp 0.3s ease;
-	}
-
-	@keyframes fadeInUp {
-		from {
-			opacity: 0;
-			transform: translate(-50%, -45%);
-		}
-		to {
-			opacity: 1;
-			transform: translate(-50%, -50%);
-		}
 	}
 }
 
