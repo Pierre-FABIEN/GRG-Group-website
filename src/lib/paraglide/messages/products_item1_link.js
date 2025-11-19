@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_products_item1_link = /** @type {(inputs: {}) => string} */ () => {
-	return `https://xplicitdrinks.com`
+	return ``
 };
 
 const es_products_item1_link = /** @type {(inputs: {}) => string} */ () => {
-	return `https://xplicitdrinks.com`
+	return ``
 };
 
 const fr_products_item1_link = /** @type {(inputs: {}) => string} */ () => {
-	return `https://xplicitdrinks.com`
+	return ``
 };
 
 /**

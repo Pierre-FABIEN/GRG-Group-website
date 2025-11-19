@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_contact_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Email Contact`
+	return `CUSTOMER REVIEW 2`
 };
 
 const es_contact_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Contacto por Email`
+	return `OPINIÓN CLIENTE 2`
 };
 
 const fr_contact_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Contact Email`
+	return `AVIS CLIENT 2`
 };
 
 /**

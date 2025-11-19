@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_products_item1_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `BPANI Can Supplier`
 };
 
 const es_products_item1_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `Proveedor de latas BPANI`
 };
 
 const fr_products_item1_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `Fournisseur de canettes BPANI`
 };
 
 /**

@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_about_item3_icon = /** @type {(inputs: {}) => string} */ () => {
-	return `🏭`
+	return `𓇣`
 };
 
 const es_about_item3_icon = /** @type {(inputs: {}) => string} */ () => {
-	return `🏭`
+	return `𓇣`
 };
 
 const fr_about_item3_icon = /** @type {(inputs: {}) => string} */ () => {
-	return `🏭`
+	return `𓇣`
 };
 
 /**

@@ -10,7 +10,7 @@ const es_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const fr_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `GRG Groupe Food & Beverage accompagne depuis plus de 15 ans les marques et porteurs de projet dans le développement de boissons et compléments alimentaires.`
+	return `GRG Group Food & Beverage accompagne depuis plus de 15 ans les marques et porteurs de projet dans le développement de boissons et compléments alimentaires.`
 };
 
 /**

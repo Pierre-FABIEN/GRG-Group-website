@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_contact_item3_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Facebook XPLICITDRINKS`
+	return `CUSTOMER REVIEW 1`
 };
 
 const es_contact_item3_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Facebook XPLICITDRINKS`
+	return `OPINIÓN CLIENTE 1`
 };
 
 const fr_contact_item3_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Facebook XPLICITDRINKS`
+	return `AVIS CLIENT 1`
 };
 
 /**

@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_products_item1_title = /** @type {(inputs: {}) => string} */ () => {
-	return `XPLICITDRINK®`
+	return `Aluminium`
 };
 
 const es_products_item1_title = /** @type {(inputs: {}) => string} */ () => {
-	return `XPLICITDRINK®`
+	return `Aluminio`
 };
 
 const fr_products_item1_title = /** @type {(inputs: {}) => string} */ () => {
-	return `XPLICITDRINK®`
+	return `Aluminium`
 };
 
 /**

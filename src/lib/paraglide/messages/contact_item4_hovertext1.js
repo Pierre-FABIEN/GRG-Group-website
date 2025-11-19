@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_contact_item4_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Send a message to <a href="mailto:contact@grggroupe.com" class="hover-link">contact@grggroupe.com</a>`
+	return `Discover the feedback from our satisfied customers and their collaboration with our team.`
 };
 
 const es_contact_item4_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Envíe un mensaje a <a href="mailto:contact@grggroupe.com" class="hover-link">contact@grggroupe.com</a>`
+	return `Descubra los comentarios de nuestros clientes satisfechos y su colaboración con nuestro equipo.`
 };
 
 const fr_contact_item4_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Envoyez un message à <a href="mailto:contact@grggroupe.com" class="hover-link">contact@grggroupe.com</a>`
+	return `Découvrez les retours d'expérience de nos clients satisfaits et leur collaboration avec notre équipe.`
 };
 
 /**

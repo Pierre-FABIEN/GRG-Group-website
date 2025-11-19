@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_contact_item3_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `Discover our brand`
+	return `They trust us`
 };
 
 const es_contact_item3_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `Descubra nuestra marca`
+	return `Confían en nosotros`
 };
 
 const fr_contact_item3_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `Découvrez notre marque`
+	return `Ils nous font confiance`
 };
 
 /**

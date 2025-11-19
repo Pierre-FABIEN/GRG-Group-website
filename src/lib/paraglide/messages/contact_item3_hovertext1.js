@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_contact_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Follow <a href="https://www.facebook.com/xplicitdrink" target="_blank" rel="noopener noreferrer" class="hover-link">XPLICITDRINKS</a> to explore our beverages and innovations.`
+	return `They trusted us for the development of their products and share their experience with GRG Group.`
 };
 
 const es_contact_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Siga <a href="https://www.facebook.com/xplicitdrink" target="_blank" rel="noopener noreferrer" class="hover-link">XPLICITDRINKS</a> para explorar nuestras bebidas e innovaciones.`
+	return `Confiaron en nosotros para el desarrollo de sus productos y comparten su experiencia con GRG Group.`
 };
 
 const fr_contact_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Suivez <a href="https://www.facebook.com/xplicitdrink" target="_blank" rel="noopener noreferrer" class="hover-link">XPLICITDRINKS</a> pour explorer nos boissons et innovations.`
+	return `Ils nous ont faits confiance pour le développement de leurs produits et partagent leur expérience avec GRG Group.`
 };
 
 /**

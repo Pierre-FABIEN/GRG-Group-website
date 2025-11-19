@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_products_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Premium energy drink, a brand born in Toulouse in 2007. More indulgent recipes, more juice and less sugar.`
+	return `International supplier of BPANI aluminium cans designed for private-label food products and beverages.`
 };
 
 const es_products_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Bebida energética premium, una marca nacida en Toulouse en 2007. Recetas más indulgentes, más jugo y menos azúcar.`
+	return `Proveedor internacional de latas de aluminio BPANI diseñadas para productos alimentarios y bebidas de marca blanca.`
 };
 
 const fr_products_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Boisson énergisantes premium, une marque née à Toulouse en 2007. Recettes plus gourmandes, plus de jus et moins de sucre.`
+	return `Fournisseur international de canettes aluminium BPANI destinées aux produits alimentaires et boissons en marque blanche.`
 };
 
 /**

@@ -2,15 +2,15 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_contact_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `Testimonials & feedback`
 };
 
 const es_contact_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `Testimonios & comentarios`
 };
 
 const fr_contact_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `Témoignages & retours`
 };
 
 /**
