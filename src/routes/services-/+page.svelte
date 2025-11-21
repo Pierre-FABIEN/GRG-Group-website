@@ -4,7 +4,6 @@
 	import { scale } from 'svelte/transition';
 	import { m } from '$lib/paraglide/messages.js';
 
-
 	const bentoItems = [
     { 
         id: 1, 
@@ -13,8 +12,7 @@
         hoverText: m.services_item1_hoverText(),
         icon: m.services_item1_icon(),
         cardClass: 'card-1', 
-        row: 'top',
-        iconClass: 'white-icon' // Icône blanche pour la première carte
+        row: 'top'
     },
     { 
         id: 2, 
@@ -32,8 +30,7 @@
         hoverText: m.services_item3_hoverText(),
         icon: m.services_item3_icon(),
         cardClass: 'card-3', 
-        row: 'bottom',
-        iconClass: 'black-icon' // Icône noire pour la troisième carte
+        row: 'bottom'
     },
     { 
         id: 4, 
@@ -77,6 +74,7 @@
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
 </script>
+
 <h1 style="
   position:absolute;
   width:1px;
@@ -120,7 +118,7 @@
 </h2>
 
 <div class="page-wrapper">
-	<!-- Ligne du haut : 3 cartes -->
+	<!-- Ligne du haut : 2 cartes -->
 	<div class="bento-row top">
 		{#each bentoItems.filter(i => i.row === 'top') as item, i (item.id)}
 			<div
@@ -135,7 +133,7 @@
 				in:scale={{ delay: i * 100, duration: 600 }}
 			>
 				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-					<div class="card-icon {item.iconClass}">{item.icon}</div> <!-- Ajout de {item.iconClass} -->
+					<div class="card-icon">{item.icon}</div>
 					<h3 class="card-title">{item.title}</h3>
 					<p class="card-subtitle">{item.subtitle}</p>
 				</div>
@@ -164,7 +162,7 @@
 				in:scale={{ delay: i * 100, duration: 600 }}
 			>
 				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-					<div class="card-icon {item.iconClass}">{item.icon}</div> <!-- Ajout de {item.iconClass} -->
+					<div class="card-icon">{item.icon}</div>
 					<h3 class="card-title">{item.title}</h3>
 					<p class="card-subtitle">{item.subtitle}</p>
 				</div>
@@ -180,29 +178,6 @@
 </div>
 
 <style lang="scss">
-
-/* FORCER l'icône blanche sur les cartes avec images */
-.card-1 .card-icon,
-.card-2 .card-icon,
-.card-5 .card-icon {
-    filter: brightness(0) invert(1) !important; /* Icône blanche forcée */
-}
-
-:global(.dark) .card-1 .card-icon,
-:global(.dark) .card-2 .card-icon,
-:global(.dark) .card-5 .card-icon {
-    filter: brightness(0) invert(1) !important; /* Reste blanche en mode sombre */
-}
-
-/* FORCER l'icône noire sur la carte 3 */
-.card-3 .card-icon {
-    filter: brightness(0) !important; /* Icône noire forcée */
-}
-
-:global(.dark) .card-3 .card-icon {
-    filter: brightness(0) invert(0.1) !important; /* Icône presque noire en mode sombre */
-}
-
 .page-wrapper {
 	width: 100%;
 	height: 100vh;
@@ -241,32 +216,40 @@
 	min-width: 0;
 	max-width: 100%;
 	flex: 1 1 0;
-	transition: flex 0.3s ease, opacity 0.2s ease;
+	transition: flex 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+	            opacity 0.3s ease,
+	            transform 0.3s ease;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 }
 
-/* CORRECTION : Les 3 cartes de la ligne du bas font la même largeur (1/3) */
+/* Ligne du bas - 3 cartes de largeur égale */
 .bento-row.bottom .bento-card {
-	flex: 1 1 0; /* Chaque carte prend 1/3 de l'espace */
+	flex: 1 1 0;
 }
 
-.bento-card.double { 
-	flex: 2 1 0; 
-}
-
+/* CARTE SURVOLÉE - S'AGRANDIT */
 .bento-card.hovered { 
 	flex: 2 1 0; 
+	z-index: 10;
+	transform: scale(1.02);
 }
 
-.bento-card.double.hovered { 
-	flex: 3 1 0; 
+/* Ligne du bas - ajustement pour 3 cartes */
+.bento-row.bottom .bento-card.hovered {
+	flex: 1.8 1 0;
 }
 
+/* CARTES DE LA MÊME LIGNE - RÉTRÉCISSENT */
 .bento-card.same-row { 
-	flex: 1 1 0; 
-	opacity: 0.8; 
+	flex: 0.7 1 0; 
+	opacity: 0.7; 
+}
+
+/* Ligne du bas - ajustement pour 3 cartes */
+.bento-row.bottom .bento-card.same-row {
+	flex: 0.8 1 0;
 }
 
 /* === TEXTE ET CONTENU CARTE === */
@@ -278,7 +261,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: start;
-	transition: opacity 0.1s ease, transform 0.1s ease;
+	transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .card-content.hide-content {
@@ -286,62 +269,47 @@
 	transform: translateY(-10px);
 }
 
-/* ICÔNES - COULEURS SPÉCIFIQUES */
+/* ICÔNES - CONTRASTE OPTIMISÉ */
 .card-icon {
 	font-size: 3.5rem;
 	margin-bottom: 1.25rem;
-	filter: brightness(0.9);
 }
 
-.card-icon.white-icon {
-	filter: brightness(0) invert(1); /* Icône blanche */
+/* Cartes 1, 2, 5 - TOUJOURS icônes blanches */
+.card-1 .card-icon,
+.card-2 .card-icon,
+.card-5 .card-icon {
+    filter: brightness(0) invert(1) !important;
 }
 
-.card-icon.black-icon {
-	filter: brightness(0); /* Icône noire */
+:global(.dark) .card-1 .card-icon,
+:global(.dark) .card-2 .card-icon,
+:global(.dark) .card-5 .card-icon {
+    filter: brightness(0) invert(1) !important;
 }
 
-/* FORCER l'icône noire sur la carte 3 */
-.card-3 .card-icon {
-	filter: brightness(0) !important; /* Icône noire forcée */
+/* Cartes 3, 4 - Icônes qui s'adaptent au contraste */
+.card-3 .card-icon,
+.card-4 .card-icon {
+	filter: brightness(0);
 }
 
-:global(.dark) .card-icon {
-	filter: brightness(1.1);
-}
-
-:global(.dark) .card-icon.white-icon {
-	filter: brightness(0) invert(1); /* Reste blanche en mode sombre */
-}
-
-:global(.dark) .card-icon.black-icon {
-	filter: brightness(0) invert(0.9); /* Légèrement plus claire en mode sombre */
-}
-
-:global(.dark) .card-3 .card-icon {
-	filter: brightness(0) invert(0.1) !important; /* Icône presque noire en mode sombre */
+:global(.dark) .card-3 .card-icon,
+:global(.dark) .card-4 .card-icon {
+	filter: brightness(0) invert(1);
 }
 
 .bento-card:hover .card-icon {
 	transform: scale(1.05);
+	transition: transform 0.3s ease;
 }
 
-/* Hover spécifique pour les icônes normales */
-.bento-card:hover .card-icon:not(.white-icon):not(.black-icon) {
-	filter: grayscale(1) brightness(0.9);
-}
-
-:global(.dark) .bento-card:hover .card-icon:not(.white-icon):not(.black-icon) {
-	filter: grayscale(1) brightness(1.5);
-}
-
-/* TITRES ET SOUS-TITRES - COULEURS MONOCHROMES */
+/* TITRES ET SOUS-TITRES - CONTRASTE OPTIMISÉ */
 .card-title {
 	font-size: 2rem;
 	font-weight: 800;
 	margin: 0 0 0.5rem;
 	line-height: 1.2;
-	color: var(--gray-900, #171717);
 }
 
 .card-1 .card-title { 
@@ -355,63 +323,84 @@
 	margin: 0;
 	opacity: 0.85;
 	line-height: 1.5;
-	color: var(--gray-700, #404040);
 }
 
 .card-1 .card-subtitle { 
 	font-size: 1.15rem; 
 }
 
-/* CORRECTION COULEURS : Première case texte blanc, dernière case texte blanc */
+/* Cartes 1, 2, 5 - TOUJOURS texte blanc */
 .card-1 .card-title,
 .card-1 .card-subtitle,
-.card-5 .card-title,  /* Dernière case texte blanc */
-.card-5 .card-subtitle,
 .card-2 .card-title,
 .card-2 .card-subtitle,
-.card-4 .card-title,
-.card-4 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
+.card-5 .card-title,
+.card-5 .card-subtitle {
+    color: var(--gray-100, #f5f5f5) !important;
 }
 
-/* BACKGROUNDS MONOCHROMES - PLUS LÉGERS */
+/* Cartes 3, 4 - Texte qui s'adapte au contraste */
+.card-3 .card-title,
+.card-3 .card-subtitle,
+.card-4 .card-title,
+.card-4 .card-subtitle {
+	color: var(--gray-900, #171717);
+}
+
+:global(.dark) .card-3 .card-title,
+:global(.dark) .card-3 .card-subtitle,
+:global(.dark) .card-4 .card-title,
+:global(.dark) .card-4 .card-subtitle {
+	color: var(--gray-100, #f5f5f5);
+}
+
+/* BACKGROUNDS */
 .card-1 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Réduit l'opacité */
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
 		url('/box.jpg') center/cover no-repeat;
 	position: relative;
 }
 
 .card-2 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Réduit l'opacité */
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
 		url('/nature.jpg') center/cover no-repeat;
 	position: relative;
 }
 
 .card-5 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Réduit l'opacité */
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
 		url('/soda-can.png') center/cover no-repeat;
 	position: relative;
 }
 
+/* Cartes 3, 4 - Fonds qui s'adaptent au contraste */
 .card-3 { 
-	background: var(--gradient-card3, linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%)); 
+	background: linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%);
 }
 
 .card-4 { 
-	background: var(--gradient-card4, linear-gradient(135deg, #737373 0%, #525252 100%)); 
+	background: linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%);
 }
 
-/* Overlay plus léger pour cartes avec images */
+:global(.dark) .card-3 { 
+	background: linear-gradient(135deg, #404040 0%, #525252 100%);
+}
+
+:global(.dark) .card-4 { 
+	background: linear-gradient(135deg, #525252 0%, #737373 100%);
+}
+
+/* Overlay pour cartes avec images */
 .card-1::before,
 .card-2::before,
 .card-5::before {
 	content: '';
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
-	background: rgba(0, 0, 0, 0.3); /* Réduit de 0.4 à 0.3 */
+	background: rgba(0, 0, 0, 0.2);
 	border-radius: 1.75rem;
 	z-index: 1;
 	transition: background 0.3s ease;
@@ -420,7 +409,7 @@
 .card-1:hover::before,
 .card-2:hover::before,
 .card-5:hover::before {
-	background: rgba(0, 0, 0, 0.5); /* Réduit de 0.6 à 0.5 */
+	background: rgba(0, 0, 0, 0.4);
 }
 
 /* HOVER CONTENT */
@@ -461,15 +450,15 @@
 	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-/* OVERLAY - PLUS LÉGER */
+/* OVERLAY */
 .card-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.6); /* Réduit de 0.8 à 0.6 */
-	backdrop-filter: blur(6px); /* Réduit de 8px à 6px */
+	background: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(4px);
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	z-index: 1;
@@ -479,21 +468,7 @@
 	opacity: 1; 
 }
 
-/* MODE SOMBRE - AJUSTEMENTS */
-:global(.dark) .card-title {
-	color: var(--gray-100, #f5f5f5);
-}
-
-:global(.dark) .card-subtitle {
-	color: var(--gray-300, #d4d4d4);
-}
-
-:global(.dark) .card-3 .card-title,
-:global(.dark) .card-3 .card-subtitle {
-	color: var(--gray-900, #171717);
-}
-
-/* RESPONSIVE - VERSION OPTIMISÉE */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
 	.page-wrapper {
 		height: auto;
@@ -517,6 +492,7 @@
 		flex: 1 1 auto !important;
 		height: 200px !important;
 		opacity: 1 !important;
+		transform: none !important;
 	}
 
 	.bento-card.hovered {
@@ -685,7 +661,6 @@
 		-webkit-overflow-scrolling: touch;
 	}
 
-	/* Meilleure lisibilité du texte hover sur mobile */
 	.card-hover-content.show {
 		animation: fadeInUp 0.3s ease;
 	}
@@ -730,4 +705,3 @@
 	}
 }
 </style>
-

@@ -141,14 +141,16 @@
 	<div class="layout-wrapper">
 		<ModeWatcher />
 
-		<!-- Bouton menu mobile -->
-		<button 
-			class="mobile-menu-button" 
-			on:click={() => isMobileOpen = !isMobileOpen} 
-			type="button"
-			aria-label="Toggle menu">
-			☰
-		</button>
+		<!-- Bouton menu mobile - disparaît quand le menu est ouvert -->
+		{#if !isMobileOpen}
+			<button 
+				class="mobile-menu-button" 
+				on:click={() => isMobileOpen = !isMobileOpen} 
+				type="button"
+				aria-label="Toggle menu">
+				☰
+			</button>
+		{/if}
 
 		<!-- Overlay pour fermer le menu -->
 		<div 
@@ -197,7 +199,7 @@
 					<span class="theme-icon-dark">🌙</span>
 				</button>
 
-				<!-- Sélecteur de langue uniquement -->
+				<!-- Sélecteur de langue - drapeaux sur la même ligne -->
 				<div class="language-selector">
 					<button 
 						class="language-button"
@@ -311,6 +313,7 @@
 	height: 44px;
 	align-items: center;
 	justify-content: center;
+	transition: opacity 0.3s ease;
 }
 
 /* Overlay pour fermer la sidebar */
@@ -397,7 +400,7 @@
 	gap: 0.5rem;
 	flex: 1;
 	overflow: hidden;
-	justify-content: center;
+	justify-content: center; /* Centrage vertical des labels */
 	min-height: 0;
 }
 
@@ -524,11 +527,12 @@
 /* Sélecteur de langue */
 .language-selector {
 	display: flex;
-	gap: 0.375rem;
+	gap: 0.75rem; /* Espacement augmenté entre les drapeaux */
 	align-items: center;
 	justify-content: center;
 	margin-top: 0.75rem;
 	padding-bottom: 0.5rem;
+	flex-wrap: nowrap; /* Empêcher le retour à la ligne */
 }
 
 .language-button {
@@ -541,8 +545,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 22px;
-	height: 22px;
+	width: 28px; /* Légèrement plus grand pour mobile */
+	height: 28px;
 	opacity: 0.5;
 }
 
@@ -637,6 +641,11 @@
 		display: flex;
 	}
 	
+	/* Cache le bouton burger quand le menu est ouvert */
+	.sidebar.mobile-open ~ .mobile-menu-button {
+		display: none;
+	}
+	
 	.sidebar {
 		width: 280px;
 		transform: translateX(-100%);
@@ -674,6 +683,7 @@
 	
 	.sidebar-nav {
 		gap: 0.5rem;
+		justify-content: center; /* Centrage vertical maintenu sur mobile */
 	}
 	
 	.sidebar-footer {
@@ -694,15 +704,16 @@
 	}
 	
 	.language-button {
-		width: 22px;
-		height: 22px;
+		width: 28px;
+		height: 28px;
 	}
 	
 	.language-selector {
-		gap: 0.375rem;
+		gap: 0.75rem; /* Espacement maintenu sur tablette */
 		margin-top: 0.75rem;
 		padding-bottom: 0.5rem;
-		flex-direction: row;
+		flex-direction: row; /* Drapeaux sur la même ligne */
+		flex-wrap: nowrap; /* Empêche le retour à la ligne */
 	}
 }
 
@@ -714,6 +725,11 @@
 		font-size: 1.25rem;
 		width: 40px;
 		height: 40px;
+	}
+	
+	/* Cache le bouton burger quand le menu est ouvert sur mobile */
+	.sidebar.mobile-open ~ .mobile-menu-button {
+		display: none;
 	}
 	
 	.sidebar {
@@ -741,6 +757,7 @@
 	
 	.sidebar-nav {
 		gap: 0.375rem;
+		justify-content: center; /* Centrage vertical maintenu */
 	}
 	
 	.sidebar-footer {
@@ -755,24 +772,23 @@
 	}
 	
 	.language-button {
-		width: 20px;
-		height: 20px;
+		width: 26px; /* Taille légèrement réduite pour mobile */
+		height: 26px;
 	}
 	
 	.language-selector {
-		gap: 0.25rem;
+		gap: 0.5rem; /* Espacement réduit mais toujours sur la même ligne */
 		margin-top: 1rem;
 		padding-bottom: 0.25rem;
-		flex-direction: column; /* Drapeaux en colonne sur mobile */
-		align-items: center;
+		flex-direction: row; /* Drapeaux sur la même ligne */
+		justify-content: center;
+		flex-wrap: nowrap; /* Important : empêche le retour à la ligne */
 	}
 	
+	/* S'assurer que les drapeaux ne passent pas à la ligne */
 	.language-selector .language-button {
-		margin-bottom: 0.5rem;
-	}
-	
-	.language-selector .language-button:last-child {
 		margin-bottom: 0;
+		flex-shrink: 0; /* Empêche la réduction de taille */
 	}
 }
 
@@ -790,6 +806,18 @@
 	.mobile-menu-button {
 		left: max(1rem, env(safe-area-inset-left));
 		top: max(1rem, env(safe-area-inset-top));
+	}
+}
+
+/* Amélioration pour les très petits écrans */
+@media (max-width: 360px) {
+	.language-selector {
+		gap: 0.4rem; /* Espacement encore réduit mais drapeaux restent alignés */
+	}
+	
+	.language-button {
+		width: 24px;
+		height: 24px;
 	}
 }
 </style>

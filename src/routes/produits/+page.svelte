@@ -269,7 +269,7 @@ const bentoItems = [
     filter: brightness(0) invert(1) !important;
 }
 
-/* Cartes 4, 5 - Icônes qui s'adaptent au contraste */
+/* Cartes 4, 5 - Icônes qui s'adaptent au contraste (comme cartes 2,3 du premier composant) */
 .card-4 .card-icon,
 .card-5 .card-icon {
 	filter: brightness(0); /* Icône noire en mode clair */
@@ -321,67 +321,67 @@ const bentoItems = [
 .card-4 .card-subtitle,
 .card-5 .card-title,
 .card-5 .card-subtitle {
-	color: var(--gray-900, #171717);
+	color: var(--gray-900, #171717); /* Texte noir en mode clair */
 }
 
 :global(.dark) .card-4 .card-title,
 :global(.dark) .card-4 .card-subtitle,
 :global(.dark) .card-5 .card-title,
 :global(.dark) .card-5 .card-subtitle {
-	color: var(--gray-100, #f5f5f5);
+	color: var(--gray-100, #f5f5f5); /* Texte blanc en mode sombre */
 }
 
 .card-1 .card-subtitle { 
 	font-size: 1.15rem; 
 }
 
-/* BACKGROUNDS MONOCHROMES */
+/* BACKGROUNDS MONOCHROMES - PLUS TRANSPARENTS */
 .card-1 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), /* Plus transparent */
 		url('/ligne_production.png') center/cover no-repeat;
 	position: relative;
 }
 
 .card-2 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), /* Plus transparent */
 		url('/mixed-fruits.jpg') center/cover no-repeat;
 	position: relative;
 }
 
 .card-3 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), /* Plus transparent */
 		url('/pils.jpg') center/cover no-repeat;
 	position: relative;
 }
 
+/* Cartes 4, 5 - Fonds qui s'adaptent au contraste */
 .card-4 { 
-	background: linear-gradient(135deg, #737373 0%, #525252 100%); 
+	background: linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%); /* Claire en mode clair */
 }
 
 .card-5 { 
-	background: linear-gradient(135deg, #404040 0%, #262626 100%); 
+	background: linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%); /* Claire en mode clair */
 }
 
-/* Mode sombre - ajustement des cartes sans image */
 :global(.dark) .card-4 { 
-	background: linear-gradient(135deg, #a3a3a3 0%, #737373 100%); 
+	background: linear-gradient(135deg, #404040 0%, #525252 100%); /* Foncée en mode sombre */
 }
 
 :global(.dark) .card-5 { 
-	background: linear-gradient(135deg, #737373 0%, #525252 100%); 
+	background: linear-gradient(135deg, #525252 0%, #737373 100%); /* Foncée en mode sombre */
 }
 
-/* Overlay amélioré */
+/* Overlay amélioré - PLUS TRANSPARENT */
 .card-1::before,
 .card-2::before,
 .card-3::before {
 	content: '';
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
-	background: rgba(0, 0, 0, 0.4);
+	background: rgba(0, 0, 0, 0.2); /* Plus transparent */
 	border-radius: 1.75rem;
 	z-index: 1;
 	transition: background 0.3s ease;
@@ -390,7 +390,7 @@ const bentoItems = [
 .card-1:hover::before,
 .card-2:hover::before,
 .card-3:hover::before {
-	background: rgba(0, 0, 0, 0.6);
+	background: rgba(0, 0, 0, 0.4); /* Plus transparent au hover */
 }
 
 /* HOVER CONTENT */
@@ -431,15 +431,15 @@ const bentoItems = [
 	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-/* OVERLAY */
+/* OVERLAY - BLUR RÉDUIT ET PLUS TRANSPARENT */
 .card-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.184);
-	backdrop-filter: blur(4px);
+	background: rgba(0, 0, 0, 0.4); /* Plus transparent */
+	backdrop-filter: blur(4px); /* Blur réduit */
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	z-index: 1;
@@ -448,9 +448,6 @@ const bentoItems = [
 .card-overlay.show { 
 	opacity: 1; 
 }
-
-/* SUPPRIMER LES RÈGLES CONFLICTUELLES */
-/* Ces règles sont maintenant gérées par le nouveau système de contraste */
 
 /* RESPONSIVE - VERSION OPTIMISÉE */
 @media (max-width: 1024px) {
