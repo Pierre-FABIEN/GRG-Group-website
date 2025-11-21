@@ -247,59 +247,31 @@ const bentoItems = [
 	transform: translateY(-10px);
 }
 
-/* EMOJIS MONOCHROMES */
+/* ICÔNES TOUJOURS BLANCHES */
 .card-icon {
 	font-size: 3.5rem;
 	margin-bottom: 1.25rem;
-	filter: grayscale(1) brightness(0.7);
+	filter: brightness(0) invert(1) !important; /* Icônes blanches forcées */
 	transition: all 0.3s ease;
 }
 
 :global(.dark) .card-icon {
-	filter: grayscale(1) brightness(1.3);
+	filter: brightness(0) invert(1) !important; /* Restent blanches en mode sombre */
 }
 
-/* FORCER les icônes de la ligne 1 en blanc */
-.bento-row.top .card-icon {
-    filter: brightness(0) invert(1) !important; /* Icônes blanches forcées */
-}
-
-:global(.dark) .bento-row.top .card-icon {
-    filter: brightness(0) invert(1) !important; /* Restent blanches en mode sombre */
-}
-
-/* Cartes avec images - emojis plus visibles */
-.card-1 .card-icon,
-.card-2 .card-icon,
-.card-3 .card-icon,
-.card-4 .card-icon,
-.card-5 .card-icon {
-	filter: grayscale(1) brightness(2);
-}
-
-/* Hover effect */
+/* Hover effect - icônes restent blanches */
 .bento-card:hover .card-icon {
-	filter: grayscale(1) brightness(0.9);
+	filter: brightness(0) invert(1) !important; /* Restent blanches au hover */
 	transform: scale(1.05);
 }
 
-/* Hover effect pour la ligne 1 */
-.bento-row.top .bento-card:hover .card-icon {
-    filter: brightness(0) invert(1) !important; /* Restent blanches au hover */
-    transform: scale(1.05);
-}
-
-:global(.dark) .bento-card:hover .card-icon {
-	filter: grayscale(1) brightness(1.5);
-}
-
-/* TITRES ET SOUS-TITRES - COULEURS MONOCHROMES */
+/* TITRES ET SOUS-TITRES - TOUJOURS BLANCS */
 .card-title {
 	font-size: 2rem;
 	font-weight: 800;
 	margin: 0 0 0.5rem;
 	line-height: 1.2;
-	color: var(--gray-900, #171717);
+	color: var(--gray-100, #f5f5f5) !important; /* Texte blanc forcé */
 	text-transform: uppercase;
 }
 
@@ -309,61 +281,47 @@ const bentoItems = [
 	margin: 0;
 	opacity: 0.85;
 	line-height: 1.5;
-	color: var(--gray-700, #404040);
+	color: var(--gray-100, #f5f5f5) !important; /* Texte blanc forcé */
 	text-transform: uppercase;
 }
 
-/* Cartes avec images - texte blanc */
-.card-1 .card-title,
-.card-1 .card-subtitle,
-.card-2 .card-title,
-.card-2 .card-subtitle,
-.card-3 .card-title,
-.card-3 .card-subtitle,
-.card-4 .card-title,
-.card-4 .card-subtitle,
-.card-5 .card-title,
-.card-5 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
-}
-
-/* BACKGROUNDS MONOCHROMES */
+/* BACKGROUNDS MONOCHROMES AVEC OVERLAY ALLÉGÉ */
 .card-1 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
 		url('/IN.png') center/cover no-repeat;
 	position: relative;
 }
 
 .card-2 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
 		url('/FB.png') center/cover no-repeat;
 	position: relative;
 }
 
 .card-3 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
 		url('/default-avatar.jpg') center/cover no-repeat; /* À remplacer */
 	position: relative;
 }
 
 .card-4 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
 		url('/default-avatar.jpg') center/cover no-repeat; /* À remplacer */
 	position: relative;
 }
 
 .card-5 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
 		url('/mail.png') center/cover no-repeat;
 	position: relative;
 }
 
-/* Overlay amélioré pour toutes les cartes avec images */
+/* Overlay amélioré et allégé pour toutes les cartes avec images */
 .card-1::before,
 .card-2::before,
 .card-3::before,
@@ -372,7 +330,7 @@ const bentoItems = [
 	content: '';
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
-	background: rgba(0, 0, 0, 0.4);
+	background: rgba(0, 0, 0, 0.2); /* Overlay allégé */
 	border-radius: 1.75rem;
 	z-index: 1;
 	transition: background 0.3s ease;
@@ -383,7 +341,7 @@ const bentoItems = [
 .card-3:hover::before,
 .card-4:hover::before,
 .card-5:hover::before {
-	background: rgba(0, 0, 0, 0.6);
+	background: rgba(0, 0, 0, 0.4); /* Overlay hover allégé */
 }
 
 /* HOVER CONTENT */
@@ -425,15 +383,15 @@ const bentoItems = [
 	text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
-/* OVERLAY */
+/* OVERLAY ALLÉGÉ */
 .card-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.8);
-	backdrop-filter: blur(8px);
+	background: rgba(0, 0, 0, 0.6); /* Opacité réduite */
+	backdrop-filter: blur(4px); /* Blur réduit */
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	z-index: 1;
@@ -443,13 +401,10 @@ const bentoItems = [
 	opacity: 1; 
 }
 
-/* MODE SOMBRE - AJUSTEMENTS */
-:global(.dark) .card-title {
-	color: var(--gray-100, #f5f5f5);
-}
-
+/* MODE SOMBRE - TOUT RESTE BLANC */
+:global(.dark) .card-title,
 :global(.dark) .card-subtitle {
-	color: var(--gray-300, #d4d4d4);
+	color: var(--gray-100, #f5f5f5) !important; /* Reste blanc en mode sombre */
 }
 
 /* RESPONSIVE */

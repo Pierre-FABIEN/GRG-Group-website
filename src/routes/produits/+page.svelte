@@ -4,7 +4,6 @@
 	import { scale } from 'svelte/transition';
 	import { m } from '$lib/paraglide/messages.js';
 
-
 const bentoItems = [
     { 
         id: 1, 
@@ -76,6 +75,13 @@ const bentoItems = [
 	function isInSameRow(item: any): boolean {
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
+
+	// Fonction pour gérer les clics sur les liens
+	function handleLinkClick(event: MouseEvent) {
+		event.stopPropagation(); // Empêche la propagation du clic à la carte
+		event.preventDefault(); // Empêche le comportement par défaut du lien
+		window.open('https://bit.ly/GRG-Group-FnB', '_blank');
+	}
 </script>
 <h1 style="
   position:absolute;
@@ -142,7 +148,23 @@ const bentoItems = [
 				</div>
 
 				<div class="card-hover-content" class:show={hoveredCard === item.id}>
-					<p class="hover-text">{item.hoverText}</p>
+					{#if item.id === 1 || item.id === 2 || item.id === 3}
+						<!-- Cartes 1, 2, 3 avec lien -->
+						<p class="hover-text">
+							{@html item.hoverText}
+							<br><br>
+							<a href="https://bit.ly/GRG-Group-FnB" 
+							   class="hover-link" 
+							   onclick={handleLinkClick}
+							   target="_blank"
+							   rel="noopener noreferrer">
+								📱 Découvrir nos produits
+							</a>
+						</p>
+					{:else}
+						<!-- Cartes 4 et 5 sans lien -->
+						<p class="hover-text">{item.hoverText}</p>
+					{/if}
 				</div>
 
 				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
@@ -172,7 +194,23 @@ const bentoItems = [
 				</div>
 
 				<div class="card-hover-content" class:show={hoveredCard === item.id}>
-					<p class="hover-text">{item.hoverText}</p>
+					{#if item.id === 1 || item.id === 2 || item.id === 3}
+						<!-- Cartes 1, 2, 3 avec lien -->
+						<p class="hover-text">
+							{@html item.hoverText}
+							<br><br>
+							<a href="https://bit.ly/GRG-Group-FnB" 
+							   class="hover-link" 
+							   onclick={handleLinkClick}
+							   target="_blank"
+							   rel="noopener noreferrer">
+								📱 Découvrir nos produits
+							</a>
+						</p>
+					{:else}
+						<!-- Cartes 4 et 5 sans lien -->
+						<p class="hover-text">{item.hoverText}</p>
+					{/if}
 				</div>
 
 				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
@@ -404,7 +442,7 @@ const bentoItems = [
 	text-align: center;
 	opacity: 0;
 	transition: opacity 0.2s ease;
-	pointer-events: none;
+	pointer-events: auto; /* 👈 Permet les clics sur les liens */
 }
 
 .card-hover-content.show { 
@@ -429,6 +467,28 @@ const bentoItems = [
 	font-size: 1.15rem; 
 	color: var(--gray-50, #fafafa);
 	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* STYLES POUR LES LIENS DANS LE HOVER TEXT */
+.hover-link {
+	color: var(--gray-300, #d4d4d4);
+	font-weight: 600;
+	text-decoration: underline;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	display: inline-block;
+	margin-top: 0.5rem;
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.375rem;
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(4px);
+}
+
+.hover-link:hover {
+	color: var(--gray-100, #f5f5f5);
+	text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+	background: rgba(255, 255, 255, 0.2);
+	transform: scale(1.05);
 }
 
 /* OVERLAY - BLUR RÉDUIT ET PLUS TRANSPARENT */
@@ -516,6 +576,11 @@ const bentoItems = [
 		font-size: 1.05rem;
 	}
 
+	.hover-link {
+		font-size: 0.9rem;
+		padding: 0.2rem 0.4rem;
+	}
+
 	.card-hover-content {
 		width: 90%;
 	}
@@ -574,6 +639,11 @@ const bentoItems = [
 	.card-4 .hover-text {
 		font-size: 0.95rem;
 	}
+
+	.hover-link {
+		font-size: 0.85rem;
+		padding: 0.15rem 0.3rem;
+	}
 }
 
 @media (max-width: 480px) {
@@ -630,6 +700,12 @@ const bentoItems = [
 		font-size: 0.9rem;
 	}
 
+	.hover-link {
+		font-size: 0.8rem;
+		padding: 0.1rem 0.25rem;
+		margin-top: 0.25rem;
+	}
+
 	.card-hover-content {
 		width: 92%;
 	}
@@ -660,6 +736,10 @@ const bentoItems = [
 
 	.hover-text {
 		font-size: 0.8rem;
+	}
+
+	.hover-link {
+		font-size: 0.75rem;
 	}
 }
 </style>
