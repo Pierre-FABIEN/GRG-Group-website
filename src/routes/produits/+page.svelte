@@ -249,42 +249,48 @@ const bentoItems = [
 	transform: translateY(-10px); 
 }
 
-/* EMOJIS MONOCHROMES */
+/* ICÔNES - CONTRASTE OPTIMISÉ */
 .card-icon { 
 	font-size: 3.5rem; 
 	margin-bottom: 1.25rem;
-	filter: grayscale(1) brightness(0.7);
 	transition: all 0.3s ease;
 }
 
-:global(.dark) .card-icon {
-	filter: grayscale(1) brightness(1.3);
-}
-
-/* Cartes avec images - emojis plus visibles */
+/* Cartes 1, 2, 3 - TOUJOURS icônes blanches */
 .card-1 .card-icon,
 .card-2 .card-icon,
 .card-3 .card-icon {
-	filter: grayscale(1) brightness(2);
+    filter: brightness(0) invert(1) !important;
+}
+
+:global(.dark) .card-1 .card-icon,
+:global(.dark) .card-2 .card-icon,
+:global(.dark) .card-3 .card-icon {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Cartes 4, 5 - Icônes qui s'adaptent au contraste */
+.card-4 .card-icon,
+.card-5 .card-icon {
+	filter: brightness(0); /* Icône noire en mode clair */
+}
+
+:global(.dark) .card-4 .card-icon,
+:global(.dark) .card-5 .card-icon {
+	filter: brightness(0) invert(1); /* Icône blanche en mode sombre */
 }
 
 /* Hover effect */
 .bento-card:hover .card-icon {
-	filter: grayscale(1) brightness(0.9);
 	transform: scale(1.05);
 }
 
-:global(.dark) .bento-card:hover .card-icon {
-	filter: grayscale(1) brightness(1.5);
-}
-
-/* TITRES ET SOUS-TITRES - COULEURS MONOCHROMES */
+/* TITRES ET SOUS-TITRES - CONTRASTE OPTIMISÉ */
 .card-title {
 	font-size: 2rem;
 	font-weight: 800;
 	margin: 0 0 0.5rem;
 	line-height: 1.2;
-	color: var(--gray-900, #171717);
 }
 
 .card-1 .card-title { 
@@ -298,22 +304,35 @@ const bentoItems = [
 	margin: 0;
 	opacity: 0.85;
 	line-height: 1.5;
-	color: var(--gray-700, #404040);
 }
 
-.card-1 .card-subtitle { 
-	font-size: 1.15rem; 
-}
-
-/* Cartes avec images - texte blanc */
+/* Cartes 1, 2, 3 - TOUJOURS texte blanc */
 .card-1 .card-title,
 .card-1 .card-subtitle,
 .card-2 .card-title,
 .card-2 .card-subtitle,
 .card-3 .card-title,
-.card-3 .card-subtitle,
-.card-4 .card-title {
-    color: var(--gray-100, #f5f5f5);
+.card-3 .card-subtitle {
+    color: var(--gray-100, #f5f5f5) !important;
+}
+
+/* Cartes 4, 5 - Texte qui s'adapte au contraste */
+.card-4 .card-title,
+.card-4 .card-subtitle,
+.card-5 .card-title,
+.card-5 .card-subtitle {
+	color: var(--gray-900, #171717);
+}
+
+:global(.dark) .card-4 .card-title,
+:global(.dark) .card-4 .card-subtitle,
+:global(.dark) .card-5 .card-title,
+:global(.dark) .card-5 .card-subtitle {
+	color: var(--gray-100, #f5f5f5);
+}
+
+.card-1 .card-subtitle { 
+	font-size: 1.15rem; 
 }
 
 /* BACKGROUNDS MONOCHROMES */
@@ -339,11 +358,20 @@ const bentoItems = [
 }
 
 .card-4 { 
-	background: var(--gradient-card4, linear-gradient(135deg, #737373 0%, #525252 100%)); 
+	background: linear-gradient(135deg, #737373 0%, #525252 100%); 
 }
 
 .card-5 { 
-	background: var(--gradient-card5, linear-gradient(135deg, #404040 0%, #262626 100%)); 
+	background: linear-gradient(135deg, #404040 0%, #262626 100%); 
+}
+
+/* Mode sombre - ajustement des cartes sans image */
+:global(.dark) .card-4 { 
+	background: linear-gradient(135deg, #a3a3a3 0%, #737373 100%); 
+}
+
+:global(.dark) .card-5 { 
+	background: linear-gradient(135deg, #737373 0%, #525252 100%); 
 }
 
 /* Overlay amélioré */
@@ -410,8 +438,8 @@ const bentoItems = [
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.8);
-	backdrop-filter: blur(8px);
+	background: rgba(0, 0, 0, 0.184);
+	backdrop-filter: blur(4px);
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	z-index: 1;
@@ -421,21 +449,8 @@ const bentoItems = [
 	opacity: 1; 
 }
 
-/* MODE SOMBRE - AJUSTEMENTS */
-:global(.dark) .card-title {
-	color: var(--gray-100, #f5f5f5);
-}
-
-:global(.dark) .card-subtitle {
-	color: var(--gray-300, #d4d4d4);
-}
-
-:global(.dark) .card-4 .card-title,
-:global(.dark) .card-4 .card-subtitle,
-:global(.dark) .card-5 .card-title,
-:global(.dark) .card-5 .card-subtitle {
-	color: var(--gray-900, #171717);
-}
+/* SUPPRIMER LES RÈGLES CONFLICTUELLES */
+/* Ces règles sont maintenant gérées par le nouveau système de contraste */
 
 /* RESPONSIVE - VERSION OPTIMISÉE */
 @media (max-width: 1024px) {
@@ -651,4 +666,3 @@ const bentoItems = [
 	}
 }
 </style>
-

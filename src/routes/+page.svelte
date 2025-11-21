@@ -12,8 +12,7 @@ const bentoItems = [
         hoverText: m.home_item1_hoverText(),
         icon: m.home_item1_icon(),
         cardClass: 'card-1', 
-        row: 'top',
-        iconClass: 'white-icon' // Nouvelle propriété pour l'icône blanche
+        row: 'top'
     },
     { 
         id: 2, 
@@ -31,8 +30,7 @@ const bentoItems = [
         hoverText: m.home_item3_hoverText(),
         icon: m.home_item3_icon(),
         cardClass: 'card-3', 
-        row: 'top',
-        iconClass: 'black-icon' // Nouvelle propriété pour l'icône noire
+        row: 'top'
     },
     { 
         id: 4, 
@@ -135,10 +133,10 @@ const bentoItems = [
 				in:scale={{ delay: i * 100, duration: 600 }}
 			>
 				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-    <div class="card-icon {item.iconClass}">{item.icon}</div>
-    <h3 class="card-title">{item.title}</h3>
-    <p class="card-subtitle">{item.subtitle}</p>
-</div>
+					<div class="card-icon">{item.icon}</div>
+					<h3 class="card-title">{item.title}</h3>
+					<p class="card-subtitle">{item.subtitle}</p>
+				</div>
 
 				<div class="card-hover-content" class:show={hoveredCard === item.id}>
 					<p class="hover-text">{item.hoverText}</p>
@@ -250,41 +248,43 @@ const bentoItems = [
 	transform: translateY(-10px);
 }
 
-/* ICÔNES - COULEURS SPÉCIFIQUES */
+/* ICÔNES - CONTRASTE OPTIMISÉ */
 .card-icon {
 	font-size: 3.5rem;
 	margin-bottom: 1.25rem;
-	filter: brightness(0.9);
 }
 
-.card-icon.white-icon {
-	filter: brightness(0) invert(1); /* Icône blanche */
+/* Cartes 1 et 4 - TOUJOURS icônes blanches */
+.card-1 .card-icon,
+.card-4 .card-icon {
+    filter: brightness(0) invert(1) !important;
 }
 
-.card-icon.black-icon {
-	filter: brightness(0); /* Icône noire */
+:global(.dark) .card-1 .card-icon,
+:global(.dark) .card-4 .card-icon {
+    filter: brightness(0) invert(1) !important;
 }
 
-:global(.dark) .card-icon {
-	filter: brightness(1.1);
+/* Cartes 2, 3, 5 - Icônes qui s'adaptent au contraste */
+.card-2 .card-icon,
+.card-3 .card-icon,
+.card-5 .card-icon {
+	filter: brightness(0); /* Icône noire en mode clair */
 }
 
-:global(.dark) .card-icon.white-icon {
-	filter: brightness(0) invert(1); /* Reste blanche en mode sombre */
+:global(.dark) .card-2 .card-icon,
+:global(.dark) .card-3 .card-icon,
+:global(.dark) .card-5 .card-icon {
+	filter: brightness(0) invert(1); /* Icône blanche en mode sombre */
 }
 
-:global(.dark) .card-icon.black-icon {
-	filter: brightness(0) invert(0.9); /* Légèrement plus claire en mode sombre */
-}
-
-/* TITRES ET SOUS-TITRES - COULEURS CORRIGÉES */
+/* TITRES ET SOUS-TITRES - CONTRASTE OPTIMISÉ */
 .card-title {
 	font-size: 2rem;
 	font-weight: 800;
 	text-transform: uppercase;
 	margin: 0 0 0.75rem;
 	line-height: 1.2;
-	color: var(--gray-900, #171717);
 }
 
 .card-subtitle {
@@ -294,7 +294,33 @@ const bentoItems = [
 	margin: 0;
 	opacity: 0.85;
 	line-height: 1.4;
-	color: var(--gray-700, #404040);
+}
+
+/* Cartes 1 et 4 - TOUJOURS texte blanc */
+.card-1 .card-title,
+.card-1 .card-subtitle,
+.card-4 .card-title,
+.card-4 .card-subtitle {
+    color: var(--gray-100, #f5f5f5) !important;
+}
+
+/* Cartes 2, 3, 5 - Texte qui s'adapte au contraste */
+.card-2 .card-title,
+.card-2 .card-subtitle,
+.card-3 .card-title,
+.card-3 .card-subtitle,
+.card-5 .card-title,
+.card-5 .card-subtitle {
+	color: var(--gray-900, #171717);
+}
+
+:global(.dark) .card-2 .card-title,
+:global(.dark) .card-2 .card-subtitle,
+:global(.dark) .card-3 .card-title,
+:global(.dark) .card-3 .card-subtitle,
+:global(.dark) .card-5 .card-title,
+:global(.dark) .card-5 .card-subtitle {
+	color: var(--gray-100, #f5f5f5);
 }
 
 /* Ajustement carte 1 */
@@ -324,21 +350,11 @@ const bentoItems = [
 }
 
 .hover-text {
-	color: var(--gray-100, #f5f5f5); /* Blanc cassé pour meilleure lisibilité */
+	color: var(--gray-100, #f5f5f5);
 	font-size: 1.1rem;
 	line-height: 1.6;
 	font-weight: 500;
-	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* Ombre renforcée */
-}
-
-/* COULEURS SPÉCIFIQUES POUR LES CARTES AVEC IMAGES */
-.card-1 .card-title,
-.card-1 .card-subtitle,
-.card-4 .card-title,
-.card-4 .card-subtitle,
-.card-5 .card-title,
-.card-5 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .card-1 .hover-text,
@@ -353,44 +369,53 @@ const bentoItems = [
 	font-size: 1.15rem;
 }
 
-/* BACKGROUNDS MONOCHROMES CORRIGÉS - PLUS LÉGERS */
+/* BACKGROUNDS DES CARTES */
 .card-1 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Réduit l'opacité */
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
 		url('/beer-can.jpg') center/cover no-repeat;
 	position: relative;
 }
 
 .card-2 { 
-	background: var(--gradient-card2, linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%)); 
+	background: linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%); 
 }
 
 .card-3 { 
-	background: var(--gradient-card3, linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%)); 
+	background: linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%); 
 }
 
 .card-4 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), /* Réduit l'opacité */
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
 		url('/grgFB.png') center/cover no-repeat;
 	position: relative;
 }
 
 .card-5 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Réduit l'opacité */
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
 		url('/cans_production.png') center/cover no-repeat;
 	position: relative;
 }
 
-/* Overlay plus léger pour lisibilité du texte */
+/* Mode sombre - ajustement des cartes sans image */
+:global(.dark) .card-2 { 
+	background: linear-gradient(135deg, #404040 0%, #525252 100%); 
+}
+
+:global(.dark) .card-3 { 
+	background: linear-gradient(135deg, #525252 0%, #737373 100%); 
+}
+
+/* Overlay pour cartes avec images */
 .card-1::before,
 .card-4::before,
 .card-5::before {
 	content: '';
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
-	background: rgba(0, 0, 0, 0.3); /* Réduit de 0.4 à 0.3 */
+	background: rgba(0, 0, 0, 0.3);
 	border-radius: 1.75rem;
 	z-index: 1;
 	transition: background 0.3s ease;
@@ -399,18 +424,18 @@ const bentoItems = [
 .card-1:hover::before,
 .card-4:hover::before,
 .card-5:hover::before {
-	background: rgba(0, 0, 0, 0.5); /* Réduit de 0.6 à 0.5 */
+	background: rgba(0, 0, 0, 0.5);
 }
 
-/* OVERLAY ET HOVER - PLUS LÉGER */
+/* OVERLAY ET HOVER */
 .card-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.6); /* Réduit de 0.8 à 0.6 */
-	backdrop-filter: blur(6px); /* Réduit de 8px à 6px */
+	background: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(6px);
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	z-index: 1;
@@ -418,22 +443,6 @@ const bentoItems = [
 
 .card-overlay.show {
 	opacity: 1;
-}
-
-/* MODE SOMBRE - AJUSTEMENTS */
-:global(.dark) .card-title {
-	color: var(--gray-100, #f5f5f5);
-}
-
-:global(.dark) .card-subtitle {
-	color: var(--gray-300, #d4d4d4);
-}
-
-:global(.dark) .card-2 .card-title,
-:global(.dark) .card-2 .card-subtitle,
-:global(.dark) .card-3 .card-title,
-:global(.dark) .card-3 .card-subtitle {
-	color: var(--gray-900, #171717);
 }
 
 /* RESPONSIVE - VERSION OPTIMISÉE */
@@ -462,10 +471,9 @@ const bentoItems = [
 		opacity: 1 !important;
 	}
 
-	/* Désactiver l'agrandissement horizontal sur mobile */
 	.bento-card.hovered {
 		flex: 1 1 auto !important;
-		height: 280px !important; /* Agrandissement vertical seulement */
+		height: 280px !important;
 	}
 
 	.bento-card.same-row {
@@ -629,7 +637,6 @@ const bentoItems = [
 		-webkit-overflow-scrolling: touch;
 	}
 
-	/* Meilleure lisibilité du texte hover sur mobile */
 	.card-hover-content.show {
 		animation: fadeInUp 0.3s ease;
 	}
@@ -674,5 +681,3 @@ const bentoItems = [
 	}
 }
 </style>
-
-
