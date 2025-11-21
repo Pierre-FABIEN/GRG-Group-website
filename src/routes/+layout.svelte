@@ -122,6 +122,8 @@
 			localStorage.setItem('selectedLanguage', lang);
 		}
 	}
+
+	let isMobileOpen = $state(false);
 </script>
 
 <svelte:head>
@@ -139,10 +141,31 @@
 	<div class="layout-wrapper">
 		<ModeWatcher />
 
+		<!-- Bouton menu mobile -->
+		<button 
+			class="mobile-menu-button" 
+			on:click={() => isMobileOpen = !isMobileOpen} 
+			type="button"
+			aria-label="Toggle menu">
+			☰
+		</button>
+
+		<!-- Overlay pour fermer le menu -->
+		<div 
+			class="sidebar-overlay" 
+			class:mobile-open={isMobileOpen} 
+			on:click={() => isMobileOpen = false}
+			on:keydown={(e) => e.key === 'Escape' && (isMobileOpen = false)}
+			role="button"
+			tabindex="-1">
+		</div>
+
 		<!-- SIDEBAR BENTO STYLE - MODIFIÉ -->
-		<aside class="sidebar">
+		<aside class="sidebar" class:mobile-open={isMobileOpen}>
 			<div class="sidebar-header">
-				<div class="logo"> <img src="/image/path1.svg" alt=""> </div>
+				<div class="logo"> 
+					<img src="/image/path1.svg" alt="Logo"> 
+				</div>
 			</div>
 			
 			<nav class="sidebar-nav">
@@ -269,6 +292,43 @@
 	background: var(--gray-900, #171717);
 }
 
+/* Menu burger pour mobile */
+.mobile-menu-button {
+	display: none;
+	position: fixed;
+	top: 1rem;
+	left: 1rem;
+	z-index: 1002;
+	background: var(--theme-color, #404040);
+	border: none;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	color: white;
+	font-size: 1.5rem;
+	cursor: pointer;
+	width: 44px;
+	height: 44px;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Overlay pour fermer la sidebar */
+.sidebar-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 999;
+	backdrop-filter: blur(2px);
+}
+
+.sidebar-overlay.mobile-open {
+	display: block;
+}
+
 /* === SIDEBAR === */
 .sidebar {
 	width: 280px;
@@ -287,11 +347,17 @@
 	overflow: hidden;
 	transform: translateZ(0);
 	backface-visibility: hidden;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 :global(.dark) .sidebar {
 	background: var(--gray-800, #262626);
 	border-right: 1px solid var(--gray-700, #404040);
+}
+
+.sidebar.mobile-open {
+	transform: translateX(0);
+	box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar-header {
@@ -313,6 +379,12 @@
 	max-width: 150px;
 	height: auto;
 	margin-left: 15%;
+	transition: max-width 0.3s ease;
+}
+
+.logo img {
+	width: 100%;
+	height: auto;
 }
 
 .logo-image {
@@ -395,6 +467,7 @@
 
 .nav-text {
 	white-space: nowrap;
+	transition: opacity 0.3s ease, width 0.3s ease;
 }
 
 .sidebar-footer {
@@ -555,141 +628,193 @@
 	color: var(--text-color-5, #ffffff);
 }
 
-/* === ANCIEN SYSTÈME RESPONSIVE QUI FONCTIONNAIT === */
+/* === RESPONSIVE SYSTEM OPTIMISÉ POUR MOBILE === */
 @media (max-width: 1024px) {
 	/* SUR LAPTOP, ON GARDE LA SIDEBAR COMPLÈTE */
-	/* Pas de réduction de la sidebar */
-	
 	.container {
-		width: calc(100vw - 280px); /* Même calcul */
+		width: calc(100vw - 280px);
 	}
 }
 
 @media (max-width: 768px) {
+	.mobile-menu-button {
+		display: flex;
+	}
+	
 	.sidebar {
-		width: 70px;
-		min-width: 70px;
-		padding: 0.875rem 0.375rem;
+		width: 320px;
+		transform: translateX(-100%);
+		padding: 2rem 1.5rem;
 	}
-
+	
+	.sidebar.mobile-open {
+		transform: translateX(0);
+	}
+	
 	.sidebar-header {
-		padding: 0 0 0.875rem;
-		margin-bottom: 0.875rem;
+		padding: 0 0 2rem;
 		justify-content: center;
+		flex-shrink: 0;
 	}
-
+	
 	.logo {
-		max-width: 38px;
+		max-width: 180px;
 		margin-left: 0;
 	}
-
-	.nav-text {
-		display: none;
-	}
-
-	.nav-link {
-		justify-content: center;
-		padding: 0.75rem 0.375rem;
-		gap: 0;
-		font-size: 0.875rem;
-	}
-
-	.nav-icon {
-		font-size: 1.35rem;
-	}
-
+	
+	/* NAVIGATION - Optimisée avec Flexbox */
 	.sidebar-nav {
-		gap: 0.3rem;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		gap: 1.5rem;
+		padding: 2rem 0;
+		min-height: 0;
 	}
-
+	
+	.nav-link {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding: 1.25rem 1.5rem;
+		gap: 1.25rem;
+		font-size: 1.15rem;
+		font-weight: 600;
+		border-radius: 1rem;
+		flex-shrink: 0;
+	}
+	
+	.nav-text {
+		display: block !important;
+		opacity: 1 !important;
+		width: auto !important;
+		font-size: 1.15rem;
+	}
+	
+	.nav-icon {
+		font-size: 1.5rem;
+		min-width: 1.5rem;
+	}
+	
+	/* FOOTER - Optimisé avec Flexbox */
 	.sidebar-footer {
-		padding-top: 0.75rem;
-		gap: 0.75rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1.25rem;
+		padding: 1.5rem 0 1rem;
+		margin-top: auto;
+		flex-shrink: 0;
 	}
-
+	
 	.theme-toggle {
-		width: 38px;
-		height: 38px;
-		font-size: 1.2rem;
+		width: 48px;
+		height: 48px;
+		font-size: 1.4rem;
 	}
-
-	.container {
-		left: 70px;
-		right: 0;
-		width: auto;
-	}
-
-	.content {
-		padding: 0;
-	}
-
-	.language-button {
-		width: 20px;
-		height: 20px;
-	}
-
+	
 	.language-selector {
-		gap: 0.25rem;
-		margin-top: 1rem;
-		padding-bottom: 0.375rem;
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+		align-items: center;
+		justify-content: center;
+		margin-top: 0.5rem;
+		padding-bottom: 0;
+	}
+	
+	.language-button {
+		width: 28px;
+		height: 28px;
+	}
+	
+	.container {
+		left: 0 !important;
+		right: 0;
+		width: 100vw !important;
 	}
 }
 
 @media (max-width: 480px) {
+	.mobile-menu-button {
+		top: 1rem;
+		left: 1rem;
+		padding: 0.5rem;
+		font-size: 1.5rem;
+		width: 48px;
+		height: 48px;
+	}
+	
 	.sidebar {
-		width: 60px;
-		min-width: 60px;
-		padding: 0.75rem 0.25rem;
+		width: 90vw;
+		max-width: 340px;
+		padding: 2rem 1.5rem;
 	}
-
+	
 	.sidebar-header {
-		padding: 0 0 0.625rem;
-		margin-bottom: 0.625rem;
+		padding: 0 0 2rem;
 	}
-
+	
 	.logo {
-		max-width: 32px;
+		max-width: 160px;
 	}
-
-	.nav-link {
-		padding: 0.625rem 0.25rem;
-		border-radius: 0.75rem;
-	}
-
-	.nav-icon {
-		font-size: 1.2rem;
-	}
-
+	
+	/* NAVIGATION - Grande et espacée */
 	.sidebar-nav {
-		gap: 0.25rem;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		gap: 2rem;
+		padding: 2.5rem 0;
 	}
-
+	
+	.nav-link {
+		padding: 1.5rem 1.25rem;
+		font-size: 1.25rem;
+		gap: 1.5rem;
+	}
+	
+	.nav-text {
+		font-size: 1.25rem;
+		font-weight: 600;
+	}
+	
+	.nav-icon {
+		font-size: 1.6rem;
+		min-width: 1.6rem;
+	}
+	
+	/* FOOTER - Bien espacé */
 	.sidebar-footer {
-		padding-top: 0.625rem;
-		gap: 0.625rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1.5rem;
+		padding: 2rem 0 1.5rem;
 	}
-
+	
 	.theme-toggle {
-		width: 34px;
-		height: 34px;
-		font-size: 1.1rem;
+		width: 52px;
+		height: 52px;
+		font-size: 1.5rem;
 	}
-
-	.language-button {
-		width: 18px;
-		height: 18px;
-	}
-
+	
 	.language-selector {
-		gap: 0.25rem;
-		margin-top: 0.875rem;
-		padding-bottom: 0.25rem;
+		display: flex;
+		flex-direction: row;
+		gap: 1.25rem;
+		align-items: center;
+		justify-content: center;
+		margin-top: 0.75rem;
 	}
-
-	.container {
-		left: 60px;
-		right: 0;
-		width: auto;
+	
+	.language-button {
+		width: 32px;
+		height: 32px;
 	}
 }
 
@@ -699,9 +824,21 @@
 		padding-left: max(1rem, env(safe-area-inset-left));
 		padding-right: max(1rem, env(safe-area-inset-right));
 	}
-
+	
 	.container {
 		padding-right: env(safe-area-inset-right);
+	}
+	
+	.mobile-menu-button {
+		left: max(1rem, env(safe-area-inset-left));
+		top: max(1rem, env(safe-area-inset-top));
+	}
+	
+	@media (max-width: 768px) {
+		.sidebar {
+			padding-left: max(1.5rem, env(safe-area-inset-left));
+			padding-right: max(1.5rem, env(safe-area-inset-right));
+		}
 	}
 }
 </style>
