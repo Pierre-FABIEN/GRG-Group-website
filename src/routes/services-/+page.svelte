@@ -704,4 +704,28 @@
 		font-size: 0.8rem;
 	}
 }
+
+.card-title {
+	font-size: 2rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	margin: 0 0 0.5rem;
+	line-height: 1.2;
+	position: relative;  /* essentiel pour le ::before */
+	display: inline-block;  /* essentiel pour que le highlight suive la largeur du texte */
+	z-index: 2;
+}
+
+.card-title::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -4px;
+	width: 100%;
+	height: 80%;
+	background: url('image/highlight.png') center/contain no-repeat;
+	z-index: -1;
+	pointer-events: none;
+	opacity: 0.9;
+}
 </style>

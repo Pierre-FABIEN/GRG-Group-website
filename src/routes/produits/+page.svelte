@@ -742,4 +742,31 @@ const bentoItems = [
 		font-size: 0.75rem;
 	}
 }
+
+.card-title {
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+  line-height: 1.2;
+  position: relative;
+  display: inline-block;
+  z-index: 2;
+}
+
+.card-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 80%;
+  background: url('image/highlight.png') center/contain no-repeat;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+
 </style>
+

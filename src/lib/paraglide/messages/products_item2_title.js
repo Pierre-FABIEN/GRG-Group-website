@@ -10,7 +10,7 @@ const es_products_item2_title = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const fr_products_item2_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Recettes sur mesure`
+	return `Recettes`
 };
 
 /**

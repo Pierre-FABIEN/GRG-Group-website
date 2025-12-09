@@ -1,38 +1,38 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "home_item1_title": "Notre Histoire",
+  "home_item1_title": "Histoire",
   "home_item1_subtitle": "Depuis 2007",
   "home_item1_hoverText": "GRG Group Food & Beverage accompagne depuis plus de 15 ans les marques et porteurs de projet dans le développement de boissons et compléments alimentaires.",
-  "home_item1_icon": "✎",
+  "home_item1_icon": "",
   
   "home_item2_title": "Notre Mission",
   "home_item2_subtitle": "Création & Qualité",
   "home_item2_hoverText": "Nous combinons expertise scientifique et créativité pour concevoir des produits uniques et fiables, de la formulation à la production.",
-  "home_item2_icon": "🞋",
+  "home_item2_icon": "",
   
   "home_item3_title": "Notre Vision",
   "home_item3_subtitle": "Innovation & Accompagnement",
   "home_item3_hoverText": "Nous accompagnons marques et distributeurs dans chaque étape clé, avec flexibilité et rigueur, pour amener leurs idées sur le marché.",
-  "home_item3_icon": "☛",
+  "home_item3_icon": "",
   
   "home_item4_title": "FOOD",
-  "home_item4_subtitle": "AND BEVERAGE",
+  "home_item4_subtitle": "& BEVERAGE",
   "home_item4_hoverText": "Notre priorité : des produits de qualité, sûrs et conformes, qui répondent aux attentes des consommateurs et aux normes industrielles.",
-  "home_item4_icon": "🍽",
+  "home_item4_icon": "",
   
   "home_item5_title": "Notre Approche",
   "home_item5_subtitle": "Partenaire de vos projets",
   "home_item5_hoverText": "Nous travaillons main dans la main avec chaque client, pour transformer vos idées en produits concrets et prêts à commercialiser.",
-  "home_item5_icon": "➤",
+  "home_item5_icon": "",
 
   "contact_item1_title": "LinkedIn",
   "contact_item1_subtitle": "Rejoignez notre réseau",
-  "contact_item1_icon": "🅻",
+  "contact_item1_icon": "",
   "contact_item1_hoverText": "Visitez notre page <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a> pour suivre nos actualités.",
 
   "contact_item2_title": "Facebook GRG GROUPE",
   "contact_item2_subtitle": "Notre communauté",
-  "contact_item2_icon": "🅵",
+  "contact_item2_icon": "",
   "contact_item2_hoverText": "Rejoignez-nous sur <a href=\"https://www.facebook.com/GRFBSmilkteasupplies/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">Facebook</a> pour découvrir nos nouveautés.",
 
   "contact_item3_title": "AVIS CLIENT 1",
@@ -47,7 +47,7 @@
 
   "contact_item5_title": "Contact Email",
   "contact_item5_subtitle": "",
-  "contact_item5_icon": "✉",
+  "contact_item5_icon": "",
   "contact_item5_hoverText": "Envoyez un message à <a href=\"mailto:contact@grggroupe.com\" class=\"hover-link\">contact@grggroupe.com</a>",
 
 "products_item1_title": "Aluminium",
@@ -57,73 +57,73 @@
 "products_item1_link": "",
 
 
-  "products_item2_title": "Recettes sur mesure",
+  "products_item2_title": "Recettes",
   "products_item2_subtitle": "Création & formulation",
   "products_item2_hoverText": "Création de recettes boissons et compléments selon vos objectifs : énergie, bien-être, sport, focus ou sommeil. Nous réalisons mapping ingrédients, échantillons, fiches techniques et certificats d'analyse.",
-  "products_item2_icon": "☕︎",
+  "products_item2_icon": "",
 
-  "products_item3_title": "Compléments alimentaires",
+  "products_item3_title": "Compléments",
   "products_item3_subtitle": "Formules et formats variés",
   "products_item3_hoverText": "Développement de compléments en gélules, piluliers, poudres, shots ou gummies. Des solutions clés en main, prêtes à la mise en marché sous votre marque.",
-  "products_item3_icon": "❀",
+  "products_item3_icon": "",
 
-  "products_item4_title": "Conditionnement multi-format",
+  "products_item4_title": "Packaging",
   "products_item4_subtitle": "Canettes, bouteilles, sachets...",
   "products_item4_hoverText": "Production européenne flexible : canettes aluminium, bouteilles verre ou PET, sticks, sachets, piluliers... Standards qualité élevés et adaptation rapide aux besoins du marché.",
-  "products_item4_icon": "☑",
+  "products_item4_icon": "",
 
-  "products_item5_title": "Personnalisation & design",
+  "products_item5_title": "Design",
   "products_item5_subtitle": "Identité & packaging",
   "products_item5_hoverText": "Accompagnement graphique et packaging complet : conception visuelle, habillages de produits, étiquettes, PLV et supports numériques. Des solutions créatives prêtes à produire.",
-  "products_item5_icon": "🖌",
+  "products_item5_icon": "",
 
   "about_item1_title": "Notre Force",
   "about_item1_subtitle": "Agilité & Réactivité",
   "about_item1_hoverText": "Une approche agile, une structure réactive et des volumes de production accessibles, parfaitement adaptés aux lancements de marque, séries limitées ou extensions de gamme.",
-  "about_item1_icon": "🌩",
+  "about_item1_icon": "",
 
   "about_item2_title": "Création de Recettes",
   "about_item2_subtitle": "Boissons & Compléments",
   "about_item2_hoverText": "Nous réalisons le mapping des matières premières, les échantillons, les fiches techniques et les certificats d'analyse pour chaque produit.",
-  "about_item2_icon": "🍽",
+  "about_item2_icon": "",
 
   "about_item3_title": "Production en Marque Blanche",
   "about_item3_subtitle": "Formules éprouvées",
   "about_item3_hoverText": "Un catalogue de formules immédiatement personnalisables, adaptées à vos besoins de production et aux exigences du marché.",
-  "about_item3_icon": "𓇣",
+  "about_item3_icon": "",
 
   "about_item4_title": "Conception Visuelle",
   "about_item4_subtitle": "Packaging & Créativité",
   "about_item4_hoverText": "Des solutions créatives pour le packaging, avec la possibilité de déléguer partiellement ou totalement cette phase selon vos besoins.",
-  "about_item4_icon": "🖌",
+  "about_item4_icon": "",
 
   "about_item5_title": "Votre Partenaire",
   "about_item5_subtitle": "Accompagnement complet",
   "about_item5_hoverText": "GRG Group vous accompagne dans toutes les étapes du projet, de l'idée à la mise sur le marché, avec expertise et flexibilité.",
-  "about_item5_icon": "☑",
+  "about_item5_icon": "",
 
   "services_item1_title": "Formats & Conditionnements",
   "services_item1_subtitle": "",
   "services_item1_hoverText": "Nous proposons une large gamme de formats : canettes, bouteilles en verre ou PET, shots, piluliers et bien plus encore, pour s'adapter à chaque type de projet.",
-  "services_item1_icon": "☁",
+  "services_item1_icon": "",
 
   "services_item2_title": "Flexibilité Industrielle",
   "services_item2_subtitle": "Adaptation & Réactivité",
   "services_item2_hoverText": "Notre réseau industriel européen garantit une capacité d'adaptation rapide, pour répondre efficacement aux évolutions du marché et aux besoins spécifiques de chaque client.",
-  "services_item2_icon": "🖑",
+  "services_item2_icon": "",
 
   "services_item3_title": "Qualité & Sécurité",
   "services_item3_subtitle": "Normes Européennes",
   "services_item3_hoverText": "Nos sites partenaires respectent les standards de qualité les plus exigeants, assurant des produits sûrs, traçables et conformes aux réglementations internationales.",
-  "services_item3_icon": "🞥",
+  "services_item3_icon": "",
 
   "services_item4_title": "Production Multi-sites",
   "services_item4_subtitle": "Un réseau européen",
   "services_item4_hoverText": "Grâce à notre réseau industriel réparti sur plusieurs sites européens, nous assurons une continuité de production et une grande disponibilité logistique.",
-  "services_item4_icon": "⛟",
+  "services_item4_icon": "",
 
   "services_item5_title": "Accompagnement Technique",
   "services_item5_subtitle": "",
   "services_item5_hoverText": "De l'idée au produit fini : Nos équipes techniques accompagnent chaque étape du développement produit, du choix du format à la mise en production, avec un haut niveau d'expertise.",
-  "services_item5_icon": "🌩"
+  "services_item5_icon": ""
 }

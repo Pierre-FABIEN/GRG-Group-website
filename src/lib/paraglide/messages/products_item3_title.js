@@ -10,7 +10,7 @@ const es_products_item3_title = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const fr_products_item3_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Compléments alimentaires`
+	return `Compléments`
 };
 
 /**

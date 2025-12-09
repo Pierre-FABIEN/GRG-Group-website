@@ -1,38 +1,38 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "home_item1_title": "Nuestra Historia",
+  "home_item1_title": "Historia",
   "home_item1_subtitle": "Desde 2007",
   "home_item1_hoverText": "GRG Group Food & Beverage ha estado apoyando a marcas y líderes de proyectos durante más de 15 años en el desarrollo de bebidas y complementos alimenticios.",
-  "home_item1_icon": "✎",
+  "home_item1_icon": "",
   
   "home_item2_title": "Nuestra Misión",
   "home_item2_subtitle": "Creación & Calidad",
   "home_item2_hoverText": "Combinamos experiencia científica y creatividad para diseñar productos únicos y confiables, desde la formulación hasta la producción.",
-  "home_item2_icon": "🞋",
+  "home_item2_icon": "",
   
   "home_item3_title": "Nuestra Visión",
   "home_item3_subtitle": "Innovación & Apoyo",
   "home_item3_hoverText": "Apoyamos a marcas y distribuidores en cada paso clave, con flexibilidad y rigor, para llevar sus ideas al mercado.",
-  "home_item3_icon": "☛",
+  "home_item3_icon": "",
   
   "home_item4_title": "FOOD",
-  "home_item4_subtitle": "AND BEVERAGE",
+  "home_item4_subtitle": "& BEVERAGE",
   "home_item4_hoverText": "Nuestra prioridad: productos de calidad, seguros y conformes, que cumplen con las expectativas de los consumidores y los estándares de la industria.",
-  "home_item4_icon": "🍽",
+  "home_item4_icon": "",
   
   "home_item5_title": "Nuestro Enfoque",
   "home_item5_subtitle": "Su Socio de Proyecto",
   "home_item5_hoverText": "Trabajamos mano a mano con cada cliente para transformar sus ideas en productos concretos y listos para el mercado.",
-  "home_item5_icon": "➤",
+  "home_item5_icon": "",
 
   "contact_item1_title": "LinkedIn",
   "contact_item1_subtitle": "Únase a nuestra red",
-  "contact_item1_icon": "🅻",
+  "contact_item1_icon": "",
   "contact_item1_hoverText": "Visite nuestra página de <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a> para seguir nuestras noticias.",
 
   "contact_item2_title": "Facebook GRG GRUPO",
   "contact_item2_subtitle": "Nuestra comunidad",
-  "contact_item2_icon": "🅵",
+  "contact_item2_icon": "",
   "contact_item2_hoverText": "Únase a nosotros en <a href=\"https://www.facebook.com/GRFBSmilkteasupplies/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">Facebook</a> para descubrir nuestras novedades.",
 
   "contact_item3_title": "OPINIÓN CLIENTE 1",
@@ -47,7 +47,7 @@
 
   "contact_item5_title": "Contacto por Email",
   "contact_item5_subtitle": "",
-  "contact_item5_icon": "✉",
+  "contact_item5_icon": "",
   "contact_item5_hoverText": "Envíe un mensaje a <a href=\"mailto:contact@grggroupe.com\" class=\"hover-link\">contact@grggroupe.com</a>",
 
 "products_item1_title": "Aluminio",
@@ -60,70 +60,70 @@
   "products_item2_title": "Recetas Personalizadas",
   "products_item2_subtitle": "Creación & formulación",
   "products_item2_hoverText": "Creación de recetas de bebidas y complementos según sus objetivos: energía, bienestar, deporte, concentración o sueño. Realizamos mapeo de ingredientes, muestras, fichas técnicas y certificados de análisis.",
-  "products_item2_icon": "☕︎",
+  "products_item2_icon": "",
 
   "products_item3_title": "Complementos Alimenticios",
   "products_item3_subtitle": "Fórmulas y formatos variados",
   "products_item3_hoverText": "Desarrollo de complementos en cápsulas, pastilleros, polvos, shots o gomitas. Soluciones llave en mano, listas para su lanzamiento al mercado bajo su marca.",
-  "products_item3_icon": "❀",
+  "products_item3_icon": "",
 
   "products_item4_title": "Envasado Multiformato",
   "products_item4_subtitle": "Latas, botellas, sobres...",
   "products_item4_hoverText": "Producción europea flexible: latas de aluminio, botellas de vidrio o PET, sticks, sobres, pastilleros... Altos estándares de calidad y rápida adaptación a las necesidades del mercado.",
-  "products_item4_icon": "☑",
+  "products_item4_icon": "",
 
   "products_item5_title": "Personalización & Diseño",
   "products_item5_subtitle": "Identidad & packaging",
   "products_item5_hoverText": "Acompañamiento gráfico y packaging completo: diseño visual, branding de productos, etiquetas, materiales POS y soportes digitales. Soluciones creativas listas para producir.",
-  "products_item5_icon": "🖌",
+  "products_item5_icon": "",
 
   "about_item1_title": "Nuestra Fuerza",
   "about_item1_subtitle": "Agilidad & Reactividad",
   "about_item1_hoverText": "Un enfoque ágil, una estructura reactiva y volúmenes de producción accesibles, perfectamente adaptados a lanzamientos de marca, series limitadas o extensiones de gama.",
-  "about_item1_icon": "🌩",
+  "about_item1_icon": "",
 
   "about_item2_title": "Creación de Recetas",
   "about_item2_subtitle": "Bebidas & Complementos",
   "about_item2_hoverText": "Realizamos el mapeo de materias primas, muestras, fichas técnicas y certificados de análisis para cada producto.",
-  "about_item2_icon": "🍽",
+  "about_item2_icon": "",
 
   "about_item3_title": "Producción en Marca Blanca",
   "about_item3_subtitle": "Fórmulas probadas",
   "about_item3_hoverText": "Un catálogo de fórmulas inmediatamente personalizables, adaptadas a sus necesidades de producción y exigencias del mercado.",
-  "about_item3_icon": "𓇣",
+  "about_item3_icon": "",
 
   "about_item4_title": "Diseño Visual",
   "about_item4_subtitle": "Packaging & Creatividad",
   "about_item4_hoverText": "Soluciones creativas para el packaging, con posibilidad de delegar parcial o totalmente esta fase según sus necesidades.",
-  "about_item4_icon": "🖌",
+  "about_item4_icon": "",
 
   "about_item5_title": "Su Partner",
   "about_item5_subtitle": "Acompañamiento completo",
   "about_item5_hoverText": "GRG Group le acompaña en todas las etapas del proyecto, desde la idea hasta la puesta en el mercado, con experiencia y flexibilidad.",
-  "about_item5_icon": "☑",
+  "about_item5_icon": "",
 
   "services_item1_title": "Formatos & Envases",
   "services_item1_subtitle": "",
   "services_item1_hoverText": "Ofrecemos una amplia gama de formatos: latas, botellas de vidrio o PET, shots, pastilleros y mucho más, para adaptarse a cada tipo de proyecto.",
-  "services_item1_icon": "☁",
+  "services_item1_icon": "",
 
   "services_item2_title": "Flexibilidad Industrial",
   "services_item2_subtitle": "Adaptación & Reactividad",
   "services_item2_hoverText": "Nuestra red industrial europea garantiza capacidad de adaptación rápida, para responder eficazmente a la evolución del mercado y necesidades específicas de cada cliente.",
-  "services_item2_icon": "🖑",
+  "services_item2_icon": "",
 
   "services_item3_title": "Calidad & Seguridad",
   "services_item3_subtitle": "Normas Europeas",
   "services_item3_hoverText": "Nuestros sitios asociados respetan los estándares de calidad más exigentes, asegurando productos seguros, trazables y conformes con regulaciones internacionales.",
-  "services_item3_icon": "🞥",
+  "services_item3_icon": "",
 
   "services_item4_title": "Producción Multi-sitio",
   "services_item4_subtitle": "Una red europea",
   "services_item4_hoverText": "Gracias a nuestra red industrial distribuida en varios sitios europeos, aseguramos continuidad de producción y alta disponibilidad logística.",
-  "services_item4_icon": "⛟",
+  "services_item4_icon": "",
 
   "services_item5_title": "Acompañamiento Técnico",
   "services_item5_subtitle": "",
   "services_item5_hoverText": "De la idea al producto terminado: Nuestros equipos técnicos acompañan cada etapa del desarrollo del producto, desde la elección del formato hasta la puesta en producción, con alto nivel de experiencia.",
-  "services_item5_icon": "🌩"
+  "services_item5_icon": ""
 }
