@@ -2,7 +2,7 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_home_item1_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Story`
+	return `History`
 };
 
 const es_home_item1_title = /** @type {(inputs: {}) => string} */ () => {
@@ -11,6 +11,14 @@ const es_home_item1_title = /** @type {(inputs: {}) => string} */ () => {
 
 const fr_home_item1_title = /** @type {(inputs: {}) => string} */ () => {
 	return `Histoire`
+};
+
+const de_home_item1_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Geschichte`
+};
+
+const it_home_item1_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Storia`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_home_item1_title = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,5 +42,7 @@ export const home_item1_title = (inputs = {}, options = {}) => {
 	trackMessageCall("home_item1_title", locale)
 	if (locale === "en") return en_home_item1_title(inputs)
 	if (locale === "es") return es_home_item1_title(inputs)
-	return fr_home_item1_title(inputs)
+	if (locale === "fr") return fr_home_item1_title(inputs)
+	if (locale === "de") return de_home_item1_title(inputs)
+	return it_home_item1_title(inputs)
 };

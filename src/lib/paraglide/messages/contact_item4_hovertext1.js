@@ -2,15 +2,23 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_contact_item4_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Discover the feedback from our satisfied customers and their collaboration with our team.`
+	return `Discover the feedback and experiences of our satisfied clients and their collaboration with our team.`
 };
 
 const es_contact_item4_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Descubra los comentarios de nuestros clientes satisfechos y su colaboración con nuestro equipo.`
+	return `Descubra los comentarios y experiencias de nuestros clientes satisfechos y su colaboración con nuestro equipo.`
 };
 
 const fr_contact_item4_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 	return `Découvrez les retours d'expérience de nos clients satisfaits et leur collaboration avec notre équipe.`
+};
+
+const de_contact_item4_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Entdecken Sie die Rückmeldungen und Erfahrungen unserer zufriedenen Kunden und ihre Zusammenarbeit mit unserem Team.`
+};
+
+const it_contact_item4_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Scopri i feedback e le esperienze dei nostri clienti soddisfatti e la loro collaborazione con il nostro team.`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_contact_item4_hovertext1 = /** @type {(inputs: {}) => string} */ () => 
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,6 +42,8 @@ const contact_item4_hovertext1 = (inputs = {}, options = {}) => {
 	trackMessageCall("contact_item4_hovertext1", locale)
 	if (locale === "en") return en_contact_item4_hovertext1(inputs)
 	if (locale === "es") return es_contact_item4_hovertext1(inputs)
-	return fr_contact_item4_hovertext1(inputs)
+	if (locale === "fr") return fr_contact_item4_hovertext1(inputs)
+	if (locale === "de") return de_contact_item4_hovertext1(inputs)
+	return it_contact_item4_hovertext1(inputs)
 };
 export { contact_item4_hovertext1 as "contact_item4_hoverText" }

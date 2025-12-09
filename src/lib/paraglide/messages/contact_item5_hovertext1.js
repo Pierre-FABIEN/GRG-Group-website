@@ -13,6 +13,14 @@ const fr_contact_item5_hovertext1 = /** @type {(inputs: {}) => string} */ () => 
 	return `Envoyez un message à <a href="mailto:contact@grggroupe.com" class="hover-link">contact@grggroupe.com</a>`
 };
 
+const de_contact_item5_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Senden Sie eine Nachricht an <a href="mailto:contact@grggroupe.com" class="hover-link">contact@grggroupe.com</a>`
+};
+
+const it_contact_item5_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Invia un messaggio a <a href="mailto:contact@grggroupe.com" class="hover-link">contact@grggroupe.com</a>`
+};
+
 /**
 * This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
 *
@@ -22,7 +30,7 @@ const fr_contact_item5_hovertext1 = /** @type {(inputs: {}) => string} */ () => 
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,6 +42,8 @@ const contact_item5_hovertext1 = (inputs = {}, options = {}) => {
 	trackMessageCall("contact_item5_hovertext1", locale)
 	if (locale === "en") return en_contact_item5_hovertext1(inputs)
 	if (locale === "es") return es_contact_item5_hovertext1(inputs)
-	return fr_contact_item5_hovertext1(inputs)
+	if (locale === "fr") return fr_contact_item5_hovertext1(inputs)
+	if (locale === "de") return de_contact_item5_hovertext1(inputs)
+	return it_contact_item5_hovertext1(inputs)
 };
 export { contact_item5_hovertext1 as "contact_item5_hoverText" }

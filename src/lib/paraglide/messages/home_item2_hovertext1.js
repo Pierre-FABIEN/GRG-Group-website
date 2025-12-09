@@ -6,11 +6,19 @@ const en_home_item2_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const es_home_item2_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Combinamos experiencia científica y creatividad para diseñar productos únicos y confiables, desde la formulación hasta la producción.`
+	return `Combinamos experiencia científica y creatividad para diseñar productos únicos y fiables, desde la formulación hasta la producción.`
 };
 
 const fr_home_item2_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 	return `Nous combinons expertise scientifique et créativité pour concevoir des produits uniques et fiables, de la formulation à la production.`
+};
+
+const de_home_item2_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Wir verbinden wissenschaftliche Expertise und Kreativität, um einzigartige und zuverlässige Produkte zu entwickeln – von der Formulierung bis zur Produktion.`
+};
+
+const it_home_item2_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Combiniamo competenza scientifica e creatività per progettare prodotti unici e affidabili, dalla formulazione alla produzione.`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_home_item2_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,6 +42,8 @@ const home_item2_hovertext1 = (inputs = {}, options = {}) => {
 	trackMessageCall("home_item2_hovertext1", locale)
 	if (locale === "en") return en_home_item2_hovertext1(inputs)
 	if (locale === "es") return es_home_item2_hovertext1(inputs)
-	return fr_home_item2_hovertext1(inputs)
+	if (locale === "fr") return fr_home_item2_hovertext1(inputs)
+	if (locale === "de") return de_home_item2_hovertext1(inputs)
+	return it_home_item2_hovertext1(inputs)
 };
 export { home_item2_hovertext1 as "home_item2_hoverText" }

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "home_item1_title": "Geschichte",
+  "home_item1_subtitle": "Seit 2007",
+  "home_item1_hoverText": "Seit über 15 Jahren begleitet GRG Groupe Food & Beverage Marken und Projektinitiatoren bei der Entwicklung von Getränken und Nahrungsergänzungsmitteln.",
+  "home_item1_icon": "",
+
+  "home_item2_title": "Unsere Mission",
+  "home_item2_subtitle": "Schöpfung & Qualität",
+  "home_item2_hoverText": "Wir verbinden wissenschaftliche Expertise und Kreativität, um einzigartige und zuverlässige Produkte zu entwickeln – von der Formulierung bis zur Produktion.",
+  "home_item2_icon": "",
+
+  "home_item3_title": "Unsere Vision",
+  "home_item3_subtitle": "Innovation & Begleitung",
+  "home_item3_hoverText": "Wir begleiten Marken und Händler in jeder wichtigen Phase – flexibel und konsequent –, um ihre Ideen auf den Markt zu bringen.",
+  "home_item3_icon": "",
+
+  "home_item4_title": "FOOD",
+  "home_item4_subtitle": "& BEVERAGE",
+  "home_item4_hoverText": "Unsere Priorität: qualitativ hochwertige, sichere und konforme Produkte, die den Verbrauchererwartungen und Industriestandards entsprechen.",
+  "home_item4_icon": "",
+
+  "home_item5_title": "Unser Ansatz",
+  "home_item5_subtitle": "Ihr Projektpartner",
+  "home_item5_hoverText": "Wir arbeiten Hand in Hand mit jedem Kunden, um Ihre Ideen in konkrete, marktreife Produkte zu verwandeln.",
+  "home_item5_icon": "",
+
+  "contact_item1_title": "LinkedIn",
+  "contact_item1_subtitle": "Werden Sie Teil unseres Netzwerks",
+  "contact_item1_icon": "",
+  "contact_item1_hoverText": "Besuchen Sie unsere <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a>-Seite, um unseren Neuigkeiten zu folgen.",
+
+  "contact_item2_title": "Facebook GRG GROUPE",
+  "contact_item2_subtitle": "Unsere Community",
+  "contact_item2_icon": "",
+  "contact_item2_hoverText": "Begleiten Sie uns auf <a href=\"https://www.facebook.com/GRFBSmilkteasupplies/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">Facebook</a>, um unsere Neuigkeiten zu entdecken.",
+
+  "contact_item3_title": "KUNDENMEINUNG 1",
+  "contact_item3_subtitle": "Sie vertrauen uns",
+  "contact_item3_icon": "",
+  "contact_item3_hoverText": "Sie haben uns die Entwicklung ihrer Produkte anvertraut und teilen ihre Erfahrungen mit GRG Groupe.",
+
+  "contact_item4_title": "KUNDENMEINUNG 2",
+  "contact_item4_subtitle": "Referenzen & Rückmeldungen",
+  "contact_item4_icon": "",
+  "contact_item4_hoverText": "Entdecken Sie die Rückmeldungen und Erfahrungen unserer zufriedenen Kunden und ihre Zusammenarbeit mit unserem Team.",
+
+  "contact_item5_title": "E-Mail-Kontakt",
+  "contact_item5_subtitle": "",
+  "contact_item5_icon": "",
+  "contact_item5_hoverText": "Senden Sie eine Nachricht an <a href=\"mailto:contact@grggroupe.com\" class=\"hover-link\">contact@grggroupe.com</a>",
+
+  "products_item1_title": "Aluminium",
+  "products_item1_subtitle": "BPANI-Dosenlieferant",
+  "products_item1_hoverText": "Internationaler Lieferant von BPANI-Aluminiumdosen für White-Label-Lebensmittel- und Getränkeprodukte.",
+  "products_item1_icon": "",
+  "products_item1_link": "",
+
+  "products_item2_title": "Rezepturen",
+  "products_item2_subtitle": "Erstellung & Formulierung",
+  "products_item2_hoverText": "Erstellung von Getränke- und Nahrungsergänzungsrezepturen nach Ihren Zielen: Energie, Wohlbefinden, Sport, Fokus oder Schlaf. Wir erstellen Rohstoffkarten, Muster, technische Datenblätter und Analysezertifikate.",
+  "products_item2_icon": "",
+
+  "products_item3_title": "Nahrungsergänzungsmittel",
+  "products_item3_subtitle": "Verschiedene Formeln und Formate",
+  "products_item3_hoverText": "Entwicklung von Nahrungsergänzungsmitteln in Kapseln, Pillenboxen, Pulvern, Shots oder Gummis. Komplettlösungen, fertig für den Markteintritt unter Ihrer Marke.",
+  "products_item3_icon": "",
+
+  "products_item4_title": "Verpackung",
+  "products_item4_subtitle": "Dosen, Flaschen, Beutel...",
+  "products_item4_hoverText": "Flexible europäische Produktion: Aluminiumdosen, Glas- oder PET-Flaschen, Sticks, Beutel, Pillenboxen... Hohe Qualitätsstandards und schnelle Anpassung an Marktbedürfnisse.",
+  "products_item4_icon": "",
+
+  "products_item5_title": "Design",
+  "products_item5_subtitle": "Identität & Verpackung",
+  "products_item5_hoverText": "Umfassende grafische und Verpackungsunterstützung: visuelles Design, Produktgestaltung, Etiketten, POS-Material und digitale Medien. Kreative Lösungen, fertig für die Produktion.",
+  "products_item5_icon": "",
+
+  "about_item1_title": "Unsere Stärke",
+  "about_item1_subtitle": "Agilität & Reaktionsfähigkeit",
+  "about_item1_hoverText": "Ein agiler Ansatz, eine reaktionsfähige Struktur und zugängliche Produktionsmengen, perfekt geeignet für Markteinführungen, limitierte Auflagen oder Sortimentserweiterungen.",
+  "about_item1_icon": "",
+
+  "about_item2_title": "Rezepturen",
+  "about_item2_subtitle": "Getränke & Nahrungsergänzungsmittel",
+  "about_item2_hoverText": "Wir erstellen Rohstoffkarten, Muster, technische Datenblätter und Analysezertifikate für jedes Produkt.",
+  "about_item2_icon": "",
+
+  "about_item3_title": "White Label",
+  "about_item3_subtitle": "Bewährte Formeln",
+  "about_item3_hoverText": "Ein Katalog sofort anpassbarer Formeln, angepasst an Ihre Produktionsbedürfnisse und Marktanforderungen.",
+  "about_item3_icon": "",
+
+  "about_item4_title": "Konzeption",
+  "about_item4_subtitle": "Verpackung & Kreativität",
+  "about_item4_hoverText": "Kreative Lösungen für die Verpackung, mit der Möglichkeit, diese Phase je nach Bedarf teilweise oder vollständig zu delegieren.",
+  "about_item4_icon": "",
+
+  "about_item5_title": "Ihr Partner",
+  "about_item5_subtitle": "Umfassende Begleitung",
+  "about_item5_hoverText": "GRG Groupe begleitet Sie in allen Projektphasen – von der Idee bis zur Markteinführung – mit Expertise und Flexibilität.",
+  "about_item5_icon": "",
+
+  "services_item1_title": "Abpackung",
+  "services_item1_subtitle": "",
+  "services_item1_hoverText": "Wir bieten ein breites Spektrum an Formaten: Dosen, Glas- oder PET-Flaschen, Shots, Pillenboxen und vieles mehr, um uns an jede Projektart anzupassen.",
+  "services_item1_icon": "",
+
+  "services_item2_title": "Flexibilität",
+  "services_item2_subtitle": "Anpassung & Reaktionsfähigkeit",
+  "services_item2_hoverText": "Unser europäisches Industrienetzwerk gewährleistet schnelle Anpassungsfähigkeit, um effektiv auf Marktveränderungen und spezifische Kundenbedürfnisse zu reagieren.",
+  "services_item2_icon": "",
+
+  "services_item3_title": "Qualität & Sicherheit",
+  "services_item3_subtitle": "Europäische Normen",
+  "services_item3_hoverText": "Unsere Partnerstandorte halten die höchsten Qualitätsstandards ein und gewährleisten sichere, rückverfolgbare Produkte, die internationalen Vorschriften entsprechen.",
+  "services_item3_icon": "",
+
+  "services_item4_title": "Produktion",
+  "services_item4_subtitle": "Ein europäisches Netzwerk",
+  "services_item4_hoverText": "Dank unseres über mehrere europäische Standorte verteilten Industrienetzwerks gewährleisten wir Produktionskontinuität und hohe logistische Verfügbarkeit.",
+  "services_item4_icon": "",
+
+  "services_item5_title": "Begleitung",
+  "services_item5_subtitle": "",
+  "services_item5_hoverText": "Von der Idee zum fertigen Produkt: Unsere technischen Teams begleiten jede Phase der Produktentwicklung – von der Formatwahl bis zur Produktionsaufnahme – mit hoher Fachkompetenz.",
+  "services_item5_icon": ""
+}

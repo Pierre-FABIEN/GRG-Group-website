@@ -6,11 +6,19 @@ const en_home_item3_subtitle = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const es_home_item3_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `Innovación & Apoyo`
+	return `Innovación & Acompañamiento`
 };
 
 const fr_home_item3_subtitle = /** @type {(inputs: {}) => string} */ () => {
 	return `Innovation & Accompagnement`
+};
+
+const de_home_item3_subtitle = /** @type {(inputs: {}) => string} */ () => {
+	return `Innovation & Begleitung`
+};
+
+const it_home_item3_subtitle = /** @type {(inputs: {}) => string} */ () => {
+	return `Innovazione & Supporto`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_home_item3_subtitle = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,5 +42,7 @@ export const home_item3_subtitle = (inputs = {}, options = {}) => {
 	trackMessageCall("home_item3_subtitle", locale)
 	if (locale === "en") return en_home_item3_subtitle(inputs)
 	if (locale === "es") return es_home_item3_subtitle(inputs)
-	return fr_home_item3_subtitle(inputs)
+	if (locale === "fr") return fr_home_item3_subtitle(inputs)
+	if (locale === "de") return de_home_item3_subtitle(inputs)
+	return it_home_item3_subtitle(inputs)
 };

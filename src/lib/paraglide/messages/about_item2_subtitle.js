@@ -13,6 +13,14 @@ const fr_about_item2_subtitle = /** @type {(inputs: {}) => string} */ () => {
 	return `Boissons & Compléments`
 };
 
+const de_about_item2_subtitle = /** @type {(inputs: {}) => string} */ () => {
+	return `Getränke & Nahrungsergänzungsmittel`
+};
+
+const it_about_item2_subtitle = /** @type {(inputs: {}) => string} */ () => {
+	return `Bevande & Integratori`
+};
+
 /**
 * This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
 *
@@ -22,7 +30,7 @@ const fr_about_item2_subtitle = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,5 +42,7 @@ export const about_item2_subtitle = (inputs = {}, options = {}) => {
 	trackMessageCall("about_item2_subtitle", locale)
 	if (locale === "en") return en_about_item2_subtitle(inputs)
 	if (locale === "es") return es_about_item2_subtitle(inputs)
-	return fr_about_item2_subtitle(inputs)
+	if (locale === "fr") return fr_about_item2_subtitle(inputs)
+	if (locale === "de") return de_about_item2_subtitle(inputs)
+	return it_about_item2_subtitle(inputs)
 };

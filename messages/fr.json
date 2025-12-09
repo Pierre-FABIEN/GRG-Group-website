@@ -82,17 +82,17 @@
   "about_item1_hoverText": "Une approche agile, une structure réactive et des volumes de production accessibles, parfaitement adaptés aux lancements de marque, séries limitées ou extensions de gamme.",
   "about_item1_icon": "",
 
-  "about_item2_title": "Création de Recettes",
+  "about_item2_title": "Recettes",
   "about_item2_subtitle": "Boissons & Compléments",
   "about_item2_hoverText": "Nous réalisons le mapping des matières premières, les échantillons, les fiches techniques et les certificats d'analyse pour chaque produit.",
   "about_item2_icon": "",
 
-  "about_item3_title": "Production en Marque Blanche",
+  "about_item3_title": "Marque Blanche",
   "about_item3_subtitle": "Formules éprouvées",
   "about_item3_hoverText": "Un catalogue de formules immédiatement personnalisables, adaptées à vos besoins de production et aux exigences du marché.",
   "about_item3_icon": "",
 
-  "about_item4_title": "Conception Visuelle",
+  "about_item4_title": "Conception",
   "about_item4_subtitle": "Packaging & Créativité",
   "about_item4_hoverText": "Des solutions créatives pour le packaging, avec la possibilité de déléguer partiellement ou totalement cette phase selon vos besoins.",
   "about_item4_icon": "",
@@ -102,12 +102,12 @@
   "about_item5_hoverText": "GRG Groupe vous accompagne dans toutes les étapes du projet, de l'idée à la mise sur le marché, avec expertise et flexibilité.",
   "about_item5_icon": "",
 
-  "services_item1_title": "Formats & Conditionnements",
+  "services_item1_title": "Conditionnement",
   "services_item1_subtitle": "",
   "services_item1_hoverText": "Nous proposons une large gamme de formats : canettes, bouteilles en verre ou PET, shots, piluliers et bien plus encore, pour s'adapter à chaque type de projet.",
   "services_item1_icon": "",
 
-  "services_item2_title": "Flexibilité Industrielle",
+  "services_item2_title": "Flexibilité",
   "services_item2_subtitle": "Adaptation & Réactivité",
   "services_item2_hoverText": "Notre réseau industriel européen garantit une capacité d'adaptation rapide, pour répondre efficacement aux évolutions du marché et aux besoins spécifiques de chaque client.",
   "services_item2_icon": "",
@@ -117,12 +117,12 @@
   "services_item3_hoverText": "Nos sites partenaires respectent les standards de qualité les plus exigeants, assurant des produits sûrs, traçables et conformes aux réglementations internationales.",
   "services_item3_icon": "",
 
-  "services_item4_title": "Production Multi-sites",
+  "services_item4_title": "Production",
   "services_item4_subtitle": "Un réseau européen",
   "services_item4_hoverText": "Grâce à notre réseau industriel réparti sur plusieurs sites européens, nous assurons une continuité de production et une grande disponibilité logistique.",
   "services_item4_icon": "",
 
-  "services_item5_title": "Accompagnement Technique",
+  "services_item5_title": "Accompagnement",
   "services_item5_subtitle": "",
   "services_item5_hoverText": "De l'idée au produit fini : Nos équipes techniques accompagnent chaque étape du développement produit, du choix du format à la mise en production, avec un haut niveau d'expertise.",
   "services_item5_icon": ""

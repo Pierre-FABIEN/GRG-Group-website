@@ -2,7 +2,7 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_products_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `Cans, bottles, sachets...`
+	return `Cans, bottles, pouches...`
 };
 
 const es_products_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
@@ -11,6 +11,14 @@ const es_products_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
 
 const fr_products_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
 	return `Canettes, bouteilles, sachets...`
+};
+
+const de_products_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
+	return `Dosen, Flaschen, Beutel...`
+};
+
+const it_products_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
+	return `Lattine, bottiglie, bustine...`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_products_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,5 +42,7 @@ export const products_item4_subtitle = (inputs = {}, options = {}) => {
 	trackMessageCall("products_item4_subtitle", locale)
 	if (locale === "en") return en_products_item4_subtitle(inputs)
 	if (locale === "es") return es_products_item4_subtitle(inputs)
-	return fr_products_item4_subtitle(inputs)
+	if (locale === "fr") return fr_products_item4_subtitle(inputs)
+	if (locale === "de") return de_products_item4_subtitle(inputs)
+	return it_products_item4_subtitle(inputs)
 };

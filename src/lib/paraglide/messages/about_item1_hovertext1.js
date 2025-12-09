@@ -2,15 +2,23 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_about_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `An agile approach, a reactive structure and accessible production volumes, perfectly adapted to brand launches, limited editions or product line extensions.`
+	return `An agile approach, a responsive structure, and accessible production volumes, perfectly suited for brand launches, limited editions, or product line extensions.`
 };
 
 const es_about_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Un enfoque ágil, una estructura reactiva y volúmenes de producción accesibles, perfectamente adaptados a lanzamientos de marca, series limitadas o extensiones de gama.`
+	return `Un enfoque ágil, una estructura reactiva y volúmenes de producción accesibles, perfectamente adaptados a lanzamientos de marca, series limitadas o ampliaciones de gama.`
 };
 
 const fr_about_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 	return `Une approche agile, une structure réactive et des volumes de production accessibles, parfaitement adaptés aux lancements de marque, séries limitées ou extensions de gamme.`
+};
+
+const de_about_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Ein agiler Ansatz, eine reaktionsfähige Struktur und zugängliche Produktionsmengen, perfekt geeignet für Markteinführungen, limitierte Auflagen oder Sortimentserweiterungen.`
+};
+
+const it_about_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Un approccio agile, una struttura reattiva e volumi di produzione accessibili, perfettamente adatti a lanci di marca, serie limitate o estensioni di gamma.`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_about_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,6 +42,8 @@ const about_item1_hovertext1 = (inputs = {}, options = {}) => {
 	trackMessageCall("about_item1_hovertext1", locale)
 	if (locale === "en") return en_about_item1_hovertext1(inputs)
 	if (locale === "es") return es_about_item1_hovertext1(inputs)
-	return fr_about_item1_hovertext1(inputs)
+	if (locale === "fr") return fr_about_item1_hovertext1(inputs)
+	if (locale === "de") return de_about_item1_hovertext1(inputs)
+	return it_about_item1_hovertext1(inputs)
 };
 export { about_item1_hovertext1 as "about_item1_hoverText" }

@@ -2,14 +2,22 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_contact_item2_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Facebook GRG GROUP`
+	return `Facebook GRG GROUPE`
 };
 
 const es_contact_item2_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Facebook GRG GRUPO`
+	return `Facebook GRG GROUPE`
 };
 
 const fr_contact_item2_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Facebook GRG GROUPE`
+};
+
+const de_contact_item2_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Facebook GRG GROUPE`
+};
+
+const it_contact_item2_title = /** @type {(inputs: {}) => string} */ () => {
 	return `Facebook GRG GROUPE`
 };
 
@@ -22,7 +30,7 @@ const fr_contact_item2_title = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,5 +42,7 @@ export const contact_item2_title = (inputs = {}, options = {}) => {
 	trackMessageCall("contact_item2_title", locale)
 	if (locale === "en") return en_contact_item2_title(inputs)
 	if (locale === "es") return es_contact_item2_title(inputs)
-	return fr_contact_item2_title(inputs)
+	if (locale === "fr") return fr_contact_item2_title(inputs)
+	if (locale === "de") return de_contact_item2_title(inputs)
+	return it_contact_item2_title(inputs)
 };

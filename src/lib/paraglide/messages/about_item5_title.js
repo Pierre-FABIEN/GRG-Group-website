@@ -6,11 +6,19 @@ const en_about_item5_title = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const es_about_item5_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Su Partner`
+	return `Su Socio`
 };
 
 const fr_about_item5_title = /** @type {(inputs: {}) => string} */ () => {
 	return `Votre Partenaire`
+};
+
+const de_about_item5_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Ihr Partner`
+};
+
+const it_about_item5_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Il Vostro Partner`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_about_item5_title = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,5 +42,7 @@ export const about_item5_title = (inputs = {}, options = {}) => {
 	trackMessageCall("about_item5_title", locale)
 	if (locale === "en") return en_about_item5_title(inputs)
 	if (locale === "es") return es_about_item5_title(inputs)
-	return fr_about_item5_title(inputs)
+	if (locale === "fr") return fr_about_item5_title(inputs)
+	if (locale === "de") return de_about_item5_title(inputs)
+	return it_about_item5_title(inputs)
 };

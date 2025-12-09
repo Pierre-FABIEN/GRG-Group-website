@@ -2,15 +2,23 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_services_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Multi-site Production`
+	return `Production`
 };
 
 const es_services_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Producción Multi-sitio`
+	return `Producción`
 };
 
 const fr_services_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Production Multi-sites`
+	return `Production`
+};
+
+const de_services_item4_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Produktion`
+};
+
+const it_services_item4_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Produzione`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_services_item4_title = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,5 +42,7 @@ export const services_item4_title = (inputs = {}, options = {}) => {
 	trackMessageCall("services_item4_title", locale)
 	if (locale === "en") return en_services_item4_title(inputs)
 	if (locale === "es") return es_services_item4_title(inputs)
-	return fr_services_item4_title(inputs)
+	if (locale === "fr") return fr_services_item4_title(inputs)
+	if (locale === "de") return de_services_item4_title(inputs)
+	return it_services_item4_title(inputs)
 };

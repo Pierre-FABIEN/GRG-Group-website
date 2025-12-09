@@ -6,11 +6,19 @@ const en_home_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const es_home_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Apoyamos a marcas y distribuidores en cada paso clave, con flexibilidad y rigor, para llevar sus ideas al mercado.`
+	return `Acompañamos a marcas y distribuidores en cada etapa clave, con flexibilidad y rigor, para llevar sus ideas al mercado.`
 };
 
 const fr_home_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 	return `Nous accompagnons marques et distributeurs dans chaque étape clé, avec flexibilité et rigueur, pour amener leurs idées sur le marché.`
+};
+
+const de_home_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Wir begleiten Marken und Händler in jeder wichtigen Phase – flexibel und konsequent –, um ihre Ideen auf den Markt zu bringen.`
+};
+
+const it_home_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Accompagniamo marchi e distributori in ogni fase chiave, con flessibilità e rigore, per portare le loro idee sul mercato.`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_home_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,6 +42,8 @@ const home_item3_hovertext1 = (inputs = {}, options = {}) => {
 	trackMessageCall("home_item3_hovertext1", locale)
 	if (locale === "en") return en_home_item3_hovertext1(inputs)
 	if (locale === "es") return es_home_item3_hovertext1(inputs)
-	return fr_home_item3_hovertext1(inputs)
+	if (locale === "fr") return fr_home_item3_hovertext1(inputs)
+	if (locale === "de") return de_home_item3_hovertext1(inputs)
+	return it_home_item3_hovertext1(inputs)
 };
 export { home_item3_hovertext1 as "home_item3_hoverText" }

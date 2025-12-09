@@ -2,15 +2,23 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `GRG Group Food & Beverage has been supporting brands and project leaders for over 15 years in the development of beverages and dietary supplements.`
+	return `For over 15 years, GRG Groupe Food & Beverage has been supporting brands and project leaders in the development of beverages and food supplements.`
 };
 
 const es_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `GRG Group Food & Beverage ha estado apoyando a marcas y líderes de proyectos durante más de 15 años en el desarrollo de bebidas y complementos alimenticios.`
+	return `Durante más de 15 años, GRG Groupe Food & Beverage ha acompañado a marcas y promotores de proyectos en el desarrollo de bebidas y complementos alimenticios.`
 };
 
 const fr_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 	return `GRG Groupe Food & Beverage accompagne depuis plus de 15 ans les marques et porteurs de projet dans le développement de boissons et compléments alimentaires.`
+};
+
+const de_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Seit über 15 Jahren begleitet GRG Groupe Food & Beverage Marken und Projektinitiatoren bei der Entwicklung von Getränken und Nahrungsergänzungsmitteln.`
+};
+
+const it_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Da oltre 15 anni, GRG Groupe Food & Beverage accompagna marchi e promotori di progetti nello sviluppo di bevande e integratori alimentari.`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,6 +42,8 @@ const home_item1_hovertext1 = (inputs = {}, options = {}) => {
 	trackMessageCall("home_item1_hovertext1", locale)
 	if (locale === "en") return en_home_item1_hovertext1(inputs)
 	if (locale === "es") return es_home_item1_hovertext1(inputs)
-	return fr_home_item1_hovertext1(inputs)
+	if (locale === "fr") return fr_home_item1_hovertext1(inputs)
+	if (locale === "de") return de_home_item1_hovertext1(inputs)
+	return it_home_item1_hovertext1(inputs)
 };
 export { home_item1_hovertext1 as "home_item1_hoverText" }

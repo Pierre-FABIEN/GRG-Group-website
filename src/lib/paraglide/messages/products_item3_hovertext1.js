@@ -2,15 +2,23 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_products_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Development of supplements in capsules, pill organizers, powders, shots or gummies. Turnkey solutions, ready for market launch under your brand.`
+	return `Development of supplements in capsules, pill organizers, powders, shots, or gummies. Turnkey solutions, ready for market launch under your brand.`
 };
 
 const es_products_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Desarrollo de complementos en cápsulas, pastilleros, polvos, shots o gomitas. Soluciones llave en mano, listas para su lanzamiento al mercado bajo su marca.`
+	return `Desarrollo de complementos en cápsulas, pastilleros, polvos, shots o gomitas. Soluciones llave en mano, listas para la puesta en el mercado bajo su marca.`
 };
 
 const fr_products_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 	return `Développement de compléments en gélules, piluliers, poudres, shots ou gummies. Des solutions clés en main, prêtes à la mise en marché sous votre marque.`
+};
+
+const de_products_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Entwicklung von Nahrungsergänzungsmitteln in Kapseln, Pillenboxen, Pulvern, Shots oder Gummis. Komplettlösungen, fertig für den Markteintritt unter Ihrer Marke.`
+};
+
+const it_products_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Sviluppo di integratori in capsule, portapillole, polveri, shot o gomme. Soluzioni chiavi in mano, pronte per il lancio sul mercato sotto il vostro marchio.`
 };
 
 /**
@@ -22,7 +30,7 @@ const fr_products_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () =>
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,6 +42,8 @@ const products_item3_hovertext1 = (inputs = {}, options = {}) => {
 	trackMessageCall("products_item3_hovertext1", locale)
 	if (locale === "en") return en_products_item3_hovertext1(inputs)
 	if (locale === "es") return es_products_item3_hovertext1(inputs)
-	return fr_products_item3_hovertext1(inputs)
+	if (locale === "fr") return fr_products_item3_hovertext1(inputs)
+	if (locale === "de") return de_products_item3_hovertext1(inputs)
+	return it_products_item3_hovertext1(inputs)
 };
 export { products_item3_hovertext1 as "products_item3_hoverText" }

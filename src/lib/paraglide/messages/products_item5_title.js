@@ -2,14 +2,22 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_products_item5_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Customization & Design`
+	return `Design`
 };
 
 const es_products_item5_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Personalización & Diseño`
+	return `Diseño`
 };
 
 const fr_products_item5_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Design`
+};
+
+const de_products_item5_title = /** @type {(inputs: {}) => string} */ () => {
+	return `Design`
+};
+
+const it_products_item5_title = /** @type {(inputs: {}) => string} */ () => {
 	return `Design`
 };
 
@@ -22,7 +30,7 @@ const fr_products_item5_title = /** @type {(inputs: {}) => string} */ () => {
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,5 +42,7 @@ export const products_item5_title = (inputs = {}, options = {}) => {
 	trackMessageCall("products_item5_title", locale)
 	if (locale === "en") return en_products_item5_title(inputs)
 	if (locale === "es") return es_products_item5_title(inputs)
-	return fr_products_item5_title(inputs)
+	if (locale === "fr") return fr_products_item5_title(inputs)
+	if (locale === "de") return de_products_item5_title(inputs)
+	return it_products_item5_title(inputs)
 };

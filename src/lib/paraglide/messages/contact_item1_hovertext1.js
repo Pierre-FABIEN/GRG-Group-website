@@ -13,6 +13,14 @@ const fr_contact_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => 
 	return `Visitez notre page <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a> pour suivre nos actualités.`
 };
 
+const de_contact_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Besuchen Sie unsere <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a>-Seite, um unseren Neuigkeiten zu folgen.`
+};
+
+const it_contact_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
+	return `Visita la nostra pagina <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a> per seguire le nostre novità.`
+};
+
 /**
 * This function has been compiled by [Paraglide JS](https://inlang.com/m/gerre34r).
 *
@@ -22,7 +30,7 @@ const fr_contact_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => 
 * use another inlang app like [Fink](https://inlang.com/m/tdozzpar) or the [VSCode extension Sherlock](https://inlang.com/m/r7kp499g).
 * 
 * @param {{}} inputs
-* @param {{ locale?: "en" | "es" | "fr" }} options
+* @param {{ locale?: "en" | "es" | "fr" | "de" | "it" }} options
 * @returns {string}
 */
 /* @__NO_SIDE_EFFECTS__ */
@@ -34,6 +42,8 @@ const contact_item1_hovertext1 = (inputs = {}, options = {}) => {
 	trackMessageCall("contact_item1_hovertext1", locale)
 	if (locale === "en") return en_contact_item1_hovertext1(inputs)
 	if (locale === "es") return es_contact_item1_hovertext1(inputs)
-	return fr_contact_item1_hovertext1(inputs)
+	if (locale === "fr") return fr_contact_item1_hovertext1(inputs)
+	if (locale === "de") return de_contact_item1_hovertext1(inputs)
+	return it_contact_item1_hovertext1(inputs)
 };
 export { contact_item1_hovertext1 as "contact_item1_hoverText" }
