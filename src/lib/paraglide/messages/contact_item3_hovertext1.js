@@ -10,7 +10,7 @@ const es_contact_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => 
 };
 
 const fr_contact_item3_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Ils nous ont faits confiance pour le développement de leurs produits et partagent leur expérience avec GRG Group.`
+	return `Ils nous ont faits confiance pour le développement de leurs produits et partagent leur expérience avec GRG Groupe.`
 };
 
 /**

@@ -10,7 +10,7 @@ const es_about_item5_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const fr_about_item5_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `GRG Group vous accompagne dans toutes les étapes du projet, de l'idée à la mise sur le marché, avec expertise et flexibilité.`
+	return `GRG Groupe vous accompagne dans toutes les étapes du projet, de l'idée à la mise sur le marché, avec expertise et flexibilité.`
 };
 
 /**

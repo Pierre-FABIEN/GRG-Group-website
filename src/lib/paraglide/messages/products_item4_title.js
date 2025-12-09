@@ -10,7 +10,7 @@ const es_products_item4_title = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const fr_products_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Conditionnement`
+	return `Packaging`
 };
 
 /**

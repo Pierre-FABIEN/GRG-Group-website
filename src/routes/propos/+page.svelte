@@ -677,6 +677,16 @@ const bentoItems = [
 		font-size: 0.8rem;
 	}
 }
+.card-title {
+	font-size: 2rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	margin: 0 0 0.5rem;
+	line-height: 1.2;
+	position: relative;  /* essentiel pour le ::before */
+	display: inline-block;  /* essentiel pour que le highlight suive la largeur du texte */
+	z-index: 2;
+}
 .card-title::before {
 	content: "";
 	position: absolute;

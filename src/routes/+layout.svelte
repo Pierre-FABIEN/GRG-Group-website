@@ -23,6 +23,8 @@
 	import Fr from '$lib/components/flag/Fr.svelte';
 	import En from '$lib/components/flag/En.svelte';
 	import Es from '$lib/components/flag/Es.svelte';
+	import It from '$lib/components/flag/It.svelte';
+	import De from '$lib/components/flag/De.svelte';
 	
 	// --- PROPS & STATE INCHANGÉS ---
 	let { children, data } = $props();
@@ -76,21 +78,21 @@
 	}
 
 	// État pour la langue active avec persistance
-	let currentLanguage = $state('fr');
+	let currentLanguage = $state<'fr' | 'en' | 'es' | 'it' | 'de'>('fr');
 
 	// Initialiser la langue depuis le localStorage
 	$effect(() => {
 		if (typeof window !== 'undefined') {
 			const savedLanguage = localStorage.getItem('selectedLanguage');
-			if (savedLanguage && ['fr', 'en', 'es'].includes(savedLanguage)) {
-				currentLanguage = savedLanguage as 'fr' | 'en' | 'es';
+			if (savedLanguage && ['fr', 'en', 'es', 'it', 'de'].includes(savedLanguage)) {
+				currentLanguage = savedLanguage as 'fr' | 'en' | 'es' | 'it' | 'de';
 				setLocale(savedLanguage);
 			}
 		}
 	});
 
 	// Traductions des éléments de menu
-	const translations = {
+	const translations: Record<string, {home:string, about:string, services:string, products:string, contact:string}> = {
 		fr: {
 			home: 'Accueil',
 			about: 'À propos',
@@ -111,10 +113,24 @@
 			services: 'Servicios',
 			products: 'Productos',
 			contact: 'Contacto'
+		},
+		it: {
+			home: 'Inizio',
+			about: 'Chi siamo',
+			services: 'Servizi',
+			products: 'Prodotti',
+			contact: 'Contatto'
+		},
+		de: {
+			home: 'Startseite',
+			about: 'Über uns',
+			services: 'Dienstleistungen',
+			products: 'Produkte',
+			contact: 'Kontakt'
 		}
 	};
 
-	function changeLanguage(lang: 'fr' | 'en' | 'es') {
+	function changeLanguage(lang: 'fr' | 'en' | 'es' | 'it' | 'de') {
 		currentLanguage = lang;
 		setLocale(lang);
 		// Sauvegarder la langue dans le localStorage
@@ -166,8 +182,10 @@
 		<aside class="sidebar" class:mobile-open={isMobileOpen}>
 			<div class="sidebar-header">
 				<div class="logo"> 
-					<img src="/image/path1.svg" alt="Logo"> 
+				<!-- svelte-ignore a11y_consider_explicit_label -->
+				<a href="https://bit.ly/GRG-Group-FnB" target="blank">	<img src="/image/path1.svg" alt="Logo"> </a>
 				</div>
+				
 			</div>
 			
 			<nav class="sidebar-nav">
@@ -226,6 +244,24 @@
 						type="button"
 						title="Español">
 						<Es/>
+					</button>
+
+					<button 
+						class="language-button"
+						class:active={currentLanguage === 'it'}
+						on:click={() => changeLanguage('it')}
+						type="button"
+						title="Italiano">
+						<It/>
+					</button>
+
+					<button 
+						class="language-button"
+						class:active={currentLanguage === 'de'}
+						on:click={() => changeLanguage('de')}
+						type="button"
+						title="Deutsch">
+						<De/>
 					</button>
 				</div>
 			</div>

@@ -2,7 +2,7 @@
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "home_item1_title": "Histoire",
   "home_item1_subtitle": "Depuis 2007",
-  "home_item1_hoverText": "GRG Group Food & Beverage accompagne depuis plus de 15 ans les marques et porteurs de projet dans le développement de boissons et compléments alimentaires.",
+  "home_item1_hoverText": "GRG Groupe Food & Beverage accompagne depuis plus de 15 ans les marques et porteurs de projet dans le développement de boissons et compléments alimentaires.",
   "home_item1_icon": "",
   
   "home_item2_title": "Notre Mission",
@@ -38,7 +38,7 @@
   "contact_item3_title": "AVIS CLIENT 1",
   "contact_item3_subtitle": "Ils nous font confiance",
   "contact_item3_icon": "",
-  "contact_item3_hoverText": "Ils nous ont faits confiance pour le développement de leurs produits et partagent leur expérience avec GRG Group.",
+  "contact_item3_hoverText": "Ils nous ont faits confiance pour le développement de leurs produits et partagent leur expérience avec GRG Groupe.",
 
   "contact_item4_title": "AVIS CLIENT 2",
   "contact_item4_subtitle": "Témoignages & retours",
@@ -99,7 +99,7 @@
 
   "about_item5_title": "Votre Partenaire",
   "about_item5_subtitle": "Accompagnement complet",
-  "about_item5_hoverText": "GRG Group vous accompagne dans toutes les étapes du projet, de l'idée à la mise sur le marché, avec expertise et flexibilité.",
+  "about_item5_hoverText": "GRG Groupe vous accompagne dans toutes les étapes du projet, de l'idée à la mise sur le marché, avec expertise et flexibilité.",
   "about_item5_icon": "",
 
   "services_item1_title": "Formats & Conditionnements",
