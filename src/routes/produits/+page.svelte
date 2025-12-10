@@ -6,14 +6,17 @@
 
 const bentoItems = [
     { 
-        id: 1, 
-        title: m.products_item1_title(),
-        subtitle: m.products_item1_subtitle(),
-        hoverText: m.products_item1_hoverText(),
-        icon: m.products_item1_icon(),
-        cardClass: 'card-1', 
-        row: 'top' 
-    },
+     
+    id: 1, 
+    title: '',        // ❌ On n'affiche plus de texte
+    subtitle: m.products_item1_subtitle(),     // (tu peux laisser ou virer)
+    image: '/image/aluminium.png',   // ✅ Ton logo PNG à la racine
+    hoverText: m.products_item5_hoverText(),
+    icon: '',         // ou garde-le si tu veux l’utiliser ailleurs
+    cardClass: 'card-1', 
+    row: 'top' 
+},
+
     { 
         id: 2, 
         title: m.products_item2_title(),
@@ -142,10 +145,22 @@ const bentoItems = [
 				style="flex: {hoveredCard === item.id ? (item.double ? '3 1 0' : '2 1 0') : (item.double ? '2 1 0' : '1 1 0')}"
 			>
 				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-					<div class="card-icon">{item.icon}</div>
-					<h3 class="card-title">{item.title}</h3>
-					<p class="card-subtitle">{item.subtitle}</p>
-				</div>
+
+   {#if item.image}
+    <img class="card-title-image" src={item.image} alt={item.title} />
+
+    <!-- AJOUT pour afficher le subtitle même si image -->
+    <p class="card-subtitle">{item.subtitle}</p>
+
+{:else}
+    <div class="card-icon">{item.icon}</div>
+    <h3 class="card-title">{item.title}</h3>
+    <p class="card-subtitle">{item.subtitle}</p>
+{/if}
+
+
+</div>
+
 
 				<div class="card-hover-content" class:show={hoveredCard === item.id}>
 					{#if item.id === 1 || item.id === 2 || item.id === 3}
@@ -765,6 +780,17 @@ const bentoItems = [
   z-index: -1;
   pointer-events: none;
   opacity: 0.9;
+}
+.card-logo {
+    width: 80px;
+    height: auto;
+    margin-bottom: 1rem;
+    object-fit: contain;
+    filter: brightness(0); /* s'adapte comme card-4/5 */
+}
+
+:global(.dark) .card-logo {
+    filter: brightness(0) invert(1); /* version blanche en dark mode */
 }
 
 

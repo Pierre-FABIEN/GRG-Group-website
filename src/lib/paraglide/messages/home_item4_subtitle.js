@@ -2,23 +2,23 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_home_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `& BEVERAGE`
+	return `FOOD & BEVERAGE`
 };
 
 const es_home_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `& BEVERAGE`
+	return `FOOD & BEVERAGE`
 };
 
 const fr_home_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `& BEVERAGE`
+	return `FOOD & BEVERAGE`
 };
 
 const de_home_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `& BEVERAGE`
+	return `FOOD & BEVERAGE`
 };
 
 const it_home_item4_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `& BEVERAGE`
+	return `FOOD & BEVERAGE`
 };
 
 /**

@@ -6,7 +6,7 @@ const en_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const es_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Durante más de 15 años, GRG Groupe Food & Beverage ha acompañado a marcas y promotores de proyectos en el desarrollo de bebidas y complementos alimenticios.`
+	return `Desde hace más de 15 años, GRG Groupe Food & Beverage acompaña a marcas y promotores de proyectos en el desarrollo de bebidas y complementos alimenticios.`
 };
 
 const fr_home_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {

@@ -6,19 +6,19 @@ const en_contact_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => 
 };
 
 const es_contact_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Visite nuestra página de <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a> para seguir nuestras noticias.`
+	return `Únase a nuestra red: visite nuestra página <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a> para seguir nuestras noticias.`
 };
 
 const fr_contact_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Visitez notre page <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a> pour suivre nos actualités.`
+	return `Rejoignez notre réseau : visitez notre page <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a> pour suivre nos actualités.`
 };
 
 const de_contact_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Besuchen Sie unsere <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a>-Seite, um unseren Neuigkeiten zu folgen.`
+	return `Werden Sie Teil unseres Netzwerks: Besuchen Sie unsere <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a>-Seite, um unseren Neuigkeiten zu folgen.`
 };
 
 const it_contact_item1_hovertext1 = /** @type {(inputs: {}) => string} */ () => {
-	return `Visita la nostra pagina <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a> per seguire le nostre novità.`
+	return `Unisciti alla nostra rete: visita la nostra pagina <a href="https://www.linkedin.com/company/grg-groupe-sarl/" target="_blank" rel="noopener noreferrer" class="hover-link">LinkedIn</a> per seguire le nostre novità.`
 };
 
 /**

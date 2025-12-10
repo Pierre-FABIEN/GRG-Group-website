@@ -4,31 +4,31 @@
   "home_item1_subtitle": "Dal 2007",
   "home_item1_hoverText": "Da oltre 15 anni, GRG Groupe Food & Beverage accompagna marchi e promotori di progetti nello sviluppo di bevande e integratori alimentari.",
   "home_item1_icon": "",
-
+  
   "home_item2_title": "La Nostra Missione",
   "home_item2_subtitle": "Creazione & Qualità",
   "home_item2_hoverText": "Combiniamo competenza scientifica e creatività per progettare prodotti unici e affidabili, dalla formulazione alla produzione.",
   "home_item2_icon": "",
-
+  
   "home_item3_title": "La Nostra Visione",
   "home_item3_subtitle": "Innovazione & Supporto",
   "home_item3_hoverText": "Accompagniamo marchi e distributori in ogni fase chiave, con flessibilità e rigore, per portare le loro idee sul mercato.",
   "home_item3_icon": "",
-
-  "home_item4_title": "FOOD",
-  "home_item4_subtitle": "& BEVERAGE",
+  
+  "home_item4_title": "Flavor House - Produzione Rete IFS",
+  "home_item4_subtitle": "FOOD & BEVERAGE",
   "home_item4_hoverText": "La nostra priorità: prodotti di qualità, sicuri e conformi, che rispondono alle aspettative dei consumatori e alle norme industriali.",
   "home_item4_icon": "",
-
+  
   "home_item5_title": "Il Nostro Approccio",
   "home_item5_subtitle": "Partner dei vostri progetti",
   "home_item5_hoverText": "Lavoriamo a stretto contatto con ogni cliente, per trasformare le vostre idee in prodotti concreti e pronti per la commercializzazione.",
   "home_item5_icon": "",
 
   "contact_item1_title": "LinkedIn",
-  "contact_item1_subtitle": "Unisciti alla nostra rete",
+  "contact_item1_subtitle": "",
   "contact_item1_icon": "",
-  "contact_item1_hoverText": "Visita la nostra pagina <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a> per seguire le nostre novità.",
+  "contact_item1_hoverText": "Unisciti alla nostra rete: visita la nostra pagina <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a> per seguire le nostre novità.",
 
   "contact_item2_title": "Facebook GRG GROUPE",
   "contact_item2_subtitle": "La nostra comunità",
@@ -111,7 +111,7 @@
   "services_item2_hoverText": "La nostra rete industriale europea garantisce una rapida capacità di adattamento, per rispondere efficacemente all'evoluzione del mercato e alle esigenze specifiche di ogni cliente.",
   "services_item2_icon": "",
 
-  "services_item3_title": "Qualità & Sicurezza",
+  "services_item3_title": "Qualità",
   "services_item3_subtitle": "Norme Europee",
   "services_item3_hoverText": "I nostri siti partner rispettano gli standard di qualità più esigenti, garantendo prodotti sicuri, tracciabili e conformi alle normative internazionali.",
   "services_item3_icon": "",
@@ -122,7 +122,7 @@
   "services_item4_icon": "",
 
   "services_item5_title": "Supporto",
-  "services_item5_subtitle": "",
+  "services_item5_subtitle": "Tecnico",
   "services_item5_hoverText": "Dall'idea al prodotto finito: I nostri team tecnici supportano ogni fase dello sviluppo del prodotto, dalla scelta del formato alla messa in produzione, con un alto livello di competenza.",
   "services_item5_icon": ""
 }

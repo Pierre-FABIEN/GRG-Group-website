@@ -6,19 +6,19 @@ const en_services_item5_subtitle = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const es_services_item5_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `Técnico`
 };
 
 const fr_services_item5_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `Technique`
 };
 
 const de_services_item5_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `Technisch`
 };
 
 const it_services_item5_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return ``
+	return `Tecnico`
 };
 
 /**

@@ -7,48 +7,36 @@
 const bentoItems = [
     { 
         id: 1, 
-        title: m.contact_item1_title(),        // LinkedIn
-        subtitle: m.contact_item1_subtitle(),
+        title: "LinkedIn",  // Titre statique
+        subtitle: m.contact_item1_subtitle(), // "Rejoignez notre réseau"
         hoverText: m.contact_item1_hoverText(),
         icon: m.contact_item1_icon(),
         cardClass: 'card-1', 
-        row: 'top' 
+        row: 'top',
+        link: "https://www.linkedin.com/company/grg-groupe-sarl/",
+        target: "_blank"
     },
     { 
         id: 2, 
-        title: m.contact_item2_title(),        // Facebook GRG
-        subtitle: m.contact_item2_subtitle(),
-        hoverText: m.contact_item2_hoverText(),
-        icon: m.contact_item2_icon(),
+        title: "Email",  // Titre statique
+        subtitle: m.contact_item5_subtitle(), // Vide ou personnalisable
+        hoverText: m.contact_item5_hoverText(),
+        icon: m.contact_item5_icon(),
         cardClass: 'card-2', 
-        row: 'top' 
+        row: 'top',
+        link: "mailto:contact@grggroupe.com",
+        target: "_self"
     },
     { 
         id: 3, 
-        title: m.contact_item3_title(),        // AVIS CLIENT 1 (nouveau)
-        subtitle: m.contact_item3_subtitle(),
-        hoverText: m.contact_item3_hoverText(),
-        icon: m.contact_item3_icon(),
+        title: "",  // Titre vide, géré par HTML spécial dans la carte
+        subtitle: "Notre profil B2B",  // Sous-titre statique
+        hoverText: "Découvrez notre profil professionnel sur Europages, la plateforme de référence B2B en Europe pour les fournisseurs de l'industrie alimentaire.",
+        icon: "", // Icône vide
         cardClass: 'card-3', 
-        row: 'bottom' 
-    },
-    { 
-        id: 4, 
-        title: m.contact_item4_title(),        // AVIS CLIENT 2 (nouveau)
-        subtitle: m.contact_item4_subtitle(),
-        hoverText: m.contact_item4_hoverText(),
-        icon: m.contact_item4_icon(),
-        cardClass: 'card-4', 
-        row: 'bottom' 
-    },
-    { 
-        id: 5, 
-        title: m.contact_item5_title(),        // Contact Email
-        subtitle: m.contact_item5_subtitle(),
-        hoverText: m.contact_item5_hoverText(),
-        icon: m.contact_item5_icon(),
-        cardClass: 'card-5', 
-        row: 'bottom' 
+        row: 'top',
+        link: "https://www.europages.fr/fr/request/create?companySlug=grg-groupe-food-beverage-label-prive-22269045&source=WEB_COMPANY_PROFILE", // À vérifier l'URL exacte
+        target: "_blank"
     }
 ];
 	let hoveredCard: number | null = null;
@@ -66,6 +54,13 @@ const bentoItems = [
 	}
 
 	function handleCardClick(item: any) {
+		if (item.link && item.link !== "#") {
+			if (item.target === "_blank") {
+				window.open(item.link, '_blank', 'noopener,noreferrer');
+			} else {
+				window.location.href = item.link;
+			}
+		}
 		console.log('Clicked:', item.title);
 	}
 
@@ -73,6 +68,7 @@ const bentoItems = [
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
 </script>
+
 <h1 style="
   position:absolute;
   width:1px;
@@ -116,7 +112,7 @@ const bentoItems = [
 </h2>
 
 <div class="page-wrapper">
-	<!-- Ligne du haut : 2 cartes -->
+	<!-- Ligne du haut : 3 cartes (LinkedIn, Email, Europages) -->
 	<div class="bento-row top">
 		{#each bentoItems.filter(i => i.row === 'top') as item, i (item.id)}
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -133,7 +129,17 @@ const bentoItems = [
 			>
 				<div class="card-content" class:hide-content={hoveredCard === item.id}>
 					<div class="card-icon">{item.icon}</div>
-					<h3 class="card-title">{item.title}</h3>
+					
+					{#if item.id === 3}
+						<!-- Titre spécial pour Europages -->
+						<h3 class="card-title europages-title">
+							<span class="euro-text">EURO</span>
+							<span class="pages-text">PAGES</span>
+						</h3>
+					{:else}
+						<h3 class="card-title">{item.title}</h3>
+					{/if}
+					
 					<p class="card-subtitle">{item.subtitle}</p>
 				</div>
 
@@ -146,34 +152,15 @@ const bentoItems = [
 		{/each}
 	</div>
 
-	<!-- Ligne du bas : 3 cartes (nouvelle configuration) -->
+	<!-- Ligne du bas : Vide mais garde la structure -->
 	<div class="bento-row bottom">
-		{#each bentoItems.filter(i => i.row === 'bottom') as item, i (item.id)}
-			<!-- svelte-ignore a11y_click_events_have_key_events -->
-			<div
-				class="bento-card {item.cardClass}"
-				class:hovered={hoveredCard === item.id}
-				class:same-row={isInSameRow(item)}
-				onmouseenter={() => handleCardHover(item.id)}
-				onmouseleave={handleCardLeave}
-				onclick={() => handleCardClick(item)}
-				role="button"
-				tabindex="0"
-				in:scale={{ delay: i * 100, duration: 600 }}
-			>
-				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-					<div class="card-icon">{item.icon}</div>
-					<h3 class="card-title">{item.title}</h3>
-					<p class="card-subtitle">{item.subtitle}</p>
-				</div>
+		<!-- Cette ligne est vide mais garde la structure de la page -->
+	</div>
 
-				<div class="card-hover-content" class:show={hoveredCard === item.id}>
-					<p class="hover-text">{@html item.hoverText}</p>
-				</div>
-
-				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
-			</div>
-		{/each}
+	<!-- Texte GRG GROUPE en bas à droite -->
+	<div class="grg-brand">
+		<h2 class="grg-title">GRG GROUPE</h2>
+		<p class="grg-subtitle">Food & BEVERAGE</p>
 	</div>
 </div>
 
@@ -190,6 +177,7 @@ const bentoItems = [
 	font-family: 'open-sans', sans-serif;
 	overflow: hidden;
 	background: var(--gray-50, #fafafa);
+	position: relative; /* Pour positionner le texte GRG */
 }
 
 :global(.dark) .page-wrapper {
@@ -202,8 +190,17 @@ const bentoItems = [
 	max-width: 1500px;
 	gap: 1.25rem;
 	margin-bottom: 1.25rem;
-	height: 50%;
+	height: 50%; /* Garde la hauteur d'origine */
 	box-sizing: border-box;
+}
+
+/* La ligne du bas est vide mais garde sa hauteur */
+.bento-row.bottom {
+	/* On peut réduire la marge ou la garder pour l'espace */
+	margin-bottom: 0;
+	/* Ou même réduire l'opacité pour la rendre invisible mais présente */
+	opacity: 0;
+	height: 50%; /* Garde la structure */
 }
 
 .bento-card {
@@ -216,15 +213,21 @@ const bentoItems = [
 	min-width: 0;
 	max-width: 100%;
 	flex: 1 1 0;
-	transition: flex 0.3s ease, opacity 0.2s ease;
+	transition: flex 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 }
 
+.bento-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
 .bento-card.hovered {
 	flex: 2 1 0;
 }
+
 .bento-card.same-row {
 	flex: 1 1 0;
 	opacity: 0.8;
@@ -288,45 +291,50 @@ const bentoItems = [
 /* BACKGROUNDS MONOCHROMES AVEC OVERLAY ALLÉGÉ */
 .card-1 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
 		url('/IN.png') center/cover no-repeat;
 	position: relative;
 }
 
 .card-2 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
-		url('/FB.png') center/cover no-repeat;
-	position: relative;
-}
-
-.card-3 {
-	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
-		url('/default-avatar.jpg') center/cover no-repeat; /* À remplacer */
-	position: relative;
-}
-
-.card-4 {
-	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
-		url('/default-avatar.jpg') center/cover no-repeat; /* À remplacer */
-	position: relative;
-}
-
-.card-5 {
-	background: 
-		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), /* Overlay allégé */
+		linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
 		url('/mail.png') center/cover no-repeat;
 	position: relative;
 }
 
-/* Overlay amélioré et allégé pour toutes les cartes avec images */
+.card-3 {
+	background: #002e1f !important; /* Fond vert foncé spécifique */
+	position: relative;
+}
+
+/* Style spécial pour le titre Europages */
+.europages-title {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+}
+
+.euro-text {
+	color: #ffffff !important; /* EURO en blanc */
+	font-size: 2.2rem;
+	font-weight: 900;
+	letter-spacing: 0.05em;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pages-text {
+	color: #7faf0d !important; /* PAGES en vert clair */
+	font-size: 2.2rem;
+	font-weight: 900;
+	letter-spacing: 0.05em;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Overlay pour toutes les cartes avec images */
 .card-1::before,
 .card-2::before,
-.card-3::before,
-.card-4::before,
-.card-5::before {
+.card-3::before {
 	content: '';
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
@@ -337,11 +345,16 @@ const bentoItems = [
 }
 
 .card-1:hover::before,
-.card-2:hover::before,
-.card-3:hover::before,
-.card-4:hover::before,
-.card-5:hover::before {
+.card-2:hover::before {
 	background: rgba(0, 0, 0, 0.4); /* Overlay hover allégé */
+}
+
+.card-3::before {
+	background: rgba(0, 46, 31, 0.1) !important; /* Overlay très léger pour Europages */
+}
+
+.card-3:hover::before {
+	background: rgba(0, 46, 31, 0.3) !important; /* Overlay hover pour Europages */
 }
 
 /* HOVER CONTENT */
@@ -355,7 +368,7 @@ const bentoItems = [
 	text-align: center;
 	opacity: 0;
 	transition: opacity 0.2s ease;
-	pointer-events: auto; /* 👈 maintenant les liens peuvent être cliqués */
+	pointer-events: auto; /* maintenant les liens peuvent être cliqués */
 }
 
 .card-hover-content.show {
@@ -407,6 +420,45 @@ const bentoItems = [
 	color: var(--gray-100, #f5f5f5) !important; /* Reste blanc en mode sombre */
 }
 
+/* TEXTE GRG GROUPE en bas à droite */
+.grg-brand {
+	position: absolute;
+	bottom: 3rem;
+	right: 3rem;
+	text-align: right;
+	z-index: 10;
+	pointer-events: none;
+}
+
+.grg-title {
+	font-family: 'raleway', sans-serif;
+	font-size: 4rem;
+	font-weight: 900;
+	color: #002e1f;
+	line-height: 1;
+	margin: 0 0 0.5rem 0;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+.grg-subtitle {
+	font-family: 'open-sans', sans-serif;
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #7faf0d;
+	margin: 0;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+:global(.dark) .grg-title {
+	color: #ffffff;
+}
+
+:global(.dark) .grg-subtitle {
+	color: #a8d64e;
+}
+
 /* RESPONSIVE */
 @media (max-width: 1024px) {
 	.page-wrapper {
@@ -421,6 +473,10 @@ const bentoItems = [
 		gap: 1rem;
 		height: auto;
 		margin-bottom: 1rem;
+	}
+
+	.bento-row.bottom {
+		display: none; /* Cache la ligne vide sur mobile */
 	}
 
 	.bento-row:last-child {
@@ -453,6 +509,11 @@ const bentoItems = [
 		margin-bottom: 0.5rem; 
 	}
 	
+	.euro-text,
+	.pages-text {
+		font-size: 1.6rem;
+	}
+	
 	.card-subtitle { 
 		font-size: 1.05rem; 
 	}
@@ -464,6 +525,25 @@ const bentoItems = [
 	
 	.card-hover-content { 
 		width: 90%; 
+	}
+	
+	/* Répositionnement du texte GRG sur mobile */
+	.grg-brand {
+		position: relative;
+		bottom: auto;
+		right: auto;
+		text-align: center;
+		margin-top: 3rem;
+		margin-bottom: 2rem;
+		width: 100%;
+	}
+	
+	.grg-title {
+		font-size: 3rem;
+	}
+	
+	.grg-subtitle {
+		font-size: 1.3rem;
 	}
 }
 
@@ -496,6 +576,11 @@ const bentoItems = [
 		margin-bottom: 0.5rem; 
 	}
 	
+	.euro-text,
+	.pages-text {
+		font-size: 1.4rem;
+	}
+	
 	.card-subtitle { 
 		font-size: 1rem; 
 	}
@@ -503,6 +588,14 @@ const bentoItems = [
 	.hover-text { 
 		font-size: 0.9rem; 
 		line-height: 1.5; 
+	}
+	
+	.grg-title {
+		font-size: 2.5rem;
+	}
+	
+	.grg-subtitle {
+		font-size: 1.1rem;
 	}
 }
 
@@ -535,6 +628,11 @@ const bentoItems = [
 		margin-bottom: 0.4rem; 
 	}
 	
+	.euro-text,
+	.pages-text {
+		font-size: 1.2rem;
+	}
+	
 	.card-subtitle { 
 		font-size: 0.95rem; 
 	}
@@ -546,6 +644,14 @@ const bentoItems = [
 	
 	.card-hover-content { 
 		width: 92%; 
+	}
+	
+	.grg-title {
+		font-size: 2rem;
+	}
+	
+	.grg-subtitle {
+		font-size: 0.95rem;
 	}
 }
 
@@ -589,6 +695,11 @@ const bentoItems = [
 	.card-title {
 		font-size: 1.2rem;
 	}
+	
+	.euro-text,
+	.pages-text {
+		font-size: 1rem;
+	}
 
 	.card-subtitle {
 		font-size: 0.875rem;
@@ -596,6 +707,14 @@ const bentoItems = [
 
 	.hover-text {
 		font-size: 0.8rem;
+	}
+	
+	.grg-title {
+		font-size: 1.8rem;
+	}
+	
+	.grg-subtitle {
+		font-size: 0.85rem;
 	}
 }
 
@@ -621,5 +740,29 @@ const bentoItems = [
 	z-index: -1;
 	pointer-events: none;
 	opacity: 0.9;
+}
+
+/* Indicateur de lien externe pour les cartes avec target="_blank" */
+.bento-card[class*="card-"]:after {
+	content: "";
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	width: 16px;
+	height: 16px;
+	background: rgba(255, 255, 255, 0.7);
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpath d='m15 3 6 6'/%3E%3Cpath d='M10 14 21 3'/%3E%3C/svg%3E") center/contain no-repeat;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: 4;
+}
+
+.bento-card:hover:after {
+	opacity: 0.8;
+}
+
+/* Pour la carte Europages, l'indicateur est blanc sur fond vert */
+.card-3:after {
+	background: rgba(255, 255, 255, 0.9);
 }
 </style>

@@ -728,4 +728,50 @@
 	pointer-events: none;
 	opacity: 0.9;
 }
+
+/* === CARD 5 : inversion title ↔ subtitle AVEC highlight sur le "nouveau titre" === */
+
+/* Le TITLE de la card 5 prend les styles du SUBTITLE */
+.card-5 .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    opacity: 0.85;
+    line-height: 1.5;
+
+    /* On supprime le highlight du title (au cas où) */
+    position: static !important;
+}
+
+.card-5 .card-title::before {
+    content: none !important;
+}
+
+/* Le SUBTITLE de la card 5 prend les styles du TITLE */
+.card-5 .card-subtitle {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+
+    /* nécessaire pour le highlight */
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+}
+
+/* Le highlight passe sur le nouveau "titre" → le SUBTITLE */
+.card-5 .card-subtitle::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 80%;
+    background: url('image/highlight.png') center/contain no-repeat;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
 </style>

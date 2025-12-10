@@ -4,31 +4,31 @@
   "home_item1_subtitle": "Seit 2007",
   "home_item1_hoverText": "Seit über 15 Jahren begleitet GRG Groupe Food & Beverage Marken und Projektinitiatoren bei der Entwicklung von Getränken und Nahrungsergänzungsmitteln.",
   "home_item1_icon": "",
-
+  
   "home_item2_title": "Unsere Mission",
   "home_item2_subtitle": "Schöpfung & Qualität",
   "home_item2_hoverText": "Wir verbinden wissenschaftliche Expertise und Kreativität, um einzigartige und zuverlässige Produkte zu entwickeln – von der Formulierung bis zur Produktion.",
   "home_item2_icon": "",
-
+  
   "home_item3_title": "Unsere Vision",
   "home_item3_subtitle": "Innovation & Begleitung",
   "home_item3_hoverText": "Wir begleiten Marken und Händler in jeder wichtigen Phase – flexibel und konsequent –, um ihre Ideen auf den Markt zu bringen.",
   "home_item3_icon": "",
-
-  "home_item4_title": "FOOD",
-  "home_item4_subtitle": "& BEVERAGE",
+  
+  "home_item4_title": "Flavor House - IFS Netzwerk Produktion",
+  "home_item4_subtitle": "FOOD & BEVERAGE",
   "home_item4_hoverText": "Unsere Priorität: qualitativ hochwertige, sichere und konforme Produkte, die den Verbrauchererwartungen und Industriestandards entsprechen.",
   "home_item4_icon": "",
-
+  
   "home_item5_title": "Unser Ansatz",
   "home_item5_subtitle": "Ihr Projektpartner",
   "home_item5_hoverText": "Wir arbeiten Hand in Hand mit jedem Kunden, um Ihre Ideen in konkrete, marktreife Produkte zu verwandeln.",
   "home_item5_icon": "",
 
   "contact_item1_title": "LinkedIn",
-  "contact_item1_subtitle": "Werden Sie Teil unseres Netzwerks",
+  "contact_item1_subtitle": "",
   "contact_item1_icon": "",
-  "contact_item1_hoverText": "Besuchen Sie unsere <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a>-Seite, um unseren Neuigkeiten zu folgen.",
+  "contact_item1_hoverText": "Werden Sie Teil unseres Netzwerks: Besuchen Sie unsere <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a>-Seite, um unseren Neuigkeiten zu folgen.",
 
   "contact_item2_title": "Facebook GRG GROUPE",
   "contact_item2_subtitle": "Unsere Community",
@@ -111,7 +111,7 @@
   "services_item2_hoverText": "Unser europäisches Industrienetzwerk gewährleistet schnelle Anpassungsfähigkeit, um effektiv auf Marktveränderungen und spezifische Kundenbedürfnisse zu reagieren.",
   "services_item2_icon": "",
 
-  "services_item3_title": "Qualität & Sicherheit",
+  "services_item3_title": "Qualität",
   "services_item3_subtitle": "Europäische Normen",
   "services_item3_hoverText": "Unsere Partnerstandorte halten die höchsten Qualitätsstandards ein und gewährleisten sichere, rückverfolgbare Produkte, die internationalen Vorschriften entsprechen.",
   "services_item3_icon": "",
@@ -122,7 +122,7 @@
   "services_item4_icon": "",
 
   "services_item5_title": "Begleitung",
-  "services_item5_subtitle": "",
+  "services_item5_subtitle": "Technisch",
   "services_item5_hoverText": "Von der Idee zum fertigen Produkt: Unsere technischen Teams begleiten jede Phase der Produktentwicklung – von der Formatwahl bis zur Produktionsaufnahme – mit hoher Fachkompetenz.",
   "services_item5_icon": ""
 }

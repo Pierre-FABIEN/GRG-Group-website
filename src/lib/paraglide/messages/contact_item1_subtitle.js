@@ -6,19 +6,19 @@ const en_contact_item1_subtitle = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const es_contact_item1_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `Únase a nuestra red`
+	return ``
 };
 
 const fr_contact_item1_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `Rejoignez notre réseau`
+	return ``
 };
 
 const de_contact_item1_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `Werden Sie Teil unseres Netzwerks`
+	return ``
 };
 
 const it_contact_item1_subtitle = /** @type {(inputs: {}) => string} */ () => {
-	return `Unisciti alla nostra rete`
+	return ``
 };
 
 /**

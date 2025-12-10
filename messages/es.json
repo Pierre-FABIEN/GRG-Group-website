@@ -2,33 +2,33 @@
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "home_item1_title": "Historia",
   "home_item1_subtitle": "Desde 2007",
-  "home_item1_hoverText": "Durante más de 15 años, GRG Groupe Food & Beverage ha acompañado a marcas y promotores de proyectos en el desarrollo de bebidas y complementos alimenticios.",
+  "home_item1_hoverText": "Desde hace más de 15 años, GRG Groupe Food & Beverage acompaña a marcas y promotores de proyectos en el desarrollo de bebidas y complementos alimenticios.",
   "home_item1_icon": "",
-
+  
   "home_item2_title": "Nuestra Misión",
   "home_item2_subtitle": "Creación & Calidad",
   "home_item2_hoverText": "Combinamos experiencia científica y creatividad para diseñar productos únicos y fiables, desde la formulación hasta la producción.",
   "home_item2_icon": "",
-
+  
   "home_item3_title": "Nuestra Visión",
   "home_item3_subtitle": "Innovación & Acompañamiento",
   "home_item3_hoverText": "Acompañamos a marcas y distribuidores en cada etapa clave, con flexibilidad y rigor, para llevar sus ideas al mercado.",
   "home_item3_icon": "",
-
-  "home_item4_title": "FOOD",
-  "home_item4_subtitle": "& BEVERAGE",
+  
+  "home_item4_title": "Flavor House - Producción Red IFS",
+  "home_item4_subtitle": "FOOD & BEVERAGE",
   "home_item4_hoverText": "Nuestra prioridad: productos de calidad, seguros y conformes, que responden a las expectativas de los consumidores y a las normas industriales.",
   "home_item4_icon": "",
-
+  
   "home_item5_title": "Nuestro Enfoque",
   "home_item5_subtitle": "Socio de sus proyectos",
   "home_item5_hoverText": "Trabajamos mano a mano con cada cliente, para transformar sus ideas en productos concretos y listos para comercializar.",
   "home_item5_icon": "",
 
   "contact_item1_title": "LinkedIn",
-  "contact_item1_subtitle": "Únase a nuestra red",
+  "contact_item1_subtitle": "",
   "contact_item1_icon": "",
-  "contact_item1_hoverText": "Visite nuestra página de <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a> para seguir nuestras noticias.",
+  "contact_item1_hoverText": "Únase a nuestra red: visite nuestra página <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a> para seguir nuestras noticias.",
 
   "contact_item2_title": "Facebook GRG GROUPE",
   "contact_item2_subtitle": "Nuestra comunidad",
@@ -111,7 +111,7 @@
   "services_item2_hoverText": "Nuestra red industrial europea garantiza una capacidad de adaptación rápida, para responder eficazmente a la evolución del mercado y a las necesidades específicas de cada cliente.",
   "services_item2_icon": "",
 
-  "services_item3_title": "Calidad & Seguridad",
+  "services_item3_title": "Calidad",
   "services_item3_subtitle": "Normas Europeas",
   "services_item3_hoverText": "Nuestros sitios asociados respetan los estándares de calidad más exigentes, asegurando productos seguros, trazables y conformes a las regulaciones internacionales.",
   "services_item3_icon": "",
@@ -122,7 +122,7 @@
   "services_item4_icon": "",
 
   "services_item5_title": "Acompañamiento",
-  "services_item5_subtitle": "",
+  "services_item5_subtitle": "Técnico",
   "services_item5_hoverText": "De la idea al producto terminado: Nuestros equipos técnicos acompañan cada etapa del desarrollo del producto, desde la elección del formato hasta la puesta en producción, con un alto nivel de experiencia.",
   "services_item5_icon": ""
 }

@@ -6,19 +6,19 @@ const en_services_item3_title = /** @type {(inputs: {}) => string} */ () => {
 };
 
 const es_services_item3_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Calidad & Seguridad`
+	return `Calidad`
 };
 
 const fr_services_item3_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Qualité & Sécurité`
+	return `Qualité`
 };
 
 const de_services_item3_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Qualität & Sicherheit`
+	return `Qualität`
 };
 
 const it_services_item3_title = /** @type {(inputs: {}) => string} */ () => {
-	return `Qualità & Sicurezza`
+	return `Qualità`
 };
 
 /**

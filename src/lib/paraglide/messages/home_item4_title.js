@@ -2,23 +2,23 @@
 import { getLocale, trackMessageCall, experimentalMiddlewareLocaleSplitting, isServer } from '../runtime.js';
 
 const en_home_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `FOOD`
+	return `Flavor House - IFS Network Production`
 };
 
 const es_home_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `FOOD`
+	return `Flavor House - Producción Red IFS`
 };
 
 const fr_home_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `FOOD`
+	return `Flavor House - IFS Network Production`
 };
 
 const de_home_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `FOOD`
+	return `Flavor House - IFS Netzwerk Produktion`
 };
 
 const it_home_item4_title = /** @type {(inputs: {}) => string} */ () => {
-	return `FOOD`
+	return `Flavor House - Produzione Rete IFS`
 };
 
 /**

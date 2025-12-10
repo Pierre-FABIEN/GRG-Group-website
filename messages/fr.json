@@ -15,8 +15,8 @@
   "home_item3_hoverText": "Nous accompagnons marques et distributeurs dans chaque étape clé, avec flexibilité et rigueur, pour amener leurs idées sur le marché.",
   "home_item3_icon": "",
   
-  "home_item4_title": "FOOD",
-  "home_item4_subtitle": "& BEVERAGE",
+  "home_item4_title": "Flavor House - IFS Network Production",
+  "home_item4_subtitle": "FOOD & BEVERAGE",
   "home_item4_hoverText": "Notre priorité : des produits de qualité, sûrs et conformes, qui répondent aux attentes des consommateurs et aux normes industrielles.",
   "home_item4_icon": "",
   
@@ -26,9 +26,9 @@
   "home_item5_icon": "",
 
   "contact_item1_title": "LinkedIn",
-  "contact_item1_subtitle": "Rejoignez notre réseau",
+  "contact_item1_subtitle": "",
   "contact_item1_icon": "",
-  "contact_item1_hoverText": "Visitez notre page <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a> pour suivre nos actualités.",
+  "contact_item1_hoverText": "Rejoignez notre réseau : visitez notre page <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a> pour suivre nos actualités.",
 
   "contact_item2_title": "Facebook GRG GROUPE",
   "contact_item2_subtitle": "Notre communauté",
@@ -112,7 +112,7 @@
   "services_item2_hoverText": "Notre réseau industriel européen garantit une capacité d'adaptation rapide, pour répondre efficacement aux évolutions du marché et aux besoins spécifiques de chaque client.",
   "services_item2_icon": "",
 
-  "services_item3_title": "Qualité & Sécurité",
+  "services_item3_title": "Qualité",
   "services_item3_subtitle": "Normes Européennes",
   "services_item3_hoverText": "Nos sites partenaires respectent les standards de qualité les plus exigeants, assurant des produits sûrs, traçables et conformes aux réglementations internationales.",
   "services_item3_icon": "",
@@ -123,7 +123,7 @@
   "services_item4_icon": "",
 
   "services_item5_title": "Accompagnement",
-  "services_item5_subtitle": "",
+  "services_item5_subtitle": "Technique",
   "services_item5_hoverText": "De l'idée au produit fini : Nos équipes techniques accompagnent chaque étape du développement produit, du choix du format à la mise en production, avec un haut niveau d'expertise.",
   "services_item5_icon": ""
 }
