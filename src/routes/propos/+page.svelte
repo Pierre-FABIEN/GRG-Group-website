@@ -3,6 +3,7 @@
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
 	import { m } from '$lib/paraglide/messages.js';
+	import highlightImg from '$lib/assets/highlight.png';
 
 
 	// Rows inversées : 2 cartes en haut, 3 cartes en bas
@@ -694,7 +695,7 @@ const bentoItems = [
 	bottom: -4px;
 	width: 100%;
 	height: 80%;
-	background: url('/image/highlight.png') center/contain no-repeat;
+	background: url({hightlightImg}) center/contain no-repeat;
 	z-index: -1;
 	pointer-events: none;
 	opacity: 0.9;
