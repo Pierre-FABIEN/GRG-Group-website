@@ -530,7 +530,7 @@
     bottom: -3px;
     width: 100%;
     height: 70%;
-    background: url('/static/img/highlight.png') center/contain no-repeat;
+    background: url('/image/highlight.png') center/contain no-repeat;
     z-index: -1;
     opacity: 0.9;
 }
@@ -817,7 +817,7 @@
   bottom: -4px;
   width: 100%;
   height: 80%;
-  background: url('image/highlight.png') center/contain no-repeat;
+  background: url('/image/highlight.png') center/contain no-repeat;
   z-index: -1;
   pointer-events: none;
   opacity: 0.9;

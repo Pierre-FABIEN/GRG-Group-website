@@ -296,7 +296,7 @@ const bentoItems = [
 	bottom: -4px;
 	width: 100%;
 	height: 80%;
-	background: url('image/highlight.png') center/contain no-repeat;
+	background: url('/image/highlight.png') center/contain no-repeat;
 	z-index: -1;
 	pointer-events: none;
 	opacity: 0.9;
@@ -376,7 +376,7 @@ const bentoItems = [
 	bottom: -4px;
 	width: 100%;
 	height: 80%;
-	background: url('image/highlight.png') center/contain no-repeat;
+	background: url('/image/highlight.png') center/contain no-repeat;
 	z-index: -1;
 	pointer-events: none;
 	opacity: 0.9;
