@@ -1,238 +1,212 @@
 <script lang="ts">
-	import '@fontsource-variable/open-sans';
-	import '@fontsource-variable/raleway';
-	import { scale } from 'svelte/transition';
-	import { m } from '$lib/paraglide/messages.js';
+    import '@fontsource-variable/open-sans';
+    import '@fontsource-variable/raleway';
+    import { scale } from 'svelte/transition';
+    import { m } from '$lib/paraglide/messages.js';
 
-const bentoItems = [
-    { 
-     
-    id: 1, 
-    title: '',        // ❌ On n'affiche plus de texte
-    subtitle: m.products_item1_subtitle(),     // (tu peux laisser ou virer)
-    image: '/image/aluminium.png',   // ✅ Ton logo PNG à la racine
-    hoverText: m.products_item5_hoverText(),
-    icon: '',         // ou garde-le si tu veux l’utiliser ailleurs
-    cardClass: 'card-1', 
-    row: 'top' 
-},
+    const bentoItems = [
+        { 
+            id: 1, 
+            title: '',
+            subtitle: m.products_item1_subtitle(),
+            image: '/image/aluminium.png',
+            hoverText: m.products_item5_hoverText(),
+            icon: '',
+            cardClass: 'card-1', 
+            row: 'top' 
+        },
 
-    { 
-        id: 2, 
-        title: m.products_item2_title(),
-        subtitle: m.products_item2_subtitle(),
-        hoverText: m.products_item2_hoverText(),
-        icon: m.products_item2_icon(),
-        cardClass: 'card-2', 
-        row: 'top' 
-    },
-    { 
-        id: 3, 
-        title: m.products_item3_title(),
-        subtitle: m.products_item3_subtitle(),
-        hoverText: m.products_item3_hoverText(),
-        icon: m.products_item3_icon(),
-        cardClass: 'card-3', 
-        row: 'bottom' 
-    },
-    { 
-        id: 4, 
-        title: m.products_item4_title(),
-        subtitle: m.products_item4_subtitle(),
-        hoverText: m.products_item4_hoverText(),
-        icon: m.products_item4_icon(),
-        cardClass: 'card-4', 
-        row: 'bottom' 
-    },
-    { 
-        id: 5, 
-        title: m.products_item5_title(),
-        subtitle: m.products_item5_subtitle(),
-        hoverText: m.products_item5_hoverText(),
-        icon: m.products_item5_icon(),
-        cardClass: 'card-5', 
-        row: 'bottom' 
+        { 
+            id: 2, 
+            title: m.products_item2_title(),
+            subtitle: m.products_item2_subtitle(),
+            hoverText: m.products_item2_hoverText(),
+            icon: m.products_item2_icon(),
+            cardClass: 'card-2', 
+            row: 'top' 
+        },
+        { 
+            id: 3, 
+            title: m.products_item3_title(),
+            subtitle: m.products_item3_subtitle(),
+            hoverText: m.products_item3_hoverText(),
+            icon: m.products_item3_icon(),
+            cardClass: 'card-3', 
+            row: 'bottom' 
+        },
+        { 
+            id: 4, 
+            title: m.products_item4_title(),
+            subtitle: m.products_item4_subtitle(),
+            hoverText: m.products_item4_hoverText(),
+            icon: m.products_item4_icon(),
+            cardClass: 'card-4', 
+            row: 'bottom' 
+        },
+        { 
+            id: 5, 
+            title: m.products_item5_title(),
+            subtitle: m.products_item5_subtitle(),
+            hoverText: m.products_item5_hoverText(),
+            icon: m.products_item5_icon(),
+            cardClass: 'card-5', 
+            row: 'bottom' 
+        }
+    ];
+
+    let hoveredCard: number | null = null;
+    let hoveredRow: string | null = null;
+
+    function handleCardHover(id: number) {
+        hoveredCard = id;
+        const card = bentoItems.find(item => item.id === id);
+        hoveredRow = card?.row || null;
     }
-];
 
+    function handleCardLeave() {
+        hoveredCard = null;
+        hoveredRow = null;
+    }
 
+    function handleCardClick(item: any) {
+        console.log('Clicked:', item.title);
+    }
 
-	let hoveredCard: number | null = null;
-	let hoveredRow: string | null = null;
+    function isInSameRow(item: any): boolean {
+        return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
+    }
 
-	function handleCardHover(id: number) {
-		hoveredCard = id;
-		const card = bentoItems.find(item => item.id === id);
-		hoveredRow = card?.row || null;
-	}
-
-	function handleCardLeave() {
-		hoveredCard = null;
-		hoveredRow = null;
-	}
-
-	function handleCardClick(item: any) {
-		console.log('Clicked:', item.title);
-	}
-
-	function isInSameRow(item: any): boolean {
-		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
-	}
-
-	// Fonction pour gérer les clics sur les liens
-	function handleLinkClick(event: MouseEvent) {
-		event.stopPropagation(); // Empêche la propagation du clic à la carte
-		event.preventDefault(); // Empêche le comportement par défaut du lien
-		window.open('https://bit.ly/GRG-Group-FnB', '_blank');
-	}
+    function handleLinkClick(event: MouseEvent) {
+        event.stopPropagation();
+        event.preventDefault();
+        window.open('https://bit.ly/GRG-Group-FnB', '_blank');
+    }
 </script>
-<h1 style="
-  position:absolute;
-  width:1px;
-  height:1px;
-  margin:-1px;
-  padding:0;
-  border:0;
-  clip:rect(0 0 0 0);
-  overflow:hidden;
-  white-space:nowrap;
-">
+
+<h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap;">
   GRG Groupe : Food and Beverages
 </h1>
 
-<h2 style="
-  position:absolute;
-  width:1px;
-  height:1px;
-  margin:-1px;
-  padding:0;
-  border:0;
-  clip:rect(0 0 0 0);
-  overflow:hidden;
-  white-space:nowrap;
-">
+<h2 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap;">
   Marque blanche de boissons et compléments alimentaires
 </h2>
 
-<h2 style="
-  position:absolute;
-  width:1px;
-  height:1px;
-  margin:-1px;
-  padding:0;
-  border:0;
-  clip:rect(0 0 0 0);
-  overflow:hidden;
-  white-space:nowrap;
-">
+<h2 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap;">
   Création, production et personnalisation de boissons fonctionnelles
 </h2>
 
 <div class="page-wrapper">
-	<!-- Ligne du haut : 2 cartes -->
-	<div class="bento-row top">
-		{#each bentoItems.filter(i => i.row === 'top') as item, i (item.id)}
-			<div
-				class="bento-card {item.cardClass}"
-				class:hovered={hoveredCard === item.id}
-				class:same-row={isInSameRow(item)}
-				onmouseenter={() => handleCardHover(item.id)}
-				onmouseleave={handleCardLeave}
-				onclick={() => handleCardClick(item)}
-				role="button"
-				tabindex="0"
-				in:scale={{ delay: i * 100, duration: 600 }}
-				style="flex: {hoveredCard === item.id ? (item.double ? '3 1 0' : '2 1 0') : (item.double ? '2 1 0' : '1 1 0')}"
-			>
-				<div class="card-content" class:hide-content={hoveredCard === item.id}>
 
-   {#if item.image}
-    <img class="card-title-image" src={item.image} alt={item.title} />
+    <!-- LIGNE DU HAUT -->
+    <div class="bento-row top">
+        {#each bentoItems.filter(i => i.row === 'top') as item, i (item.id)}
+            <div
+                class="bento-card {item.cardClass}"
+                class:hovered={hoveredCard === item.id}
+                class:same-row={isInSameRow(item)}
+                onmouseenter={() => handleCardHover(item.id)}
+                onmouseleave={handleCardLeave}
+                onclick={() => handleCardClick(item)}
+                role="button"
+                tabindex="0"
+                in:scale={{ delay: i * 100, duration: 600 }}
+                style="flex: {hoveredCard === item.id ? (item.double ? '3 1 0' : '2 1 0') : (item.double ? '2 1 0' : '1 1 0')}"
+            >
+                <div class="card-content" class:hide-content={hoveredCard === item.id}>
 
-    <!-- AJOUT pour afficher le subtitle même si image -->
-    <p class="card-subtitle">{item.subtitle}</p>
+                    {#if item.id === 1}
+                        <!-- CARD 1 — LOGO + SUBTITLE AVEC HIGHLIGHT PNG -->
+                        <img class="card-title-image" src={item.image} alt="logo" />
+                        
+                        <p class="card-subtitle bpani-subtitle">
+                            Fournisseur de canettes 
+                            <span class="bpani-word">BPANI</span>
+                        </p>
 
-{:else}
-    <div class="card-icon">{item.icon}</div>
-    <h3 class="card-title">{item.title}</h3>
-    <p class="card-subtitle">{item.subtitle}</p>
-{/if}
+                    {:else if item.image}
+                        <!-- CARTE AVEC IMAGE ET SOUS-TITRE SIMPLE -->
+                        <img class="card-title-image" src={item.image} alt={item.title} />
+                        <p class="card-subtitle">
+                            {@html item.subtitle.replace('BPANI', '<span class="highlight">BPANI</span>')}
+                        </p>
 
+                    {:else}
+                        <!-- CARTE NORMALE (2–5) -->
+                        <div class="card-icon">{item.icon}</div>
+                        <h3 class="card-title">{item.title}</h3>
+                        <p class="card-subtitle">{item.subtitle}</p>
+                    {/if}
 
+                </div>
+
+                <div class="card-hover-content" class:show={hoveredCard === item.id}>
+                    {#if item.id === 1 || item.id === 2 || item.id === 3}
+                        <p class="hover-text">
+                            {@html item.hoverText}
+                            <br><br>
+                            <a href="https://bit.ly/GRG-Group-FnB"
+                               class="hover-link"
+                               onclick={handleLinkClick}
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                📱 Découvrir nos produits
+                            </a>
+                        </p>
+                    {:else}
+                        <p class="hover-text">{item.hoverText}</p>
+                    {/if}
+                </div>
+
+                <div class="card-overlay" class:show={hoveredCard === item.id}></div>
+            </div>
+        {/each}
+    </div>
+
+    <!-- LIGNE DU BAS -->
+    <div class="bento-row bottom">
+        {#each bentoItems.filter(i => i.row === 'bottom') as item, i (item.id)}
+            <div
+                class="bento-card {item.cardClass}"
+                class:hovered={hoveredCard === item.id}
+                class:same-row={isInSameRow(item)}
+                onmouseenter={() => handleCardHover(item.id)}
+                onmouseleave={handleCardLeave}
+                onclick={() => handleCardClick(item)}
+                role="button"
+                tabindex="0"
+                in:scale={{ delay: i * 100, duration: 600 }}
+                style="flex: {hoveredCard === item.id ? '2 1 0' : '1 1 0'}"
+            >
+                <div class="card-content" class:hide-content={hoveredCard === item.id}>
+                    <div class="card-icon">{item.icon}</div>
+                    <h3 class="card-title">{item.title}</h3>
+                    <p class="card-subtitle">{item.subtitle}</p>
+                </div>
+
+                <div class="card-hover-content" class:show={hoveredCard === item.id}>
+                    {#if item.id === 1 || item.id === 2 || item.id === 3}
+                        <p class="hover-text">
+                            {@html item.hoverText}
+                            <br><br>
+                            <a href="https://bit.ly/GRG-Group-FnB"
+                               class="hover-link"
+                               onclick={handleLinkClick}
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                📱 Découvrir nos produits
+                            </a>
+                        </p>
+                    {:else}
+                        <p class="hover-text">{item.hoverText}</p>
+                    {/if}
+                </div>
+
+                <div class="card-overlay" class:show={hoveredCard === item.id}></div>
+            </div>
+        {/each}
+    </div>
 </div>
 
-
-				<div class="card-hover-content" class:show={hoveredCard === item.id}>
-					{#if item.id === 1 || item.id === 2 || item.id === 3}
-						<!-- Cartes 1, 2, 3 avec lien -->
-						<p class="hover-text">
-							{@html item.hoverText}
-							<br><br>
-							<a href="https://bit.ly/GRG-Group-FnB" 
-							   class="hover-link" 
-							   onclick={handleLinkClick}
-							   target="_blank"
-							   rel="noopener noreferrer">
-								📱 Découvrir nos produits
-							</a>
-						</p>
-					{:else}
-						<!-- Cartes 4 et 5 sans lien -->
-						<p class="hover-text">{item.hoverText}</p>
-					{/if}
-				</div>
-
-				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
-			</div>
-		{/each}
-	</div>
-
-	<!-- Ligne du bas : 3 cartes petites -->
-	<div class="bento-row bottom">
-		{#each bentoItems.filter(i => i.row === 'bottom') as item, i (item.id)}
-			<div
-				class="bento-card {item.cardClass}"
-				class:hovered={hoveredCard === item.id}
-				class:same-row={isInSameRow(item)}
-				onmouseenter={() => handleCardHover(item.id)}
-				onmouseleave={handleCardLeave}
-				onclick={() => handleCardClick(item)}
-				role="button"
-				tabindex="0"
-				in:scale={{ delay: i * 100, duration: 600 }}
-				style="flex: {hoveredCard === item.id ? '2 1 0' : '1 1 0'}"
-			>
-				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-					<div class="card-icon">{item.icon}</div>
-					<h3 class="card-title">{item.title}</h3>
-					<p class="card-subtitle">{item.subtitle}</p>
-				</div>
-
-				<div class="card-hover-content" class:show={hoveredCard === item.id}>
-					{#if item.id === 1 || item.id === 2 || item.id === 3}
-						<!-- Cartes 1, 2, 3 avec lien -->
-						<p class="hover-text">
-							{@html item.hoverText}
-							<br><br>
-							<a href="https://bit.ly/GRG-Group-FnB" 
-							   class="hover-link" 
-							   onclick={handleLinkClick}
-							   target="_blank"
-							   rel="noopener noreferrer">
-								📱 Découvrir nos produits
-							</a>
-						</p>
-					{:else}
-						<!-- Cartes 4 et 5 sans lien -->
-						<p class="hover-text">{item.hoverText}</p>
-					{/if}
-				</div>
-
-				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
-			</div>
-		{/each}
-	</div>
-</div>
 
 <style lang="scss">
 .page-wrapper {
@@ -322,7 +296,7 @@ const bentoItems = [
     filter: brightness(0) invert(1) !important;
 }
 
-/* Cartes 4, 5 - Icônes qui s'adaptent au contraste (comme cartes 2,3 du premier composant) */
+/* Cartes 4, 5 - Icônes qui s'adaptent au contraste */
 .card-4 .card-icon,
 .card-5 .card-icon {
 	filter: brightness(0); /* Icône noire en mode clair */
@@ -391,40 +365,40 @@ const bentoItems = [
 /* BACKGROUNDS MONOCHROMES - PLUS TRANSPARENTS */
 .card-1 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), /* Plus transparent */
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
 		url('/ligne_production.png') center/cover no-repeat;
 	position: relative;
 }
 
 .card-2 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), /* Plus transparent */
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
 		url('/mixed-fruits.jpg') center/cover no-repeat;
 	position: relative;
 }
 
 .card-3 {
 	background: 
-		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), /* Plus transparent */
+		linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
 		url('/pils.jpg') center/cover no-repeat;
 	position: relative;
 }
 
 /* Cartes 4, 5 - Fonds qui s'adaptent au contraste */
 .card-4 { 
-	background: linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%); /* Claire en mode clair */
+	background: linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%);
 }
 
 .card-5 { 
-	background: linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%); /* Claire en mode clair */
+	background: linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%);
 }
 
 :global(.dark) .card-4 { 
-	background: linear-gradient(135deg, #404040 0%, #525252 100%); /* Foncée en mode sombre */
+	background: linear-gradient(135deg, #404040 0%, #525252 100%);
 }
 
 :global(.dark) .card-5 { 
-	background: linear-gradient(135deg, #525252 0%, #737373 100%); /* Foncée en mode sombre */
+	background: linear-gradient(135deg, #525252 0%, #737373 100%);
 }
 
 /* Overlay amélioré - PLUS TRANSPARENT */
@@ -434,7 +408,7 @@ const bentoItems = [
 	content: '';
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
-	background: rgba(0, 0, 0, 0.2); /* Plus transparent */
+	background: rgba(0, 0, 0, 0.2);
 	border-radius: 1.75rem;
 	z-index: 1;
 	transition: background 0.3s ease;
@@ -443,7 +417,7 @@ const bentoItems = [
 .card-1:hover::before,
 .card-2:hover::before,
 .card-3:hover::before {
-	background: rgba(0, 0, 0, 0.4); /* Plus transparent au hover */
+	background: rgba(0, 0, 0, 0.4);
 }
 
 /* HOVER CONTENT */
@@ -457,7 +431,7 @@ const bentoItems = [
 	text-align: center;
 	opacity: 0;
 	transition: opacity 0.2s ease;
-	pointer-events: auto; /* 👈 Permet les clics sur les liens */
+	pointer-events: auto;
 }
 
 .card-hover-content.show { 
@@ -506,15 +480,15 @@ const bentoItems = [
 	transform: scale(1.05);
 }
 
-/* OVERLAY - BLUR RÉDUIT ET PLUS TRANSPARENT */
+/* OVERLAY */
 .card-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.4); /* Plus transparent */
-	backdrop-filter: blur(4px); /* Blur réduit */
+	background: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(4px);
 	opacity: 0;
 	transition: opacity 0.2s ease;
 	z-index: 1;
@@ -524,7 +498,44 @@ const bentoItems = [
 	opacity: 1; 
 }
 
-/* RESPONSIVE - VERSION OPTIMISÉE */
+/* === LOGO CARD 1 === */
+.card-1 .card-title-image {
+    width: 120px;
+    max-width: 40%;
+    height: auto;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* === HIGHLIGHT PNG SOUS "BPANI" - SOLUTION SIMPLE === */
+.bpani-subtitle {
+    font-size: 1.25rem;
+    color: var(--gray-100, #f5f5f5) !important;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.bpani-word {
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+    padding: 0 5px;
+}
+
+/* PNG comme background-image sous le mot BPANI */
+.bpani-word::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 70%;
+    background: url('/static/img/highlight.png') center/contain no-repeat;
+    z-index: -1;
+    opacity: 0.9;
+}
+
+/* RESPONSIVE */
 @media (max-width: 1024px) {
 	.page-wrapper {
 		height: auto;
@@ -581,6 +592,16 @@ const bentoItems = [
 	.card-1 .card-subtitle {
 		font-size: 1.15rem;
 	}
+
+    /* Responsive pour le highlight */
+    .bpani-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .bpani-word::after {
+        bottom: -2px;
+        height: 60%;
+    }
 
 	.hover-text { 
 		font-size: 0.95rem;
@@ -642,6 +663,16 @@ const bentoItems = [
 		font-size: 1.1rem;
 	}
 
+    /* Responsive pour le highlight */
+    .bpani-subtitle {
+        font-size: 1rem;
+    }
+    
+    .bpani-word::after {
+        bottom: -1px;
+        height: 55%;
+    }
+
 	.hover-text { 
 		font-size: 0.9rem;
 		line-height: 1.5;
@@ -701,6 +732,16 @@ const bentoItems = [
 	.card-1 .card-subtitle {
 		font-size: 1.05rem;
 	}
+
+    /* Responsive pour le highlight */
+    .bpani-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .bpani-word::after {
+        bottom: 0;
+        height: 50%;
+    }
 
 	.hover-text {
 		font-size: 0.85rem;
@@ -781,18 +822,4 @@ const bentoItems = [
   pointer-events: none;
   opacity: 0.9;
 }
-.card-logo {
-    width: 80px;
-    height: auto;
-    margin-bottom: 1rem;
-    object-fit: contain;
-    filter: brightness(0); /* s'adapte comme card-4/5 */
-}
-
-:global(.dark) .card-logo {
-    filter: brightness(0) invert(1); /* version blanche en dark mode */
-}
-
-
 </style>
-
