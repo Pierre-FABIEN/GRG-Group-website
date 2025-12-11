@@ -3,6 +3,9 @@
     import '@fontsource-variable/raleway';
     import { scale } from 'svelte/transition';
     import { m } from '$lib/paraglide/messages.js';
+	
+  	import highlightImg from '$lib/assets/highlight.png';
+
 
     const bentoItems = [
         { 
@@ -530,7 +533,7 @@
     bottom: -3px;
     width: 100%;
     height: 70%;
-    background: url('/image/highlight.png') center/contain no-repeat;
+    background: url({hightlightImg}) center/contain no-repeat;
     z-index: -1;
     opacity: 0.9;
 }
