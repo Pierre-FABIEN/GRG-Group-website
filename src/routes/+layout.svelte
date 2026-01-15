@@ -140,11 +140,16 @@
 	}
 
 	let isMobileOpen = $state(false);
+	
+	// Fermer le menu quand on clique sur un lien
+	function handleNavClick() {
+		isMobileOpen = false;
+	}
 </script>
 
 <svelte:head>
 	<link rel="icon" href="/favicon.png" />
-	<meta name="viewport" content="width=device-width" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link rel="manifest" href="/pwa/manifest.webmanifest" />
 	<meta name="theme-color" content="#6366f1" />
 </svelte:head>
@@ -157,16 +162,17 @@
 	<div class="layout-wrapper">
 		<ModeWatcher />
 
-		<!-- Bouton menu mobile - disparaît quand le menu est ouvert -->
-		{#if !isMobileOpen}
-			<button 
-				class="mobile-menu-button" 
-				on:click={() => isMobileOpen = !isMobileOpen} 
-				type="button"
-				aria-label="Toggle menu">
-				☰
-			</button>
-		{/if}
+		<!-- Bouton menu mobile avec animation -->
+		<button 
+			class="mobile-menu-button" 
+			class:open={isMobileOpen}
+			on:click={() => isMobileOpen = !isMobileOpen} 
+			type="button"
+			aria-label="Toggle menu">
+			<span class="burger-line"></span>
+			<span class="burger-line"></span>
+			<span class="burger-line"></span>
+		</button>
 
 		<!-- Overlay pour fermer le menu -->
 		<div 
@@ -178,35 +184,35 @@
 			tabindex="-1">
 		</div>
 
-		<!-- SIDEBAR BENTO STYLE - MODIFIÉ -->
+		<!-- SIDEBAR BENTO STYLE -->
 		<aside class="sidebar" class:mobile-open={isMobileOpen}>
 			<div class="sidebar-header">
-				<div class="logo"> 
-				<!-- svelte-ignore a11y_consider_explicit_label -->
-				<a href="https://bit.ly/GRG-Group-FnB" target="blank">	<img src="/image/path1.svg" alt="Logo"> </a>
+				<div class="logo">
+					<a href="https://bit.ly/GRG-Group-FnB" target="blank">
+						<img src="/image/path1.svg" alt="Logo">
+					</a>
 				</div>
-				
 			</div>
 			
 			<nav class="sidebar-nav">
-				<a href="/" class="nav-link" class:active={currentPath === '/'}>
-					<span class="nav-icon"></span>
+				<a href="/" class="nav-link" class:active={currentPath === '/'} on:click={handleNavClick}>
+					<span class="nav-icon">🏠</span>
 					<span class="nav-text">{translations[currentLanguage].home}</span>
 				</a>
-				<a href="/propos" class="nav-link" class:active={currentPath === '/propos'}>
-					<span class="nav-icon"></span>
+				<a href="/propos" class="nav-link" class:active={currentPath === '/propos'} on:click={handleNavClick}>
+					<span class="nav-icon">ℹ️</span>
 					<span class="nav-text">{translations[currentLanguage].about}</span>
 				</a>
-				<a href="/services-" class="nav-link" class:active={currentPath === '/services-'}>
-					<span class="nav-icon"></span>
+				<a href="/services-" class="nav-link" class:active={currentPath === '/services-'} on:click={handleNavClick}>
+					<span class="nav-icon">⚙️</span>
 					<span class="nav-text">{translations[currentLanguage].services}</span>
 				</a>
-				<a href="/produits" class="nav-link" class:active={currentPath === '/produits'}>
-					<span class="nav-icon"></span>
+				<a href="/produits" class="nav-link" class:active={currentPath === '/produits'} on:click={handleNavClick}>
+					<span class="nav-icon">📦</span>
 					<span class="nav-text">{translations[currentLanguage].products}</span>
 				</a>
-				<a href="/contact" class="nav-link" class:active={currentPath === '/contact'}>
-					<span class="nav-icon"></span>
+				<a href="/contact" class="nav-link" class:active={currentPath === '/contact'} on:click={handleNavClick}>
+					<span class="nav-icon">✉️</span>
 					<span class="nav-text">{translations[currentLanguage].contact}</span>
 				</a>
 			</nav>
@@ -217,7 +223,6 @@
 					<span class="theme-icon-dark">🌙</span>
 				</button>
 
-				<!-- Sélecteur de langue - drapeaux sur la même ligne -->
 				<div class="language-selector">
 					<button 
 						class="language-button"
@@ -284,7 +289,6 @@
 	</div>
 {/if}
 
-
 <style lang="scss">
 :root {
   --gray-50: #fafafa;
@@ -298,7 +302,6 @@
   --gray-800: #262626;
   --gray-900: #171717;
 }
-
 
 :global(html),
 :global(body) {
@@ -331,28 +334,60 @@
 	background: var(--gray-900, #171717);
 }
 
-/* Menu burger pour mobile */
+/* Menu burger animé */
 .mobile-menu-button {
 	display: none;
 	position: fixed;
 	top: 1rem;
 	left: 1rem;
 	z-index: 1002;
-	background: var(--theme-color, #404040);
+	background: var(--gray-800, #262626);
 	border: none;
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-	color: white;
-	font-size: 1.5rem;
+	border-radius: 0.75rem;
+	padding: 0.625rem;
 	cursor: pointer;
-	width: 44px;
-	height: 44px;
+	width: 48px;
+	height: 48px;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	transition: opacity 0.3s ease;
+	gap: 0.375rem;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Overlay pour fermer la sidebar */
+:global(.dark) .mobile-menu-button {
+	background: var(--gray-700, #404040);
+}
+
+.mobile-menu-button:hover {
+	transform: scale(1.05);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.burger-line {
+	width: 24px;
+	height: 2.5px;
+	background: white;
+	border-radius: 2px;
+	transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	transform-origin: center;
+}
+
+.mobile-menu-button.open .burger-line:nth-child(1) {
+	transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-menu-button.open .burger-line:nth-child(2) {
+	opacity: 0;
+	transform: scaleX(0);
+}
+
+.mobile-menu-button.open .burger-line:nth-child(3) {
+	transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Overlay */
 .sidebar-overlay {
 	display: none;
 	position: fixed;
@@ -363,13 +398,16 @@
 	background: rgba(0, 0, 0, 0.5);
 	z-index: 999;
 	backdrop-filter: blur(2px);
+	opacity: 0;
+	transition: opacity 0.3s ease;
 }
 
 .sidebar-overlay.mobile-open {
 	display: block;
+	opacity: 1;
 }
 
-/* === SIDEBAR === */
+/* SIDEBAR */
 .sidebar {
 	width: 280px;
 	min-width: 280px;
@@ -379,12 +417,12 @@
 	border-right: 1px solid var(--gray-200, #e5e5e5);
 	display: flex;
 	flex-direction: column;
-	padding: 2rem 1rem 0.5rem 2rem;
+	padding: 2rem 1rem 1rem 2rem;
 	z-index: 1000;
 	position: fixed;
 	left: 0;
 	top: 0;
-	overflow: hidden;
+	overflow-y: auto;
 	transform: translateZ(0);
 	backface-visibility: hidden;
 	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -393,11 +431,6 @@
 :global(.dark) .sidebar {
 	background: var(--gray-800, #262626);
 	border-right: 1px solid var(--gray-700, #404040);
-}
-
-.sidebar.mobile-open {
-	transform: translateX(0);
-	box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar-header {
@@ -422,12 +455,9 @@
 	transition: max-width 0.3s ease;
 }
 
-.logo-image {
-	filter: brightness(0.8);
-}
-
-:global(.dark) .logo-image {
-	filter: brightness(1.2);
+.logo img {
+	width: 100%;
+	height: auto;
 }
 
 .sidebar-nav {
@@ -435,9 +465,9 @@
 	flex-direction: column;
 	gap: 0.5rem;
 	flex: 1;
-	overflow: hidden;
-	justify-content: center; /* Centrage vertical des labels */
+	overflow-y: auto;
 	min-height: 0;
+	padding-right: 0.5rem;
 }
 
 .nav-link {
@@ -467,7 +497,7 @@
 	top: 0;
 	width: 4px;
 	height: 100%;
-	background: var(--theme-color, #404040);
+	background: var(--gray-800, #262626);
 	transform: scaleY(0);
 	transition: transform 0.3s ease;
 	border-radius: 0 4px 4px 0;
@@ -485,9 +515,13 @@
 }
 
 .nav-link.active {
-	background: var(--theme-color, #404040);
+	background: var(--gray-800, #262626);
 	color: white;
-	box-shadow: 0 8px 24px rgba(64, 64, 64, 0.2);
+	box-shadow: 0 8px 24px rgba(38, 38, 38, 0.2);
+}
+
+:global(.dark) .nav-link.active {
+	background: var(--gray-700, #404040);
 }
 
 .nav-link.active::before {
@@ -502,16 +536,15 @@
 
 .nav-text {
 	white-space: nowrap;
-	transition: opacity 0.3s ease, width 0.3s ease;
 }
 
 .sidebar-footer {
-	padding-top: 0.75rem;
+	padding-top: 1rem;
 	border-top: 2px solid var(--gray-100, #f5f5f5);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 0.625rem;
+	gap: 0.75rem;
 	flex-shrink: 0;
 	margin-top: auto;
 }
@@ -523,10 +556,10 @@
 .theme-toggle {
 	background: var(--gray-100, #f5f5f5);
 	border: none;
-	width: 40px;
-	height: 40px;
+	width: 44px;
+	height: 44px;
 	border-radius: 50%;
-	font-size: 1.25rem;
+	font-size: 1.3rem;
 	cursor: pointer;
 	transition: all 0.3s ease;
 	display: flex;
@@ -539,9 +572,13 @@
 }
 
 .theme-toggle:hover {
-	background: var(--theme-color, #404040);
+	background: var(--gray-800, #262626);
 	transform: rotate(180deg) scale(1.1);
-	box-shadow: 0 4px 12px rgba(64, 64, 64, 0.3);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+:global(.dark) .theme-toggle:hover {
+	background: var(--gray-600, #525252);
 }
 
 .theme-icon-light {
@@ -560,15 +597,13 @@
 	display: block;
 }
 
-/* Sélecteur de langue */
 .language-selector {
 	display: flex;
-	gap: 0.75rem; /* Espacement augmenté entre les drapeaux */
+	gap: 0.75rem;
 	align-items: center;
 	justify-content: center;
-	margin-top: 0.75rem;
-	padding-bottom: 0.5rem;
-	flex-wrap: nowrap; /* Empêcher le retour à la ligne */
+	margin-top: 0.5rem;
+	flex-wrap: nowrap;
 }
 
 .language-button {
@@ -581,7 +616,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 28px; /* Légèrement plus grand pour mobile */
+	width: 28px;
 	height: 28px;
 	opacity: 0.5;
 }
@@ -597,7 +632,7 @@
 	filter: brightness(1.3) drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
 }
 
-/* === CONTAINER === */
+/* CONTAINER */
 .container {
 	position: absolute;
 	right: 0;
@@ -606,8 +641,6 @@
 	height: 100vh;
 	height: 100dvh;
 	overflow: hidden;
-	transition: none;
-	will-change: auto;
 }
 
 .wrapperScroll {
@@ -638,35 +671,8 @@
 	background: var(--gray-900, #171717);
 }
 
-/* === STYLES GLOBAUX POUR LES COMPOSANTS ENFANTS === */
-:global(.card) {
-	background: var(--gradient-card1, linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%));
-	color: var(--text-color-1, #171717);
-}
-
-:global(.card-2) {
-	background: var(--gradient-card2, linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%));
-	color: var(--text-color-2, #262626);
-}
-
-:global(.card-3) {
-	background: var(--gradient-card3, linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%));
-	color: var(--text-color-3, #ffffff);
-}
-
-:global(.card-4) {
-	background: var(--gradient-card4, linear-gradient(135deg, #737373 0%, #525252 100%));
-	color: var(--text-color-4, #ffffff);
-}
-
-:global(.card-5) {
-	background: var(--gradient-card5, linear-gradient(135deg, #404040 0%, #262626 100%));
-	color: var(--text-color-5, #ffffff);
-}
-
-/* === RESPONSIVE SYSTEM CORRIGÉ POUR MOBILE === */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
-	/* SUR LAPTOP, ON GARDE LA SIDEBAR COMPLÈTE */
 	.container {
 		width: calc(100vw - 280px);
 	}
@@ -677,60 +683,14 @@
 		display: flex;
 	}
 	
-	/* Cache le bouton burger quand le menu est ouvert */
-	.sidebar.mobile-open ~ .mobile-menu-button {
-		display: none;
-	}
-	
 	.sidebar {
-		width: 280px;
 		transform: translateX(-100%);
+		box-shadow: none;
 	}
 	
 	.sidebar.mobile-open {
 		transform: translateX(0);
-	}
-	
-	.sidebar-header {
-		padding: 0 1rem 1.5rem;
-		justify-content: flex-start;
-	}
-	
-	.logo {
-		max-width: 150px;
-		margin-left: 15%;
-	}
-	
-	.nav-text {
-		display: block !important;
-		opacity: 1 !important;
-		width: auto !important;
-	}
-	
-	.nav-link {
-		justify-content: flex-start;
-		padding: 0.875rem 1.25rem;
-		gap: 1rem;
-	}
-	
-	.nav-icon {
-		font-size: 1.3rem;
-	}
-	
-	.sidebar-nav {
-		gap: 0.5rem;
-		justify-content: center; /* Centrage vertical maintenu sur mobile */
-	}
-	
-	.sidebar-footer {
-		padding-top: 0.75rem;
-		gap: 0.625rem;
-	}
-	
-	.theme-toggle {
-		width: 40px;
-		height: 40px;
-		font-size: 1.25rem;
+		box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
 	}
 	
 	.container {
@@ -739,17 +699,72 @@
 		width: 100vw !important;
 	}
 	
-	.language-button {
-		width: 28px;
-		height: 28px;
+	/* Optimisation des cartes sur mobile */
+	:global(.page-wrapper) {
+		padding: 5rem 1rem 1rem !important;
+		height: auto !important;
+		min-height: 100vh;
+		overflow-y: auto !important;
+		justify-content: flex-start !important;
 	}
 	
-	.language-selector {
-		gap: 0.75rem; /* Espacement maintenu sur tablette */
-		margin-top: 0.75rem;
-		padding-bottom: 0.5rem;
-		flex-direction: row; /* Drapeaux sur la même ligne */
-		flex-wrap: nowrap; /* Empêche le retour à la ligne */
+	:global(.bento-row) {
+		flex-direction: column !important;
+		height: auto !important;
+		margin-bottom: 1rem !important;
+		gap: 1rem !important;
+	}
+	
+	:global(.bento-card) {
+		flex: 1 1 auto !important;
+		min-height: 180px !important;
+		max-height: 280px !important;
+		height: auto !important;
+		opacity: 1 !important;
+		transform: none !important;
+	}
+	
+	:global(.bento-card.hovered) {
+		flex: 1 1 auto !important;
+		min-height: 220px !important;
+		max-height: 320px !important;
+	}
+	
+	/* Fix pour le highlight image */
+	:global(.card-title::before),
+	:global(.card-subtitle::before),
+	:global(.card-1-subtitle::before),
+	:global(.card-4-subtitle::before),
+	:global(.card-5-subtitle::before) {
+		background-size: 100% 100% !important;
+		background-position: center !important;
+		height: 75% !important;
+	}
+	
+	:global(.card-icon) {
+		font-size: 2.5rem !important;
+		margin-bottom: 0.75rem !important;
+	}
+	
+	:global(.card-title) {
+		font-size: 1.5rem !important;
+		margin-bottom: 0.5rem !important;
+	}
+	
+	:global(.card-subtitle) {
+		font-size: 1rem !important;
+	}
+	
+	:global(.hover-text) {
+		font-size: 0.9rem !important;
+		line-height: 1.4 !important;
+		padding: 0 0.5rem !important;
+	}
+	
+	:global(.discover-link),
+	:global(.action-btn) {
+		font-size: 0.85rem !important;
+		padding: 0.5rem 1rem !important;
 	}
 }
 
@@ -757,29 +772,17 @@
 	.mobile-menu-button {
 		top: 0.75rem;
 		left: 0.75rem;
-		padding: 0.375rem;
-		font-size: 1.25rem;
-		width: 40px;
-		height: 40px;
-	}
-	
-	/* Cache le bouton burger quand le menu est ouvert sur mobile */
-	.sidebar.mobile-open ~ .mobile-menu-button {
-		display: none;
+		width: 44px;
+		height: 44px;
 	}
 	
 	.sidebar {
 		width: 280px;
-		padding: 1.5rem 1rem 0.5rem 1.5rem;
-	}
-	
-	.sidebar-header {
-		padding: 0 1rem 1rem;
-		margin-bottom: 1rem;
+		padding: 1.5rem 1rem 1rem 1.5rem;
 	}
 	
 	.logo {
-		max-width: 120px;
+		max-width: 130px;
 	}
 	
 	.nav-link {
@@ -787,73 +790,106 @@
 		font-size: 0.9rem;
 	}
 	
-	.nav-icon {
+	.theme-toggle {
+		width: 40px;
+		height: 40px;
 		font-size: 1.2rem;
 	}
 	
-	.sidebar-nav {
-		gap: 0.375rem;
-		justify-content: center; /* Centrage vertical maintenu */
-	}
-	
-	.sidebar-footer {
-		padding-top: 0.625rem;
-		gap: 0.625rem;
-	}
-	
-	.theme-toggle {
-		width: 36px;
-		height: 36px;
-		font-size: 1.1rem;
-	}
-	
 	.language-button {
-		width: 26px; /* Taille légèrement réduite pour mobile */
+		width: 26px;
 		height: 26px;
 	}
 	
 	.language-selector {
-		gap: 0.5rem; /* Espacement réduit mais toujours sur la même ligne */
-		margin-top: 1rem;
-		padding-bottom: 0.25rem;
-		flex-direction: row; /* Drapeaux sur la même ligne */
-		justify-content: center;
-		flex-wrap: nowrap; /* Important : empêche le retour à la ligne */
+		gap: 0.5rem;
 	}
 	
-	/* S'assurer que les drapeaux ne passent pas à la ligne */
-	.language-selector .language-button {
-		margin-bottom: 0;
-		flex-shrink: 0; /* Empêche la réduction de taille */
+	:global(.page-wrapper) {
+		padding: 4.5rem 0.75rem 0.75rem !important;
+	}
+	
+	:global(.bento-row) {
+		gap: 0.75rem !important;
+	}
+	
+	:global(.bento-card) {
+		padding: 1.25rem !important;
+		min-height: 160px !important;
+		max-height: 260px !important;
+		border-radius: 1.25rem !important;
+	}
+	
+	:global(.bento-card.hovered) {
+		min-height: 200px !important;
+		max-height: 300px !important;
+	}
+	
+	:global(.card-icon) {
+		font-size: 2rem !important;
+		margin-bottom: 0.5rem !important;
+	}
+	
+	:global(.card-title) {
+		font-size: 1.3rem !important;
+	}
+	
+	:global(.card-subtitle) {
+		font-size: 0.9rem !important;
+	}
+	
+	:global(.hover-text) {
+		font-size: 0.85rem !important;
+	}
+	
+	:global(.discover-link),
+	:global(.action-btn) {
+		font-size: 0.8rem !important;
+		padding: 0.4rem 0.8rem !important;
 	}
 }
 
-/* Support pour les appareils avec encoche (notch) */
+@media (max-width: 360px) {
+	.language-selector {
+		gap: 0.4rem;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	
+	.language-button {
+		width: 24px;
+		height: 24px;
+	}
+	
+	:global(.bento-card) {
+		padding: 1rem !important;
+		min-height: 150px !important;
+		max-height: 240px !important;
+	}
+	
+	:global(.card-title) {
+		font-size: 1.2rem !important;
+	}
+	
+	:global(.card-subtitle) {
+		font-size: 0.85rem !important;
+	}
+}
+
+/* Support pour les appareils avec encoche */
 @supports (padding: max(0px)) {
 	.sidebar {
 		padding-left: max(1rem, env(safe-area-inset-left));
 		padding-right: max(1rem, env(safe-area-inset-right));
 	}
 	
-	.container {
-		padding-right: env(safe-area-inset-right);
-	}
-	
 	.mobile-menu-button {
-		left: max(1rem, env(safe-area-inset-left));
-		top: max(1rem, env(safe-area-inset-top));
-	}
-}
-
-/* Amélioration pour les très petits écrans */
-@media (max-width: 360px) {
-	.language-selector {
-		gap: 0.4rem; /* Espacement encore réduit mais drapeaux restent alignés */
+		left: max(0.75rem, env(safe-area-inset-left));
+		top: max(0.75rem, env(safe-area-inset-top));
 	}
 	
-	.language-button {
-		width: 24px;
-		height: 24px;
+	:global(.page-wrapper) {
+		padding-top: max(5rem, calc(5rem + env(safe-area-inset-top))) !important;
 	}
 }
 </style>
