@@ -141,17 +141,15 @@
 
 	let isMobileOpen = $state(false);
 	
-	// Fermer le menu lors du changement de page
-	$effect(() => {
-		// Écouter les changements de route
-		const currentUrl = $page.url.pathname;
+	// Fermer le menu quand on clique sur un lien
+	function handleNavClick() {
 		isMobileOpen = false;
-	});
+	}
 </script>
 
 <svelte:head>
 	<link rel="icon" href="/favicon.png" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link rel="manifest" href="/pwa/manifest.webmanifest" />
 	<meta name="theme-color" content="#6366f1" />
 </svelte:head>
@@ -177,44 +175,43 @@
 		</button>
 
 		<!-- Overlay pour fermer le menu -->
-		{#if isMobileOpen}
-			<div 
-				class="sidebar-overlay" 
-				on:click={() => isMobileOpen = false}
-				on:keydown={(e) => e.key === 'Escape' && (isMobileOpen = false)}
-				role="button"
-				tabindex="-1">
-			</div>
-		{/if}
+		<div 
+			class="sidebar-overlay" 
+			class:mobile-open={isMobileOpen} 
+			on:click={() => isMobileOpen = false}
+			on:keydown={(e) => e.key === 'Escape' && (isMobileOpen = false)}
+			role="button"
+			tabindex="-1">
+		</div>
 
 		<!-- SIDEBAR BENTO STYLE -->
 		<aside class="sidebar" class:mobile-open={isMobileOpen}>
 			<div class="sidebar-header">
 				<div class="logo">
-					<a href="https://bit.ly/GRG-Group-FnB" target="_blank">
+					<a href="https://bit.ly/GRG-Group-FnB" target="blank">
 						<img src="/image/path1.svg" alt="Logo">
 					</a>
 				</div>
 			</div>
 			
 			<nav class="sidebar-nav">
-				<a href="/" class="nav-link" class:active={currentPath === '/'}>
+				<a href="/" class="nav-link" class:active={currentPath === '/'} on:click={handleNavClick}>
 					<span class="nav-icon">🏠</span>
 					<span class="nav-text">{translations[currentLanguage].home}</span>
 				</a>
-				<a href="/propos" class="nav-link" class:active={currentPath === '/propos'}>
+				<a href="/propos" class="nav-link" class:active={currentPath === '/propos'} on:click={handleNavClick}>
 					<span class="nav-icon">ℹ️</span>
 					<span class="nav-text">{translations[currentLanguage].about}</span>
 				</a>
-				<a href="/services-" class="nav-link" class:active={currentPath === '/services-'}>
+				<a href="/services-" class="nav-link" class:active={currentPath === '/services-'} on:click={handleNavClick}>
 					<span class="nav-icon">⚙️</span>
 					<span class="nav-text">{translations[currentLanguage].services}</span>
 				</a>
-				<a href="/produits" class="nav-link" class:active={currentPath === '/produits'}>
+				<a href="/produits" class="nav-link" class:active={currentPath === '/produits'} on:click={handleNavClick}>
 					<span class="nav-icon">📦</span>
 					<span class="nav-text">{translations[currentLanguage].products}</span>
 				</a>
-				<a href="/contact" class="nav-link" class:active={currentPath === '/contact'}>
+				<a href="/contact" class="nav-link" class:active={currentPath === '/contact'} on:click={handleNavClick}>
 					<span class="nav-icon">✉️</span>
 					<span class="nav-text">{translations[currentLanguage].contact}</span>
 				</a>
@@ -392,6 +389,7 @@
 
 /* Overlay */
 .sidebar-overlay {
+	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -400,16 +398,13 @@
 	background: rgba(0, 0, 0, 0.5);
 	z-index: 999;
 	backdrop-filter: blur(2px);
-	animation: fadeIn 0.3s ease;
+	opacity: 0;
+	transition: opacity 0.3s ease;
 }
 
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
+.sidebar-overlay.mobile-open {
+	display: block;
+	opacity: 1;
 }
 
 /* SIDEBAR */
@@ -703,6 +698,74 @@
 		right: 0;
 		width: 100vw !important;
 	}
+	
+	/* Optimisation des cartes sur mobile */
+	:global(.page-wrapper) {
+		padding: 5rem 1rem 1rem !important;
+		height: auto !important;
+		min-height: 100vh;
+		overflow-y: auto !important;
+		justify-content: flex-start !important;
+	}
+	
+	:global(.bento-row) {
+		flex-direction: column !important;
+		height: auto !important;
+		margin-bottom: 1rem !important;
+		gap: 1rem !important;
+	}
+	
+	:global(.bento-card) {
+		flex: 1 1 auto !important;
+		min-height: 180px !important;
+		max-height: 280px !important;
+		height: auto !important;
+		opacity: 1 !important;
+		transform: none !important;
+	}
+	
+	:global(.bento-card.hovered) {
+		flex: 1 1 auto !important;
+		min-height: 220px !important;
+		max-height: 320px !important;
+	}
+	
+	/* Fix pour le highlight image */
+	:global(.card-title::before),
+	:global(.card-subtitle::before),
+	:global(.card-1-subtitle::before),
+	:global(.card-4-subtitle::before),
+	:global(.card-5-subtitle::before) {
+		background-size: 100% 100% !important;
+		background-position: center !important;
+		height: 75% !important;
+	}
+	
+	:global(.card-icon) {
+		font-size: 2.5rem !important;
+		margin-bottom: 0.75rem !important;
+	}
+	
+	:global(.card-title) {
+		font-size: 1.5rem !important;
+		margin-bottom: 0.5rem !important;
+	}
+	
+	:global(.card-subtitle) {
+		font-size: 1rem !important;
+	}
+	
+	:global(.hover-text) {
+		font-size: 0.9rem !important;
+		line-height: 1.4 !important;
+		padding: 0 0.5rem !important;
+	}
+	
+	:global(.discover-link),
+	:global(.action-btn) {
+		font-size: 0.85rem !important;
+		padding: 0.5rem 1rem !important;
+	}
 }
 
 @media (max-width: 480px) {
@@ -741,6 +804,49 @@
 	.language-selector {
 		gap: 0.5rem;
 	}
+	
+	:global(.page-wrapper) {
+		padding: 4.5rem 0.75rem 0.75rem !important;
+	}
+	
+	:global(.bento-row) {
+		gap: 0.75rem !important;
+	}
+	
+	:global(.bento-card) {
+		padding: 1.25rem !important;
+		min-height: 160px !important;
+		max-height: 260px !important;
+		border-radius: 1.25rem !important;
+	}
+	
+	:global(.bento-card.hovered) {
+		min-height: 200px !important;
+		max-height: 300px !important;
+	}
+	
+	:global(.card-icon) {
+		font-size: 2rem !important;
+		margin-bottom: 0.5rem !important;
+	}
+	
+	:global(.card-title) {
+		font-size: 1.3rem !important;
+	}
+	
+	:global(.card-subtitle) {
+		font-size: 0.9rem !important;
+	}
+	
+	:global(.hover-text) {
+		font-size: 0.85rem !important;
+	}
+	
+	:global(.discover-link),
+	:global(.action-btn) {
+		font-size: 0.8rem !important;
+		padding: 0.4rem 0.8rem !important;
+	}
 }
 
 @media (max-width: 360px) {
@@ -754,6 +860,20 @@
 		width: 24px;
 		height: 24px;
 	}
+	
+	:global(.bento-card) {
+		padding: 1rem !important;
+		min-height: 150px !important;
+		max-height: 240px !important;
+	}
+	
+	:global(.card-title) {
+		font-size: 1.2rem !important;
+	}
+	
+	:global(.card-subtitle) {
+		font-size: 0.85rem !important;
+	}
 }
 
 /* Support pour les appareils avec encoche */
@@ -766,6 +886,10 @@
 	.mobile-menu-button {
 		left: max(0.75rem, env(safe-area-inset-left));
 		top: max(0.75rem, env(safe-area-inset-top));
+	}
+	
+	:global(.page-wrapper) {
+		padding-top: max(5rem, calc(5rem + env(safe-area-inset-top))) !important;
 	}
 }
 </style>
