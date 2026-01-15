@@ -1,0 +1,130 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+
+  "home_item1_title": "GRG Gruppe",
+  "home_item1_subtitle": "Europäisches Food & Beverage Hub | IFS Netzwerk",
+  "home_item1_additionalText": "Von der F&E-Konzeption bis zur industriellen Produktion: Ihr einziger Partner für funktionelle Getränke und Nahrungsergänzungsmittel",
+  "home_item1_hoverText": "Europäische Führungsposition: Gelistet in den Top-Rankings professioneller Plattformen, ist die GRG Gruppe einer der führenden Akteure im Getränke- und Nährstoffsourcing in Frankreich, Spanien, Italien, Deutschland, Benelux und darüber hinaus.",
+  "home_item1_icon": "",
+
+  "home_item2_title": "Unsere Mission",
+  "home_item2_subtitle": "Kreation & Qualität",
+  "home_item2_hoverText": "Wir verbinden wissenschaftliche Expertise und Kreativität, um einzigartige und zuverlässige Produkte zu entwickeln – von der Formulierung bis zur Produktion.",
+  "home_item2_icon": "",
+
+  "home_item3_title": "Unsere Vision",
+  "home_item3_subtitle": "Innovation & Begleitung",
+  "home_item3_hoverText": "Wir begleiten Marken und Händler in jeder Schlüsselphase mit Flexibilität und Präzision, um ihre Ideen auf den Markt zu bringen.",
+  "home_item3_icon": "",
+
+  "home_item4_title": "Flavor House - IFS Netzwerk Produktion",
+  "home_item4_subtitle": "FOOD & BEVERAGE",
+  "home_item4_hoverText": "Unsere Priorität: qualitativ hochwertige, sichere und konforme Produkte, die den Verbrauchererwartungen und Industriestandards entsprechen.",
+  "home_item4_icon": "",
+
+  "home_item5_title": "Unser Ansatz",
+  "home_item5_subtitle": "Ihr Projektpartner",
+  "home_item5_hoverText": "Wir arbeiten Hand in Hand mit jedem Kunden, um Ihre Ideen in konkrete, marktreife Produkte zu verwandeln.",
+  "home_item5_icon": "",
+
+  "contact_item1_title": "LinkedIn",
+  "contact_item1_subtitle": "",
+  "contact_item1_icon": "",
+  "contact_item1_hoverText": "Treten Sie unserem Netzwerk bei: Besuchen Sie unsere <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a>-Seite, um unsere Neuigkeiten zu verfolgen.",
+
+  "contact_item2_title": "Facebook GRG GRUPPE",
+  "contact_item2_subtitle": "Unsere Community",
+  "contact_item2_icon": "",
+  "contact_item2_hoverText": "Begleiten Sie uns auf <a href=\"https://www.facebook.com/GRFBSmilkteasupplies/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">Facebook</a>, um unsere Neuheiten zu entdecken.",
+
+  "contact_item3_title": "KUNDENSTIMME 1",
+  "contact_item3_subtitle": "Sie vertrauen uns",
+  "contact_item3_icon": "",
+  "contact_item3_hoverText": "Sie vertrauten uns die Entwicklung ihrer Produkte an und teilen ihre Erfahrungen mit der GRG Gruppe.",
+
+  "contact_item4_title": "Einziger Ansprechpartner",
+  "contact_item4_subtitle": "",
+  "contact_item4_icon": "",
+  "contact_item4_hoverText": "Querschnittliches Projektmanagement von A bis Z: Wir koordinieren für Sie F&E, Produktionsaudits, Packungsdesign und die finale Lieferabsicherung mit einem besonders effektiven Netzwerk an Maklern.",
+
+  "contact_item5_title": "Verfügbarkeit prüfen",
+  "contact_item5_subtitle": "unserer Produktionslinien",
+  "contact_item5_icon": "",
+  "contact_item5_hoverText": "Bereit, Ihr Konzept in einen industriellen Erfolg zu verwandeln? Kontaktieren Sie unsere Experten für eine technische Machbarkeitsanalyse und maßgeschneiderte Unterstützung.<a href=\"mailto:contact@grggroupe.com\" class=\"hover-link\">contact@grggroupe.com</a>",
+
+  "products_item1_title": "Bündelungslösungen",
+  "products_item1_subtitle": "BPANI-Dosen",
+  "products_item1_hoverText": "Internationaler Lieferant von BPANI-Aluminiumdosen für Food- und Beverage-Eigenmarkenprodukte.",
+  "products_item1_icon": "",
+  "products_item1_link": "",
+
+  "products_item2_title": "Getränke",
+  "products_item2_subtitle": "",
+  "products_item2_hoverText": "Unser Flaggschiff seit 2007. Expertise in der Mehrweggebinde-Entwicklung: BPANI-Dosen, Glas, PET und RPET. Wir bieten flexible MOQs (Mindestabnahmemengen), um den Start Ihrer innovativen Projekte abzusichern.",
+  "products_item2_icon": "",
+
+  "products_item3_title": "Nutrazeutika",
+  "products_item3_subtitle": "Verschiedene Formeln und Formate",
+  "products_item3_hoverText": "Produktionstechnik für Gesundheits- und Wellness-Kapseln und Pulver. Kombination aus fortschrittlicher wissenschaftlicher Formulierung und Bezug hochwertiger Wirkstoffe für Ihre Abfüllungen ab 300 kg.",
+  "products_item3_icon": "",
+
+  "products_item4_title": "Innovation",
+  "products_item4_subtitle": "Gummies",
+  "products_item4_hoverText": "Die Zukunft der Nahrungsergänzung: Schmackhafte Galenik mit Integration patentierter Wirkstoffe. Entwicklung maßgeschneiderter Lösungen mit einem Einstiegsschwellenwert ab 5.000 Einheiten.",
+  "products_item4_icon": "",
+
+  "products_item5_title": "Brausetabletten",
+  "products_item5_subtitle": "",
+  "products_item5_hoverText": "Die ultimative nomadische und ökologische Alternative. Zugriff auf über 36 proprietäre Rezepturen, sofort verfügbar für den internationalen Vertrieb unter Ihrer eigenen Marke.",
+  "products_item5_icon": "",
+
+  "about_item1_title": "Industrielle Exzellenz",
+  "about_item1_subtitle": "im Dienste der Food & Beverage Innovation",
+  "about_item1_hoverText": "Seit 2007 hat sich die GRG Gruppe als strategischer Referenzpartner bei der Unterstützung von Marken im Lebensmittel- und Nutrazeutikabereich in Europa etabliert. Mehr als ein einfacher Lohnhersteller sind wir ein Hub für integrierte Lösungen, der wissenschaftliche Expertise, Produktionskraft und logistische Agilität vereint.",
+  "about_item1_icon": "",
+
+  "about_item2_title": "Multi-Standort",
+  "about_item2_subtitle": "Produktionsstärke:",
+  "about_item2_hoverText": "Gestützt auf ein strategisch in Europa lokalisiertes Produktionsnetzwerk bietet die GRG Gruppe eine robuste Infrastruktur, um Ihre Lieferketten abzusichern:\n\nGetränkesparte: 16 Linien für Dosen (Standard, Sleek, BPANI), PET- und Glasflaschen.\n\nNutrazeutik-Sparte: 7 spezialisierte Linien für Pulver und Gummies.\n\nInnovation: 3 integrierte F&E-Labore für Formulierung und Wirkstoffoptimierung.",
+  "about_item2_icon": "",
+
+  "about_item3_title": "Private Label",
+  "about_item3_subtitle": "Lösungen",
+  "about_item3_hoverText": "Zugang zu einem Katalog bewährter Formeln (Energy Drinks, Isotonische, Brausen) für eine beschleunigte Markteinführungszeit.",
+  "about_item3_icon": "",
+
+  "about_item4_title": "Verpackungsdesign",
+  "about_item4_subtitle": "& Kreativität",
+  "about_item4_hoverText": "Kreative Verpackungslösungen mit der Möglichkeit, diese Phase je nach Bedarf teilweise oder ganz zu delegieren.",
+  "about_item4_icon": "",
+
+  "about_item5_title": "Ihr Partner",
+  "about_item5_subtitle": "Umfassende Begleitung",
+  "about_item5_hoverText": "Die GRG Gruppe begleitet Sie in allen Projektphasen, von der Idee bis zur Markteinführung, mit Expertise und Flexibilität.",
+  "about_item5_icon": "",
+
+  "services_item1_title": "Co-Packing",
+  "services_item1_subtitle": "Lösungen",
+  "services_item1_hoverText": "Technologische Beherrschung der Abfüllung: Abfüllung in BPANI-Dosen, PET/RPET- oder Glasflaschen. Einzelportionsbeutel, Kartonierung, Flatback, Doypack, Pilbox. Hochpräzises Abfüllen, angepasst an die Anforderungen von flüssigen, pulverförmigen und Gummie-Formaten.",
+  "services_item1_icon": "",
+
+  "services_item2_title": "Rezepturen",
+  "services_item2_subtitle": "Formulierungsingenieurwesen",
+  "services_item2_hoverText": "Erstellung von Getränke- und Supplementrezepturen nach Ihren Zielen: Energie, Wellness, Sport, Fokus oder Schlaf. Wir erstellen Wirkstoffanalysen, Muster, technische Datenblätter und Analysezertifikate.",
+  "services_item2_icon": "",
+
+  "services_item3_title": "Qualität",
+  "services_item3_subtitle": "& Zertifizierungen",
+  "services_item3_hoverText": "Operative Exzellenz garantiert durch die höchsten internationalen Standards: IFS Food, HACCP, DPG, Halal. Die Gewissheit totaler Lebensmittelsicherheit für Ihre Verbraucher.",
+  "services_item3_icon": "",
+
+  "services_item4_title": "Produktion",
+  "services_item4_subtitle": "Europäisches Industrienetzwerk: \n23 spezialisierte Produktionslinien",
+  "services_item4_hoverText": "Eine robuste Infrastruktur von 23 Produktionslinien, strategisch in Europa gelegen, um eine ultraschnelle Logistik zu gewährleisten. Weltweite Möglichkeit mit Linien in den USA und Asien, je nach angestrebtem Markt.",
+  "services_item4_icon": "",
+
+  "services_item5_title": "Regulatorische Unterstützung",
+  "services_item5_subtitle": "& Design",
+  "services_item5_hoverText": "Compliance-Management (Zuckersteuer, PLFSS), Grafikcreation und visuelle Identität für Ihre Marken, von der Idee bis zum Fertigprodukt: Unsere technischen Teams begleiten jede Entwicklungsstufe, von der Formatwahl bis zur Produktion, mit hoher Expertise.",
+  "services_item5_icon": ""
+}

@@ -1,0 +1,130 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+
+  "home_item1_title": "GRG Group",
+  "home_item1_subtitle": "European Food & Beverage Hub | IFS Network",
+  "home_item1_additionalText": "From R&D design to industrial production: your single partner for functional beverages and food supplements",
+  "home_item1_hoverText": "European Leadership Position: Featured in the top rankings of professional platforms, GRG Group is among the leading players in beverage and nutrition sourcing in France, Spain, Italy, Germany, Benelux, and beyond.",
+  "home_item1_icon": "",
+
+  "home_item2_title": "Our Mission",
+  "home_item2_subtitle": "Creation & Quality",
+  "home_item2_hoverText": "We combine scientific expertise and creativity to design unique and reliable products, from formulation to production.",
+  "home_item2_icon": "",
+
+  "home_item3_title": "Our Vision",
+  "home_item3_subtitle": "Innovation & Support",
+  "home_item3_hoverText": "We support brands and distributors at every key stage, with flexibility and rigor, to bring their ideas to market.",
+  "home_item3_icon": "",
+
+  "home_item4_title": "Flavor House - IFS Network Production",
+  "home_item4_subtitle": "FOOD & BEVERAGE",
+  "home_item4_hoverText": "Our priority: quality, safe, and compliant products that meet consumer expectations and industry standards.",
+  "home_item4_icon": "",
+
+  "home_item5_title": "Our Approach",
+  "home_item5_subtitle": "Your Project Partner",
+  "home_item5_hoverText": "We work hand in hand with each client to transform your ideas into tangible, market-ready products.",
+  "home_item5_icon": "",
+
+  "contact_item1_title": "LinkedIn",
+  "contact_item1_subtitle": "",
+  "contact_item1_icon": "",
+  "contact_item1_hoverText": "Join our network: visit our <a href=\"https://www.linkedin.com/company/grg-groupe-sarl/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">LinkedIn</a> page to follow our updates.",
+
+  "contact_item2_title": "Facebook GRG GROUP",
+  "contact_item2_subtitle": "Our community",
+  "contact_item2_icon": "",
+  "contact_item2_hoverText": "Join us on <a href=\"https://www.facebook.com/GRFBSmilkteasupplies/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"hover-link\">Facebook</a> to discover our latest news.",
+
+  "contact_item3_title": "CLIENT REVIEW 1",
+  "contact_item3_subtitle": "They trust us",
+  "contact_item3_icon": "",
+  "contact_item3_hoverText": "They trusted us for the development of their products and share their experience with GRG Group.",
+
+  "contact_item4_title": "Single Point of Contact",
+  "contact_item4_subtitle": "",
+  "contact_item4_icon": "",
+  "contact_item4_hoverText": "Cross-functional project management from A to Z: we coordinate R&D, production audits, packaging design, and final delivery security for you with a highly effective network of brokers.",
+
+  "contact_item5_title": "Check the availability",
+  "contact_item5_subtitle": "of our production lines",
+  "contact_item5_icon": "",
+  "contact_item5_hoverText": "Ready to turn your concept into an industrial success? Contact our experts for a technical feasibility analysis and tailor-made support.<a href=\"mailto:contact@grggroupe.com\" class=\"hover-link\">contact@grggroupe.com</a>",
+
+  "products_item1_title": "Grouping Solutions",
+  "products_item1_subtitle": "BPANI Cans",
+  "products_item1_hoverText": "International supplier of BPANI aluminum cans for private-label food and beverage products.",
+  "products_item1_icon": "",
+  "products_item1_link": "",
+
+  "products_item2_title": "Beverages",
+  "products_item2_subtitle": "",
+  "products_item2_hoverText": "Our flagship since 2007. Expertise in multi-container development: BPANI cans, glass, PET, and RPET. We offer flexible MOQs (Minimum Order Quantities) to secure the launch of your innovative projects.",
+  "products_item2_icon": "",
+
+  "products_item3_title": "Nutraceuticals",
+  "products_item3_subtitle": "Various formulas and formats",
+  "products_item3_hoverText": "Production engineering for health & wellness capsules and powders. Combination of advanced scientific formulation and premium active ingredient sourcing for your runs starting at 300 kg.",
+  "products_item3_icon": "",
+
+  "products_item4_title": "Innovation",
+  "products_item4_subtitle": "Gummies",
+  "products_item4_hoverText": "The future of food supplements: tasty galenics with patented active integration. Development of tailor-made solutions with an entry threshold from 5,000 units.",
+  "products_item4_icon": "",
+
+  "products_item5_title": "Effervescent Tablets",
+  "products_item5_subtitle": "",
+  "products_item5_hoverText": "The ultimate nomadic and ecological alternative. Access over 36 proprietary recipes available immediately for international deployment under your own brand.",
+  "products_item5_icon": "",
+
+  "about_item1_title": "Industrial Excellence",
+  "about_item1_subtitle": "Serving Food & Beverage Innovation",
+  "about_item1_hoverText": "Since 2007, GRG Group has established itself as a benchmark strategic partner in supporting food and nutraceutical brands across Europe. More than a simple contract manufacturer, we are an integrated solutions hub, combining scientific expertise, production power, and logistical agility.",
+  "about_item1_icon": "",
+
+  "about_item2_title": "Multi-Site",
+  "about_item2_subtitle": "Production Power:",
+  "about_item2_hoverText": "Relying on a strategically located production network in Europe, GRG Group offers robust infrastructure to secure your supply chains:\n\nBeverage Division: 16 lines dedicated to cans (standard, sleek, BPANI), PET, and glass bottles.\n\nNutraceutical Division: 7 specialized lines for powders and gummies.\n\nInnovation: 3 integrated R&D labs for formulation and active ingredient optimization.",
+  "about_item2_icon": "",
+
+  "about_item3_title": "Private Label",
+  "about_item3_subtitle": "Solutions",
+  "about_item3_hoverText": "Access to a catalog of proven formulas (Energy Drinks, Isotonic, Effervescent) for an accelerated Time-to-Market.",
+  "about_item3_icon": "",
+
+  "about_item4_title": "Packaging & Creativity",
+  "about_item4_subtitle": "Design",
+  "about_item4_hoverText": "Creative packaging solutions, with the option to delegate this phase partially or entirely according to your needs.",
+  "about_item4_icon": "",
+
+  "about_item5_title": "Your Partner",
+  "about_item5_subtitle": "Complete Support",
+  "about_item5_hoverText": "GRG Group supports you through all project stages, from idea to market launch, with expertise and flexibility.",
+  "about_item5_icon": "",
+
+  "services_item1_title": "Co-Packing",
+  "services_item1_subtitle": "Solutions",
+  "services_item1_hoverText": "Technological mastery of packaging: BPANI canning, PET/RPET or glass bottling. Single-dose sachets, boxing, flatback, doypack, pilbox. High-precision filling adapted to the requirements of liquid, powder, and gummy formats.",
+  "services_item1_icon": "",
+
+  "services_item2_title": "Formulation",
+  "services_item2_subtitle": "Engineering & Recipes",
+  "services_item2_hoverText": "Creation of beverage and supplement recipes according to your objectives: energy, wellness, sport, focus, or sleep. We perform ingredient mapping, samples, technical data sheets, and certificates of analysis.",
+  "services_item2_icon": "",
+
+  "services_item3_title": "Quality",
+  "services_item3_subtitle": "& Certifications",
+  "services_item3_hoverText": "Operational excellence guaranteed by the highest international standards: IFS Food, HACCP, DPG, Halal. The certainty of total food safety for your consumers.",
+  "services_item3_icon": "",
+
+  "services_item4_title": "Production",
+  "services_item4_subtitle": "European Industrial Network: \n23 specialized production lines",
+  "services_item4_hoverText": "A robust infrastructure of 23 production lines strategically located in Europe to ensure ultra-responsive logistics. Worldwide possibility with lines in the USA and Asia depending on your target market.",
+  "services_item4_icon": "",
+
+  "services_item5_title": "Regulatory Support",
+  "services_item5_subtitle": "& Design",
+  "services_item5_hoverText": "Compliance management (Soda Tax, PLFSS), graphic creation, and visual identity for your brands, from idea to finished product: our technical teams support each development stage, from format selection to production, with a high level of expertise.",
+  "services_item5_icon": ""
+}
