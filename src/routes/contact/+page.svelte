@@ -62,7 +62,10 @@
 		hoveredCard = null;
 	}
 
-	function handleCardClick(item: any) {
+	// SUPPRIMER handleCardClick car le lien n'est plus sur la carte
+
+	function handleButtonClick(item: any, event: MouseEvent) {
+		event.stopPropagation(); // Empêcher la propagation à la carte parent
 		if (item.link) {
 			if (item.target === "_blank") {
 				window.open(item.link, '_blank', 'noopener,noreferrer');
@@ -96,8 +99,7 @@
 				class:hovered={hoveredCard === item.id}
 				onmouseenter={() => handleCardHover(item.id)}
 				onmouseleave={handleCardLeave}
-				onclick={() => handleCardClick(item)}
-				role="button"
+				role="article" <!-- Changé de 'button' à 'article' -->
 				tabindex="0"
 				in:scale={{ delay: i * 100, duration: 600 }}
 			>
@@ -110,7 +112,11 @@
 
 				<div class="card-hover-content" class:show={hoveredCard === item.id}>
 					<p class="hover-text">{@html item.hoverText}</p>
-					<button class="action-btn" aria-label="{getButtonText(item.id)}">
+					<button 
+						class="action-btn" 
+						aria-label="{getButtonText(item.id)}"
+						onclick={(e) => handleButtonClick(item, e)}
+					>
 						{getButtonText(item.id)}
 					</button>
 				</div>
@@ -127,8 +133,7 @@
 				class:hovered={hoveredCard === item.id}
 				onmouseenter={() => handleCardHover(item.id)}
 				onmouseleave={handleCardLeave}
-				onclick={() => handleCardClick(item)}
-				role="button"
+				role="article" <!-- Changé de 'button' à 'article' -->
 				tabindex="0"
 				in:scale={{ delay: i * 100, duration: 600 }}
 			>
@@ -141,7 +146,11 @@
 
 				<div class="card-hover-content" class:show={hoveredCard === item.id}>
 					<p class="hover-text">{@html item.hoverText}</p>
-					<button class="action-btn" aria-label="{getButtonText(item.id)}">
+					<button 
+						class="action-btn" 
+						aria-label="{getButtonText(item.id)}"
+						onclick={(e) => handleButtonClick(item, e)}
+					>
 						{getButtonText(item.id)}
 					</button>
 				</div>
@@ -196,7 +205,6 @@
 	position: relative;
 	border-radius: 1.75rem;
 	padding: 2.5rem;
-	cursor: pointer;
 	overflow: hidden;
 	box-sizing: border-box;
 	min-width: 0;
@@ -206,6 +214,7 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	cursor: default; /* Changé de 'pointer' à 'default' */
 }
 
 .bento-card.bottom-card {
@@ -385,8 +394,8 @@
 
 .grg-brand {
 	position: absolute;
-	bottom: 2rem; /* Réduit de 3rem à 2rem */
-	right: 2rem; /* Réduit de 3rem à 2rem */
+	bottom: 2rem;
+	right: 2rem;
 	text-align: right;
 	z-index: 10;
 	pointer-events: none;
@@ -394,22 +403,22 @@
 
 .grg-title {
 	font-family: 'raleway', sans-serif;
-	font-size: 3.5rem; /* Réduit de 4rem à 3.5rem */
+	font-size: 3.5rem;
 	font-weight: 900;
 	color: #002e1f;
 	line-height: 1;
-	margin: 0 0 0.3rem 0; /* Réduit la marge */
+	margin: 0 0 0.3rem 0;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
 }
 
 .grg-subtitle {
 	font-family: 'open-sans', sans-serif;
-	font-size: 1rem; /* Réduit de 1.5rem à 1rem */
-	font-weight: 600; /* Réduit de 700 à 600 */
+	font-size: 1rem;
+	font-weight: 600;
 	color: #7faf0d;
 	margin: 0;
-	letter-spacing: 0.05em; /* Réduit de 0.1em à 0.05em */
+	letter-spacing: 0.05em;
 	text-transform: uppercase;
 	opacity: 0.9;
 }
@@ -422,12 +431,14 @@
 	color: #a8d64e;
 }
 
+/* === CORRECTIONS RESPONSIVE OPTIMISÉES === */
 @media (max-width: 1024px) {
 	.page-wrapper {
 		height: auto;
 		min-height: 100vh;
 		padding: 1.5rem;
 		justify-content: flex-start;
+		padding-bottom: 4rem; /* Espace pour le branding */
 	}
 
 	.bento-row {
@@ -439,25 +450,40 @@
 
 	.bento-row.bottom {
 		display: flex;
+		margin-bottom: 0;
 	}
 
 	.bento-card {
-		flex: 1 1 auto !important;
-		height: 200px !important;
+		flex: 1 1 auto !important; /* Force comportement uniforme */
+		width: 100% !important;
+		height: 300px !important; /* Hauteur augmentée */
+		opacity: 1 !important;
+		min-height: 300px;
 	}
 
 	.bento-card.bottom-card {
 		flex: 1 1 auto !important;
-		width: 100%;
+		width: 100% !important;
+		height: 300px !important;
+		min-height: 300px;
 	}
 
 	.bento-card.hovered {
 		flex: 1 1 auto !important;
-		height: 250px !important;
+		height: 350px !important;
+		min-height: 350px;
 	}
 
 	.bento-card.bottom-card.hovered {
-		height: 280px !important;
+		height: 350px !important;
+		min-height: 350px;
+	}
+
+	/* Désactiver les effets flex sur mobile */
+	.bento-card.hovered,
+	.bento-card.bottom-card {
+		flex: 1 1 auto !important;
+		width: 100% !important;
 	}
 
 	.card-icon { 
@@ -468,15 +494,18 @@
 	.card-title { 
 		font-size: 1.6rem; 
 		margin-bottom: 0.5rem; 
+		line-height: 1.15;
 	}
 	
 	.card-subtitle { 
 		font-size: 1.05rem; 
+		line-height: 1.25;
 	}
 	
 	.hover-text { 
 		font-size: 0.95rem; 
-		line-height: 1.5; 
+		line-height: 1.5;
+		margin-bottom: 1rem;
 	}
 	
 	.action-btn {
@@ -489,23 +518,24 @@
 		bottom: auto;
 		right: auto;
 		text-align: center;
-		margin-top: 3rem;
-		margin-bottom: 2rem;
+		margin-top: 2rem;
+		margin-bottom: 1rem;
 		width: 100%;
 	}
 	
 	.grg-title {
-		font-size: 2.5rem; /* Réduit sur mobile */
+		font-size: 2.5rem;
 	}
 	
 	.grg-subtitle {
-		font-size: 0.9rem; /* Réduit sur mobile */
+		font-size: 0.9rem;
 	}
 }
 
 @media (max-width: 768px) {
 	.page-wrapper { 
 		padding: 1rem; 
+		padding-bottom: 3.5rem;
 	}
 	
 	.bento-row { 
@@ -514,15 +544,18 @@
 	
 	.bento-card { 
 		padding: 1.75rem; 
-		height: 180px !important; 
+		height: 280px !important;
+		min-height: 280px;
 	}
 	
 	.bento-card.hovered { 
-		height: 230px !important; 
+		height: 330px !important;
+		min-height: 330px;
 	}
 	
 	.bento-card.bottom-card.hovered {
-		height: 260px !important;
+		height: 330px !important;
+		min-height: 330px;
 	}
 	
 	.card-icon { 
@@ -532,14 +565,17 @@
 	
 	.card-title { 
 		font-size: 1.5rem; 
+		margin-bottom: 0.4rem;
 	}
 	
 	.card-subtitle { 
 		font-size: 1rem; 
+		line-height: 1.2;
 	}
 	
 	.hover-text { 
 		font-size: 0.9rem; 
+		line-height: 1.4;
 	}
 	
 	.action-btn {
@@ -559,6 +595,7 @@
 @media (max-width: 480px) {
 	.page-wrapper { 
 		padding: 0.875rem; 
+		padding-bottom: 3rem;
 	}
 	
 	.bento-row { 
@@ -567,31 +604,39 @@
 	
 	.bento-card { 
 		padding: 1.5rem; 
-		height: 160px !important; 
+		height: 260px !important;
+		min-height: 260px;
 	}
 	
 	.bento-card.hovered { 
-		height: 210px !important; 
+		height: 310px !important;
+		min-height: 310px;
 	}
 	
 	.bento-card.bottom-card.hovered {
-		height: 240px !important;
+		height: 310px !important;
+		min-height: 310px;
 	}
 	
 	.card-icon { 
 		font-size: 2rem; 
+		margin-bottom: 0.5rem;
 	}
 	
 	.card-title { 
 		font-size: 1.35rem; 
+		margin-bottom: 0.3rem;
+		line-height: 1.1;
 	}
 	
 	.card-subtitle { 
 		font-size: 0.95rem; 
+		line-height: 1.15;
 	}
 	
 	.hover-text { 
 		font-size: 0.85rem; 
+		line-height: 1.4;
 	}
 	
 	.action-btn {
@@ -609,33 +654,44 @@
 }
 
 @media (max-width: 360px) {
+	.page-wrapper {
+		padding-bottom: 2.5rem;
+	}
+	
 	.bento-card {
 		padding: 1.25rem;
-		height: 150px !important;
+		height: 240px !important;
+		min-height: 240px;
 	}
 
 	.bento-card.hovered {
-		height: 200px !important;
+		height: 290px !important;
+		min-height: 290px;
 	}
 
 	.bento-card.bottom-card.hovered {
-		height: 220px !important;
+		height: 290px !important;
+		min-height: 290px;
 	}
 
 	.card-icon {
 		font-size: 1.75rem;
+		margin-bottom: 0.25rem;
 	}
 
 	.card-title {
 		font-size: 1.2rem;
+		margin-bottom: 0.25rem;
 	}
 
 	.card-subtitle {
 		font-size: 0.875rem;
+		line-height: 1.1;
 	}
 
 	.hover-text {
 		font-size: 0.8rem;
+		line-height: 1.35;
 	}
 	
 	.action-btn {

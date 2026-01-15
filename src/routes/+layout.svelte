@@ -189,23 +189,48 @@
 			</div>
 			
 			<nav class="sidebar-nav">
-				<a href="/" class="nav-link" class:active={currentPath === '/'}>
+				<a 
+					href="/" 
+					class="nav-link" 
+					class:active={currentPath === '/'}
+					on:click={() => isMobileOpen = false}
+				>
 					<span class="nav-icon"></span>
 					<span class="nav-text">{translations[currentLanguage].home}</span>
 				</a>
-				<a href="/propos" class="nav-link" class:active={currentPath === '/propos'}>
+				<a 
+					href="/propos" 
+					class="nav-link" 
+					class:active={currentPath === '/propos'}
+					on:click={() => isMobileOpen = false}
+				>
 					<span class="nav-icon"></span>
 					<span class="nav-text">{translations[currentLanguage].about}</span>
 				</a>
-				<a href="/services-" class="nav-link" class:active={currentPath === '/services-'}>
+				<a 
+					href="/services-" 
+					class="nav-link" 
+					class:active={currentPath === '/services-'}
+					on:click={() => isMobileOpen = false}
+				>
 					<span class="nav-icon"></span>
 					<span class="nav-text">{translations[currentLanguage].services}</span>
 				</a>
-				<a href="/produits" class="nav-link" class:active={currentPath === '/produits'}>
+				<a 
+					href="/produits" 
+					class="nav-link" 
+					class:active={currentPath === '/produits'}
+					on:click={() => isMobileOpen = false}
+				>
 					<span class="nav-icon"></span>
 					<span class="nav-text">{translations[currentLanguage].products}</span>
 				</a>
-				<a href="/contact" class="nav-link" class:active={currentPath === '/contact'}>
+				<a 
+					href="/contact" 
+					class="nav-link" 
+					class:active={currentPath === '/contact'}
+					on:click={() => isMobileOpen = false}
+				>
 					<span class="nav-icon"></span>
 					<span class="nav-text">{translations[currentLanguage].contact}</span>
 				</a>
@@ -284,7 +309,6 @@
 	</div>
 {/if}
 
-
 <style lang="scss">
 :root {
   --gray-50: #fafafa;
@@ -298,7 +322,6 @@
   --gray-800: #262626;
   --gray-900: #171717;
 }
-
 
 :global(html),
 :global(body) {
@@ -436,7 +459,7 @@
 	gap: 0.5rem;
 	flex: 1;
 	overflow: hidden;
-	justify-content: center; /* Centrage vertical des labels */
+	justify-content: center;
 	min-height: 0;
 }
 
@@ -563,12 +586,12 @@
 /* Sélecteur de langue */
 .language-selector {
 	display: flex;
-	gap: 0.75rem; /* Espacement augmenté entre les drapeaux */
+	gap: 0.75rem;
 	align-items: center;
 	justify-content: center;
 	margin-top: 0.75rem;
 	padding-bottom: 0.5rem;
-	flex-wrap: nowrap; /* Empêcher le retour à la ligne */
+	flex-wrap: nowrap;
 }
 
 .language-button {
@@ -581,7 +604,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 28px; /* Légèrement plus grand pour mobile */
+	width: 28px;
 	height: 28px;
 	opacity: 0.5;
 }
@@ -666,7 +689,6 @@
 
 /* === RESPONSIVE SYSTEM CORRIGÉ POUR MOBILE === */
 @media (max-width: 1024px) {
-	/* SUR LAPTOP, ON GARDE LA SIDEBAR COMPLÈTE */
 	.container {
 		width: calc(100vw - 280px);
 	}
@@ -677,7 +699,6 @@
 		display: flex;
 	}
 	
-	/* Cache le bouton burger quand le menu est ouvert */
 	.sidebar.mobile-open ~ .mobile-menu-button {
 		display: none;
 	}
@@ -719,7 +740,7 @@
 	
 	.sidebar-nav {
 		gap: 0.5rem;
-		justify-content: center; /* Centrage vertical maintenu sur mobile */
+		justify-content: center;
 	}
 	
 	.sidebar-footer {
@@ -745,11 +766,11 @@
 	}
 	
 	.language-selector {
-		gap: 0.75rem; /* Espacement maintenu sur tablette */
+		gap: 0.75rem;
 		margin-top: 0.75rem;
 		padding-bottom: 0.5rem;
-		flex-direction: row; /* Drapeaux sur la même ligne */
-		flex-wrap: nowrap; /* Empêche le retour à la ligne */
+		flex-direction: row;
+		flex-wrap: nowrap;
 	}
 }
 
@@ -763,7 +784,6 @@
 		height: 40px;
 	}
 	
-	/* Cache le bouton burger quand le menu est ouvert sur mobile */
 	.sidebar.mobile-open ~ .mobile-menu-button {
 		display: none;
 	}
@@ -793,7 +813,7 @@
 	
 	.sidebar-nav {
 		gap: 0.375rem;
-		justify-content: center; /* Centrage vertical maintenu */
+		justify-content: center;
 	}
 	
 	.sidebar-footer {
@@ -808,23 +828,22 @@
 	}
 	
 	.language-button {
-		width: 26px; /* Taille légèrement réduite pour mobile */
+		width: 26px;
 		height: 26px;
 	}
 	
 	.language-selector {
-		gap: 0.5rem; /* Espacement réduit mais toujours sur la même ligne */
+		gap: 0.5rem;
 		margin-top: 1rem;
 		padding-bottom: 0.25rem;
-		flex-direction: row; /* Drapeaux sur la même ligne */
+		flex-direction: row;
 		justify-content: center;
-		flex-wrap: nowrap; /* Important : empêche le retour à la ligne */
+		flex-wrap: nowrap;
 	}
 	
-	/* S'assurer que les drapeaux ne passent pas à la ligne */
 	.language-selector .language-button {
 		margin-bottom: 0;
-		flex-shrink: 0; /* Empêche la réduction de taille */
+		flex-shrink: 0;
 	}
 }
 
@@ -848,7 +867,7 @@
 /* Amélioration pour les très petits écrans */
 @media (max-width: 360px) {
 	.language-selector {
-		gap: 0.4rem; /* Espacement encore réduit mais drapeaux restent alignés */
+		gap: 0.4rem;
 	}
 	
 	.language-button {

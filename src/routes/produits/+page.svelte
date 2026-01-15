@@ -496,6 +496,7 @@
 
     .card-hover-content.show {
         opacity: 1;
+        pointer-events: auto;
     }
 
     /* Texte de survol pour toutes les cartes */
@@ -505,7 +506,7 @@
         line-height: 1.6;
         font-weight: 500;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
     }
 
     /* Lien "Découvrir nos produits" */
@@ -524,6 +525,7 @@
         backdrop-filter: blur(8px);
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         pointer-events: auto;
+        cursor: pointer;
     }
 
     .discover-link:hover {
@@ -552,12 +554,14 @@
         opacity: 1;
     }
 
+    /* === CORRECTIONS RESPONSIVE OPTIMISÉES === */
     @media (max-width: 1024px) {
         .page-wrapper {
             height: auto;
             min-height: 100vh;
             padding: 1.5rem;
             justify-content: flex-start;
+            padding-bottom: 3rem; /* Espace pour la dernière case */
         }
 
         .bento-row {
@@ -568,13 +572,23 @@
         }
 
         .bento-card {
-            flex: 1 1 auto;
-            height: 200px;
-            opacity: 1;
+            flex: 1 1 auto !important; /* Force comportement uniforme */
+            width: 100% !important;
+            height: 280px !important; /* Hauteur fixe augmentée */
+            opacity: 1 !important;
+            min-height: 280px;
         }
 
         .bento-card.hovered {
-            height: 280px;
+            height: 320px !important; /* Plus haut au hover */
+            min-height: 320px;
+        }
+
+        /* Désactiver les effets flex sur mobile */
+        .bento-card.hovered,
+        .bento-card.same-row {
+            flex: 1 1 auto !important;
+            width: 100% !important;
         }
 
         .card-icon {
@@ -582,54 +596,115 @@
             margin-bottom: 1rem;
         }
 
-        .card-title { font-size: 1.6rem; }
-        .card-subtitle { font-size: 1.05rem; }
+        .card-title { 
+            font-size: 1.6rem; 
+            margin-bottom: 0.5rem;
+            line-height: 1.15;
+        }
+        
+        .card-subtitle { 
+            font-size: 1.05rem; 
+            line-height: 1.25;
+        }
         
         /* Styles responsive pour la carte 1 */
-        .card-1-title { font-size: 1.05rem !important; }
-        .card-1-subtitle { font-size: 1.6rem !important; }
+        .card-1-title { 
+            font-size: 1.05rem !important; 
+            line-height: 1.25;
+        }
+        
+        .card-1-subtitle { 
+            font-size: 1.6rem !important; 
+            line-height: 1.15;
+        }
         
         /* Styles responsive pour la carte 4 */
-        .card-4-title { font-size: 1.05rem !important; }
-        .card-4-subtitle { font-size: 1.6rem !important; }
+        .card-4-title { 
+            font-size: 1.05rem !important; 
+            line-height: 1.25;
+        }
+        
+        .card-4-subtitle { 
+            font-size: 1.6rem !important; 
+            line-height: 1.15;
+        }
         
         .hover-text { 
             font-size: 0.95rem; 
             line-height: 1.5;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
         }
         
         .discover-link {
             font-size: 0.9rem;
             padding: 0.6rem 1.2rem;
+            margin-top: 0.5rem;
         }
     }
 
     @media (max-width: 768px) {
-        .page-wrapper { padding: 1rem; }
-        .bento-row { gap: 0.875rem; }
+        .page-wrapper { 
+            padding: 1rem; 
+            padding-bottom: 2.5rem;
+        }
+        
+        .bento-row { 
+            gap: 0.875rem; 
+        }
+        
         .bento-card {
             padding: 1.75rem;
-            height: 180px;
+            height: 240px !important; /* Hauteur réduite mais suffisante */
+            min-height: 240px;
             border-radius: 1.5rem;
         }
-        .bento-card.hovered { height: 260px; }
-        .card-icon { font-size: 2.25rem; }
-        .card-title { font-size: 1.5rem; }
-        .card-subtitle { font-size: 1rem; }
+        
+        .bento-card.hovered {
+            height: 280px !important;
+            min-height: 280px;
+        }
+        
+        .card-icon { 
+            font-size: 2.25rem; 
+            margin-bottom: 0.75rem;
+        }
+        
+        .card-title { 
+            font-size: 1.5rem; 
+            margin-bottom: 0.4rem;
+        }
+        
+        .card-subtitle { 
+            font-size: 1rem; 
+            line-height: 1.2;
+        }
         
         /* Styles responsive pour la carte 1 */
-        .card-1-title { font-size: 1rem !important; }
-        .card-1-subtitle { font-size: 1.5rem !important; }
+        .card-1-title { 
+            font-size: 1rem !important; 
+            line-height: 1.2;
+        }
+        
+        .card-1-subtitle { 
+            font-size: 1.5rem !important; 
+            line-height: 1.15;
+        }
         
         /* Styles responsive pour la carte 4 */
-        .card-4-title { font-size: 1rem !important; }
-        .card-4-subtitle { font-size: 1.5rem !important; }
+        .card-4-title { 
+            font-size: 1rem !important; 
+            line-height: 1.2;
+        }
+        
+        .card-4-subtitle { 
+            font-size: 1.5rem !important; 
+            line-height: 1.15;
+        }
         
         .hover-text { 
             font-size: 0.9rem; 
             line-height: 1.5;
-            margin-bottom: 0.7rem;
+            margin-bottom: 0.8rem;
         }
         
         .discover-link {
@@ -639,35 +714,140 @@
     }
 
     @media (max-width: 480px) {
-        .page-wrapper { padding: 0.875rem; }
-        .bento-row { gap: 0.75rem; }
+        .page-wrapper { 
+            padding: 0.875rem; 
+            padding-bottom: 2rem;
+        }
+        
+        .bento-row { 
+            gap: 0.75rem; 
+        }
+        
         .bento-card {
             padding: 1.5rem;
-            height: 160px;
+            height: 220px !important; /* Hauteur maintenue pour lisibilité */
+            min-height: 220px;
             border-radius: 1.25rem;
         }
-        .bento-card.hovered { height: 240px; }
-        .card-icon { font-size: 2rem; }
-        .card-title { font-size: 1.35rem; }
-        .card-subtitle { font-size: 0.95rem; }
+        
+        .bento-card.hovered {
+            height: 260px !important;
+            min-height: 260px;
+        }
+        
+        .card-icon { 
+            font-size: 2rem; 
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-title { 
+            font-size: 1.35rem; 
+            margin-bottom: 0.3rem;
+            line-height: 1.1;
+        }
+        
+        .card-subtitle { 
+            font-size: 0.95rem; 
+            line-height: 1.15;
+        }
         
         /* Styles responsive pour la carte 1 */
-        .card-1-title { font-size: 0.95rem !important; }
-        .card-1-subtitle { font-size: 1.35rem !important; }
+        .card-1-title { 
+            font-size: 0.95rem !important; 
+            line-height: 1.15;
+        }
+        
+        .card-1-subtitle { 
+            font-size: 1.35rem !important; 
+            line-height: 1.1;
+        }
         
         /* Styles responsive pour la carte 4 */
-        .card-4-title { font-size: 0.95rem !important; }
-        .card-4-subtitle { font-size: 1.35rem !important; }
+        .card-4-title { 
+            font-size: 0.95rem !important; 
+            line-height: 1.15;
+        }
+        
+        .card-4-subtitle { 
+            font-size: 1.35rem !important; 
+            line-height: 1.1;
+        }
         
         .hover-text { 
             font-size: 0.85rem; 
             line-height: 1.45;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.7rem;
         }
         
         .discover-link {
             font-size: 0.8rem;
             padding: 0.4rem 0.8rem;
+        }
+    }
+
+    /* Pour les très petits écrans */
+    @media (max-width: 360px) {
+        .page-wrapper {
+            padding-bottom: 1.5rem;
+        }
+        
+        .bento-card {
+            height: 200px !important;
+            min-height: 200px;
+            padding: 1.25rem;
+        }
+        
+        .bento-card.hovered {
+            height: 240px !important;
+            min-height: 240px;
+        }
+        
+        .card-icon { 
+            font-size: 1.75rem; 
+            margin-bottom: 0.25rem;
+        }
+        
+        .card-title { 
+            font-size: 1.25rem; 
+            margin-bottom: 0.25rem;
+        }
+        
+        .card-subtitle { 
+            font-size: 0.9rem; 
+            line-height: 1.1;
+        }
+        
+        /* Styles responsive pour la carte 1 */
+        .card-1-title { 
+            font-size: 0.9rem !important; 
+            line-height: 1.1;
+        }
+        
+        .card-1-subtitle { 
+            font-size: 1.25rem !important; 
+            line-height: 1.1;
+        }
+        
+        /* Styles responsive pour la carte 4 */
+        .card-4-title { 
+            font-size: 0.9rem !important; 
+            line-height: 1.1;
+        }
+        
+        .card-4-subtitle { 
+            font-size: 1.25rem !important; 
+            line-height: 1.1;
+        }
+        
+        .hover-text { 
+            font-size: 0.8rem;
+            line-height: 1.4;
+            margin-bottom: 0.6rem;
+        }
+        
+        .discover-link {
+            font-size: 0.75rem;
+            padding: 0.35rem 0.7rem;
         }
     }
 </style>
