@@ -3,7 +3,6 @@
 	import '@fontsource-variable/raleway';
 	import { scale } from 'svelte/transition';
 	import { m } from '$lib/paraglide/messages.js';
-	const highlightImg = '/highlight.png';
 
 	const bentoItems = [
 		{ 
@@ -11,27 +10,26 @@
 			title: m.services_item1_title(),
 			subtitle: m.services_item1_subtitle(),
 			hoverText: m.services_item1_hoverText(),
-			icon: m.services_item1_icon(),
+			icon: '',
 			cardClass: 'card-1', 
 			row: 'top',
-			extraTall: true, // Première case plus grande
-			specialCard: true
+			extraTall: true
 		},
 		{ 
 			id: 2, 
 			title: m.services_item2_title(),
 			subtitle: m.services_item2_subtitle(),
 			hoverText: m.services_item2_hoverText(),
-			icon: m.services_item2_icon(),
+			icon: '',
 			cardClass: 'card-2', 
-			row: 'top' 
+			row: 'top'
 		},
 		{ 
 			id: 3, 
 			title: m.services_item3_title(),
 			subtitle: m.services_item3_subtitle(),
 			hoverText: m.services_item3_hoverText(),
-			icon: m.services_item3_icon(),
+			icon: '',
 			cardClass: 'card-3', 
 			row: 'bottom'
 		},
@@ -40,19 +38,19 @@
 			title: m.services_item4_title(),
 			subtitle: m.services_item4_subtitle(),
 			hoverText: m.services_item4_hoverText(),
-			icon: m.services_item4_icon(),
+			icon: '',
 			cardClass: 'card-4', 
-			row: 'bottom' 
+			row: 'bottom'
 		},
 		{ 
 			id: 5, 
 			title: m.services_item5_title(),
 			subtitle: m.services_item5_subtitle(),
 			hoverText: m.services_item5_hoverText(),
-			icon: m.services_item5_icon(),
+			icon: '',
 			cardClass: 'card-5', 
 			row: 'bottom',
-			needsMargin: true // Dernière case avec marge
+			needsMargin: true
 		}
 	];
 
@@ -77,89 +75,157 @@
 	function isInSameRow(item: any): boolean {
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
+
+	function getHighlightedText(text: string): any {
+		if (!text || text.trim() === '') return text;
+		
+		const words = text.split(' ');
+		if (words.length <= 1) return text;
+		
+		const lastWord = words.pop();
+		const rest = words.join(' ');
+		
+		return [
+			rest + (rest ? ' ' : ''),
+			{ type: 'highlight', text: lastWord }
+		];
+	}
+
+	function getTitleParts(item: any): any {
+		return getHighlightedText(item.title);
+	}
+
+	function getSubtitleParts(item: any): any {
+		if (item.id === 4) {
+			// Item 4: highlight dans le sous-titre (multi-lignes)
+			const lines = item.subtitle.split('\n');
+			if (lines.length > 1) {
+				const lastLine = lines[lines.length - 1];
+				const firstLines = lines.slice(0, -1).join('\n');
+				
+				const words = lastLine.split(' ');
+				if (words.length <= 1) return item.subtitle;
+				
+				const lastWord = words.pop();
+				const restOfLastLine = words.join(' ');
+				
+				return [
+					firstLines + (firstLines ? '\n' : ''),
+					restOfLastLine + (restOfLastLine ? ' ' : ''),
+					{ type: 'highlight', text: lastWord }
+				];
+			}
+		}
+		return item.subtitle;
+	}
 </script>
 
 <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
-	GRG Groupe : Food and Beverages
+	GRG Groupe : Services
 </h1>
 
 <h2 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
-	Marque blanche de boissons et compléments alimentaires
-</h2>
-
-<h2 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
-	Création, production et personnalisation de boissons fonctionnelles
+	Services industriels et solutions
 </h2>
 
 <div class="page-wrapper">
-	<div class="bento-row top">
-		{#each bentoItems.filter(i => i.row === 'top') as item, i (item.id)}
-			<div
-				class="bento-card {item.cardClass}"
-				class:extra-tall={item.extraTall}
-				class:hovered={hoveredCard === item.id}
-				class:same-row={isInSameRow(item)}
-				onmouseenter={() => handleCardHover(item.id)}
-				onmouseleave={handleCardLeave}
-				onclick={() => handleCardClick(item)}
-				role="button"
-				tabindex="0"
-				in:scale={{ delay: i * 100, duration: 600 }}
-			>
-				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-					<div class="card-icon">{item.icon}</div>
-					{#if item.id === 1}
-						<p class="card-title card-1-title">{item.title}</p>
-						<h3 class="card-subtitle card-1-subtitle">{item.subtitle}</h3>
-					{:else if item.id === 5}
-						<p class="card-title card-5-title">{item.title}</p>
-						<h3 class="card-subtitle card-5-subtitle">{item.subtitle}</h3>
-					{:else}
-						<h3 class="card-title">{item.title}</h3>
+	<div class="bento-container">
+		<div class="bento-row top">
+			{#each bentoItems.filter(i => i.row === 'top') as item, i (item.id)}
+				<div
+					class="bento-card {item.cardClass}"
+					class:extra-tall={item.extraTall}
+					class:hovered={hoveredCard === item.id}
+					class:same-row={isInSameRow(item)}
+					class:expanded-mobile={hoveredCard === item.id}
+					onmouseenter={() => handleCardHover(item.id)}
+					onmouseleave={handleCardLeave}
+					onclick={() => handleCardClick(item)}
+					role="button"
+					tabindex="0"
+					in:scale={{ delay: i * 100, duration: 600 }}
+				>
+					<div class="card-content" class:hide-content={hoveredCard === item.id}>
+						{#if item.icon}
+							<div class="card-icon">{item.icon}</div>
+						{/if}
+						
+						<h3 class="card-title">
+							{#each getTitleParts(item) as part}
+								{#if typeof part === 'object' && part.type === 'highlight'}
+									<span class="highlight-word">{part.text}</span>
+								{:else}
+									{part}
+								{/if}
+							{/each}
+						</h3>
+						<p class="card-subtitle">
+							{#if item.id === 4}
+								{#each getSubtitleParts(item) as part}
+									{#if typeof part === 'object' && part.type === 'highlight'}
+										<span class="highlight-word">{part.text}</span>
+									{:else if part === '\n'}
+										<br />
+									{:else}
+										{part}
+									{/if}
+								{/each}
+							{:else}
+								{item.subtitle}
+							{/if}
+						</p>
+					</div>
+					<div class="card-hover-content" class:show={hoveredCard === item.id}>
+						<div class="hover-text">
+							{@html item.hoverText}
+						</div>
+					</div>
+					<div class="card-overlay" class:show={hoveredCard === item.id}></div>
+				</div>
+			{/each}
+		</div>
+		
+		<div class="bento-row bottom">
+			{#each bentoItems.filter(i => i.row === 'bottom') as item, i (item.id)}
+				<div
+					class="bento-card {item.cardClass}"
+					class:needs-margin={item.needsMargin}
+					class:hovered={hoveredCard === item.id}
+					class:same-row={isInSameRow(item)}
+					class:expanded-mobile={hoveredCard === item.id}
+					onmouseenter={() => handleCardHover(item.id)}
+					onmouseleave={handleCardLeave}
+					onclick={() => handleCardClick(item)}
+					role="button"
+					tabindex="0"
+					in:scale={{ delay: i * 100, duration: 600 }}
+				>
+					<div class="card-content" class:hide-content={hoveredCard === item.id}>
+						{#if item.icon}
+							<div class="card-icon">{item.icon}</div>
+						{/if}
+						<h3 class="card-title">
+							{#each getTitleParts(item) as part}
+								{#if typeof part === 'object' && part.type === 'highlight'}
+									<span class="highlight-word">{part.text}</span>
+								{:else}
+									{part}
+								{/if}
+							{/each}
+						</h3>
 						<p class="card-subtitle">{item.subtitle}</p>
-					{/if}
-				</div>
-				<div class="card-hover-content" class:show={hoveredCard === item.id}>
-					<p class="hover-text">{item.hoverText}</p>
-				</div>
-				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
-			</div>
-		{/each}
-	</div>
+					</div>
 
-	<div class="bento-row bottom">
-		{#each bentoItems.filter(i => i.row === 'bottom') as item, i (item.id)}
-			<div
-				class="bento-card {item.cardClass}"
-				class:needs-margin={item.needsMargin}
-				class:hovered={hoveredCard === item.id}
-				class:same-row={isInSameRow(item)}
-				onmouseenter={() => handleCardHover(item.id)}
-				onmouseleave={handleCardLeave}
-				onclick={() => handleCardClick(item)}
-				role="button"
-				tabindex="0"
-				in:scale={{ delay: i * 100, duration: 600 }}
-			>
-				<div class="card-content" class:hide-content={hoveredCard === item.id}>
-					<div class="card-icon">{item.icon}</div>
-					{#if item.id === 1}
-						<p class="card-title card-1-title">{item.title}</p>
-						<h3 class="card-subtitle card-1-subtitle">{item.subtitle}</h3>
-					{:else if item.id === 5}
-						<p class="card-title card-5-title">{item.title}</p>
-						<h3 class="card-subtitle card-5-subtitle">{item.subtitle}</h3>
-					{:else}
-						<h3 class="card-title">{item.title}</h3>
-						<p class="card-subtitle">{item.subtitle}</p>
-					{/if}
+					<div class="card-hover-content" class:show={hoveredCard === item.id}>
+						<div class="hover-text">
+							{@html item.hoverText}
+						</div>
+					</div>
+
+					<div class="card-overlay" class:show={hoveredCard === item.id}></div>
 				</div>
-				<div class="card-hover-content" class:show={hoveredCard === item.id}>
-					<p class="hover-text">{item.hoverText}</p>
-				</div>
-				<div class="card-overlay" class:show={hoveredCard === item.id}></div>
-			</div>
-		{/each}
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -168,32 +234,34 @@
 		width: 100%;
 		height: 100vh;
 		display: flex;
-		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding: 1.5rem;
+		padding: 0;
 		box-sizing: border-box;
 		font-family: 'open-sans', sans-serif;
 		overflow: hidden;
-		background: var(--gray-50, #fafafa);
+		background: transparent;
 	}
 
-	:global(.dark) .page-wrapper {
-		background: var(--gray-900, #171717);
+	.bento-container {
+		width: 100%;
+		max-width: 1400px;
+		padding: 1.5rem;
+		box-sizing: border-box;
+		margin: 0 auto;
 	}
 
 	.bento-row {
 		display: flex;
 		width: 100%;
-		max-width: 1500px;
 		gap: 1.25rem;
 		margin-bottom: 1.25rem;
-		height: 50%;
+		height: calc(50vh - 2.25rem);
 		box-sizing: border-box;
 	}
 
-	.bento-row.bottom .bento-card {
-		flex: 1 1 0;
+	.bento-row:last-child {
+		margin-bottom: 0;
 	}
 
 	.bento-card {
@@ -203,42 +271,54 @@
 		cursor: pointer;
 		overflow: hidden;
 		box-sizing: border-box;
-		flex: 1 1 0;
 		min-width: 0;
 		max-width: 100%;
-		transition: flex 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease, transform 0.3s ease;
+		flex: 1 1 0;
+		transition: flex 0.3s ease, opacity 0.2s ease;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
 	}
 
-	/* Première case plus haute */
 	.bento-card.extra-tall {
-		flex: 1.2 1 0; /* 20% plus haute que les autres sur desktop */
+		flex: 1.2 1 0;
 	}
 
 	.bento-card.hovered {
 		flex: 2 1 0;
 		z-index: 10;
-		transform: scale(1.02);
-	}
-
-	.bento-row.bottom .bento-card.hovered {
-		flex: 1.8 1 0;
 	}
 
 	.bento-card.same-row {
-		flex: 0.7 1 0;
-		opacity: 0.7;
+		flex: 1 1 0;
+		opacity: 0.8;
 	}
 
-	.bento-row.bottom .bento-card.same-row {
-		flex: 0.8 1 0;
-	}
-
-	/* Dernière case avec marge */
 	.bento-card.needs-margin {
 		margin-bottom: 2rem;
+	}
+
+	.highlight-word {
+		position: relative;
+		display: inline-block;
+		z-index: 2;
+	}
+
+	.highlight-word::before {
+		content: "";
+		position: absolute;
+		left: -2%;
+		bottom: 0;
+		width: 104%;
+		height: 45%;
+		background: linear-gradient(90deg, 
+			rgba(255, 85, 85, 0.35) 0%, 
+			rgba(255, 85, 85, 0.4) 50%, 
+			rgba(255, 85, 85, 0.35) 100%
+		);
+		z-index: -1;
+		pointer-events: none;
+		transform: skewY(-1deg);
 	}
 
 	.card-content {
@@ -249,7 +329,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: start;
-		transition: opacity 0.2s ease, transform 0.2s ease;
+		transition: opacity 0.1s ease, transform 0.1s ease;
 	}
 
 	.card-content.hide-content {
@@ -257,48 +337,12 @@
 		transform: translateY(-10px);
 	}
 
-	.card-icon {
-		font-size: 3.5rem;
-		margin-bottom: 1.25rem;
-	}
-
-	.card-1 .card-icon,
-	.card-2 .card-icon,
-	.card-3 .card-icon,
-	.card-5 .card-icon {
-		filter: brightness(0) invert(1);
-	}
-
-	.card-4 .card-icon {
-		filter: brightness(0);
-	}
-
-	:global(.dark) .card-4 .card-icon {
-		filter: brightness(0) invert(1);
-	}
-
 	.card-title {
 		font-size: 2rem;
 		font-weight: 800;
 		text-transform: uppercase;
-		margin: 0 0 0.5rem;
+		margin: 0 0 0.75rem;
 		line-height: 1.2;
-		position: relative;
-		display: inline-block;
-		z-index: 2;
-	}
-
-	.card-title::before {
-		content: "";
-		position: absolute;
-		left: 0;
-		bottom: -4px;
-		width: 100%;
-		height: 80%;
-		background: url({highlightImg}) center/contain no-repeat;
-		z-index: -1;
-		pointer-events: none;
-		opacity: 0.9;
 	}
 
 	.card-subtitle {
@@ -308,145 +352,34 @@
 		margin: 0;
 		opacity: 0.85;
 		line-height: 1.4;
-	}
-
-	.card-1-title {
-		font-size: 1.25rem;
-		font-weight: 600;
-		opacity: 0.85;
-		line-height: 1.4;
-		margin: 0 0 0.5rem;
-	}
-
-	.card-1-title::before {
-		display: none;
-	}
-
-	.card-1-subtitle {
-		font-size: 2.5rem;
-		font-weight: 800;
-		opacity: 1;
-		line-height: 1.2;
-		margin: 0 0 0.75rem;
-		position: relative;
-		z-index: 2;
-	}
-
-	.card-1-subtitle::before {
-		content: "";
-		position: absolute;
-		left: 0;
-		bottom: -4px;
-		width: 100%;
-		height: 80%;
-		background: url({highlightImg}) center/contain no-repeat;
-		z-index: -1;
-		pointer-events: none;
-		opacity: 0.9;
-	}
-
-	.card-5-title {
-		font-size: 1.25rem;
-		font-weight: 600;
-		opacity: 0.85;
-		line-height: 1.4;
-		margin: 0 0 0.5rem;
-	}
-
-	.card-5-title::before {
-		display: none;
-	}
-
-	.card-5-subtitle {
-		font-size: 2rem;
-		font-weight: 800;
-		opacity: 1;
-		line-height: 1.2;
-		margin: 0 0 0.75rem;
-		position: relative;
-		z-index: 2;
-	}
-
-	.card-5-subtitle::before {
-		content: "";
-		position: absolute;
-		left: 0;
-		bottom: -4px;
-		width: 100%;
-		height: 80%;
-		background: url({highlightImg}) center/contain no-repeat;
-		z-index: -1;
-		pointer-events: none;
-		opacity: 0.9;
-	}
-
-	.card-3 .card-title,
-	.card-3 .card-subtitle {
-		color: #000000 !important;
-		text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
-	}
-
-	.card-4 .card-title,
-	.card-4 .card-subtitle {
-		color: var(--gray-900, #171717);
+		white-space: pre-line;
 	}
 
 	.card-1 .card-title,
 	.card-1 .card-subtitle,
-	.card-2 .card-title,
-	.card-2 .card-subtitle,
+	.card-3 .card-title,
+	.card-3 .card-subtitle,
+	.card-4 .card-title,
+	.card-4 .card-subtitle,
 	.card-5 .card-title,
 	.card-5 .card-subtitle {
+		color: var(--gray-900, #171717);
+	}
+
+	.card-2 .card-title,
+	.card-2 .card-subtitle {
 		color: var(--gray-100, #f5f5f5);
 	}
 
+	:global(.dark) .card-1 .card-title,
+	:global(.dark) .card-1 .card-subtitle,
+	:global(.dark) .card-3 .card-title,
+	:global(.dark) .card-3 .card-subtitle,
 	:global(.dark) .card-4 .card-title,
-	:global(.dark) .card-4 .card-subtitle {
+	:global(.dark) .card-4 .card-subtitle,
+	:global(.dark) .card-5 .card-title,
+	:global(.dark) .card-5 .card-subtitle {
 		color: var(--gray-100, #f5f5f5);
-	}
-
-	.card-1 {
-		background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('/box.jpg') center/cover no-repeat;
-	}
-
-	.card-2 {
-		background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('/nature.jpg') center/cover no-repeat;
-	}
-
-	.card-3 {
-		background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/certifications.png') center/cover no-repeat;
-	}
-
-	.card-4 { 
-		background: linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%);
-	}
-	
-	.card-5 { 
-		background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('/soda-can.png') center/cover no-repeat;
-	}
-
-	:global(.dark) .card-4 { 
-		background: linear-gradient(135deg, #525252 0%, #737373 100%);
-	}
-
-	.card-1::before,
-	.card-2::before,
-	.card-3::before,
-	.card-5::before {
-		content: '';
-		position: absolute;
-		top: 0; left: 0; right: 0; bottom: 0;
-		background: rgba(0, 0, 0, 0.2);
-		border-radius: 1.75rem;
-		z-index: 1;
-		transition: background 0.3s ease;
-	}
-
-	.card-1:hover::before,
-	.card-2:hover::before,
-	.card-3:hover::before,
-	.card-5:hover::before {
-		background: rgba(0, 0, 0, 0.4);
 	}
 
 	.card-hover-content {
@@ -468,17 +401,49 @@
 
 	.hover-text {
 		color: var(--gray-100, #f5f5f5);
-		font-size: 1.1rem;
+		font-size: 1.25rem;
 		line-height: 1.6;
 		font-weight: 500;
 		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+		white-space: normal;
+		word-wrap: break-word;
+		margin: 0;
 	}
 
-	.card-1 .hover-text,
-	.card-4 .hover-text {
-		font-size: 1.25rem;
-		color: var(--gray-50, #fafafa);
-		text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+	.card-1 {
+		background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
+	}
+
+	.card-2 {
+		background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%);
+	}
+
+	.card-3 { 
+		background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%); 
+	}
+	
+	.card-4 {
+		background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
+	}
+	
+	.card-5 {
+		background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
+	}
+
+	:global(.dark) .card-1 { 
+		background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%); 
+	}
+	
+	:global(.dark) .card-3 { 
+		background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
+	}
+	
+	:global(.dark) .card-4 { 
+		background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%); 
+	}
+	
+	:global(.dark) .card-5 { 
+		background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
 	}
 
 	.card-overlay {
@@ -498,326 +463,293 @@
 		opacity: 1;
 	}
 
-	/* === MÊMES RÈGLES RESPONSIVE QUE LE PREMIER COMPOSANT === */
+	:root {
+		--contrast-light-1: #e5e5e5;
+		--contrast-light-2: #d4d4d4;
+		--contrast-light-3: #a3a3a3;
+		--contrast-dark-1: #404040;
+		--contrast-dark-2: #525252;
+		--contrast-dark-3: #737373;
+	}
+
 	@media (max-width: 1024px) {
 		.page-wrapper {
 			height: auto;
 			min-height: 100vh;
-			padding: 1.5rem;
 			justify-content: flex-start;
-			padding-bottom: 4rem; /* Beaucoup plus d'espace en bas */
+			padding-top: 1rem;
+		}
+
+		.bento-container {
+			padding: 1rem;
+			padding-bottom: 2rem;
+			position: relative;
 		}
 
 		.bento-row {
 			flex-direction: column;
-			gap: 1rem;
+			gap: 0.75rem;
 			height: auto;
-			margin-bottom: 1rem;
+			margin-bottom: 0.75rem;
+			position: relative;
 		}
 
 		.bento-card {
-			flex: 1 1 auto !important; /* Force le même comportement */
-			width: 100% !important;
-			height: 300px !important; /* Hauteur augmentée */
-			opacity: 1 !important;
-			min-height: 300px;
-			transform: none !important;
-		}
-
-		/* Première case BEAUCOUP plus haute sur mobile */
-		.bento-card.extra-tall {
-			height: 420px !important; /* 120px de plus que les autres */
-			min-height: 420px;
-		}
-
-		.bento-card.hovered {
-			height: 350px !important;
-			min-height: 350px;
-		}
-		
-		.bento-card.extra-tall.hovered {
-			height: 480px !important;
-			min-height: 480px;
-		}
-		
-		/* Désactiver les effets flex sur mobile */
-		.bento-card.hovered,
-		.bento-card.same-row,
-		.bento-card.extra-tall {
 			flex: 1 1 auto !important;
 			width: 100% !important;
+			height: auto !important;
+			min-height: 22vh !important;
+			max-height: 28vh !important;
+			opacity: 1 !important;
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			position: relative;
+			z-index: 1;
+			padding: 1.5rem;
+			display: flex;
+			align-items: center;
 		}
 
-		/* Dernière case avec TRÈS grande marge */
+		.bento-card.extra-tall {
+			min-height: 28vh !important;
+			max-height: 34vh !important;
+		}
+
+		.bento-card.expanded-mobile {
+			min-height: 32vh !important;
+			max-height: 38vh !important;
+			z-index: 100;
+			position: relative;
+		}
+		
+		.bento-card.expanded-mobile + .bento-card {
+			margin-top: 1.5rem;
+			transform: translateY(0);
+		}
+
+		.bento-row.top .bento-card.expanded-mobile {
+			margin-bottom: 1.5rem;
+		}
+
 		.bento-card.needs-margin {
-			margin-bottom: 4rem !important;
+			margin-bottom: 2rem !important;
 		}
 
-		.card-icon {
-			font-size: 2.5rem;
-			margin-bottom: 0.75rem; /* Réduit */
-		}
-
-		.card-title { 
-			font-size: 1.5rem; /* Réduit */
-			margin-bottom: 0.5rem;
-			line-height: 1.15;
-		}
-		
-		.card-1-subtitle { 
-			font-size: 1.8rem; /* Réduit */
-			line-height: 1.15;
-		}
-		
-		.card-subtitle { 
-			font-size: 1rem; /* Réduit */
-			line-height: 1.25;
-			margin-bottom: 0.5rem;
-		}
-		
-		.card-1-title { 
-			font-size: 1.05rem; /* Réduit */
-			line-height: 1.25;
-		}
-		
-		.card-5-subtitle { 
-			font-size: 1.6rem; /* Réduit */
-			line-height: 1.15;
-		}
-		
-		.card-5-title { 
-			font-size: 1.05rem; /* Réduit */
-			line-height: 1.25;
-		}
-		
-		/* Pour la carte 3 - texte toujours noir sur mobile */
-		.card-3 .card-title,
-		.card-3 .card-subtitle {
-			color: #000000 !important;
-			text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
-		}
-
-		/* Pour garantir la lisibilité */
 		.card-content {
-			padding: 0.75rem;
-			justify-content: flex-start;
+			padding: 0.5rem;
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+		}
+
+		.card-title {
+			font-size: clamp(1.2rem, 4vh, 1.6rem);
+			margin-bottom: 0.4rem;
+			line-height: 1.15;
+			text-align: left;
+			width: 100%;
 		}
 		
+		.card-subtitle {
+			font-size: clamp(1rem, 3vh, 1.3rem);
+			line-height: 1.2;
+			margin-bottom: 0;
+			text-align: left;
+			width: 100%;
+			white-space: normal;
+		}
+
 		.hover-text {
-			padding: 1rem;
-			font-size: 0.95rem; /* Plus petit */
+			padding: 0.75rem;
+			font-size: clamp(0.95rem, 2.6vh, 1.1rem);
 			line-height: 1.4;
+			max-height: calc(100% - 1.5rem);
+			overflow-y: auto;
+		}
+
+		.highlight-word::before {
+			height: 40%;
+			bottom: -2px;
+		}
+
+		.card-1 .card-title,
+		.card-1 .card-subtitle,
+		.card-3 .card-title,
+		.card-3 .card-subtitle,
+		.card-4 .card-title,
+		.card-4 .card-subtitle,
+		.card-5 .card-title,
+		.card-5 .card-subtitle {
+			text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+		}
+
+		.card-overlay.show {
+			backdrop-filter: blur(3px);
 		}
 	}
 
 	@media (max-width: 768px) {
-		.page-wrapper { 
-			padding: 1rem; 
-			padding-bottom: 3.5rem;
+		.bento-container { 
+			padding: 0.75rem; 
+			padding-bottom: 1.5rem;
 		}
 		
 		.bento-row { 
-			gap: 0.875rem; 
+			gap: 0.5rem; 
 		}
 		
 		.bento-card {
-			padding: 1.75rem;
-			height: 260px !important;
-			min-height: 260px;
-			border-radius: 1.5rem;
+			min-height: 20vh !important;
+			max-height: 26vh !important;
+			padding: 1.25rem;
 		}
 		
 		.bento-card.extra-tall {
-			height: 380px !important;
-			min-height: 380px;
+			min-height: 26vh !important;
+			max-height: 32vh !important;
 		}
 		
-		.bento-card.hovered {
-			height: 300px !important;
-			min-height: 300px;
+		.bento-card.expanded-mobile {
+			min-height: 28vh !important;
+			max-height: 34vh !important;
 		}
 		
-		.bento-card.extra-tall.hovered {
-			height: 420px !important;
-			min-height: 420px;
+		.bento-card.expanded-mobile + .bento-card {
+			margin-top: 1rem;
+		}
+
+		.bento-row.top .bento-card.expanded-mobile {
+			margin-bottom: 1rem;
 		}
 		
-		.bento-card.needs-margin {
-			margin-bottom: 3.5rem !important;
+		.card-content {
+			padding: 0.4rem;
+		}
+
+		.card-title {
+			font-size: clamp(1.1rem, 3.6vh, 1.5rem);
+			margin-bottom: 0.3rem;
 		}
 		
-		.card-icon { 
-			font-size: 2rem; /* Réduit */
-			margin-bottom: 0.5rem;
-		}
-		
-		.card-title { 
-			font-size: 1.4rem; 
-		}
-		
-		.card-1-subtitle { 
-			font-size: 1.65rem; 
-		}
-		
-		.card-subtitle { 
-			font-size: 0.95rem; 
-		}
-		
-		.card-1-title { 
-			font-size: 1rem; 
-		}
-		
-		.card-5-subtitle { 
-			font-size: 1.5rem; 
-		}
-		
-		.card-5-title { 
-			font-size: 1rem; 
+		.card-subtitle {
+			font-size: clamp(0.95rem, 2.6vh, 1.2rem);
 		}
 		
 		.hover-text {
-			font-size: 0.9rem;
-			padding: 0.75rem;
+			font-size: clamp(0.9rem, 2.4vh, 1.05rem);
+			padding: 0.5rem;
 		}
 	}
 
 	@media (max-width: 480px) {
-		.page-wrapper { 
-			padding: 0.875rem; 
-			padding-bottom: 3rem;
+		.bento-container { 
+			padding: 0.5rem; 
+			padding-bottom: 1rem;
 		}
 		
 		.bento-row { 
-			gap: 0.75rem; 
+			gap: 0.4rem; 
 		}
 		
 		.bento-card {
-			padding: 1.5rem;
-			height: 240px !important;
-			min-height: 240px;
+			min-height: 18vh !important;
+			max-height: 24vh !important;
+			padding: 1rem;
 			border-radius: 1.25rem;
 		}
 		
 		.bento-card.extra-tall {
-			height: 350px !important;
-			min-height: 350px;
+			min-height: 24vh !important;
+			max-height: 30vh !important;
 		}
 		
-		.bento-card.hovered {
-			height: 280px !important;
-			min-height: 280px;
+		.bento-card.expanded-mobile {
+			min-height: 26vh !important;
+			max-height: 32vh !important;
 		}
 		
-		.bento-card.extra-tall.hovered {
-			height: 390px !important;
-			min-height: 390px;
+		.bento-card.expanded-mobile + .bento-card {
+			margin-top: 0.75rem;
 		}
 		
-		.bento-card.needs-margin {
-			margin-bottom: 3rem !important;
+		.card-content {
+			padding: 0.3rem;
+		}
+
+		.card-title {
+			font-size: clamp(1rem, 3.2vh, 1.3rem);
+			margin-bottom: 0.25rem;
+			line-height: 1.1;
 		}
 		
-		.card-icon { 
-			font-size: 1.75rem; 
-		}
-		
-		.card-title { 
-			font-size: 1.35rem; 
-		}
-		
-		.card-1-subtitle { 
-			font-size: 1.5rem; 
-		}
-		
-		.card-subtitle { 
-			font-size: 0.95rem; 
-		}
-		
-		.card-1-title { 
-			font-size: 0.95rem; 
-		}
-		
-		.card-5-subtitle { 
-			font-size: 1.35rem; 
-		}
-		
-		.card-5-title { 
-			font-size: 0.95rem; 
+		.card-subtitle {
+			font-size: clamp(0.85rem, 2.2vh, 1.05rem);
+			line-height: 1.15;
 		}
 		
 		.hover-text {
-			font-size: 0.85rem;
-			padding: 0.625rem;
-			line-height: 1.35;
+			font-size: clamp(0.8rem, 2vh, 0.95rem);
+			line-height: 1.3;
+			padding: 0.4rem;
+		}
+
+		.highlight-word::before {
+			height: 35%;
+			bottom: -3px;
 		}
 	}
 
-	/* Pour les très petits écrans */
 	@media (max-width: 360px) {
-		.page-wrapper {
-			padding-bottom: 2.5rem;
+		.bento-container {
+			padding-bottom: 0.75rem;
 		}
 		
 		.bento-card {
-			height: 220px !important;
-			min-height: 220px;
-			padding: 1.25rem; /* Réduit le padding */
+			min-height: 16vh !important;
+			max-height: 22vh !important;
+			padding: 0.75rem;
+			border-radius: 1rem;
 		}
 		
 		.bento-card.extra-tall {
-			height: 320px !important;
-			min-height: 320px;
+			min-height: 22vh !important;
+			max-height: 28vh !important;
 		}
 		
-		.bento-card.hovered {
-			height: 260px !important;
-			min-height: 260px;
+		.bento-card.expanded-mobile {
+			min-height: 24vh !important;
+			max-height: 30vh !important;
 		}
 		
-		.bento-card.extra-tall.hovered {
-			height: 360px !important;
-			min-height: 360px;
+		.bento-card.expanded-mobile + .bento-card {
+			margin-top: 0.5rem;
 		}
-		
+
 		.bento-card.needs-margin {
-			margin-bottom: 2.5rem !important;
+			margin-bottom: 1.5rem !important;
 		}
 		
-		.card-icon { 
-			font-size: 1.5rem; 
-			margin-bottom: 0.25rem;
+		.card-content {
+			padding: 0.25rem;
+		}
+
+		.card-title {
+			font-size: clamp(0.9rem, 2.8vh, 1.1rem);
+			margin-bottom: 0.2rem;
 		}
 		
-		.card-title { 
-			font-size: 1.2rem; 
-			margin-bottom: 0.25rem;
-		}
-		
-		.card-1-subtitle { 
-			font-size: 1.4rem; 
-		}
-		
-		.card-subtitle { 
-			font-size: 0.9rem; 
-			margin-bottom: 0.25rem;
-		}
-		
-		.card-1-title { 
-			font-size: 0.9rem; 
-		}
-		
-		.card-5-subtitle { 
-			font-size: 1.25rem; 
-		}
-		
-		.card-5-title { 
-			font-size: 0.9rem; 
+		.card-subtitle {
+			font-size: clamp(0.75rem, 2vh, 0.95rem);
 		}
 		
 		.hover-text {
-			font-size: 0.8rem;
-			line-height: 1.3;
-			padding: 0.5rem;
+			font-size: clamp(0.75rem, 1.8vh, 0.9rem);
+			line-height: 1.25;
+			padding: 0.3rem;
+		}
+
+		.highlight-word::before {
+			height: 30%;
+			bottom: -4px;
 		}
 	}
 </style>

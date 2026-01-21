@@ -622,8 +622,8 @@
 
 /* === CONTAINER === */
 .container {
-	position: absolute;
-	right: 0;
+	position: fixed;
+	left: 280px;
 	top: 0;
 	width: calc(100vw - 280px);
 	height: 100vh;
@@ -690,6 +690,7 @@
 /* === RESPONSIVE SYSTEM CORRIGÉ POUR MOBILE === */
 @media (max-width: 1024px) {
 	.container {
+		left: 280px;
 		width: calc(100vw - 280px);
 	}
 }
@@ -756,7 +757,6 @@
 	
 	.container {
 		left: 0 !important;
-		right: 0;
 		width: 100vw !important;
 	}
 	
