@@ -265,7 +265,8 @@ function getSubtitleParts(item: any): any {
 	</div>
 </div>
 
-<style lang="scss">/* VARIABLES */
+<style lang="scss">
+/* VARIABLES */
 :root {
 	--contrast-light-1: #e5e5e5;
 	--contrast-light-2: #d4d4d4;
@@ -577,12 +578,13 @@ function getSubtitleParts(item: any): any {
 }
 
 /* ============================================ */
-/* RESPONSIVE MOBILE - CELLULES HAUTES + SCROLL */
+/* RESPONSIVE MOBILE - UNE SEULE COLONNE */
 /* ============================================ */
 
 @media (max-width: 1024px) {
 	.page-wrapper {
-		height: 100vh;
+		height: auto;
+		min-height: 100vh;
 		overflow-y: auto;
 		overflow-x: hidden;
 		justify-content: flex-start;
@@ -590,193 +592,207 @@ function getSubtitleParts(item: any): any {
 		padding: 0;
 		scroll-behavior: smooth;
 		-webkit-overflow-scrolling: touch;
-		scroll-padding-top: 1rem;
 	}
 
 	.bento-container {
-		padding: 1rem 1rem 3rem 1rem;
+		padding: 1rem;
 		min-height: auto;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.bento-row {
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 0.75rem;
 		height: auto;
-		margin-bottom: 0;
+		margin-bottom: 0.75rem;
+		width: 100%;
 	}
 
-	/* Première carte : commence en haut */
-	.bento-row.top {
-		padding-top: 0;
+	.bento-row.top,
+	.bento-row.bottom {
+		/* Fusionner les deux rows en une seule colonne */
+		display: contents;
 	}
 
-	/* CELLULES HAUTES (70vh) */
+	/* TOUTES LES CARTES EN UNE SEULE COLONNE */
 	.bento-card {
 		flex: none !important;
 		width: 100% !important;
-		min-height: 70vh !important;
-		height: 70vh !important;
-		max-height: 70vh !important;
+		min-height: 55vh !important;
+		height: auto !important;
+		max-height: none !important;
 		opacity: 1 !important;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 		position: relative;
 		z-index: 1;
-		padding: 2.5rem;
+		padding: 2.25rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		scroll-snap-align: start;
-		transform-origin: top center;
+		transform-origin: center;
+		margin-bottom: 0.75rem !important;
+		order: var(--card-order);
 	}
 
 	.bento-card.extra-tall {
-		min-height: 75vh !important;
-		height: 75vh !important;
-		max-height: 75vh !important;
+		min-height: 60vh !important;
 	}
 
-	/* EXPANSION : vers le bas pour toutes SAUF la dernière */
+	/* EXPANSION DE LA CARTE SURVOLÉE */
 	.bento-card.expanded-mobile {
 		z-index: 100;
+		min-height: 70vh !important;
+		transform: scale(1.03);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 	}
 
-	/* Cartes normales : expansion vers le bas */
-	.bento-row.top .bento-card.expanded-mobile:not(:last-child),
-	.bento-row.bottom .bento-card.expanded-mobile:not(:last-child) {
-		min-height: 80vh !important;
-		height: 80vh !important;
-		max-height: 80vh !important;
-		transform: scale(1.02);
-		transform-origin: top center;
+	/* SYSTÈME D'ÉCRASEMENT UNIQUE : SEULEMENT LES CARTES ADJACENTES */
+	
+	/* Carte précédente IMMÉDIATE (celle juste au-dessus) */
+	.bento-card.expanded-mobile:not(:first-child) + .bento-card {
+		/* Pas d'effet ici, c'est pour la carte suivante */
 	}
-
-	/* Dernière carte : expansion vers le haut */
-	.bento-row.bottom .bento-card.expanded-mobile:last-child {
-		min-height: 80vh !important;
-		height: 80vh !important;
-		max-height: 80vh !important;
-		transform: scale(1.02);
-		transform-origin: bottom center;
-	}
-
-	/* EFFET ÉCRASEMENT DES CELLULES ADJACENTES */
+	
+	/* Carte suivante IMMÉDIATE (celle juste en-dessous) */
 	.bento-card:has(+ .bento-card.expanded-mobile) {
-		transform: scale(0.96);
-		opacity: 0.7;
-		filter: brightness(0.9);
+		transform: scale(0.95) translateY(-15px);
+		opacity: 0.9;
+		filter: brightness(0.92);
 		transform-origin: bottom center;
+		min-height: 50vh !important;
+		margin-bottom: 0.5rem !important;
 	}
 
 	.bento-card.expanded-mobile + .bento-card {
-		transform: scale(0.96);
-		opacity: 0.7;
-		filter: brightness(0.9);
+		transform: scale(0.95) translateY(15px);
+		opacity: 0.9;
+		filter: brightness(0.92);
 		transform-origin: top center;
+		min-height: 50vh !important;
+		margin-top: 0.5rem !important;
 	}
 
-	/* Dernière carte qui pousse vers le haut */
-	.bento-row.bottom .bento-card.expanded-mobile:last-child + .bento-card,
-	.bento-row.bottom .bento-card:has(+ .bento-card.expanded-mobile:last-child) {
+	/* Première carte : s'étend vers le bas seulement */
+	.bento-card:first-child.expanded-mobile {
+		transform-origin: top center;
+		transform: scale(1.03) translateY(0);
+	}
+
+	/* Dernière carte : s'étend vers le haut seulement */
+	.bento-card:last-child.expanded-mobile {
 		transform-origin: bottom center;
+		transform: scale(1.03) translateY(0);
 	}
 
-	.bento-card.needs-margin {
-		margin-bottom: 3rem !important;
-	}
-
+	/* TEXTE PLUS GRAND ET LISIBLE */
 	.card-content {
-		padding: 2rem;
+		padding: 1.75rem;
 		justify-content: center;
+		align-items: center;
+		text-align: center;
 		width: 100%;
 		height: 100%;
 	}
 
 	.card-title {
-		font-size: clamp(2rem, 6vh, 2.8rem);
+		font-size: clamp(1.8rem, 5vw, 2.2rem);
 		margin-bottom: 1rem;
-		line-height: 1.1;
+		line-height: 1.25;
+		font-weight: 800;
 		text-align: center;
 		width: 100%;
+		letter-spacing: -0.01em;
 	}
 	
 	.card-subtitle {
-		font-size: clamp(1.4rem, 4vh, 2rem);
-		line-height: 1.3;
-		margin-bottom: 0;
+		font-size: clamp(1.3rem, 3.8vw, 1.6rem);
+		line-height: 1.4;
+		margin-bottom: 0.75rem;
 		text-align: center;
 		width: 100%;
+		font-weight: 600;
+		letter-spacing: -0.005em;
 	}
 	
 	.card-1 .card-title {
-		font-size: clamp(2.2rem, 6.5vh, 3rem);
+		font-size: clamp(2rem, 5.5vw, 2.4rem);
 	}
 	
 	.card-1 .card-subtitle {
-		font-size: clamp(1.6rem, 4.5vh, 2.2rem);
+		font-size: clamp(1.5rem, 4.2vw, 1.8rem);
 	}
 	
 	.card-4 .card-subtitle {
-		font-size: clamp(2rem, 6vh, 2.8rem);
+		font-size: clamp(1.6rem, 4.5vw, 2rem);
 	}
 	
 	.additional-text {
-		font-size: clamp(1.3rem, 3.5vh, 1.8rem);
+		font-size: clamp(1.1rem, 3.2vw, 1.4rem);
 		line-height: 1.5;
-		margin-top: 1.5rem;
+		margin-top: 1rem;
 		text-align: center;
+		padding: 0 1rem;
+		font-weight: 500;
+		letter-spacing: 0.01em;
 	}
 
 	.hover-text {
 		padding: 2rem;
-		font-size: clamp(1.3rem, 3.5vh, 1.8rem);
-		line-height: 1.5;
-		max-height: 80%;
+		font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+		line-height: 1.6;
+		max-height: 75%;
 		overflow-y: auto;
+		font-weight: 500;
+		letter-spacing: 0.01em;
 	}
 
 	.highlight-word::before {
-		height: 42%;
-		bottom: -2px;
+		height: 40%;
+		bottom: -1px;
 	}
 
 	.card-overlay.show {
-		backdrop-filter: blur(5px);
+		backdrop-filter: blur(8px);
 	}
 }
 
 @media (max-width: 768px) {
 	.bento-container { 
-		padding: 0.75rem 0.75rem 2.5rem 0.75rem;
+		padding: 0.875rem;
 	}
 	
 	.bento-row { 
-		gap: 1.25rem; 
+		gap: 0.625rem; 
+		margin-bottom: 0.625rem;
 	}
 	
 	.bento-card {
-		min-height: 65vh !important;
-		height: 65vh !important;
-		max-height: 65vh !important;
+		min-height: 52vh !important;
 		padding: 2rem;
+		border-radius: 1.5rem;
+		margin-bottom: 0.625rem !important;
 	}
 	
 	.bento-card.extra-tall {
-		min-height: 70vh !important;
-		height: 70vh !important;
-		max-height: 70vh !important;
+		min-height: 57vh !important;
 	}
 	
-	.bento-row.top .bento-card.expanded-mobile:not(:last-child),
-	.bento-row.bottom .bento-card.expanded-mobile:not(:last-child) {
-		min-height: 75vh !important;
-		height: 75vh !important;
-		max-height: 75vh !important;
+	.bento-card.expanded-mobile {
+		min-height: 65vh !important;
+		padding: 2.25rem;
 	}
 
-	.bento-row.bottom .bento-card.expanded-mobile:last-child {
-		min-height: 75vh !important;
-		height: 75vh !important;
-		max-height: 75vh !important;
+	/* Ajustements d'écrasement */
+	.bento-card:has(+ .bento-card.expanded-mobile) {
+		transform: scale(0.94) translateY(-12px);
+		min-height: 46vh !important;
+	}
+
+	.bento-card.expanded-mobile + .bento-card {
+		transform: scale(0.94) translateY(12px);
+		min-height: 46vh !important;
 	}
 	
 	.card-content {
@@ -784,70 +800,75 @@ function getSubtitleParts(item: any): any {
 	}
 
 	.card-title {
-		font-size: clamp(1.8rem, 5.5vh, 2.5rem);
-		margin-bottom: 0.8rem;
+		font-size: clamp(1.7rem, 4.8vw, 2rem);
+		margin-bottom: 0.875rem;
 	}
 	
 	.card-subtitle {
-		font-size: clamp(1.2rem, 3.5vh, 1.8rem);
+		font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+		margin-bottom: 0.625rem;
 	}
 	
 	.card-1 .card-title {
-		font-size: clamp(2rem, 6vh, 2.7rem);
+		font-size: clamp(1.9rem, 5.2vw, 2.2rem);
 	}
 	
 	.card-1 .card-subtitle {
-		font-size: clamp(1.4rem, 4vh, 2rem);
+		font-size: clamp(1.4rem, 4vw, 1.7rem);
 	}
 	
 	.card-4 .card-subtitle {
-		font-size: clamp(1.8rem, 5.5vh, 2.5rem);
+		font-size: clamp(1.5rem, 4.2vw, 1.8rem);
 	}
 	
 	.hover-text {
-		font-size: clamp(1.2rem, 3.2vh, 1.6rem);
-		padding: 1.5rem;
+		font-size: clamp(1.1rem, 3.2vw, 1.4rem);
+		padding: 1.75rem;
+		line-height: 1.55;
 	}
 	
 	.additional-text {
-		font-size: clamp(1.2rem, 3.2vh, 1.6rem);
+		font-size: clamp(1rem, 3vw, 1.3rem);
+		line-height: 1.45;
+		margin-top: 0.875rem;
 	}
 }
 
 @media (max-width: 480px) {
 	.bento-container { 
-		padding: 0.5rem 0.5rem 2rem 0.5rem;
+		padding: 0.75rem;
 	}
 	
 	.bento-row { 
-		gap: 1rem; 
+		gap: 0.5rem; 
+		margin-bottom: 0.5rem;
 	}
 	
 	.bento-card {
-		min-height: 60vh !important;
-		height: 60vh !important;
-		max-height: 60vh !important;
+		min-height: 50vh !important;
 		padding: 1.75rem;
-		border-radius: 1.5rem;
+		border-radius: 1.25rem;
+		margin-bottom: 0.5rem !important;
 	}
 	
 	.bento-card.extra-tall {
-		min-height: 65vh !important;
-		height: 65vh !important;
-		max-height: 65vh !important;
+		min-height: 55vh !important;
 	}
 	
-	.bento-row.top .bento-card.expanded-mobile:not(:last-child),
-	.bento-row.bottom .bento-card.expanded-mobile:not(:last-child) {
-		min-height: 70vh !important;
-		height: 70vh !important;
-		max-height: 70vh !important;
+	.bento-card.expanded-mobile {
+		min-height: 62vh !important;
+		padding: 2rem;
 	}
 
-	.bento-row.bottom .bento-card.expanded-mobile:last-child {
-		min-height: 70vh !important;
-		height: 70vh !important;
-		max-height: 70vh !important;
+	/* Ajustements d'écrasement */
+	.bento-card:has(+ .bento-card.expanded-mobile) {
+		transform: scale(0.93) translateY(-10px);
+		min-height: 44vh !important;
+	}
+
+	.bento-card.expanded-mobile + .bento-card {
+		transform: scale(0.93) translateY(10px);
+		min-height: 44vh !important;
 	}
 	
 	.card-content {
@@ -855,79 +876,81 @@ function getSubtitleParts(item: any): any {
 	}
 
 	.card-title {
-		font-size: clamp(1.6rem, 5vh, 2.2rem);
-		margin-bottom: 0.7rem;
-		line-height: 1.1;
+		font-size: clamp(1.6rem, 4.5vw, 1.9rem);
+		margin-bottom: 0.75rem;
+		line-height: 1.2;
 	}
 	
 	.card-subtitle {
-		font-size: clamp(1.1rem, 3.2vh, 1.6rem);
-		line-height: 1.25;
+		font-size: clamp(1.1rem, 3.2vw, 1.4rem);
+		line-height: 1.35;
+		margin-bottom: 0.5rem;
 	}
 	
 	.card-1 .card-title {
-		font-size: clamp(1.8rem, 5.5vh, 2.4rem);
+		font-size: clamp(1.8rem, 5vw, 2.1rem);
 	}
 	
 	.card-1 .card-subtitle {
-		font-size: clamp(1.3rem, 3.7vh, 1.8rem);
+		font-size: clamp(1.3rem, 3.8vw, 1.6rem);
 	}
 	
 	.card-4 .card-subtitle {
-		font-size: clamp(1.6rem, 5vh, 2.2rem);
+		font-size: clamp(1.4rem, 4vw, 1.7rem);
 	}
 	
 	.hover-text {
-		font-size: clamp(1.1rem, 3vh, 1.5rem);
-		line-height: 1.4;
-		padding: 1.25rem;
+		font-size: clamp(1rem, 3vw, 1.3rem);
+		line-height: 1.5;
+		padding: 1.5rem;
+		max-height: 70%;
 	}
 	
 	.additional-text {
-		font-size: clamp(1.1rem, 3vh, 1.5rem);
+		font-size: clamp(0.95rem, 2.8vw, 1.2rem);
 		line-height: 1.4;
+		margin-top: 0.75rem;
 	}
 
 	.highlight-word::before {
 		height: 38%;
-		bottom: -3px;
+		bottom: -2px;
 	}
 }
 
 @media (max-width: 360px) {
 	.bento-container {
-		padding: 0.5rem 0.5rem 1.5rem 0.5rem;
+		padding: 0.625rem;
 	}
 	
 	.bento-card {
-		min-height: 55vh !important;
-		height: 55vh !important;
-		max-height: 55vh !important;
+		min-height: 48vh !important;
 		padding: 1.5rem;
-		border-radius: 1.25rem;
+		border-radius: 1.125rem;
+		margin-bottom: 0.5rem !important;
 	}
 	
 	.bento-card.extra-tall {
-		min-height: 60vh !important;
-		height: 60vh !important;
-		max-height: 60vh !important;
+		min-height: 53vh !important;
 	}
 	
-	.bento-row.top .bento-card.expanded-mobile:not(:last-child),
-	.bento-row.bottom .bento-card.expanded-mobile:not(:last-child) {
-		min-height: 65vh !important;
-		height: 65vh !important;
-		max-height: 65vh !important;
+	.bento-card.expanded-mobile {
+		min-height: 60vh !important;
+		padding: 1.75rem;
 	}
 
-	.bento-row.bottom .bento-card.expanded-mobile:last-child {
-		min-height: 65vh !important;
-		height: 65vh !important;
-		max-height: 65vh !important;
+	.bento-card:has(+ .bento-card.expanded-mobile) {
+		min-height: 42vh !important;
+		transform: scale(0.92) translateY(-8px);
+	}
+
+	.bento-card.expanded-mobile + .bento-card {
+		min-height: 42vh !important;
+		transform: scale(0.92) translateY(8px);
 	}
 
 	.bento-card.needs-margin {
-		margin-bottom: 2.5rem !important;
+		margin-bottom: 2rem !important;
 	}
 	
 	.card-content {
@@ -935,40 +958,58 @@ function getSubtitleParts(item: any): any {
 	}
 
 	.card-title {
-		font-size: clamp(1.4rem, 4.5vh, 2rem);
-		margin-bottom: 0.6rem;
+		font-size: clamp(1.5rem, 4.2vw, 1.8rem);
+		margin-bottom: 0.625rem;
 	}
 	
 	.card-subtitle {
-		font-size: clamp(1rem, 2.8vh, 1.4rem);
+		font-size: clamp(1rem, 3vw, 1.3rem);
 	}
 	
 	.card-1 .card-title {
-		font-size: clamp(1.6rem, 5vh, 2.2rem);
+		font-size: clamp(1.7rem, 4.8vw, 2rem);
 	}
 	
 	.card-1 .card-subtitle {
-		font-size: clamp(1.2rem, 3.4vh, 1.6rem);
+		font-size: clamp(1.2rem, 3.5vw, 1.5rem);
 	}
 	
 	.card-4 .card-subtitle {
-		font-size: clamp(1.4rem, 4.5vh, 2rem);
+		font-size: clamp(1.3rem, 3.8vw, 1.6rem);
 	}
 	
 	.hover-text {
-		font-size: clamp(1rem, 2.7vh, 1.3rem);
-		line-height: 1.35;
-		padding: 1rem;
+		font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+		line-height: 1.45;
+		padding: 1.25rem;
 	}
 	
 	.additional-text {
-		font-size: clamp(1rem, 2.7vh, 1.3rem);
+		font-size: clamp(0.9rem, 2.6vw, 1.1rem);
 		line-height: 1.35;
-		margin-top: 1rem;
+		margin-top: 0.625rem;
 	}
 
 	.highlight-word::before {
 		height: 35%;
-		bottom: -4px;
+		bottom: -3px;
 	}
-}</style>
+}
+
+/* ANIMATIONS FLUIDES POUR MOBILE */
+@media (max-width: 1024px) {
+	.bento-card {
+		transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+	
+	.card-content {
+		transition: all 0.25s ease;
+	}
+	
+	/* Effet de compression doux et naturel */
+	.bento-card:has(+ .bento-card.expanded-mobile),
+	.bento-card.expanded-mobile + .bento-card {
+		transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+}
+</style>

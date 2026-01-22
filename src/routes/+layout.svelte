@@ -163,7 +163,7 @@
 		<!-- Overlay pour fermer le menu -->
 		<div 
 			class="sidebar-overlay" 
-			class:active={isSidebarOpen} 
+			class:active={isSidebarOpen || isFlagSelectorOpen}
 			on:click={() => { isSidebarOpen = false; isFlagSelectorOpen = false; }}
 			on:keydown={(e) => e.key === 'Escape' && (isSidebarOpen = false)}
 			role="button"
@@ -178,6 +178,13 @@
 			role="button"
 			tabindex="0"
 			on:keydown={(e) => e.key === 'Enter' && (isSidebarOpen = !isSidebarOpen)}>
+			
+			<!-- Logo - visible seulement quand déplié -->
+			<div class="sidebar-header">
+				<a href="https://bit.ly/GRG-Group-FnB" target="_blank" class="logo-link">
+					<img src="/image/path1.svg" alt="Logo" class="logo-image">
+				</a>
+			</div>
 			
 			<!-- Navigation centrée -->
 			<nav class="sidebar-nav">
@@ -247,63 +254,71 @@
 				<!-- Bouton d'engrenage pour ouvrir le sélecteur de drapeaux -->
 				<button 
 					class="gear-toggle" 
-					on:click|stopPropagation={() => isFlagSelectorOpen = !isFlagSelectorOpen}
+					on:click|stopPropagation={() => { 
+						isFlagSelectorOpen = !isFlagSelectorOpen; 
+						// Fermer le menu s'il est ouvert
+						if (isSidebarOpen) {
+							isSidebarOpen = false;
+						}
+					}}
 					type="button"
 					title="Select language">
 					<span class="gear-icon">⚙️</span>
 				</button>
-
-				<!-- Volet de sélection des drapeaux -->
-				{#if isFlagSelectorOpen}
-					<div class="flag-selector-panel" on:click|stopPropagation>
-						<button 
-							class="flag-button"
-							class:active={currentLanguage === 'fr'}
-							on:click|stopPropagation={() => { changeLanguage('fr'); isFlagSelectorOpen = false; }}
-							type="button"
-							title="Français">
-							<Fr/>
-						</button>
-
-						<button 
-							class="flag-button"
-							class:active={currentLanguage === 'en'}
-							on:click|stopPropagation={() => { changeLanguage('en'); isFlagSelectorOpen = false; }}
-							type="button"
-							title="English">
-							<En/>
-						</button>
-
-						<button 
-							class="flag-button"
-							class:active={currentLanguage === 'es'}
-							on:click|stopPropagation={() => { changeLanguage('es'); isFlagSelectorOpen = false; }}
-							type="button"
-							title="Español">
-							<Es/>
-						</button>
-
-						<button 
-							class="flag-button"
-							class:active={currentLanguage === 'it'}
-							on:click|stopPropagation={() => { changeLanguage('it'); isFlagSelectorOpen = false; }}
-							type="button"
-							title="Italiano">
-							<It/>
-						</button>
-
-						<button 
-							class="flag-button"
-							class:active={currentLanguage === 'de'}
-							on:click|stopPropagation={() => { changeLanguage('de'); isFlagSelectorOpen = false; }}
-							type="button"
-							title="Deutsch">
-							<De/>
-						</button>
-					</div>
-				{/if}
 			</div>
 		</aside>
+
+		<!-- Volet de sélection des drapeaux (toujours au premier plan) -->
+		{#if isFlagSelectorOpen}
+			<div class="flag-selector-wrapper" on:click|stopPropagation>
+				<div class="flag-selector-panel">
+					<button 
+						class="flag-button"
+						class:active={currentLanguage === 'fr'}
+						on:click|stopPropagation={() => { changeLanguage('fr'); isFlagSelectorOpen = false; }}
+						type="button"
+						title="Français">
+						<Fr/>
+					</button>
+
+					<button 
+						class="flag-button"
+						class:active={currentLanguage === 'en'}
+						on:click|stopPropagation={() => { changeLanguage('en'); isFlagSelectorOpen = false; }}
+						type="button"
+						title="English">
+						<En/>
+					</button>
+
+					<button 
+						class="flag-button"
+						class:active={currentLanguage === 'es'}
+						on:click|stopPropagation={() => { changeLanguage('es'); isFlagSelectorOpen = false; }}
+						type="button"
+						title="Español">
+						<Es/>
+					</button>
+
+					<button 
+						class="flag-button"
+						class:active={currentLanguage === 'it'}
+						on:click|stopPropagation={() => { changeLanguage('it'); isFlagSelectorOpen = false; }}
+						type="button"
+						title="Italiano">
+						<It/>
+					</button>
+
+					<button 
+						class="flag-button"
+						class:active={currentLanguage === 'de'}
+						on:click|stopPropagation={() => { changeLanguage('de'); isFlagSelectorOpen = false; }}
+						type="button"
+						title="Deutsch">
+						<De/>
+					</button>
+				</div>
+			</div>
+		{/if}
 
 		<!-- CONTENU PRINCIPAL -->
 		<div class="container" class:sidebar-expanded={isSidebarOpen}>
@@ -421,6 +436,47 @@
 	width: var(--sidebar-width-expanded);
 	min-width: var(--sidebar-width-expanded);
 	box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header avec logo */
+.sidebar-header {
+	padding: 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	min-height: 60px;
+	margin: 0 0.5rem 1rem;
+	border-bottom: 1px solid var(--gray-200, #e5e5e5);
+}
+
+:global(.dark) .sidebar-header {
+	border-bottom: 1px solid var(--gray-700, #404040);
+}
+
+.logo-link {
+	display: block;
+	width: 100%;
+	opacity: 0;
+	max-height: 0;
+	overflow: hidden;
+	transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+.sidebar.expanded .logo-link {
+	opacity: 1;
+	max-height: 200px;
+}
+
+.logo-image {
+	width: 100%;
+	height: auto;
+	max-width: 150px;
+	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+:global(.dark) .logo-image {
+	filter: brightness(1.2) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 /* Navigation centrée */
@@ -575,6 +631,8 @@
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0;
+	position: relative;
+	z-index: 1;
 }
 
 :global(.dark) .gear-toggle {
@@ -590,28 +648,42 @@
 	background: var(--gray-600, #525252);
 }
 
-/* Volet de sélection des drapeaux */
+/* === VOLEUR DE SÉLECTION DES DRAPEAUX (TOUJOURS AU PREMIER PLAN) === */
+.flag-selector-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	height: 100dvh;
+	z-index: 1001;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-start;
+	padding-bottom: 1rem;
+	padding-left: var(--sidebar-width-collapsed);
+	pointer-events: none;
+}
+
 .flag-selector-panel {
-	position: absolute;
-	bottom: 100%;
-	left: 50%;
-	transform: translateX(-50%);
 	background: #ffffff;
 	border: 1px solid var(--gray-200, #e5e5e5);
 	border-radius: 10px;
-	padding: 0.5rem;
+	padding: 0.75rem;
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
+	gap: 0.75rem;
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-	z-index: 1001;
-	min-width: 120px;
-	margin-bottom: 0.5rem;
+	min-width: 140px;
+	margin-left: 0.5rem;
+	pointer-events: auto;
+	animation: slideIn 0.2s ease-out;
 }
 
 :global(.dark) .flag-selector-panel {
 	background: var(--gray-800, #262626);
 	border: 1px solid var(--gray-700, #404040);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .flag-button {
@@ -624,9 +696,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 32px;
-	height: 32px;
+	width: 36px;
+	height: 36px;
 	opacity: 0.6;
+	margin: 0 auto;
 }
 
 .flag-button:hover {
@@ -641,6 +714,17 @@
 
 :global(.dark) .flag-button.active {
 	background: var(--gray-700, #404040);
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 /* === CONTAINER PRINCIPAL === */
@@ -720,12 +804,27 @@
 		min-height: 40px;
 		padding: 0.65rem;
 	}
+	
+	/* Position du sélecteur de drapeaux sur mobile */
+	.flag-selector-wrapper {
+		padding-left: var(--sidebar-width-collapsed);
+	}
+	
+	.flag-selector-panel {
+		margin-left: 0.5rem;
+		min-width: 130px;
+	}
 }
 
 @media (max-width: 480px) {
 	:root {
 		--sidebar-width-collapsed: 50px;
 		--sidebar-width-expanded: 200px;
+	}
+	
+	.sidebar-header {
+		min-height: 50px;
+		margin: 0 0.25rem 0.75rem;
 	}
 	
 	.sidebar-nav {
@@ -751,8 +850,14 @@
 	}
 	
 	.flag-button {
-		width: 28px;
-		height: 28px;
+		width: 32px;
+		height: 32px;
+	}
+	
+	.flag-selector-panel {
+		min-width: 120px;
+		padding: 0.6rem;
+		gap: 0.6rem;
 	}
 }
 
@@ -761,6 +866,11 @@
 	.sidebar {
 		padding-top: max(1rem, env(safe-area-inset-top));
 		padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+	}
+	
+	.flag-selector-wrapper {
+		padding-bottom: max(1rem, env(safe-area-inset-bottom));
+		padding-left: calc(var(--sidebar-width-collapsed) + env(safe-area-inset-left));
 	}
 }
 </style>
