@@ -127,13 +127,13 @@ function getForcedHighlightedText(text: string): any[] {
 	return getHighlightedText(item.title);
 }
 
-	function getSubtitleParts(item: any): any {
-		if (item.id === 4) {
-			// Item 4: highlight "Creativity" dans le sous-titre
-			return getHighlightedText(item.subtitle);
-		}
-		return item.subtitle;
-	}
+function getSubtitleParts(item: any): any {
+    if (item.id === 4) {
+        // Item 4: highlight "Creativity" dans le sous-titre
+        return getHighlightedText(item.subtitle); // ✅ CORRECT - highlight dernier mot
+    }
+    return item.subtitle;
+}
 </script>
 
 <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
@@ -266,6 +266,84 @@ function getForcedHighlightedText(text: string): any[] {
 </div>
 
 <style lang="scss">
+
+
+
+
+.additional-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-weight: 500;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+    
+    /* MÊMES RÈGLES QUE LES TITRES ET SOUS-TITRES */
+}
+
+/* CARTES CLAIRES (1, 3, 4, 5) : TEXTE NOIR */
+.card-1 .additional-text,
+.card-3 .additional-text,
+.card-4 .additional-text,
+.card-5 .additional-text {
+    color: var(--gray-900, #171717) !important;
+    text-shadow: 0 2px 12px rgba(255, 255, 255, 0.7);
+}
+
+/* CARTES SOMBRES (2) : TEXTE BLANC */
+.card-2 .additional-text {
+    color: var(--gray-100, #f5f5f5) !important;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* MODE SOMBRE : INVERSION COMPLÈTE */
+:global(.dark) .card-1 .additional-text,
+:global(.dark) .card-3 .additional-text,
+:global(.dark) .card-4 .additional-text,
+:global(.dark) .card-5 .additional-text {
+    color: var(--gray-100, #f5f5f5) !important; /* Blanc sur fond sombre */
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+:global(.dark) .card-2 .additional-text {
+    color: var(--gray-100, #f5f5f5) !important; /* Reste blanc */
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* RÈGLES RESPONSIVE ADAPTATIVES (identiques aux autres textes) */
+@media (max-width: 1024px) {
+    .additional-text {
+        font-size: clamp(0.95rem, 2.6vh, 1.1rem);
+        line-height: 1.4;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .additional-text {
+        font-size: clamp(0.9rem, 2.4vh, 1.05rem);
+        line-height: 1.35;
+        margin-top: 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .additional-text {
+        font-size: clamp(0.8rem, 2vh, 0.95rem);
+        line-height: 1.3;
+        margin-top: 0.3rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .additional-text {
+        font-size: clamp(0.75rem, 1.8vh, 0.9rem);
+        line-height: 1.25;
+        margin-top: 0.25rem;
+    }
+}
+
+
 	.page-wrapper {
 		width: 100%;
 		height: 100vh;
