@@ -133,13 +133,16 @@
 	function changeLanguage(lang: 'fr' | 'en' | 'es' | 'it' | 'de') {
 		currentLanguage = lang;
 		setLocale(lang);
-		// Sauvegarder la langue dans le localStorage
 		if (typeof window !== 'undefined') {
 			localStorage.setItem('selectedLanguage', lang);
 		}
 	}
 
-	let isMobileOpen = $state(false);
+	// État du menu latéral mobile
+	let isSidebarOpen = $state(false);
+
+	// État pour le volet de sélection des drapeaux
+	let isFlagSelectorOpen = $state(false);
 </script>
 
 <svelte:head>
@@ -157,143 +160,153 @@
 	<div class="layout-wrapper">
 		<ModeWatcher />
 
-		<!-- Bouton menu mobile - disparaît quand le menu est ouvert -->
-		{#if !isMobileOpen}
-			<button 
-				class="mobile-menu-button" 
-				on:click={() => isMobileOpen = !isMobileOpen} 
-				type="button"
-				aria-label="Toggle menu">
-				☰
-			</button>
-		{/if}
-
 		<!-- Overlay pour fermer le menu -->
 		<div 
 			class="sidebar-overlay" 
-			class:mobile-open={isMobileOpen} 
-			on:click={() => isMobileOpen = false}
-			on:keydown={(e) => e.key === 'Escape' && (isMobileOpen = false)}
+			class:active={isSidebarOpen} 
+			on:click={() => { isSidebarOpen = false; isFlagSelectorOpen = false; }}
+			on:keydown={(e) => e.key === 'Escape' && (isSidebarOpen = false)}
 			role="button"
 			tabindex="-1">
 		</div>
 
-		<!-- SIDEBAR BENTO STYLE - MODIFIÉ -->
-		<aside class="sidebar" class:mobile-open={isMobileOpen}>
-			<div class="sidebar-header">
-				<div class="logo"> 
-				<!-- svelte-ignore a11y_consider_explicit_label -->
-				<a href="https://bit.ly/GRG-Group-FnB" target="blank">	<img src="/image/path1.svg" alt="Logo"> </a>
-				</div>
-				
-			</div>
+		<!-- SIDEBAR LATÉRALE ÉTROITE -->
+		<aside 
+			class="sidebar" 
+			class:expanded={isSidebarOpen}
+			on:click={() => isSidebarOpen = !isSidebarOpen}
+			role="button"
+			tabindex="0"
+			on:keydown={(e) => e.key === 'Enter' && (isSidebarOpen = !isSidebarOpen)}>
 			
+			<!-- Navigation centrée -->
 			<nav class="sidebar-nav">
 				<a 
 					href="/" 
 					class="nav-link" 
 					class:active={currentPath === '/'}
-					on:click={() => isMobileOpen = false}
+					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					title={translations[currentLanguage].home}
 				>
-					<span class="nav-icon"></span>
+					<span class="nav-icon">{isSidebarOpen ? '' : '🏠'}</span>
 					<span class="nav-text">{translations[currentLanguage].home}</span>
 				</a>
 				<a 
 					href="/propos" 
 					class="nav-link" 
 					class:active={currentPath === '/propos'}
-					on:click={() => isMobileOpen = false}
+					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					title={translations[currentLanguage].about}
 				>
-					<span class="nav-icon"></span>
+					<span class="nav-icon">{isSidebarOpen ? '' : 'ℹ️'}</span>
 					<span class="nav-text">{translations[currentLanguage].about}</span>
 				</a>
 				<a 
 					href="/services-" 
 					class="nav-link" 
 					class:active={currentPath === '/services-'}
-					on:click={() => isMobileOpen = false}
+					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					title={translations[currentLanguage].services}
 				>
-					<span class="nav-icon"></span>
+					<span class="nav-icon">{isSidebarOpen ? '' : '⚙️'}</span>
 					<span class="nav-text">{translations[currentLanguage].services}</span>
 				</a>
 				<a 
 					href="/produits" 
 					class="nav-link" 
 					class:active={currentPath === '/produits'}
-					on:click={() => isMobileOpen = false}
+					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					title={translations[currentLanguage].products}
 				>
-					<span class="nav-icon"></span>
+					<span class="nav-icon">{isSidebarOpen ? '' : '📦'}</span>
 					<span class="nav-text">{translations[currentLanguage].products}</span>
 				</a>
 				<a 
 					href="/contact" 
 					class="nav-link" 
 					class:active={currentPath === '/contact'}
-					on:click={() => isMobileOpen = false}
+					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					title={translations[currentLanguage].contact}
 				>
-					<span class="nav-icon"></span>
+					<span class="nav-icon">{isSidebarOpen ? '' : '✉️'}</span>
 					<span class="nav-text">{translations[currentLanguage].contact}</span>
 				</a>
 			</nav>
 
+			<!-- Footer avec thème et langues -->
 			<div class="sidebar-footer">
-				<button class="theme-toggle" on:click={handleToggleMode} type="button">
+				<button 
+					class="theme-toggle" 
+					on:click|stopPropagation={handleToggleMode} 
+					type="button"
+					title="Toggle theme">
 					<span class="theme-icon-light">☀️</span>
 					<span class="theme-icon-dark">🌙</span>
 				</button>
 
-				<!-- Sélecteur de langue - drapeaux sur la même ligne -->
-				<div class="language-selector">
-					<button 
-						class="language-button"
-						class:active={currentLanguage === 'fr'}
-						on:click={() => changeLanguage('fr')}
-						type="button"
-						title="Français">
-						<Fr/>
-					</button>
+				<!-- Bouton d'engrenage pour ouvrir le sélecteur de drapeaux -->
+				<button 
+					class="gear-toggle" 
+					on:click|stopPropagation={() => isFlagSelectorOpen = !isFlagSelectorOpen}
+					type="button"
+					title="Select language">
+					<span class="gear-icon">⚙️</span>
+				</button>
 
-					<button 
-						class="language-button"
-						class:active={currentLanguage === 'en'}
-						on:click={() => changeLanguage('en')}
-						type="button"
-						title="English">
-						<En/>
-					</button>
+				<!-- Volet de sélection des drapeaux -->
+				{#if isFlagSelectorOpen}
+					<div class="flag-selector-panel" on:click|stopPropagation>
+						<button 
+							class="flag-button"
+							class:active={currentLanguage === 'fr'}
+							on:click|stopPropagation={() => { changeLanguage('fr'); isFlagSelectorOpen = false; }}
+							type="button"
+							title="Français">
+							<Fr/>
+						</button>
 
-					<button 
-						class="language-button"
-						class:active={currentLanguage === 'es'}
-						on:click={() => changeLanguage('es')}
-						type="button"
-						title="Español">
-						<Es/>
-					</button>
+						<button 
+							class="flag-button"
+							class:active={currentLanguage === 'en'}
+							on:click|stopPropagation={() => { changeLanguage('en'); isFlagSelectorOpen = false; }}
+							type="button"
+							title="English">
+							<En/>
+						</button>
 
-					<button 
-						class="language-button"
-						class:active={currentLanguage === 'it'}
-						on:click={() => changeLanguage('it')}
-						type="button"
-						title="Italiano">
-						<It/>
-					</button>
+						<button 
+							class="flag-button"
+							class:active={currentLanguage === 'es'}
+							on:click|stopPropagation={() => { changeLanguage('es'); isFlagSelectorOpen = false; }}
+							type="button"
+							title="Español">
+							<Es/>
+						</button>
 
-					<button 
-						class="language-button"
-						class:active={currentLanguage === 'de'}
-						on:click={() => changeLanguage('de')}
-						type="button"
-						title="Deutsch">
-						<De/>
-					</button>
-				</div>
+						<button 
+							class="flag-button"
+							class:active={currentLanguage === 'it'}
+							on:click|stopPropagation={() => { changeLanguage('it'); isFlagSelectorOpen = false; }}
+							type="button"
+							title="Italiano">
+							<It/>
+						</button>
+
+						<button 
+							class="flag-button"
+							class:active={currentLanguage === 'de'}
+							on:click|stopPropagation={() => { changeLanguage('de'); isFlagSelectorOpen = false; }}
+							type="button"
+							title="Deutsch">
+							<De/>
+						</button>
+					</div>
+				{/if}
 			</div>
 		</aside>
 
 		<!-- CONTENU PRINCIPAL -->
-		<div class="container">
+		<div class="container" class:sidebar-expanded={isSidebarOpen}>
 			<div class="wrapperScroll">
 				<SmoothScrollBar>
 					<main class="mainLayout">
@@ -321,6 +334,9 @@
   --gray-700: #404040;
   --gray-800: #262626;
   --gray-900: #171717;
+  
+  --sidebar-width-collapsed: 60px;
+  --sidebar-width-expanded: 240px;
 }
 
 :global(html),
@@ -354,28 +370,7 @@
 	background: var(--gray-900, #171717);
 }
 
-/* Menu burger pour mobile */
-.mobile-menu-button {
-	display: none;
-	position: fixed;
-	top: 1rem;
-	left: 1rem;
-	z-index: 1002;
-	background: var(--theme-color, #404040);
-	border: none;
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-	color: white;
-	font-size: 1.5rem;
-	cursor: pointer;
-	width: 44px;
-	height: 44px;
-	align-items: center;
-	justify-content: center;
-	transition: opacity 0.3s ease;
-}
-
-/* Overlay pour fermer la sidebar */
+/* === OVERLAY === */
 .sidebar-overlay {
 	display: none;
 	position: fixed;
@@ -384,33 +379,37 @@
 	right: 0;
 	bottom: 0;
 	background: rgba(0, 0, 0, 0.5);
-	z-index: 999;
+	z-index: 998;
 	backdrop-filter: blur(2px);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
 }
 
-.sidebar-overlay.mobile-open {
+.sidebar-overlay.active {
 	display: block;
+	opacity: 1;
+	pointer-events: auto;
 }
 
-/* === SIDEBAR === */
+/* === SIDEBAR LATÉRALE === */
 .sidebar {
-	width: 280px;
-	min-width: 280px;
+	width: var(--sidebar-width-collapsed);
+	min-width: var(--sidebar-width-collapsed);
 	height: 100vh;
 	height: 100dvh;
 	background: #ffffff;
 	border-right: 1px solid var(--gray-200, #e5e5e5);
 	display: flex;
 	flex-direction: column;
-	padding: 2rem 1rem 0.5rem 2rem;
-	z-index: 1000;
+	padding: 1rem 0;
+	z-index: 999;
 	position: fixed;
 	left: 0;
 	top: 0;
 	overflow: hidden;
-	transform: translateZ(0);
-	backface-visibility: hidden;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	cursor: pointer;
 }
 
 :global(.dark) .sidebar {
@@ -418,88 +417,51 @@
 	border-right: 1px solid var(--gray-700, #404040);
 }
 
-.sidebar.mobile-open {
-	transform: translateX(0);
-	box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+.sidebar.expanded {
+	width: var(--sidebar-width-expanded);
+	min-width: var(--sidebar-width-expanded);
+	box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar-header {
-	display: flex;
-	align-items: center;
-	gap: 1rem;
-	padding: 0 1rem 1.5rem;
-	border-bottom: 2px solid var(--gray-100, #f5f5f5);
-	margin-bottom: 1.5rem;
-	flex-shrink: 0;
-}
-
-:global(.dark) .sidebar-header {
-	border-bottom: 2px solid var(--gray-700, #404040);
-}
-
-.logo {
-	filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-	max-width: 150px;
-	height: auto;
-	margin-left: 15%;
-	transition: max-width 0.3s ease;
-}
-
-.logo-image {
-	filter: brightness(0.8);
-}
-
-:global(.dark) .logo-image {
-	filter: brightness(1.2);
-}
-
+/* Navigation centrée */
 .sidebar-nav {
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
-	flex: 1;
-	overflow: hidden;
+	align-items: center;
 	justify-content: center;
-	min-height: 0;
+	gap: 1rem;
+	flex: 1;
+	padding: 0 0.5rem;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .nav-link {
 	display: flex;
 	align-items: center;
+	justify-content: flex-start;
 	gap: 1rem;
 	text-decoration: none;
 	color: var(--gray-600, #525252);
 	font-weight: 600;
-	font-size: 0.95rem;
-	padding: 0.875rem 1.25rem;
-	border-radius: 1rem;
+	font-size: 0.9rem;
+	padding: 0.75rem;
+	border-radius: 10px;
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	position: relative;
-	overflow: hidden;
-	flex-shrink: 0;
+	white-space: nowrap;
+	min-height: 44px;
+	width: 100%;
+	cursor: pointer;
 }
 
 :global(.dark) .nav-link {
 	color: var(--gray-400, #a3a3a3);
 }
 
-.nav-link::before {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 4px;
-	height: 100%;
-	background: var(--theme-color, #404040);
-	transform: scaleY(0);
-	transition: transform 0.3s ease;
-	border-radius: 0 4px 4px 0;
-}
-
 .nav-link:hover {
 	background: var(--gray-100, #f5f5f5);
 	color: var(--gray-800, #262626);
-	transform: translateX(4px);
 }
 
 :global(.dark) .nav-link:hover {
@@ -508,39 +470,51 @@
 }
 
 .nav-link.active {
-	background: var(--theme-color, #404040);
+	background: var(--gray-800, #262626);
 	color: white;
-	box-shadow: 0 8px 24px rgba(64, 64, 64, 0.2);
 }
 
-.nav-link.active::before {
-	transform: scaleY(1);
-	background: white;
+:global(.dark) .nav-link.active {
+	background: var(--gray-600, #525252);
+	color: white;
 }
 
 .nav-icon {
-	font-size: 1.3rem;
-	min-width: 1.3rem;
+	font-size: 1.5rem;
+	min-width: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
 }
 
 .nav-text {
-	white-space: nowrap;
+	opacity: 0;
+	width: 0;
+	overflow: hidden;
 	transition: opacity 0.3s ease, width 0.3s ease;
 }
 
+.sidebar.expanded .nav-text {
+	opacity: 1;
+	width: auto;
+}
+
+/* Footer */
 .sidebar-footer {
-	padding-top: 0.75rem;
-	border-top: 2px solid var(--gray-100, #f5f5f5);
+	padding: 1rem 0.5rem 0.5rem;
+	border-top: 1px solid var(--gray-200, #e5e5e5);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 0.625rem;
+	gap: 0.75rem;
 	flex-shrink: 0;
 	margin-top: auto;
+	position: relative;
 }
 
 :global(.dark) .sidebar-footer {
-	border-top: 2px solid var(--gray-700, #404040);
+	border-top: 1px solid var(--gray-700, #404040);
 }
 
 .theme-toggle {
@@ -549,12 +523,13 @@
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	font-size: 1.25rem;
+	font-size: 1.2rem;
 	cursor: pointer;
 	transition: all 0.3s ease;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-shrink: 0;
 }
 
 :global(.dark) .theme-toggle {
@@ -562,9 +537,12 @@
 }
 
 .theme-toggle:hover {
-	background: var(--theme-color, #404040);
+	background: var(--gray-300, #d4d4d4);
 	transform: rotate(180deg) scale(1.1);
-	box-shadow: 0 4px 12px rgba(64, 64, 64, 0.3);
+}
+
+:global(.dark) .theme-toggle:hover {
+	background: var(--gray-600, #525252);
 }
 
 .theme-icon-light {
@@ -583,54 +561,103 @@
 	display: block;
 }
 
-/* Sélecteur de langue */
-.language-selector {
+/* Bouton engrenage */
+.gear-toggle {
+	background: var(--gray-100, #f5f5f5);
+	border: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	font-size: 1.2rem;
+	cursor: pointer;
+	transition: all 0.3s ease;
 	display: flex;
-	gap: 0.75rem;
 	align-items: center;
 	justify-content: center;
-	margin-top: 0.75rem;
-	padding-bottom: 0.5rem;
-	flex-wrap: nowrap;
+	flex-shrink: 0;
 }
 
-.language-button {
+:global(.dark) .gear-toggle {
+	background: var(--gray-700, #404040);
+}
+
+.gear-toggle:hover {
+	background: var(--gray-300, #d4d4d4);
+	transform: rotate(90deg) scale(1.1);
+}
+
+:global(.dark) .gear-toggle:hover {
+	background: var(--gray-600, #525252);
+}
+
+/* Volet de sélection des drapeaux */
+.flag-selector-panel {
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background: #ffffff;
+	border: 1px solid var(--gray-200, #e5e5e5);
+	border-radius: 10px;
+	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+	z-index: 1001;
+	min-width: 120px;
+	margin-bottom: 0.5rem;
+}
+
+:global(.dark) .flag-selector-panel {
+	background: var(--gray-800, #262626);
+	border: 1px solid var(--gray-700, #404040);
+}
+
+.flag-button {
 	padding: 0;
 	border: none;
 	background: transparent;
 	cursor: pointer;
 	transition: all 0.25s ease;
-	border-radius: 0.375rem;
+	border-radius: 6px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 28px;
-	height: 28px;
-	opacity: 0.5;
+	width: 32px;
+	height: 32px;
+	opacity: 0.6;
 }
 
-.language-button:hover {
+.flag-button:hover {
 	opacity: 1;
 	transform: scale(1.1);
-	filter: brightness(1.2) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
 }
 
-.language-button.active {
+.flag-button.active {
 	opacity: 1;
-	filter: brightness(1.3) drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+	background: var(--gray-200, #e5e5e5);
 }
 
-/* === CONTAINER === */
+:global(.dark) .flag-button.active {
+	background: var(--gray-700, #404040);
+}
+
+/* === CONTAINER PRINCIPAL === */
 .container {
 	position: fixed;
-	left: 280px;
+	left: var(--sidebar-width-collapsed);
 	top: 0;
-	width: calc(100vw - 280px);
+	width: calc(100vw - var(--sidebar-width-collapsed));
 	height: 100vh;
 	height: 100dvh;
 	overflow: hidden;
-	transition: none;
-	will-change: auto;
+	transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container.sidebar-expanded {
+	left: var(--sidebar-width-expanded);
+	width: calc(100vw - var(--sidebar-width-expanded));
 }
 
 .wrapperScroll {
@@ -661,218 +688,79 @@
 	background: var(--gray-900, #171717);
 }
 
-/* === STYLES GLOBAUX POUR LES COMPOSANTS ENFANTS === */
-:global(.card) {
-	background: var(--gradient-card1, linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%));
-	color: var(--text-color-1, #171717);
-}
-
-:global(.card-2) {
-	background: var(--gradient-card2, linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%));
-	color: var(--text-color-2, #262626);
-}
-
-:global(.card-3) {
-	background: var(--gradient-card3, linear-gradient(135deg, #d4d4d4 0%, #a3a3a3 100%));
-	color: var(--text-color-3, #ffffff);
-}
-
-:global(.card-4) {
-	background: var(--gradient-card4, linear-gradient(135deg, #737373 0%, #525252 100%));
-	color: var(--text-color-4, #ffffff);
-}
-
-:global(.card-5) {
-	background: var(--gradient-card5, linear-gradient(135deg, #404040 0%, #262626 100%));
-	color: var(--text-color-5, #ffffff);
-}
-
-/* === RESPONSIVE SYSTEM CORRIGÉ POUR MOBILE === */
-@media (max-width: 1024px) {
-	.container {
-		left: 280px;
-		width: calc(100vw - 280px);
-	}
-}
-
+/* === RESPONSIVE MOBILE === */
 @media (max-width: 768px) {
-	.mobile-menu-button {
-		display: flex;
-	}
-	
-	.sidebar.mobile-open ~ .mobile-menu-button {
-		display: none;
-	}
-	
 	.sidebar {
-		width: 280px;
-		transform: translateX(-100%);
+		width: var(--sidebar-width-collapsed);
+		box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 	}
 	
-	.sidebar.mobile-open {
-		transform: translateX(0);
+	.sidebar.expanded {
+		width: var(--sidebar-width-expanded);
+		box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+		z-index: 1000;
 	}
 	
-	.sidebar-header {
-		padding: 0 1rem 1.5rem;
-		justify-content: flex-start;
+	.container {
+		left: var(--sidebar-width-collapsed);
+		width: calc(100vw - var(--sidebar-width-collapsed));
 	}
 	
-	.logo {
-		max-width: 150px;
-		margin-left: 15%;
+	.container.sidebar-expanded {
+		left: var(--sidebar-width-expanded);
+		width: calc(100vw - var(--sidebar-width-expanded));
 	}
 	
-	.nav-text {
-		display: block !important;
-		opacity: 1 !important;
-		width: auto !important;
+	/* Navigation centrée pour mobile */
+	.sidebar-nav {
+		gap: 0.75rem;
 	}
 	
 	.nav-link {
-		justify-content: flex-start;
-		padding: 0.875rem 1.25rem;
-		gap: 1rem;
+		min-height: 40px;
+		padding: 0.65rem;
+	}
+}
+
+@media (max-width: 480px) {
+	:root {
+		--sidebar-width-collapsed: 50px;
+		--sidebar-width-expanded: 200px;
+	}
+	
+	.sidebar-nav {
+		gap: 0.5rem;
+		padding: 0 0.25rem;
 	}
 	
 	.nav-icon {
 		font-size: 1.3rem;
 	}
 	
-	.sidebar-nav {
-		gap: 0.5rem;
-		justify-content: center;
-	}
-	
-	.sidebar-footer {
-		padding-top: 0.75rem;
-		gap: 0.625rem;
-	}
-	
-	.theme-toggle {
-		width: 40px;
-		height: 40px;
-		font-size: 1.25rem;
-	}
-	
-	.container {
-		left: 0 !important;
-		width: 100vw !important;
-	}
-	
-	.language-button {
-		width: 28px;
-		height: 28px;
-	}
-	
-	.language-selector {
-		gap: 0.75rem;
-		margin-top: 0.75rem;
-		padding-bottom: 0.5rem;
-		flex-direction: row;
-		flex-wrap: nowrap;
-	}
-}
-
-@media (max-width: 480px) {
-	.mobile-menu-button {
-		top: 0.75rem;
-		left: 0.75rem;
-		padding: 0.375rem;
-		font-size: 1.25rem;
-		width: 40px;
-		height: 40px;
-	}
-	
-	.sidebar.mobile-open ~ .mobile-menu-button {
-		display: none;
-	}
-	
-	.sidebar {
-		width: 280px;
-		padding: 1.5rem 1rem 0.5rem 1.5rem;
-	}
-	
-	.sidebar-header {
-		padding: 0 1rem 1rem;
-		margin-bottom: 1rem;
-	}
-	
-	.logo {
-		max-width: 120px;
-	}
-	
 	.nav-link {
-		padding: 0.75rem 1rem;
-		font-size: 0.9rem;
+		padding: 0.6rem;
+		font-size: 0.85rem;
+		min-height: 38px;
 	}
 	
-	.nav-icon {
-		font-size: 1.2rem;
-	}
-	
-	.sidebar-nav {
-		gap: 0.375rem;
-		justify-content: center;
-	}
-	
-	.sidebar-footer {
-		padding-top: 0.625rem;
-		gap: 0.625rem;
-	}
-	
-	.theme-toggle {
+	.theme-toggle,
+	.gear-toggle {
 		width: 36px;
 		height: 36px;
 		font-size: 1.1rem;
 	}
 	
-	.language-button {
-		width: 26px;
-		height: 26px;
-	}
-	
-	.language-selector {
-		gap: 0.5rem;
-		margin-top: 1rem;
-		padding-bottom: 0.25rem;
-		flex-direction: row;
-		justify-content: center;
-		flex-wrap: nowrap;
-	}
-	
-	.language-selector .language-button {
-		margin-bottom: 0;
-		flex-shrink: 0;
+	.flag-button {
+		width: 28px;
+		height: 28px;
 	}
 }
 
 /* Support pour les appareils avec encoche (notch) */
 @supports (padding: max(0px)) {
 	.sidebar {
-		padding-left: max(1rem, env(safe-area-inset-left));
-		padding-right: max(1rem, env(safe-area-inset-right));
-	}
-	
-	.container {
-		padding-right: env(safe-area-inset-right);
-	}
-	
-	.mobile-menu-button {
-		left: max(1rem, env(safe-area-inset-left));
-		top: max(1rem, env(safe-area-inset-top));
-	}
-}
-
-/* Amélioration pour les très petits écrans */
-@media (max-width: 360px) {
-	.language-selector {
-		gap: 0.4rem;
-	}
-	
-	.language-button {
-		width: 24px;
-		height: 24px;
+		padding-top: max(1rem, env(safe-area-inset-top));
+		padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 	}
 }
 </style>
