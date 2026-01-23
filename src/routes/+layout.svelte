@@ -138,10 +138,10 @@
 		}
 	}
 
-	// État du menu latéral mobile
+	// État du menu latéral - POUR MOBILE UNIQUEMENT
 	let isSidebarOpen = $state(false);
 
-	// État pour le volet de sélection des drapeaux
+	// État pour le volet de sélection des drapeaux - POUR MOBILE UNIQUEMENT
 	let isFlagSelectorOpen = $state(false);
 </script>
 
@@ -160,82 +160,79 @@
 	<div class="layout-wrapper">
 		<ModeWatcher />
 
-		<!-- Overlay pour fermer le menu -->
+		<!-- Overlay pour fermer le menu - MOBILE SEULEMENT -->
 		<div 
 			class="sidebar-overlay" 
 			class:active={isSidebarOpen || isFlagSelectorOpen}
 			on:click={() => { isSidebarOpen = false; isFlagSelectorOpen = false; }}
-			on:keydown={(e) => e.key === 'Escape' && (isSidebarOpen = false)}
 			role="button"
 			tabindex="-1">
 		</div>
 
-		<!-- SIDEBAR LATÉRALE ÉTROITE -->
-		<aside 
-			class="sidebar" 
-			class:expanded={isSidebarOpen}
-			on:click={() => isSidebarOpen = !isSidebarOpen}
-			role="button"
-			tabindex="0"
-			on:keydown={(e) => e.key === 'Enter' && (isSidebarOpen = !isSidebarOpen)}>
-			
-			<!-- Logo - visible seulement quand déplié -->
+		<!-- SIDEBAR LATÉRALE -->
+		<aside class="sidebar" class:mobile-expanded={isSidebarOpen}>
+			<!-- Header avec logo - Desktop: toujours visible, Mobile: visible quand déplié -->
 			<div class="sidebar-header">
 				<a href="https://bit.ly/GRG-Group-FnB" target="_blank" class="logo-link">
 					<img src="/image/path1.svg" alt="Logo" class="logo-image">
 				</a>
 			</div>
 			
-			<!-- Navigation centrée -->
-			<nav class="sidebar-nav">
+			<!-- Navigation - TOUTE LA BARRE EST CLIQUABLE SUR MOBILE -->
+			<nav 
+				class="sidebar-nav"
+				on:click={() => isSidebarOpen = !isSidebarOpen}
+				role="button"
+				tabindex="0"
+				on:keydown={(e) => e.key === 'Enter' && (isSidebarOpen = !isSidebarOpen)}>
 				<a 
 					href="/" 
 					class="nav-link" 
 					class:active={currentPath === '/'}
-					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					on:click|stopPropagation={() => isSidebarOpen = false}
 					title={translations[currentLanguage].home}
 				>
-					<span class="nav-icon">{isSidebarOpen ? '' : '🏠'}</span>
+					<span class="nav-icon">🏠</span>
 					<span class="nav-text">{translations[currentLanguage].home}</span>
 				</a>
 				<a 
 					href="/propos" 
 					class="nav-link" 
 					class:active={currentPath === '/propos'}
-					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					on:click|stopPropagation={() => isSidebarOpen = false}
 					title={translations[currentLanguage].about}
 				>
-					<span class="nav-icon">{isSidebarOpen ? '' : 'ℹ️'}</span>
+					<span class="nav-icon">ℹ️</span>
 					<span class="nav-text">{translations[currentLanguage].about}</span>
 				</a>
 				<a 
 					href="/services-" 
 					class="nav-link" 
 					class:active={currentPath === '/services-'}
-					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					on:click|stopPropagation={() => isSidebarOpen = false}
 					title={translations[currentLanguage].services}
 				>
-					<span class="nav-icon">{isSidebarOpen ? '' : '⚙️'}</span>
+					<span class="nav-icon">⚙️</span>
 					<span class="nav-text">{translations[currentLanguage].services}</span>
 				</a>
 				<a 
 					href="/produits" 
 					class="nav-link" 
 					class:active={currentPath === '/produits'}
-					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					on:click|stopPropagation={() => isSidebarOpen = false}
 					title={translations[currentLanguage].products}
 				>
-					<span class="nav-icon">{isSidebarOpen ? '' : '📦'}</span>
+					<span class="nav-icon">📦</span>
 					<span class="nav-text">{translations[currentLanguage].products}</span>
 				</a>
 				<a 
 					href="/contact" 
 					class="nav-link" 
 					class:active={currentPath === '/contact'}
-					on:click|stopPropagation={() => { isSidebarOpen = false; }}
+					on:click|stopPropagation={() => isSidebarOpen = false}
 					title={translations[currentLanguage].contact}
 				>
-					<span class="nav-icon">{isSidebarOpen ? '' : '✉️'}</span>
+					<span class="nav-icon">✉️</span>
 					<span class="nav-text">{translations[currentLanguage].contact}</span>
 				</a>
 			</nav>
@@ -244,31 +241,81 @@
 			<div class="sidebar-footer">
 				<button 
 					class="theme-toggle" 
-					on:click|stopPropagation={handleToggleMode} 
+					on:click={handleToggleMode} 
 					type="button"
 					title="Toggle theme">
 					<span class="theme-icon-light">☀️</span>
 					<span class="theme-icon-dark">🌙</span>
 				</button>
 
-				<!-- Bouton d'engrenage pour ouvrir le sélecteur de drapeaux -->
-				<button 
-					class="gear-toggle" 
-					on:click|stopPropagation={() => { 
-						isFlagSelectorOpen = !isFlagSelectorOpen; 
-						// Fermer le menu s'il est ouvert
-						if (isSidebarOpen) {
-							isSidebarOpen = false;
-						}
-					}}
-					type="button"
-					title="Select language">
-					<span class="gear-icon">⚙️</span>
-				</button>
+				<!-- Sélecteur de langue -->
+				<div class="language-selector">
+					<!-- Desktop: drapeaux toujours visibles -->
+					<div class="desktop-flags">
+						<button 
+							class="language-button"
+							class:active={currentLanguage === 'fr'}
+							on:click={() => changeLanguage('fr')}
+							type="button"
+							title="Français">
+							<Fr/>
+						</button>
+
+						<button 
+							class="language-button"
+							class:active={currentLanguage === 'en'}
+							on:click={() => changeLanguage('en')}
+							type="button"
+							title="English">
+							<En/>
+						</button>
+
+						<button 
+							class="language-button"
+							class:active={currentLanguage === 'es'}
+							on:click={() => changeLanguage('es')}
+							type="button"
+							title="Español">
+							<Es/>
+						</button>
+
+						<button 
+							class="language-button"
+							class:active={currentLanguage === 'it'}
+							on:click={() => changeLanguage('it')}
+							type="button"
+							title="Italiano">
+							<It/>
+						</button>
+
+						<button 
+							class="language-button"
+							class:active={currentLanguage === 'de'}
+							on:click={() => changeLanguage('de')}
+							type="button"
+							title="Deutsch">
+							<De/>
+						</button>
+					</div>
+
+					<!-- Mobile: bouton engrenage -->
+					<button 
+						class="gear-toggle" 
+						on:click|stopPropagation={() => { 
+							isFlagSelectorOpen = !isFlagSelectorOpen; 
+							if (isSidebarOpen) {
+								isSidebarOpen = false;
+							}
+						}}
+						type="button"
+						title="Select language">
+						<span class="gear-icon">⚙️</span>
+					</button>
+				</div>
 			</div>
 		</aside>
 
-		<!-- Volet de sélection des drapeaux (toujours au premier plan) -->
+		<!-- Volet de sélection des drapeaux - MOBILE SEULEMENT -->
 		{#if isFlagSelectorOpen}
 			<div class="flag-selector-wrapper" on:click|stopPropagation>
 				<div class="flag-selector-panel">
@@ -321,7 +368,7 @@
 		{/if}
 
 		<!-- CONTENU PRINCIPAL -->
-		<div class="container" class:sidebar-expanded={isSidebarOpen}>
+		<div class="container">
 			<div class="wrapperScroll">
 				<SmoothScrollBar>
 					<main class="mainLayout">
@@ -350,23 +397,12 @@
   --gray-800: #262626;
   --gray-900: #171717;
   
-  --sidebar-width-collapsed: 60px;
-  --sidebar-width-expanded: 240px;
+  --sidebar-width: 280px; /* Largeur fixe pour desktop */
+  --sidebar-width-collapsed: 70px; /* Largeur repliée mobile */
+  --sidebar-width-expanded: 250px; /* Largeur dépliée mobile */
 }
 
-:global(html),
-:global(body) {
-	overflow: hidden;
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-	height: 100vh;
-	height: 100dvh;
-	position: fixed;
-	overscroll-behavior: none;
-}
-
+/* === STYLES DE BASE === */
 .layout-wrapper {
 	display: flex;
 	width: 100vw;
@@ -375,7 +411,6 @@
 	overflow: hidden;
 	background: var(--gray-50, #fafafa);
 	font-family: 'inter', sans-serif;
-	transition: background 0.3s ease;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -385,7 +420,7 @@
 	background: var(--gray-900, #171717);
 }
 
-/* === OVERLAY === */
+/* === OVERLAY - MOBILE SEULEMENT === */
 .sidebar-overlay {
 	display: none;
 	position: fixed;
@@ -407,24 +442,22 @@
 	pointer-events: auto;
 }
 
-/* === SIDEBAR LATÉRALE === */
+/* === SIDEBAR - VERSION DESKTOP PAR DÉFAUT === */
 .sidebar {
-	width: var(--sidebar-width-collapsed);
-	min-width: var(--sidebar-width-collapsed);
+	width: var(--sidebar-width);
+	min-width: var(--sidebar-width);
 	height: 100vh;
 	height: 100dvh;
 	background: #ffffff;
 	border-right: 1px solid var(--gray-200, #e5e5e5);
 	display: flex;
 	flex-direction: column;
-	padding: 1rem 0;
+	padding: 2rem 0;
 	z-index: 999;
 	position: fixed;
 	left: 0;
 	top: 0;
 	overflow: hidden;
-	transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	cursor: pointer;
 }
 
 :global(.dark) .sidebar {
@@ -432,46 +465,28 @@
 	border-right: 1px solid var(--gray-700, #404040);
 }
 
-.sidebar.expanded {
-	width: var(--sidebar-width-expanded);
-	min-width: var(--sidebar-width-expanded);
-	box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Header avec logo */
+/* Header avec logo - DESKTOP (LOGO CENTRÉ HORIZONTALEMENT) */
 .sidebar-header {
-	padding: 0.5rem;
+	padding: 0 1.5rem 2rem;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: center; /* CENTRÉ HORIZONTALEMENT */
 	flex-shrink: 0;
-	min-height: 60px;
-	margin: 0 0.5rem 1rem;
-	border-bottom: 1px solid var(--gray-200, #e5e5e5);
-}
-
-:global(.dark) .sidebar-header {
-	border-bottom: 1px solid var(--gray-700, #404040);
 }
 
 .logo-link {
-	display: block;
+	display: flex;
 	width: 100%;
-	opacity: 0;
-	max-height: 0;
-	overflow: hidden;
-	transition: opacity 0.3s ease, max-height 0.3s ease;
-}
-
-.sidebar.expanded .logo-link {
-	opacity: 1;
-	max-height: 200px;
+	text-align: center; /* CENTRÉ HORIZONTALEMENT */
+	align-items: center;
 }
 
 .logo-image {
-	width: 100%;
+	width: auto; /* Largeur automatique */
 	height: auto;
-	max-width: 150px;
+	max-width: 180px;
+	max-height: 200px; /* Limite la hauteur */
+	margin: 0 auto; /* CENTRÉ HORIZONTALEMENT */
 	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
@@ -479,15 +494,15 @@
 	filter: brightness(1.2) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-/* Navigation centrée */
+/* Navigation - DESKTOP (LIENS CENTRÉS VERTICALEMENT DANS L'ESPACE DISPONIBLE) */
 .sidebar-nav {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 1rem;
-	flex: 1;
-	padding: 0 0.5rem;
+	align-items: center; /* Centre horizontalement */
+	justify-content: center; /* CENTRÉ VERTICALEMENT DANS L'ESPACE DISPONIBLE */
+	gap: 1rem; /* Plus d'espace entre les liens */
+	flex: 1; /* Prend tout l'espace disponible entre header et footer */
+	padding: 0 1.5rem;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -495,20 +510,19 @@
 .nav-link {
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
-	gap: 1rem;
+	justify-content: center; /* Centre horizontalement */
 	text-decoration: none;
 	color: var(--gray-600, #525252);
 	font-weight: 600;
-	font-size: 0.9rem;
-	padding: 0.75rem;
-	border-radius: 10px;
-	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	position: relative;
+	font-size: 1.1rem; /* Texte légèrement plus grand */
+	padding: 1rem 1.5rem; /* Plus de padding */
+	border-radius: 12px;
+	transition: all 0.3s ease;
 	white-space: nowrap;
-	min-height: 44px;
-	width: 100%;
-	cursor: pointer;
+	min-height: 50px; /* Un peu plus haut */
+	width: 100%; /* Prend toute la largeur disponible */
+	max-width: 200px; /* Mais ne dépasse pas cette largeur */
+	text-align: center; /* Texte centré */
 }
 
 :global(.dark) .nav-link {
@@ -535,38 +549,25 @@
 	color: white;
 }
 
+/* Icônes - CACHÉES SUR DESKTOP */
 .nav-icon {
-	font-size: 1.5rem;
-	min-width: 1.5rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-shrink: 0;
+	display: none;
 }
 
 .nav-text {
-	opacity: 0;
-	width: 0;
-	overflow: hidden;
-	transition: opacity 0.3s ease, width 0.3s ease;
-}
-
-.sidebar.expanded .nav-text {
-	opacity: 1;
 	width: auto;
 }
 
-/* Footer */
+/* Footer - DESKTOP */
 .sidebar-footer {
-	padding: 1rem 0.5rem 0.5rem;
+	padding: 1.5rem 1.5rem 1rem;
 	border-top: 1px solid var(--gray-200, #e5e5e5);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 0.75rem;
-	flex-shrink: 0;
-	margin-top: auto;
-	position: relative;
+	gap: 1rem;
+	flex-shrink: 0; /* Ne se réduit pas */
+	margin-top: auto; /* Pousse vers le bas */
 }
 
 :global(.dark) .sidebar-footer {
@@ -576,16 +577,15 @@
 .theme-toggle {
 	background: var(--gray-100, #f5f5f5);
 	border: none;
-	width: 40px;
-	height: 40px;
+	width: 44px;
+	height: 44px;
 	border-radius: 50%;
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 	cursor: pointer;
 	transition: all 0.3s ease;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex-shrink: 0;
 }
 
 :global(.dark) .theme-toggle {
@@ -617,76 +617,24 @@
 	display: block;
 }
 
-/* Bouton engrenage */
-.gear-toggle {
-	background: var(--gray-100, #f5f5f5);
-	border: none;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	font-size: 1.2rem;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-shrink: 0;
-	position: relative;
-	z-index: 1;
-}
-
-:global(.dark) .gear-toggle {
-	background: var(--gray-700, #404040);
-}
-
-.gear-toggle:hover {
-	background: var(--gray-300, #d4d4d4);
-	transform: rotate(90deg) scale(1.1);
-}
-
-:global(.dark) .gear-toggle:hover {
-	background: var(--gray-600, #525252);
-}
-
-/* === VOLEUR DE SÉLECTION DES DRAPEAUX (TOUJOURS AU PREMIER PLAN) === */
-.flag-selector-wrapper {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	height: 100dvh;
-	z-index: 1001;
-	display: flex;
-	align-items: flex-end;
-	justify-content: flex-start;
-	padding-bottom: 1rem;
-	padding-left: var(--sidebar-width-collapsed);
-	pointer-events: none;
-}
-
-.flag-selector-panel {
-	background: #ffffff;
-	border: 1px solid var(--gray-200, #e5e5e5);
-	border-radius: 10px;
-	padding: 0.75rem;
+/* Sélecteur de langue - DESKTOP (drapeaux inline) */
+.language-selector {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	gap: 0.75rem;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-	min-width: 140px;
-	margin-left: 0.5rem;
-	pointer-events: auto;
-	animation: slideIn 0.2s ease-out;
+	width: 100%;
 }
 
-:global(.dark) .flag-selector-panel {
-	background: var(--gray-800, #262626);
-	border: 1px solid var(--gray-700, #404040);
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+.desktop-flags {
+	display: flex;
+	gap: 0.5rem;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
-.flag-button {
+.language-button {
 	padding: 0;
 	border: none;
 	background: transparent;
@@ -696,52 +644,39 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 36px;
-	height: 36px;
-	opacity: 0.6;
-	margin: 0 auto;
+	width: 34px;
+	height: 34px;
+	opacity: 0.7;
 }
 
-.flag-button:hover {
+.language-button:hover {
 	opacity: 1;
 	transform: scale(1.1);
 }
 
-.flag-button.active {
+.language-button.active {
 	opacity: 1;
 	background: var(--gray-200, #e5e5e5);
 }
 
-:global(.dark) .flag-button.active {
+:global(.dark) .language-button.active {
 	background: var(--gray-700, #404040);
 }
 
-@keyframes slideIn {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+/* Bouton engrenage - CACHÉ SUR DESKTOP */
+.gear-toggle {
+	display: none;
 }
 
-/* === CONTAINER PRINCIPAL === */
+/* === CONTAINER PRINCIPAL - DESKTOP === */
 .container {
 	position: fixed;
-	left: var(--sidebar-width-collapsed);
+	left: var(--sidebar-width);
 	top: 0;
-	width: calc(100vw - var(--sidebar-width-collapsed));
+	width: calc(100vw - var(--sidebar-width));
 	height: 100vh;
 	height: 100dvh;
 	overflow: hidden;
-	transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.container.sidebar-expanded {
-	left: var(--sidebar-width-expanded);
-	width: calc(100vw - var(--sidebar-width-expanded));
 }
 
 .wrapperScroll {
@@ -772,105 +707,251 @@
 	background: var(--gray-900, #171717);
 }
 
-/* === RESPONSIVE MOBILE === */
+/* ============================================ */
+/* VERSION MOBILE (max-width: 768px) */
+/* ============================================ */
 @media (max-width: 768px) {
+	/* SIDEBAR MOBILE - REPLIABLE */
 	.sidebar {
 		width: var(--sidebar-width-collapsed);
-		box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+		min-width: var(--sidebar-width-collapsed);
+		padding: 1rem 0;
+		transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 	
-	.sidebar.expanded {
+	.sidebar.mobile-expanded {
 		width: var(--sidebar-width-expanded);
 		box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
 		z-index: 1000;
 	}
 	
+	/* Header mobile - visible seulement quand déplié, logo centré horizontalement */
+	.sidebar-header {
+		padding: 0.5rem;
+		margin: 0 0.5rem 1rem;
+		border-bottom: 1px solid var(--gray-200, #e5e5e5);
+		min-height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center; /* CENTRÉ HORIZONTALEMENT */
+	}
+	
+	:global(.dark) .sidebar-header {
+		border-bottom: 1px solid var(--gray-700, #404040);
+	}
+	
+	.logo-link {
+		opacity: 0;
+		max-height: 0;
+		overflow: hidden;
+		transition: opacity 0.3s ease, max-height 0.3s ease;
+		text-align: center; /* CENTRÉ HORIZONTALEMENT */
+	}
+	
+	.sidebar.mobile-expanded .logo-link {
+		opacity: 1;
+		max-height: 100px;
+	}
+	
+	.logo-image {
+		max-width: 150px;
+		margin: 0 auto; /* CENTRÉ HORIZONTALEMENT */
+	}
+	
+	/* Navigation mobile - TOUTE LA BARRE EST CLIQUABLE POUR TOGGLE, centrée verticalement quand dépliée */
+	.sidebar-nav {
+		padding: 0 0.5rem;
+		gap: 0.5rem;
+		cursor: pointer; /* Curseur pointer pour indiquer que c'est cliquable */
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center; /* Centre horizontalement */
+		justify-content: center; /* CENTRÉ VERTICALEMENT QUAND DÉPLIÉ */
+	}
+	
+	.nav-link {
+		padding: 0.75rem;
+		min-height: 44px;
+		gap: 1rem;
+		justify-content: flex-start; /* Mobile: aligné à gauche */
+		cursor: pointer;
+		width: 100%; /* Prend toute la largeur */
+		max-width: none; /* Pas de limite de largeur sur mobile */
+	}
+	
+	/* Icônes mobile - visibles */
+	.nav-icon {
+		display: flex;
+		font-size: 1.5rem;
+		min-width: 1.5rem;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	/* Texte mobile - visible seulement quand déplié */
+	.nav-text {
+		opacity: 0;
+		width: 0;
+		transition: opacity 0.3s ease, width 0.3s ease;
+	}
+	
+	.sidebar.mobile-expanded .nav-text {
+		opacity: 1;
+		width: auto;
+	}
+	
+	/* Footer mobile */
+	.sidebar-footer {
+		padding: 1rem 0.5rem 0.5rem;
+		gap: 0.75rem;
+		flex-shrink: 0;
+		margin-top: auto;
+	}
+	
+	.theme-toggle {
+		width: 40px;
+		height: 40px;
+		font-size: 1.2rem;
+	}
+	
+	/* Sélecteur de langue mobile */
+	.language-selector {
+		gap: 0.5rem;
+	}
+	
+	.desktop-flags {
+		display: none; /* Cacher les drapeaux inline sur mobile */
+	}
+	
+	.gear-toggle {
+		display: flex; /* Afficher le bouton engrenage sur mobile */
+		background: var(--gray-100, #f5f5f5);
+		border: none;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		font-size: 1.2rem;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	:global(.dark) .gear-toggle {
+		background: var(--gray-700, #404040);
+	}
+	
+	.gear-toggle:hover {
+		background: var(--gray-300, #d4d4d4);
+		transform: rotate(90deg) scale(1.1);
+	}
+	
+	:global(.dark) .gear-toggle:hover {
+		background: var(--gray-600, #525252);
+	}
+	
+	/* CONTAINER MOBILE */
 	.container {
 		left: var(--sidebar-width-collapsed);
 		width: calc(100vw - var(--sidebar-width-collapsed));
+		transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 	
-	.container.sidebar-expanded {
+	.sidebar.mobile-expanded ~ .container {
 		left: var(--sidebar-width-expanded);
 		width: calc(100vw - var(--sidebar-width-expanded));
 	}
 	
-	/* Navigation centrée pour mobile */
-	.sidebar-nav {
-		gap: 0.75rem;
-	}
-	
-	.nav-link {
-		min-height: 40px;
-		padding: 0.65rem;
-	}
-	
-	/* Position du sélecteur de drapeaux sur mobile */
+	/* Volet de sélection des drapeaux - MOBILE */
 	.flag-selector-wrapper {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		height: 100dvh;
+		z-index: 1001;
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-start;
+		padding-bottom: 1rem;
 		padding-left: var(--sidebar-width-collapsed);
+		pointer-events: none;
+	}
+	
+	.sidebar.mobile-expanded ~ .flag-selector-wrapper {
+		padding-left: var(--sidebar-width-expanded);
 	}
 	
 	.flag-selector-panel {
+		background: #ffffff;
+		border: 1px solid var(--gray-200, #e5e5e5);
+		border-radius: 10px;
+		padding: 0.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+		min-width: 140px;
 		margin-left: 0.5rem;
-		min-width: 130px;
-	}
-}
-
-@media (max-width: 480px) {
-	:root {
-		--sidebar-width-collapsed: 50px;
-		--sidebar-width-expanded: 200px;
+		pointer-events: auto;
+		animation: slideIn 0.2s ease-out;
 	}
 	
-	.sidebar-header {
-		min-height: 50px;
-		margin: 0 0.25rem 0.75rem;
-	}
-	
-	.sidebar-nav {
-		gap: 0.5rem;
-		padding: 0 0.25rem;
-	}
-	
-	.nav-icon {
-		font-size: 1.3rem;
-	}
-	
-	.nav-link {
-		padding: 0.6rem;
-		font-size: 0.85rem;
-		min-height: 38px;
-	}
-	
-	.theme-toggle,
-	.gear-toggle {
-		width: 36px;
-		height: 36px;
-		font-size: 1.1rem;
+	:global(.dark) .flag-selector-panel {
+		background: var(--gray-800, #262626);
+		border: 1px solid var(--gray-700, #404040);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 	}
 	
 	.flag-button {
-		width: 32px;
-		height: 32px;
+		padding: 0;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		transition: all 0.25s ease;
+		border-radius: 6px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		opacity: 0.6;
+		margin: 0 auto;
 	}
 	
-	.flag-selector-panel {
-		min-width: 120px;
-		padding: 0.6rem;
-		gap: 0.6rem;
+	.flag-button:hover {
+		opacity: 1;
+		transform: scale(1.1);
+	}
+	
+	.flag-button.active {
+		opacity: 1;
+		background: var(--gray-200, #e5e5e5);
+	}
+	
+	:global(.dark) .flag-button.active {
+		background: var(--gray-700, #404040);
+	}
+	
+	@keyframes slideIn {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 }
 
-/* Support pour les appareils avec encoche (notch) */
+/* Support pour les appareils avec encoche */
 @supports (padding: max(0px)) {
 	.sidebar {
 		padding-top: max(1rem, env(safe-area-inset-top));
 		padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
-	}
-	
-	.flag-selector-wrapper {
-		padding-bottom: max(1rem, env(safe-area-inset-bottom));
-		padding-left: calc(var(--sidebar-width-collapsed) + env(safe-area-inset-left));
 	}
 }
 </style>
