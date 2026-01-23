@@ -475,10 +475,9 @@
 }
 
 .logo-link {
-	display: flex;
+	display: block;
 	width: 100%;
 	text-align: center; /* CENTRÉ HORIZONTALEMENT */
-	align-items: center;
 }
 
 .logo-image {
