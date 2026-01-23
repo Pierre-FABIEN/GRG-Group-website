@@ -399,7 +399,7 @@
   
   --sidebar-width: 280px; /* Largeur fixe pour desktop */
   --sidebar-width-collapsed: 70px; /* Largeur repliée mobile */
-  --sidebar-width-expanded: 250px; /* Largeur dépliée mobile */
+  --sidebar-width-expanded: 280px; /* Augmenté pour accommoder le logo */
 }
 
 /* === STYLES DE BASE === */
@@ -487,6 +487,7 @@
 	max-height: 200px; /* Limite la hauteur */
 	margin: 0 auto; /* CENTRÉ HORIZONTALEMENT */
 	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+	object-fit: contain; /* Préserve les proportions sans crop */
 }
 
 :global(.dark) .logo-image {
@@ -716,6 +717,8 @@
 		min-width: var(--sidebar-width-collapsed);
 		padding: 1rem 0;
 		transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		display: flex;
+		flex-direction: column;
 	}
 	
 	.sidebar.mobile-expanded {
@@ -724,15 +727,16 @@
 		z-index: 1000;
 	}
 	
-	/* Header mobile - visible seulement quand déplié, logo centré horizontalement */
+	/* Header mobile - visible seulement quand déplié, logo centré et ajusté */
 	.sidebar-header {
-		padding: 0.5rem;
+		padding: 1rem 0.75rem;
 		margin: 0 0.5rem 1rem;
 		border-bottom: 1px solid var(--gray-200, #e5e5e5);
-		min-height: 60px;
+		min-height: 80px; /* Augmenté pour accommoder le logo */
 		display: flex;
 		align-items: center;
 		justify-content: center; /* CENTRÉ HORIZONTALEMENT */
+		flex-shrink: 0;
 	}
 	
 	:global(.dark) .sidebar-header {
@@ -745,67 +749,108 @@
 		overflow: hidden;
 		transition: opacity 0.3s ease, max-height 0.3s ease;
 		text-align: center; /* CENTRÉ HORIZONTALEMENT */
+		width: 100%;
 	}
 	
 	.sidebar.mobile-expanded .logo-link {
 		opacity: 1;
-		max-height: 100px;
+		max-height: 120px; /* Augmenté pour accommoder le logo */
 	}
 	
 	.logo-image {
-		max-width: 150px;
+		max-width: 200px; /* Augmenté pour mobile */
+		max-height: 100px; /* Augmenté pour mobile */
 		margin: 0 auto; /* CENTRÉ HORIZONTALEMENT */
+		width: 100%;
+		height: auto;
+		object-fit: contain; /* Préserve les proportions sans crop */
 	}
 	
-	/* Navigation mobile - TOUTE LA BARRE EST CLIQUABLE POUR TOGGLE, centrée verticalement quand dépliée */
+	/* Navigation mobile - CENTRÉE VERTICALEMENT DANS L'ESPACE RESTANT */
 	.sidebar-nav {
-		padding: 0 0.5rem;
+		padding: 0 0.75rem;
 		gap: 0.5rem;
 		cursor: pointer; /* Curseur pointer pour indiquer que c'est cliquable */
-		flex: 1;
+		flex: 1; /* Prend tout l'espace restant */
 		display: flex;
 		flex-direction: column;
 		align-items: center; /* Centre horizontalement */
-		justify-content: center; /* CENTRÉ VERTICALEMENT QUAND DÉPLIÉ */
+		justify-content: center; /* CENTRÉ VERTICALEMENT DANS L'ESPACE RESTANT */
+		/* Compensation pour équilibrer avec le header et footer */
+		margin: 0;
+		height: calc(100% - 180px); /* Réserve de l'espace pour header (80px) + footer (100px) */
+		overflow-y: auto;
 	}
 	
 	.nav-link {
-		padding: 0.75rem;
+		padding: 0.75rem 0.5rem;
 		min-height: 44px;
-		gap: 1rem;
-		justify-content: flex-start; /* Mobile: aligné à gauche */
+		gap: 0.75rem;
+		justify-content: flex-start; /* Aligné à gauche */
+		align-items: center; /* Centre verticalement dans le lien */
 		cursor: pointer;
 		width: 100%; /* Prend toute la largeur */
 		max-width: none; /* Pas de limite de largeur sur mobile */
+		position: relative;
 	}
 	
-	/* Icônes mobile - visibles */
+	/* Icônes mobile - visibles seulement quand menu fermé */
 	.nav-icon {
 		display: flex;
-		font-size: 1.5rem;
+		font-size: 1.4rem;
 		min-width: 1.5rem;
+		width: 1.5rem;
+		height: 1.5rem;
 		align-items: center;
 		justify-content: center;
+		opacity: 1;
+		transition: opacity 0.2s ease, width 0.2s ease;
+		flex-shrink: 0;
 	}
 	
-	/* Texte mobile - visible seulement quand déplié */
+	/* Cacher les icônes quand le menu est déplié */
+	.sidebar.mobile-expanded .nav-icon {
+		opacity: 0;
+		width: 0;
+		min-width: 0;
+		display: none; /* Complètement cachés quand menu déplié */
+	}
+	
+	/* Texte mobile - visible seulement quand déplié, plus petit */
 	.nav-text {
 		opacity: 0;
 		width: 0;
+		font-size: 0.9rem; /* Texte plus petit sur mobile */
+		font-weight: 500;
 		transition: opacity 0.3s ease, width 0.3s ease;
+		white-space: nowrap;
+		overflow: hidden;
+		text-align: left;
+		flex-grow: 1;
 	}
 	
 	.sidebar.mobile-expanded .nav-text {
 		opacity: 1;
-		width: auto;
+		width: 100%; /* Prend toute la largeur disponible */
+		padding-left: 0.5rem;
 	}
 	
-	/* Footer mobile */
+	/* Footer mobile - hauteur fixe */
 	.sidebar-footer {
-		padding: 1rem 0.5rem 0.5rem;
+		padding: 1rem 0.75rem 0.5rem;
 		gap: 0.75rem;
 		flex-shrink: 0;
 		margin-top: auto;
+		border-top: 1px solid var(--gray-200, #e5e5e5);
+		min-height: 100px; /* Hauteur fixe pour le footer */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+	
+	:global(.dark) .sidebar-footer {
+		border-top: 1px solid var(--gray-700, #404040);
 	}
 	
 	.theme-toggle {
@@ -817,6 +862,10 @@
 	/* Sélecteur de langue mobile */
 	.language-selector {
 		gap: 0.5rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 	}
 	
 	.desktop-flags {
@@ -952,5 +1001,4 @@
 		padding-top: max(1rem, env(safe-area-inset-top));
 		padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 	}
-}
-</style>
+}</style>
