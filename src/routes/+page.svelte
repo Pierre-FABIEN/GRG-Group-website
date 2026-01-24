@@ -577,7 +577,7 @@ function getSubtitleParts(item: any): any {
 }
 
 /* ============================================ */
-/* RESPONSIVE MOBILE - VERSION VERTICALE FLUIDE */
+/* RESPONSIVE MOBILE - COMPRESSION VERS LE CENTRE */
 /* ============================================ */
 
 @media (max-width: 1024px) {
@@ -621,7 +621,7 @@ function getSubtitleParts(item: any): any {
 		display: contents;
 	}
 
-	/* TOUTES LES CARTES EN UNE SEULE COLONNE */
+	/* TOUTES LES CARTES EN UNE SEULE COLONNE - AVEC ESPACEMENT FIXE */
 	.bento-card {
 		flex: none !important;
 		width: 100% !important;
@@ -629,7 +629,7 @@ function getSubtitleParts(item: any): any {
 		min-height: 40vh !important;
 		max-height: 40vh !important;
 		opacity: 1 !important;
-		transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+		transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 		position: relative;
 		z-index: 1;
 		padding: 2.25rem;
@@ -637,7 +637,7 @@ function getSubtitleParts(item: any): any {
 		align-items: center;
 		justify-content: center;
 		margin-bottom: 0.75rem !important;
-		transform-origin: center;
+		transform-origin: center center; /* Origine de transformation au centre */
 		transform: scale(1);
 		will-change: height, transform;
 		isolation: isolate;
@@ -657,56 +657,63 @@ function getSubtitleParts(item: any): any {
 		max-height: 45vh !important;
 	}
 
-	/* CARTE EXPANDÉE - AGGRANDISSEMENT VERTICAL SEULEMENT */
+	/* CARTE EXPANDÉE - AGGRANDISSEMENT VERTICAL AVEC ORIGINE AU CENTRE */
 	.bento-card.expanded-mobile {
 		z-index: 100;
-		height: 60vh !important;
-		min-height: 60vh !important;
-		max-height: 60vh !important;
+		height: 65vh !important; /* Légèrement augmenté pour l'effet */
+		min-height: 65vh !important;
+		max-height: 65vh !important;
 		transform: scale(1) !important;
 		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-		transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+		transition: height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+					transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 		touch-action: none;
+		/* TOUJOURS origine au centre, même pour la première et dernière */
+		transform-origin: center center !important;
 	}
 
-	/* SYSTÈME D'ÉCRASEMENT VERTICAL - CARTES ADJACENTES SEULEMENT */
-	
-	/* Carte PRÉCÉDENTE (au-dessus) - Écrasée vers le HAUT */
-	.bento-card:has(+ .bento-card.expanded-mobile) {
+	/* SYSTÈME DE COMPRESSION VERS LE CENTRE */
+
+	/* Toutes les cartes au-dessus de la carte expandée */
+	.bento-card.expanded-mobile ~ .bento-card,
+	/* Toutes les cartes en dessous de la carte expandée */
+	.bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
 		height: 30vh !important;
 		min-height: 30vh !important;
 		max-height: 30vh !important;
-		transform: translateY(-5px) scale(0.98);
 		opacity: 0.85;
 		filter: brightness(0.9);
-		transform-origin: bottom center;
-		margin-bottom: 0.25rem !important;
-		transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+		transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 		will-change: height, transform, opacity;
+		transform-origin: center center; /* Compression vers le centre */
 	}
 
-	/* Carte SUIVANTE (en-dessous) - Écrasée vers le BAS */
-	.bento-card.expanded-mobile + .bento-card {
-		height: 30vh !important;
-		min-height: 30vh !important;
-		max-height: 30vh !important;
-		transform: translateY(5px) scale(0.98);
-		opacity: 0.85;
-		filter: brightness(0.9);
-		transform-origin: top center;
-		margin-top: 0.25rem !important;
-		transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-		will-change: height, transform, opacity;
+	/* Cartes AU-DESSUS : légère compression vers le bas */
+	.bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
+		transform: translateY(3px) scale(0.98);
 	}
 
-	/* Première carte : s'étend vers le bas seulement */
+	/* Cartes EN-DESSOUS : légère compression vers le haut */
+	.bento-card.expanded-mobile ~ .bento-card {
+		transform: translateY(-3px) scale(0.98);
+	}
+
+	/* PREMIÈRE CARTE (index 0) : Pas de déformation vers le haut */
 	.bento-card:first-child.expanded-mobile {
-		transform-origin: top center;
+		transform-origin: center center !important;
 	}
 
-	/* Dernière carte : s'étend vers le haut seulement */
+	.bento-card:first-child:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
+		transform: translateY(3px) scale(0.98) !important; /* Seulement vers le bas */
+	}
+
+	/* DERNIÈRE CARTE (index 4) : Pas de déformation vers le bas */
 	.bento-card:last-child.expanded-mobile {
-		transform-origin: bottom center;
+		transform-origin: center center !important;
+	}
+
+	.bento-card.expanded-mobile ~ .bento-card:last-child {
+		transform: translateY(-3px) scale(0.98) !important; /* Seulement vers le haut */
 	}
 
 	/* CORRECTION DU CLIPPING DES BORDURES ARRONDIES */
@@ -725,8 +732,7 @@ function getSubtitleParts(item: any): any {
 	}
 	
 	.bento-card.expanded-mobile::before,
-	.bento-card:has(+ .bento-card.expanded-mobile)::before,
-	.bento-card.expanded-mobile + .bento-card::before {
+	.bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile)::before {
 		opacity: 1;
 	}
 
@@ -837,27 +843,27 @@ function getSubtitleParts(item: any): any {
 	}
 	
 	.bento-card.expanded-mobile {
-		height: 55vh !important;
-		min-height: 55vh !important;
-		max-height: 55vh !important;
+		height: 60vh !important;
+		min-height: 60vh !important;
+		max-height: 60vh !important;
 		padding: 2.25rem;
 	}
 
-	/* Écrasement exagéré */
-	.bento-card:has(+ .bento-card.expanded-mobile) {
+	/* Compression vers le centre */
+	.bento-card.expanded-mobile ~ .bento-card,
+	.bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
 		height: 28vh !important;
 		min-height: 28vh !important;
 		max-height: 28vh !important;
-		transform: translateY(-4px) scale(0.98);
 		opacity: 0.8;
 	}
 
-	.bento-card.expanded-mobile + .bento-card {
-		height: 28vh !important;
-		min-height: 28vh !important;
-		max-height: 28vh !important;
+	.bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
 		transform: translateY(4px) scale(0.98);
-		opacity: 0.8;
+	}
+
+	.bento-card.expanded-mobile ~ .bento-card {
+		transform: translateY(-4px) scale(0.98);
 	}
 	
 	.card-content {
@@ -925,29 +931,28 @@ function getSubtitleParts(item: any): any {
 	}
 	
 	.bento-card.expanded-mobile {
-		height: 50vh !important;
-		min-height: 50vh !important;
-		max-height: 50vh !important;
+		height: 55vh !important;
+		min-height: 55vh !important;
+		max-height: 55vh !important;
 		padding: 2rem;
 	}
 
-	/* Écrasement très exagéré */
-	.bento-card:has(+ .bento-card.expanded-mobile) {
+	/* Compression vers le centre */
+	.bento-card.expanded-mobile ~ .bento-card,
+	.bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
 		height: 25vh !important;
 		min-height: 25vh !important;
 		max-height: 25vh !important;
-		transform: translateY(-6px) scale(0.96);
 		opacity: 0.75;
 		filter: brightness(0.85);
 	}
 
-	.bento-card.expanded-mobile + .bento-card {
-		height: 25vh !important;
-		min-height: 25vh !important;
-		max-height: 25vh !important;
+	.bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
 		transform: translateY(6px) scale(0.96);
-		opacity: 0.75;
-		filter: brightness(0.85);
+	}
+
+	.bento-card.expanded-mobile ~ .bento-card {
+		transform: translateY(-6px) scale(0.96);
 	}
 	
 	.card-content {
@@ -1018,28 +1023,27 @@ function getSubtitleParts(item: any): any {
 	}
 	
 	.bento-card.expanded-mobile {
-		height: 45vh !important;
-		min-height: 45vh !important;
-		max-height: 45vh !important;
+		height: 50vh !important;
+		min-height: 50vh !important;
+		max-height: 50vh !important;
 		padding: 1.75rem;
 	}
 
-	.bento-card:has(+ .bento-card.expanded-mobile) {
+	.bento-card.expanded-mobile ~ .bento-card,
+	.bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
 		height: 22vh !important;
 		min-height: 22vh !important;
 		max-height: 22vh !important;
-		transform: translateY(-8px) scale(0.94);
 		opacity: 0.7;
 		filter: brightness(0.8);
 	}
 
-	.bento-card.expanded-mobile + .bento-card {
-		height: 22vh !important;
-		min-height: 22vh !important;
-		max-height: 22vh !important;
+	.bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
 		transform: translateY(8px) scale(0.94);
-		opacity: 0.7;
-		filter: brightness(0.8);
+	}
+
+	.bento-card.expanded-mobile ~ .bento-card {
+		transform: translateY(-8px) scale(0.94);
 	}
 
 	.bento-card.needs-margin {
