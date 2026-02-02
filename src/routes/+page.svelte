@@ -275,11 +275,15 @@ function getSubtitleParts(item: any): any {
     --contrast-dark-2: #525252;
     --contrast-dark-3: #737373;
     
-    /* Nouvelles variables pour les marges */
+    /* Variables pour les marges */
     --mobile-margin: 1rem;
     --mobile-gap: 0.75rem;
     --card-margin: 0.75rem;
     --container-padding: 1rem;
+    
+    /* Variables de transition */
+    --transition-speed: 0.45s;
+    --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* ============================================ */
@@ -332,12 +336,199 @@ function getSubtitleParts(item: any): any {
     min-width: 0;
     max-width: 100%;
     flex: 1 1 0;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transition-speed) var(--transition-easing);
     height: 100%;
     display: flex;
     flex-direction: column;
     margin-bottom: var(--card-margin);
 }
+
+/* ============================================ */
+/* HOVER CONTENT - VERSION AMÉLIORÉE */
+/* ============================================ */
+
+.card-hover-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    z-index: 3;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.4s var(--transition-easing);
+    pointer-events: none;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    min-height: 0;
+}
+
+.card-hover-content.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition-delay: 0.1s;
+}
+
+.hover-text {
+    color: var(--gray-100, #f5f5f5);
+    font-size: 1.25rem;
+    line-height: 1.5;
+    font-weight: 500;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.4s var(--transition-easing);
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.card-hover-content.show .hover-text {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+/* ============================================ */
+/* RESPONSIVE MOBILE - HOVERTEXT AMÉLIORÉ */
+/* ============================================ */
+
+@media (max-width: 1024px) {
+    .card-hover-content {
+        width: 92%;
+        padding: 1.75rem;
+        max-width: 450px;
+    }
+    
+    .hover-text {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        letter-spacing: 0.01em;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+}
+
+@media (max-width: 768px) {
+    .card-hover-content {
+        width: 94%;
+        padding: 1.5rem;
+        max-width: 400px;
+    }
+    
+    .hover-text {
+        font-size: 1.05rem;
+        line-height: 1.55;
+        font-weight: 500;
+        padding: 0 0.5rem;
+    }
+    
+    /* Carte ouverte - hovertext mieux centré */
+    .bento-card.expanded-mobile .card-hover-content {
+        padding: 1.25rem;
+        width: 95%;
+    }
+    
+    .bento-card.expanded-mobile .hover-text {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-hover-content {
+        width: 96%;
+        padding: 1.25rem;
+        max-width: 350px;
+    }
+    
+    .hover-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        font-weight: 500;
+        padding: 0;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+    }
+    
+    /* Optimisation pour petites cartes ouvertes */
+    .bento-card.expanded-mobile .card-hover-content {
+        padding: 1rem;
+        width: 97%;
+    }
+    
+    .bento-card.expanded-mobile .hover-text {
+        font-size: 0.9rem;
+        line-height: 1.65;
+        max-height: 80%;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 360px) {
+    .card-hover-content {
+        padding: 1rem;
+        width: 98%;
+        max-width: 300px;
+    }
+    
+    .hover-text {
+        font-size: 0.85rem;
+        line-height: 1.65;
+        font-weight: 500;
+    }
+    
+    .bento-card.expanded-mobile .hover-text {
+        font-size: 0.82rem;
+        line-height: 1.7;
+    }
+}
+
+/* Version alternative : taille fixe avec overflow */
+@media (max-width: 480px) and (orientation: portrait) {
+    .card-hover-content {
+        max-height: 70vh;
+        overflow-y: auto;
+        padding: 1rem;
+    }
+    
+    .hover-text {
+        max-height: 100%;
+        padding-right: 5px;
+    }
+    
+    /* Scrollbar stylée */
+    .card-hover-content::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .card-hover-content::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+    }
+    
+    .card-hover-content::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 2px;
+    }
+}
+
+/* Option : texte responsive basé sur la hauteur de la carte */
+@media (max-width: 768px) {
+    .bento-card.expanded-mobile .hover-text {
+        font-size: min(1rem, 2.5vh); /* Taille basée sur la hauteur */
+        line-height: calc(1.4em + 0.5vh);
+    }
+}
+
+/* ============================================ */
+/* ANCIEN CSS (conservé pour référence) */
+/* ============================================ */
 
 .bento-card.extra-tall {
     flex: 1.2 1 0;
@@ -357,10 +548,6 @@ function getSubtitleParts(item: any): any {
     margin-bottom: 2rem;
 }
 
-/* ============================================ */
-/* CONTENU DES CARTES */
-/* ============================================ */
-
 .card-content {
     position: relative;
     z-index: 2;
@@ -369,50 +556,47 @@ function getSubtitleParts(item: any): any {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s var(--transition-easing);
     opacity: 1;
     transform: translateY(0);
 }
 
 .card-content.hide-content {
     opacity: 0;
-    transform: translateY(-15px);
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.3s ease;
 }
 
 .card-title {
-    font-size: 2rem;
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
     font-weight: 800;
     text-transform: uppercase;
     margin: 0 0 0.75rem;
     line-height: 1.2;
-    transition: opacity 0.3s ease;
+    transition: font-size 0.3s ease, opacity 0.3s ease;
 }
 
 .card-subtitle {
-    font-size: 1.25rem;
+    font-size: clamp(1.1rem, 3.2vw, 1.5rem);
     font-weight: 600;
     text-transform: uppercase;
     margin: 0;
     opacity: 0.85;
     line-height: 1.4;
-    transition: opacity 0.3s ease;
+    transition: font-size 0.3s ease, opacity 0.3s ease;
 }
 
 .additional-text {
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 2.8vw, 1.3rem);
     line-height: 1.6;
     font-weight: 500;
     margin-top: 1rem;
     margin-bottom: 0;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* ============================================ */
-/* COULEURS DES TEXTES */
-/* ============================================ */
-
-/* Cartes claires (1, 3, 4, 5) : texte noir */
+/* Couleurs des textes */
 .card-1 .card-title,
 .card-1 .card-subtitle,
 .card-1 .additional-text,
@@ -435,7 +619,6 @@ function getSubtitleParts(item: any): any {
     text-shadow: 0 2px 12px rgba(255, 255, 255, 0.7);
 }
 
-/* Carte sombre (2) : texte blanc */
 .card-2 .card-title,
 .card-2 .card-subtitle,
 .card-2 .additional-text {
@@ -446,7 +629,6 @@ function getSubtitleParts(item: any): any {
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-/* Mode sombre : inversion */
 :global(.dark) .card-1 .card-title,
 :global(.dark) .card-1 .card-subtitle,
 :global(.dark) .card-1 .additional-text,
@@ -468,20 +650,16 @@ function getSubtitleParts(item: any): any {
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-/* ============================================ */
-/* TAILLES SPÉCIFIQUES */
-/* ============================================ */
-
 .card-1 .card-title {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 3rem);
 }
 
 .card-1 .card-subtitle {
-    font-size: 1.4rem;
+    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
 }
 
 .card-4 .card-title {
-    font-size: 1.25rem;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
     font-weight: 600;
     opacity: 0.85;
     line-height: 1.4;
@@ -489,16 +667,12 @@ function getSubtitleParts(item: any): any {
 }
 
 .card-4 .card-subtitle {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
     font-weight: 800;
     opacity: 1;
     line-height: 1.2;
     margin-bottom: 0.75rem;
 }
-
-/* ============================================ */
-/* HIGHLIGHT */
-/* ============================================ */
 
 .highlight-word {
     position: relative;
@@ -524,52 +698,27 @@ function getSubtitleParts(item: any): any {
     transition: all 0.3s ease;
 }
 
-/* ============================================ */
-/* HOVER CONTENT */
-/* ============================================ */
-
-.card-hover-content {
+/* Overlay */
+.card-overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    z-index: 3;
-    width: 85%;
-    text-align: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
     opacity: 0;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-    padding: 1rem;
+    transition: all 0.4s var(--transition-easing);
+    z-index: 1;
 }
 
-.card-hover-content.show {
+.card-overlay.show {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    transition-delay: 0.1s;
 }
 
-.hover-text {
-    color: var(--gray-100, #f5f5f5);
-    font-size: 1.25rem;
-    line-height: 1.6;
-    font-weight: 500;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    margin: 0;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-hover-content.show .hover-text {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-}
-
-/* ============================================ */
-/* BACKGROUNDS */
-/* ============================================ */
-
+/* Backgrounds */
 .card-1 {
     background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
 }
@@ -616,40 +765,14 @@ function getSubtitleParts(item: any): any {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 1.75rem;
     z-index: 1;
-    transition: background 0.5s ease;
+    transition: background 0.4s ease;
 }
 
 .card-2:hover::before {
     background: rgba(0, 0, 0, 0.4);
 }
 
-/* ============================================ */
-/* OVERLAY */
-/* ============================================ */
-
-.card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(0px);
-    opacity: 0;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
-}
-
-.card-overlay.show {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    opacity: 1;
-}
-
-/* ============================================ */
-/* RESPONSIVE MOBILE - CORRECTIONS PRINCIPALES */
-/* ============================================ */
-
+/* Responsive mobile - cartes */
 @media (max-width: 1024px) {
     :root {
         --mobile-margin: 1rem;
@@ -659,15 +782,11 @@ function getSubtitleParts(item: any): any {
     }
 
     .page-wrapper {
-        height: auto;
-        min-height: 100vh;
         padding: var(--mobile-margin) 0;
     }
 
     .bento-container {
         padding: var(--container-padding);
-        display: flex;
-        flex-direction: column;
         gap: var(--mobile-gap);
     }
 
@@ -676,77 +795,59 @@ function getSubtitleParts(item: any): any {
         margin-bottom: 0;
     }
 
-    /* Toutes les cartes - MÊMES MARGES */
     .bento-card {
         width: calc(100% - (var(--container-padding) * 2));
         margin-left: auto;
         margin-right: auto;
-        height: 40vh;
+        height: 42vh;
         flex: none !important;
         opacity: 1 !important;
         margin-bottom: var(--card-margin);
-        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        transform-origin: center center;
-        touch-action: pan-y;
-        padding: 2.25rem;
+        transition: all var(--transition-speed) var(--transition-easing);
+        padding: 2rem;
         border-radius: 1.5rem;
     }
 
     .bento-card.extra-tall {
-        height: 40vh;
-        margin-bottom: var(--card-margin);
+        height: 42vh;
     }
 
     .bento-card.needs-margin {
         margin-bottom: var(--card-margin);
     }
 
-    /* Marges constantes entre toutes les cartes */
     .bento-card:not(:last-child) {
         margin-bottom: var(--card-margin);
     }
 
-    /* Carte ouverte - transition adoucie */
     .bento-card.expanded-mobile {
-        height: 60vh;
+        height: 70vh;
         z-index: 100;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-        touch-action: none;
         transform: scale(1.02);
         margin-bottom: var(--card-margin);
-        transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Cartes non ouvertes - transitions douces */
-    .bento-card:not(.expanded-mobile) {
-        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    /* Cartes compressées - transitions coordonnées */
     .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile),
     .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        height: 28vh;
+        height: 30vh;
         opacity: 0.85;
         filter: brightness(0.9);
-        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         margin-bottom: var(--card-margin);
     }
 
-    /* Cartes au-dessus - transition vers le bas */
     .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        transform: translateY(10px) scale(0.98);
-        margin-bottom: calc(var(--card-margin) - 0.25rem);
+        transform: translateY(8px) scale(0.98);
+        margin-bottom: calc(var(--card-margin) - 0.2rem);
     }
 
-    /* Cartes en-dessous - transition vers le haut */
     .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile) {
-        transform: translateY(-10px) scale(0.98);
-        margin-bottom: calc(var(--card-margin) + 0.25rem);
+        transform: translateY(-8px) scale(0.98);
+        margin-bottom: calc(var(--card-margin) + 0.2rem);
     }
 
-    /* PREMIÈRE CARTE */
     .bento-card:first-child:not(.expanded-mobile):has(~ .bento-card.expanded-mobile) {
-        transform: translateY(15px) scale(0.98);
+        transform: translateY(12px) scale(0.98);
         margin-bottom: var(--card-margin);
     }
 
@@ -754,9 +855,8 @@ function getSubtitleParts(item: any): any {
         margin-bottom: var(--card-margin);
     }
 
-    /* DERNIÈRE CARTE */
     .bento-card:last-child:not(.expanded-mobile) {
-        transform: translateY(-15px) scale(0.98);
+        transform: translateY(-12px) scale(0.98);
         margin-bottom: 0;
     }
 
@@ -764,221 +864,10 @@ function getSubtitleParts(item: any): any {
         margin-bottom: 0;
     }
 
-    /* Contenu - transitions douces */
     .card-content {
         text-align: center;
         align-items: center;
         padding: 1.5rem;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .card-content.hide-content {
-        opacity: 0;
-        transform: translateY(-15px);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .card-title {
-        font-size: clamp(1.8rem, 5vw, 2.2rem);
-        text-align: center;
-        width: 100%;
-        transition: font-size 0.3s ease;
-    }
-
-    .card-subtitle {
-        font-size: clamp(1.3rem, 3.8vw, 1.6rem);
-        text-align: center;
-        width: 100%;
-        transition: font-size 0.3s ease;
-    }
-
-    .card-1 .card-title {
-        font-size: clamp(2rem, 5.5vw, 2.4rem);
-    }
-
-    .card-1 .card-subtitle {
-        font-size: clamp(1.5rem, 4.2vw, 1.8rem);
-    }
-
-    .card-4 .card-subtitle {
-        font-size: clamp(1.6rem, 4.5vw, 2rem);
-    }
-
-    .additional-text {
-        font-size: clamp(1.1rem, 3.2vw, 1.4rem);
-        text-align: center;
-        transition: all 0.3s ease;
-    }
-
-    .hover-text {
-        font-size: clamp(1.2rem, 3.5vw, 1.5rem);
-        padding: 1.5rem;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .card-overlay.show {
-        backdrop-filter: blur(12px);
-        background: rgba(0, 0, 0, 0.5);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-}
-
-@media (max-width: 768px) {
-    :root {
-        --mobile-margin: 0.875rem;
-        --mobile-gap: 0.625rem;
-        --card-margin: 0.75rem;
-        --container-padding: 0.875rem;
-    }
-
-    .bento-container {
-        padding: var(--container-padding);
-        gap: var(--mobile-gap);
-    }
-
-    .bento-card {
-        height: 38vh;
-        padding: 2rem;
-        border-radius: 1.5rem;
-        margin-bottom: var(--card-margin);
-    }
-
-    .bento-card.extra-tall {
-        height: 38vh;
-    }
-
-    .bento-card.expanded-mobile {
-        height: 58vh;
-        padding: 2.25rem;
-    }
-
-    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile),
-    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        height: 26vh;
-        opacity: 0.8;
-    }
-
-    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        transform: translateY(12px) scale(0.97);
-        margin-bottom: calc(var(--card-margin) - 0.2rem);
-    }
-
-    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile) {
-        transform: translateY(-12px) scale(0.97);
-        margin-bottom: calc(var(--card-margin) + 0.2rem);
-    }
-
-    .bento-card:first-child:not(.expanded-mobile):has(~ .bento-card.expanded-mobile) {
-        transform: translateY(18px) scale(0.97);
-        margin-bottom: var(--card-margin);
-    }
-
-    .bento-card:last-child:not(.expanded-mobile) {
-        transform: translateY(-18px) scale(0.97);
-    }
-}
-
-@media (max-width: 480px) {
-    :root {
-        --mobile-margin: 0.75rem;
-        --mobile-gap: 0.5rem;
-        --card-margin: 0.625rem;
-        --container-padding: 0.75rem;
-    }
-
-    .bento-container {
-        padding: var(--container-padding);
-        gap: var(--mobile-gap);
-    }
-
-    .bento-card {
-        height: 36vh;
-        padding: 1.75rem;
-        border-radius: 1.25rem;
-        margin-bottom: var(--card-margin);
-    }
-
-    .bento-card.expanded-mobile {
-        height: 55vh;
-        padding: 2rem;
-    }
-
-    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile),
-    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        height: 24vh;
-        opacity: 0.75;
-        filter: brightness(0.85);
-    }
-
-    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        transform: translateY(14px) scale(0.96);
-        margin-bottom: calc(var(--card-margin) - 0.15rem);
-    }
-
-    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile) {
-        transform: translateY(-14px) scale(0.96);
-        margin-bottom: calc(var(--card-margin) + 0.15rem);
-    }
-
-    .bento-card:first-child:not(.expanded-mobile):has(~ .bento-card.expanded-mobile) {
-        transform: translateY(20px) scale(0.96);
-        margin-bottom: var(--card-margin);
-    }
-
-    .bento-card:last-child:not(.expanded-mobile) {
-        transform: translateY(-20px) scale(0.96);
-    }
-}
-
-@media (max-width: 360px) {
-    :root {
-        --mobile-margin: 0.625rem;
-        --mobile-gap: 0.375rem;
-        --card-margin: 0.5rem;
-        --container-padding: 0.625rem;
-    }
-
-    .bento-container {
-        padding: var(--container-padding);
-        gap: var(--mobile-gap);
-    }
-
-    .bento-card {
-        height: 34vh;
-        padding: 1.5rem;
-        border-radius: 1.125rem;
-        margin-bottom: var(--card-margin);
-    }
-
-    .bento-card.expanded-mobile {
-        height: 52vh;
-        padding: 1.75rem;
-    }
-
-    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile),
-    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        height: 22vh;
-        opacity: 0.7;
-        filter: brightness(0.8);
-    }
-
-    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        transform: translateY(16px) scale(0.95);
-        margin-bottom: calc(var(--card-margin) - 0.1rem);
-    }
-
-    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile) {
-        transform: translateY(-16px) scale(0.95);
-        margin-bottom: calc(var(--card-margin) + 0.1rem);
-    }
-
-    .bento-card:first-child:not(.expanded-mobile):has(~ .bento-card.expanded-mobile) {
-        transform: translateY(22px) scale(0.95);
-        margin-bottom: var(--card-margin);
-    }
-
-    .bento-card:last-child:not(.expanded-mobile) {
-        transform: translateY(-22px) scale(0.95);
     }
 }
 
@@ -993,28 +882,17 @@ function getSubtitleParts(item: any): any {
     .card-overlay.show {
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(10px);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Amélioration des transitions tactiles */
-    .bento-card {
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .bento-card.expanded-mobile {
-        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 }
 
-/* Animation de retour à l'état initial */
 .bento-card:not(.expanded-mobile) {
-    animation: returnToNormal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: returnToNormal 0.4s var(--transition-easing) forwards;
 }
 
 @keyframes returnToNormal {
     from {
-        opacity: 0.7;
-        transform: scale(0.96);
+        opacity: 0.8;
+        transform: scale(0.97);
     }
     to {
         opacity: 1;
