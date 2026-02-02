@@ -282,7 +282,7 @@ function getSubtitleParts(item: any): any {
     --container-padding: 1rem;
     
     /* Variables de transition */
-    --transition-speed: 0.45s;
+    --transition-speed: 0.30s;
     --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -799,7 +799,7 @@ function getSubtitleParts(item: any): any {
         width: calc(100% - (var(--container-padding) * 2));
         margin-left: auto;
         margin-right: auto;
-        height: 42vh;
+        height: 30vh;
         flex: none !important;
         opacity: 1 !important;
         margin-bottom: var(--card-margin);
@@ -809,7 +809,7 @@ function getSubtitleParts(item: any): any {
     }
 
     .bento-card.extra-tall {
-        height: 42vh;
+        height: 30vh;
     }
 
     .bento-card.needs-margin {
@@ -821,7 +821,7 @@ function getSubtitleParts(item: any): any {
     }
 
     .bento-card.expanded-mobile {
-        height: 70vh;
+        height: 50vh;
         z-index: 100;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
         transform: scale(1.02);
@@ -867,9 +867,12 @@ function getSubtitleParts(item: any): any {
     .card-content {
         text-align: center;
         align-items: center;
-        padding: 2.5rem;
-		font-size: 1rem;
+        padding: 1.5rem;
     }
+
+	.hover-text{
+		font-size: 1rem;	
+	}
 }
 
 /* Désactiver hover sur mobile */
