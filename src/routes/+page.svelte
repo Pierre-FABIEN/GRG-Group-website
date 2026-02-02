@@ -775,10 +775,10 @@ function getSubtitleParts(item: any): any {
 /* Responsive mobile - cartes */
 @media (max-width: 1024px) {
     :root {
-        --mobile-margin: 1rem;
-        --mobile-gap: 0.75rem;
-        --card-margin: 0.75rem;
-        --container-padding: 1rem;
+        --mobile-margin: 0.5rem;
+        --mobile-gap: 0.5rem;
+        --card-margin: 0.5rem;
+        --container-padding: 0.5rem;
     }
 
     .page-wrapper {
@@ -867,7 +867,8 @@ function getSubtitleParts(item: any): any {
     .card-content {
         text-align: center;
         align-items: center;
-        padding: 1.5rem;
+        padding: 2.5rem;
+		font-size: 1rem;
     }
 }
 
