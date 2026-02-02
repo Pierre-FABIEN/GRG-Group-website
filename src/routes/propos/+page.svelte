@@ -236,615 +236,670 @@
 </div>
 
 
-<style lang="scss">.page-wrapper {
-	width: 100%;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'open-sans', sans-serif;
-	overflow: hidden;
-	background: transparent;
+<style lang="scss">
+/* VARIABLES */
+:root {
+    --contrast-light-1: #e5e5e5;
+    --contrast-light-2: #d4d4d4;
+    --contrast-light-3: #a3a3a3;
+    --contrast-dark-1: #404040;
+    --contrast-dark-2: #525252;
+    --contrast-dark-3: #737373;
+    
+    /* Variables pour les marges */
+    --mobile-margin: 1rem;
+    --mobile-gap: 0.75rem;
+    --card-margin: 0.75rem;
+    --container-padding: 1rem;
+    
+    /* Variables de transition */
+    --transition-speed: 0.30s;
+    --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ============================================ */
+/* STYLES DE BASE */
+/* ============================================ */
+
+.page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'open-sans', sans-serif;
+    background: transparent;
 }
 
 .bento-container {
-	width: 100%;
-	max-width: 1400px;
-	padding: 1.5rem;
-	box-sizing: border-box;
-	margin: 0 auto;
+    width: 100%;
+    max-width: 1400px;
+    padding: var(--container-padding);
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--mobile-gap);
 }
 
 .bento-row {
-	display: flex;
-	width: 100%;
-	gap: 1.25rem;
-	margin-bottom: 1.25rem;
-	height: calc(50vh - 2.25rem);
-	box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    height: calc(50vh - 2.25rem);
+    box-sizing: border-box;
 }
 
 .bento-row:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .bento-card {
-	position: relative;
-	border-radius: 1.75rem;
-	padding: 2.5rem;
-	cursor: pointer;
-	overflow: hidden;
-	box-sizing: border-box;
-	min-width: 0;
-	max-width: 100%;
-	flex: 1 1 0;
-	transition: flex 0.3s ease, opacity 0.2s ease;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
+    position: relative;
+    border-radius: 1.75rem;
+    padding: 2.5rem;
+    cursor: pointer;
+    overflow: hidden;
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 0;
+    transition: all var(--transition-speed) var(--transition-easing);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--card-margin);
 }
 
 .bento-card.extra-tall {
-	flex: 1.2 1 0;
+    flex: 1.2 1 0;
 }
 
 .bento-card.hovered {
-	flex: 2 1 0;
-	z-index: 10;
+    flex: 2 1 0;
+    z-index: 10;
 }
 
 .bento-card.same-row {
-	flex: 1 1 0;
-	opacity: 0.8;
+    flex: 1 1 0;
+    opacity: 0.8;
 }
 
 .bento-card.needs-margin {
-	margin-bottom: 2rem;
+    margin-bottom: 2rem;
 }
 
-.highlight-word {
-	position: relative;
-	display: inline-block;
-	z-index: 2;
-}
-
-.highlight-word::before {
-	content: "";
-	position: absolute;
-	left: -2%;
-	bottom: 0;
-	width: 104%;
-	height: 45%;
-	background: linear-gradient(90deg, 
-		rgba(255, 85, 85, 0.35) 0%, 
-		rgba(255, 85, 85, 0.4) 50%, 
-		rgba(255, 85, 85, 0.35) 100%
-	);
-	z-index: -1;
-	pointer-events: none;
-	transform: skewY(-1deg);
-}
+/* ============================================ */
+/* CONTENU DES CARTES */
+/* ============================================ */
 
 .card-content {
-	position: relative;
-	z-index: 2;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: start;
-	transition: opacity 0.1s ease, transform 0.1s ease;
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    transition: all 0.4s var(--transition-easing);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .card-content.hide-content {
-	opacity: 0;
-	transform: translateY(-10px);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.3s ease;
 }
 
 /* Desktop typography */
 .card-title {
-	font-size: 2rem;
-	font-weight: 800;
-	text-transform: uppercase;
-	margin: 0 0 0.75rem;
-	line-height: 1.2;
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
+    transition: font-size 0.3s ease, opacity 0.3s ease;
 }
 
 .card-subtitle {
-	font-size: 1.25rem;
-	font-weight: 600;
-	text-transform: uppercase;
-	margin: 0;
-	opacity: 0.85;
-	line-height: 1.4;
+    font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+    opacity: 0.85;
+    line-height: 1.4;
+    transition: font-size 0.3s ease, opacity 0.3s ease;
 }
 
+/* Styles spéciaux pour la carte 2 */
 .styled-as-title {
-	font-size: 1.25rem !important;
-	font-weight: 600 !important;
-	opacity: 0.85 !important;
-	line-height: 1.4 !important;
-	margin: 0 0 0.5rem !important;
+    font-size: clamp(1.1rem, 3.2vw, 1.5rem) !important;
+    font-weight: 600 !important;
+    opacity: 0.85 !important;
+    line-height: 1.4 !important;
+    margin: 0 0 0.5rem !important;
 }
 
 .styled-as-subtitle {
-	font-size: 2rem !important;
-	font-weight: 800 !important;
-	opacity: 1 !important;
-	line-height: 1.2 !important;
-	margin: 0 0 0.75rem !important;
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem) !important;
+    font-weight: 800 !important;
+    opacity: 1 !important;
+    line-height: 1.2 !important;
+    margin: 0 0 0.75rem !important;
 }
 
-/* Text colors */
+/* ============================================ */
+/* COULEURS DES TEXTES - COMPORTEMENT ADAPTATIF UNIFIÉ */
+/* ============================================ */
+
+/* Mode clair : TOUTES les cartes = texte noir */
 .card-1 .card-title,
 .card-1 .card-subtitle,
+.card-2 .styled-as-title,
+.card-2 .styled-as-subtitle,
 .card-3 .card-title,
 .card-3 .card-subtitle,
 .card-4 .card-title,
 .card-4 .card-subtitle,
 .card-5 .card-title,
 .card-5 .card-subtitle {
-	color: var(--gray-900, #171717);
+    color: var(--gray-900, #171717);
 }
 
-.card-2 .styled-as-title,
-.card-2 .styled-as-subtitle {
-	color: var(--gray-100, #f5f5f5);
-}
-
+/* Mode sombre : TOUTES les cartes = texte blanc */
 :global(.dark) .card-1 .card-title,
 :global(.dark) .card-1 .card-subtitle,
+:global(.dark) .card-2 .styled-as-title,
+:global(.dark) .card-2 .styled-as-subtitle,
 :global(.dark) .card-3 .card-title,
 :global(.dark) .card-3 .card-subtitle,
 :global(.dark) .card-4 .card-title,
 :global(.dark) .card-4 .card-subtitle,
 :global(.dark) .card-5 .card-title,
 :global(.dark) .card-5 .card-subtitle {
-	color: var(--gray-100, #f5f5f5);
+    color: var(--gray-100, #f5f5f5);
 }
 
+.highlight-word {
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+}
+
+.highlight-word::before {
+    content: "";
+    position: absolute;
+    left: -2%;
+    bottom: 0;
+    width: 104%;
+    height: 45%;
+    background: linear-gradient(90deg, 
+        rgba(255, 85, 85, 0.35) 0%, 
+        rgba(255, 85, 85, 0.4) 50%, 
+        rgba(255, 85, 85, 0.35) 100%
+    );
+    z-index: -1;
+    pointer-events: none;
+    transform: skewY(-1deg);
+    transition: all 0.3s ease;
+}
+
+/* ============================================ */
+/* HOVER CONTENT - VERSION AMÉLIORÉE */
+/* ============================================ */
+
 .card-hover-content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 3;
-	width: 85%;
-	text-align: center;
-	opacity: 0;
-	transition: opacity 0.2s ease;
-	pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    z-index: 3;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.4s var(--transition-easing);
+    pointer-events: none;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    min-height: 0;
 }
 
 .card-hover-content.show {
-	opacity: 1;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition-delay: 0.1s;
 }
 
 .hover-text {
-	color: var(--gray-100, #f5f5f5);
-	font-size: 1.25rem;
-	line-height: 1.6;
-	font-weight: 500;
-	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-	white-space: normal;
-	word-wrap: break-word;
-	margin: 0;
+    color: var(--gray-100, #f5f5f5);
+    font-size: 1.25rem;
+    line-height: 1.5;
+    font-weight: 500;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.4s var(--transition-easing);
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.card-hover-content.show .hover-text {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
 }
 
 .hover-text.multiline {
-	text-align: left;
-	padding: 0 1rem;
+    text-align: left;
+    padding: 0 1rem;
 }
 
 .hover-text.multiline br {
-	display: block;
-	margin-bottom: 0.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
-/* Background colors */
+/* ============================================ */
+/* BACKGROUNDS - COMPORTEMENT ADAPTATIF UNIFIÉ */
+/* ============================================ */
+
+/* Mode clair - TOUTES les cartes sont claires */
 .card-1 {
-	background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
+    background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
 }
 
+/* Carte 2 : fond clair en mode clair (comme les autres) */
 .card-2 {
-	background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%);
+    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
 }
 
 .card-3 { 
-	background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%); 
+    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%); 
 }
 
 .card-4 {
-	background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
+    background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
 }
 
 .card-5 {
-	background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
+    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
 }
 
+/* ============================================ */
+/* MODE SOMBRE - TOUTES les cartes sont sombres */
+/* ============================================ */
+
 :global(.dark) .card-1 { 
-	background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%); 
+    background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%); 
+}
+
+/* Carte 2 : fond sombre en mode sombre (comme les autres) */
+:global(.dark) .card-2 {
+    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
 }
 
 :global(.dark) .card-3 { 
-	background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
+    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
 }
 
 :global(.dark) .card-4 { 
-	background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%); 
+    background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%); 
 }
 
 :global(.dark) .card-5 { 
-	background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
+    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
 }
 
+/* ============================================ */
+/* OVERLAY */
+/* ============================================ */
+
 .card-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0, 0, 0, 0.4);
-	backdrop-filter: blur(4px);
-	opacity: 0;
-	transition: opacity 0.2s ease;
-	z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    opacity: 0;
+    transition: all 0.4s var(--transition-easing);
+    z-index: 1;
 }
 
 .card-overlay.show {
-	opacity: 1;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    opacity: 1;
 }
 
-:root {
-	--contrast-light-1: #e5e5e5;
-	--contrast-light-2: #d4d4d4;
-	--contrast-light-3: #a3a3a3;
-	--contrast-dark-1: #404040;
-	--contrast-dark-2: #525252;
-	--contrast-dark-3: #737373;
-}
+/* ============================================ */
+/* RESPONSIVE MOBILE - MÊME CONFIGURATION */
+/* ============================================ */
 
-/* IMPROVED MOBILE RESPONSIVE - TYPOGRAPHY ADAPTED TO CELL HEIGHT */
 @media (max-width: 1024px) {
-	.page-wrapper {
-		height: auto;
-		min-height: 100vh;
-		justify-content: flex-start;
-		padding-top: 1rem;
-	}
+    :root {
+        --mobile-margin: 0.5rem;
+        --mobile-gap: 0.5rem;
+        --card-margin: 0.5rem;
+        --container-padding: 0.5rem;
+    }
 
-	.bento-container {
-		padding: 1rem;
-		padding-bottom: 2rem;
-		position: relative;
-	}
+    .page-wrapper {
+        padding: var(--mobile-margin) 0;
+    }
 
-	.bento-row {
-		flex-direction: column;
-		gap: 0.75rem;
-		height: auto;
-		margin-bottom: 0.75rem;
-		position: relative;
-	}
+    .bento-container {
+        padding: var(--container-padding);
+        gap: var(--mobile-gap);
+    }
 
-	.bento-card {
-		flex: 1 1 auto !important;
-		width: 100% !important;
-		height: auto !important;
-		min-height: 22vh !important;
-		max-height: 28vh !important;
-		opacity: 1 !important;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		position: relative;
-		z-index: 1;
-		padding: 1.5rem;
-		display: flex;
-		align-items: center;
-	}
+    .bento-row {
+        display: contents;
+        margin-bottom: 0;
+    }
 
-	.bento-card.extra-tall {
-		min-height: 28vh !important;
-		max-height: 34vh !important;
-	}
+    .bento-card {
+        width: calc(100% - (var(--container-padding) * 2));
+        margin-left: auto;
+        margin-right: auto;
+        height: 30vh;
+        flex: none !important;
+        opacity: 1 !important;
+        margin-bottom: var(--card-margin);
+        transition: all var(--transition-speed) var(--transition-easing);
+        padding: 2rem;
+        border-radius: 1.5rem;
+    }
 
-	.bento-card.expanded-mobile {
-		min-height: 32vh !important;
-		max-height: 38vh !important;
-		z-index: 100;
-		position: relative;
-	}
-	
-	.bento-card.expanded-mobile + .bento-card {
-		margin-top: 1.5rem;
-		transform: translateY(0);
-	}
+    .bento-card.extra-tall {
+        height: 30vh;
+    }
 
-	.bento-row.top .bento-card.expanded-mobile {
-		margin-bottom: 1.5rem;
-	}
+    .bento-card.needs-margin {
+        margin-bottom: var(--card-margin);
+    }
 
-	.bento-card.needs-margin {
-		margin-bottom: 2rem !important;
-	}
+    .bento-card:not(:last-child) {
+        margin-bottom: var(--card-margin);
+    }
 
-	/* Adaptive typography based on card height */
-	.card-content {
-		padding: 0.5rem;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
-	}
+    .bento-card.expanded-mobile {
+        height: 50vh;
+        z-index: 100;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        transform: scale(1.02);
+        margin-bottom: var(--card-margin);
+    }
 
-	.card-title {
-		font-size: clamp(1.2rem, 4vh, 1.6rem);
-		margin-bottom: 0.4rem;
-		line-height: 1.15;
-		text-align: left;
-		width: 100%;
-	}
-	
-	.card-subtitle {
-		font-size: clamp(1rem, 3vh, 1.3rem);
-		line-height: 1.2;
-		margin-bottom: 0;
-		text-align: left;
-		width: 100%;
-	}
-	
-	.styled-as-subtitle {
-		font-size: clamp(1.2rem, 4vh, 1.6rem) !important;
-		line-height: 1.15 !important;
-		margin-bottom: 0.4rem !important;
-	}
-	
-	.styled-as-title {
-		font-size: clamp(1rem, 3vh, 1.3rem) !important;
-		line-height: 1.2 !important;
-		margin-bottom: 0.2rem !important;
-	}
+    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile),
+    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
+        height: 30vh;
+        opacity: 0.85;
+        filter: brightness(0.9);
+        margin-bottom: var(--card-margin);
+    }
 
-	/* Hover text adapted to card height */
-	.hover-text {
-		padding: 0.75rem;
-		font-size: clamp(0.95rem, 2.6vh, 1.1rem);
-		line-height: 1.4;
-		max-height: calc(100% - 1.5rem);
-		overflow-y: auto;
-	}
-	
-	.hover-text.multiline {
-		padding: 0.5rem;
-		font-size: clamp(0.9rem, 2.4vh, 1.05rem);
-		line-height: 1.35;
-	}
+    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
+        transform: translateY(8px) scale(0.98);
+        margin-bottom: calc(var(--card-margin) - 0.2rem);
+    }
 
-	.highlight-word::before {
-		height: 40%;
-		bottom: -2px;
-	}
+    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile) {
+        transform: translateY(-8px) scale(0.98);
+        margin-bottom: calc(var(--card-margin) + 0.2rem);
+    }
 
-	.card-1 .card-title,
-	.card-1 .card-subtitle,
-	.card-3 .card-title,
-	.card-3 .card-subtitle,
-	.card-4 .card-title,
-	.card-4 .card-subtitle,
-	.card-5 .card-title,
-	.card-5 .card-subtitle {
-		text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-	}
+    .bento-card:first-child:not(.expanded-mobile):has(~ .bento-card.expanded-mobile) {
+        transform: translateY(12px) scale(0.98);
+        margin-bottom: var(--card-margin);
+    }
 
-	.card-overlay.show {
-		backdrop-filter: blur(3px);
-	}
+    .bento-card:first-child.expanded-mobile {
+        margin-bottom: var(--card-margin);
+    }
+
+    .bento-card:last-child:not(.expanded-mobile) {
+        transform: translateY(-12px) scale(0.98);
+        margin-bottom: 0;
+    }
+
+    .bento-card:last-child.expanded-mobile {
+        margin-bottom: 0;
+    }
+
+    .card-content {
+        text-align: center;
+        align-items: center;
+        padding: 1.5rem;
+    }
+
+    /* Textes responsive avec clamp */
+    .card-title {
+        font-size: clamp(1.8rem, 4.8vw, 2.3rem);
+        text-align: center;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.2rem, 3.2vw, 1.5rem);
+        text-align: center;
+        width: 100%;
+    }
+
+    .styled-as-subtitle {
+        font-size: clamp(1.8rem, 4.8vw, 2.3rem) !important;
+        text-align: center !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .styled-as-title {
+        font-size: clamp(1.2rem, 3.2vw, 1.5rem) !important;
+        text-align: center !important;
+        margin-bottom: 0.3rem !important;
+    }
+
+    /* RESPONSIVE HOVERTEXT */
+    .card-hover-content {
+        width: 92%;
+        padding: 1.75rem;
+        max-width: 450px;
+    }
+    
+    .hover-text {
+        font-size: 1rem;
+        line-height: 1.5;
+        letter-spacing: 0.01em;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    
+    .hover-text.multiline {
+        font-size: 0.95rem;
+        line-height: 1.4;
+        padding: 0.5rem;
+    }
 }
 
 @media (max-width: 768px) {
-	.bento-container { 
-		padding: 0.75rem; 
-		padding-bottom: 1.5rem;
-	}
-	
-	.bento-row { 
-		gap: 0.5rem; 
-	}
-	
-	.bento-card {
-		min-height: 20vh !important;
-		max-height: 26vh !important;
-		padding: 1.25rem;
-	}
-	
-	.bento-card.extra-tall {
-		min-height: 26vh !important;
-		max-height: 32vh !important;
-	}
-	
-	.bento-card.expanded-mobile {
-		min-height: 28vh !important;
-		max-height: 34vh !important;
-	}
-	
-	.bento-card.expanded-mobile + .bento-card {
-		margin-top: 1rem;
-	}
+    .card-hover-content {
+        width: 94%;
+        padding: 1.5rem;
+        max-width: 400px;
+    }
+    
+    .hover-text {
+        font-size: 0.95rem;
+        line-height: 1.55;
+        font-weight: 500;
+        padding: 0 0.5rem;
+    }
+    
+    .hover-text.multiline {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        padding: 0.4rem;
+    }
+    
+    .bento-card.expanded-mobile .card-hover-content {
+        padding: 1.25rem;
+        width: 95%;
+    }
+    
+    .bento-card.expanded-mobile .hover-text {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
 
-	.bento-row.top .bento-card.expanded-mobile {
-		margin-bottom: 1rem;
-	}
-	
-	.card-content {
-		padding: 0.4rem;
-	}
+    .card-title {
+        font-size: clamp(1.6rem, 4.2vw, 2rem);
+    }
 
-	.card-title {
-		font-size: clamp(1.1rem, 3.6vh, 1.5rem);
-		margin-bottom: 0.3rem;
-	}
-	
-	.card-subtitle {
-		font-size: clamp(0.95rem, 2.6vh, 1.2rem);
-	}
-	
-	.styled-as-subtitle {
-		font-size: clamp(1.1rem, 3.6vh, 1.5rem) !important;
-	}
-	
-	.styled-as-title {
-		font-size: clamp(0.95rem, 2.6vh, 1.2rem) !important;
-	}
-	
-	.hover-text {
-		font-size: clamp(0.9rem, 2.4vh, 1.05rem);
-		padding: 0.5rem;
-	}
-	
-	.hover-text.multiline {
-		font-size: clamp(0.85rem, 2.2vh, 1rem);
-		padding: 0.4rem;
-	}
+    .card-subtitle {
+        font-size: clamp(1.1rem, 2.8vw, 1.4rem);
+    }
+    
+    .styled-as-subtitle {
+        font-size: clamp(1.6rem, 4.2vw, 2rem) !important;
+    }
+    
+    .styled-as-title {
+        font-size: clamp(1.1rem, 2.8vw, 1.4rem) !important;
+    }
 }
 
 @media (max-width: 480px) {
-	.bento-container { 
-		padding: 0.5rem; 
-		padding-bottom: 1rem;
-	}
-	
-	.bento-row { 
-		gap: 0.4rem; 
-	}
-	
-	.bento-card {
-		min-height: 18vh !important;
-		max-height: 24vh !important;
-		padding: 1rem;
-		border-radius: 1.25rem;
-	}
-	
-	.bento-card.extra-tall {
-		min-height: 24vh !important;
-		max-height: 30vh !important;
-	}
-	
-	.bento-card.expanded-mobile {
-		min-height: 26vh !important;
-		max-height: 32vh !important;
-	}
-	
-	.bento-card.expanded-mobile + .bento-card {
-		margin-top: 0.75rem;
-	}
-	
-	.card-content {
-		padding: 0.3rem;
-	}
+    .card-hover-content {
+        width: 96%;
+        padding: 1.25rem;
+        max-width: 350px;
+    }
+    
+    .hover-text {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        font-weight: 500;
+        padding: 0;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+    }
+    
+    .hover-text.multiline {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        padding: 0.3rem;
+    }
+    
+    .bento-card.expanded-mobile .card-hover-content {
+        padding: 1rem;
+        width: 97%;
+    }
+    
+    .bento-card.expanded-mobile .hover-text {
+        font-size: 0.8rem;
+        line-height: 1.65;
+        max-height: 80%;
+        overflow-y: auto;
+    }
 
-	.card-title {
-		font-size: clamp(1rem, 3.2vh, 1.3rem);
-		margin-bottom: 0.25rem;
-		line-height: 1.1;
-	}
-	
-	.card-subtitle {
-		font-size: clamp(0.85rem, 2.2vh, 1.05rem);
-		line-height: 1.15;
-	}
-	
-	.styled-as-subtitle {
-		font-size: clamp(1rem, 3.2vh, 1.3rem) !important;
-		line-height: 1.1 !important;
-	}
-	
-	.styled-as-title {
-		font-size: clamp(0.85rem, 2.2vh, 1.05rem) !important;
-		line-height: 1.15 !important;
-	}
-	
-	.hover-text {
-		font-size: clamp(0.8rem, 2vh, 0.95rem);
-		line-height: 1.3;
-		padding: 0.4rem;
-	}
-	
-	.hover-text.multiline {
-		font-size: clamp(0.75rem, 1.8vh, 0.9rem);
-		padding: 0.3rem;
-	}
+    .card-title {
+        font-size: clamp(1.4rem, 3.8vw, 1.8rem);
+    }
 
-	.highlight-word::before {
-		height: 35%;
-		bottom: -3px;
-	}
+    .card-subtitle {
+        font-size: clamp(1rem, 2.6vw, 1.3rem);
+        line-height: 1.25;
+    }
+    
+    .styled-as-subtitle {
+        font-size: clamp(1.4rem, 3.8vw, 1.8rem) !important;
+        line-height: 1.25 !important;
+    }
+    
+    .styled-as-title {
+        font-size: clamp(1rem, 2.6vw, 1.3rem) !important;
+        line-height: 1.25 !important;
+    }
 }
 
 @media (max-width: 360px) {
-	.bento-container {
-		padding-bottom: 0.75rem;
-	}
-	
-	.bento-card {
-		min-height: 16vh !important;
-		max-height: 22vh !important;
-		padding: 0.75rem;
-		border-radius: 1rem;
-	}
-	
-	.bento-card.extra-tall {
-		min-height: 22vh !important;
-		max-height: 28vh !important;
-	}
-	
-	.bento-card.expanded-mobile {
-		min-height: 24vh !important;
-		max-height: 30vh !important;
-	}
-	
-	.bento-card.expanded-mobile + .bento-card {
-		margin-top: 0.5rem;
-	}
+    .card-hover-content {
+        padding: 1rem;
+        width: 98%;
+        max-width: 300px;
+    }
+    
+    .hover-text {
+        font-size: 0.75rem;
+        line-height: 1.65;
+        font-weight: 500;
+    }
+    
+    .hover-text.multiline {
+        font-size: 0.7rem;
+        line-height: 1.6;
+        padding: 0.25rem;
+    }
+    
+    .bento-card.expanded-mobile .hover-text {
+        font-size: 0.72rem;
+        line-height: 1.7;
+    }
 
-	.bento-card.needs-margin {
-		margin-bottom: 1.5rem !important;
-	}
-	
-	.card-content {
-		padding: 0.25rem;
-	}
+    .card-title {
+        font-size: clamp(1.2rem, 3.2vw, 1.6rem);
+    }
 
-	.card-title {
-		font-size: clamp(0.9rem, 2.8vh, 1.1rem);
-		margin-bottom: 0.2rem;
-	}
-	
-	.card-subtitle {
-		font-size: clamp(0.75rem, 2vh, 0.95rem);
-	}
-	
-	.styled-as-subtitle {
-		font-size: clamp(0.9rem, 2.8vh, 1.1rem) !important;
-	}
-	
-	.styled-as-title {
-		font-size: clamp(0.75rem, 2vh, 0.95rem) !important;
-	}
-	
-	.hover-text {
-		font-size: clamp(0.75rem, 1.8vh, 0.9rem);
-		line-height: 1.25;
-		padding: 0.3rem;
-	}
-	
-	.hover-text.multiline {
-		font-size: clamp(0.7rem, 1.6vh, 0.85rem);
-		padding: 0.25rem;
-		line-height: 1.2;
-	}
+    .card-subtitle {
+        font-size: clamp(0.9rem, 2.4vw, 1.2rem);
+    }
+    
+    .styled-as-subtitle {
+        font-size: clamp(1.2rem, 3.2vw, 1.6rem) !important;
+    }
+    
+    .styled-as-title {
+        font-size: clamp(0.9rem, 2.4vw, 1.2rem) !important;
+    }
+}
 
-	.highlight-word::before {
-		height: 30%;
-		bottom: -4px;
-	}
-}</style>
+/* Désactiver hover sur mobile */
+@media (hover: none) and (pointer: coarse) {
+    .bento-card.hovered,
+    .bento-card.same-row {
+        flex: none !important;
+        opacity: 1 !important;
+    }
+
+    .card-overlay.show {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.bento-card:not(.expanded-mobile) {
+    animation: returnToNormal 0.4s var(--transition-easing) forwards;
+}
+
+@keyframes returnToNormal {
+    from {
+        opacity: 0.8;
+        transform: scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
