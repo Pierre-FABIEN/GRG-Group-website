@@ -4,136 +4,127 @@
 	import { scale } from 'svelte/transition';
 	import { m } from '$lib/paraglide/messages.js';
 
-const bentoItems = [
-	{ 
-		id: 1, 
-		title: m.home_item1_title(),
-		subtitle: m.home_item1_subtitle(),
-		hoverText: m.home_item1_hoverText(),
-		additionalText: m.home_item1_additionalText(),
-		icon: '',
-		cardClass: 'card-1', 
-		row: 'top',
-		extraTall: true
-	},
-	{ 
-		id: 2, 
-		title: m.home_item2_title(),
-		subtitle: m.home_item2_subtitle(),
-		hoverText: m.home_item2_hoverText(),
-		additionalText: m.home_item2_additionalText(),
-		icon: '',
-		cardClass: 'card-2', 
-		row: 'top'
-	},
-	{ 
-		id: 3, 
-		title: m.home_item3_title(),
-		subtitle: m.home_item3_subtitle(),
-		hoverText: m.home_item3_hoverText(),
-		additionalText: m.home_item3_additionalText(),
-		icon: '',
-		cardClass: 'card-3', 
-		row: 'bottom'
-	},
-	{ 
-		id: 4, 
-		title: m.home_item4_title(),
-		subtitle: m.home_item4_subtitle(),
-		hoverText: m.home_item4_hoverText(),
-		additionalText: m.home_item4_additionalText(),
-		icon: '',
-		cardClass: 'card-4', 
-		row: 'bottom'
-	},
-	{ 
-		id: 5, 
-		title: m.home_item5_title(),
-		subtitle: m.home_item5_subtitle(),
-		hoverText: m.home_item5_hoverText(),
-		additionalText: m.home_item5_additionalText(),
-		icon: '',
-		cardClass: 'card-5', 
-		row: 'bottom',
-		needsMargin: true
-	}
-];
-
+	const bentoItems = [
+		{ 
+			id: 1, 
+			title: m.home_item1_title(),
+			subtitle: m.home_item1_subtitle(),
+			hoverText: m.home_item1_hoverText(),
+			additionalText: m.home_item1_additionalText(),
+			cardClass: 'card-1', 
+			row: 'top',
+			extraTall: true
+		},
+		{ 
+			id: 2, 
+			title: m.home_item2_title(),
+			subtitle: m.home_item2_subtitle(),
+			hoverText: m.home_item2_hoverText(),
+			additionalText: m.home_item2_additionalText(),
+			cardClass: 'card-2', 
+			row: 'top'
+		},
+		{ 
+			id: 3, 
+			title: m.home_item3_title(),
+			subtitle: m.home_item3_subtitle(),
+			hoverText: m.home_item3_hoverText(),
+			additionalText: m.home_item3_additionalText(),
+			cardClass: 'card-3', 
+			row: 'bottom'
+		},
+		{ 
+			id: 4, 
+			title: m.home_item4_title(),
+			subtitle: m.home_item4_subtitle(),
+			hoverText: m.home_item4_hoverText(),
+			additionalText: m.home_item4_additionalText(),
+			cardClass: 'card-4', 
+			row: 'bottom'
+		},
+		{ 
+			id: 5, 
+			title: m.home_item5_title(),
+			subtitle: m.home_item5_subtitle(),
+			hoverText: m.home_item5_hoverText(),
+			additionalText: m.home_item5_additionalText(),
+			cardClass: 'card-5', 
+			row: 'bottom',
+			needsMargin: true
+		}
+	];
 
 	let hoveredCard: number | null = null;
 	let hoveredRow: string | null = null;
+	let isMobile = false;
+
+	$: if (typeof window !== 'undefined') {
+		isMobile = window.innerWidth <= 1024;
+	}
 
 	function handleCardHover(id: number) {
+		if (isMobile) return;
 		hoveredCard = id;
 		const card = bentoItems.find(item => item.id === id);
 		hoveredRow = card?.row || null;
 	}
 
 	function handleCardLeave() {
+		if (isMobile) return;
 		hoveredCard = null;
 		hoveredRow = null;
 	}
 
 	function handleCardClick(item: any) {
-		console.log('Clicked:', item.title);
+		if (!isMobile) return;
+		if (hoveredCard === item.id) {
+			hoveredCard = null;
+			hoveredRow = null;
+		} else {
+			hoveredCard = item.id;
+			hoveredRow = item.row;
+		}
 	}
 
 	function isInSameRow(item: any): boolean {
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
 
-function getHighlightedText(text: string): any[] {
-	if (!text || text.trim() === '') return [];
+	function getHighlightedText(text: string): any[] {
+		if (!text || text.trim() === '') return [];
+		const words = text.split(' ');
+		if (words.length === 1) return [text];
+		const lastWord = words.pop();
+		const rest = words.join(' ');
+		return [rest + ' ', { type: 'highlight', text: lastWord }];
+	}
 
-	const words = text.split(' ');
-	if (words.length === 1) return [text];
-
-	const lastWord = words.pop();
-	const rest = words.join(' ');
-
-	return [
-		rest + ' ',
-		{ type: 'highlight', text: lastWord }
-	];
-}
-
-function getForcedHighlightedText(text: string): any[] {
-	if (!text || text.trim() === '') return [];
-	return [{ type: 'highlight', text }];
-}
-
+	function getForcedHighlightedText(text: string): any[] {
+		if (!text || text.trim() === '') return [];
+		return [{ type: 'highlight', text }];
+	}
 
 	function getTitleParts(item: any): any[] {
-	// Carte 1 : highlight ciblé "GRG GROUPE"
-	if (item.id === 1) {
-		const searchTerm = 'GRG GROUPE';
-		if (item.title.includes(searchTerm)) {
-			const parts = item.title.split(searchTerm);
-			return [
-				parts[0],
-				{ type: 'highlight', text: searchTerm },
-				parts[1] || ''
-			].filter(Boolean);
+		if (item.id === 1) {
+			const searchTerm = 'GRG GROUPE';
+			if (item.title.includes(searchTerm)) {
+				const parts = item.title.split(searchTerm);
+				return [parts[0], { type: 'highlight', text: searchTerm }, parts[1] || ''].filter(Boolean);
+			}
+			return [item.title];
 		}
-		return [item.title];
+		if (item.id === 3 || item.id === 4) {
+			return getForcedHighlightedText(item.title);
+		}
+		return getHighlightedText(item.title);
 	}
 
-	// Cartes 3 et 4 : highlight FORCÉ (même 1 mot)
-	if (item.id === 3 || item.id === 4) {
-		return getForcedHighlightedText(item.title);
+	function getSubtitleParts(item: any): any {
+		if (item.id === 4) {
+			return getHighlightedText(item.subtitle);
+		}
+		return item.subtitle;
 	}
-
-	// Autres cartes : highlight classique
-	return getHighlightedText(item.title);
-}
-
-function getSubtitleParts(item: any): any {
-    if (item.id === 4) {
-        // Item 4: highlight "Creativity" dans le sous-titre
-        return getHighlightedText(item.subtitle); // ✅ CORRECT - highlight dernier mot
-    }
-    return item.subtitle;
-}
 </script>
 
 <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
@@ -142,10 +133,6 @@ function getSubtitleParts(item: any): any {
 
 <h2 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
 	Marque blanche de boissons et compléments alimentaires
-</h2>
-
-<h2 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
-	Création, production et personnalisation de boissons fonctionnelles
 </h2>
 
 <div class="page-wrapper">
@@ -166,9 +153,6 @@ function getSubtitleParts(item: any): any {
 					in:scale={{ delay: i * 100, duration: 600 }}
 				>
 					<div class="card-content" class:hide-content={hoveredCard === item.id}>
-						{#if item.icon}
-							<div class="card-icon">{item.icon}</div>
-						{/if}
 						<h3 class="card-title">
 							{#each getTitleParts(item) as part}
 								{#if typeof part === 'object' && part.type === 'highlight'}
@@ -192,10 +176,8 @@ function getSubtitleParts(item: any): any {
 							{/if}
 						</p>
 						{#if item.additionalText}
-	<p class="additional-text">{item.additionalText}</p>
-{/if}
-
-
+							<p class="additional-text">{item.additionalText}</p>
+						{/if}
 					</div>
 
 					<div class="card-hover-content" class:show={hoveredCard === item.id}>
@@ -223,9 +205,6 @@ function getSubtitleParts(item: any): any {
 					in:scale={{ delay: i * 100, duration: 600 }}
 				>
 					<div class="card-content" class:hide-content={hoveredCard === item.id}>
-						{#if item.icon}
-							<div class="card-icon">{item.icon}</div>
-						{/if}
 						<h3 class="card-title">
 							{#each getTitleParts(item) as part}
 								{#if typeof part === 'object' && part.type === 'highlight'}
@@ -249,11 +228,10 @@ function getSubtitleParts(item: any): any {
 							{/if}
 						</p>
 						{#if item.additionalText}
-	<p class="additional-text">{item.additionalText}</p>
-{/if}
-
-
+							<p class="additional-text">{item.additionalText}</p>
+						{/if}
 					</div>
+
 					<div class="card-hover-content" class:show={hoveredCard === item.id}>
 						<p class="hover-text">{@html item.hoverText}</p>
 					</div>
@@ -266,7 +244,6 @@ function getSubtitleParts(item: any): any {
 </div>
 
 <style lang="scss">
-/* VARIABLES */
 :root {
     --contrast-light-1: #e5e5e5;
     --contrast-light-2: #d4d4d4;
@@ -274,21 +251,13 @@ function getSubtitleParts(item: any): any {
     --contrast-dark-1: #404040;
     --contrast-dark-2: #525252;
     --contrast-dark-3: #737373;
-    
-    /* Variables pour les marges */
     --mobile-margin: 1rem;
     --mobile-gap: 0.75rem;
     --card-margin: 0.75rem;
     --container-padding: 1rem;
-    
-    /* Variables de transition */
     --transition-speed: 0.30s;
     --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
-/* ============================================ */
-/* STYLES DE BASE */
-/* ============================================ */
 
 .page-wrapper {
     width: 100%;
@@ -342,193 +311,6 @@ function getSubtitleParts(item: any): any {
     flex-direction: column;
     margin-bottom: var(--card-margin);
 }
-
-/* ============================================ */
-/* HOVER CONTENT - VERSION AMÉLIORÉE */
-/* ============================================ */
-
-.card-hover-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    z-index: 3;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    opacity: 0;
-    transition: all 0.4s var(--transition-easing);
-    pointer-events: none;
-    padding: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    min-height: 0;
-}
-
-.card-hover-content.show {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    transition-delay: 0.1s;
-}
-
-.hover-text {
-    color: var(--gray-100, #f5f5f5);
-    font-size: 1.25rem;
-    line-height: 1.5;
-    font-weight: 500;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-    margin: 0;
-    opacity: 0;
-    transform: translateY(15px);
-    transition: all 0.4s var(--transition-easing);
-    width: 100%;
-    max-width: 100%;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-}
-
-.card-hover-content.show .hover-text {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-}
-
-/* ============================================ */
-/* RESPONSIVE MOBILE - HOVERTEXT AMÉLIORÉ */
-/* ============================================ */
-
-@media (max-width: 1024px) {
-    .card-hover-content {
-        width: 92%;
-        padding: 1.75rem;
-        max-width: 450px;
-    }
-    
-    .hover-text {
-        font-size: 1.1rem;
-        line-height: 1.5;
-        letter-spacing: 0.01em;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-    }
-}
-
-@media (max-width: 768px) {
-    .card-hover-content {
-        width: 94%;
-        padding: 1.5rem;
-        max-width: 400px;
-    }
-    
-    .hover-text {
-        font-size: 1.05rem;
-        line-height: 1.55;
-        font-weight: 500;
-        padding: 0 0.5rem;
-    }
-    
-    /* Carte ouverte - hovertext mieux centré */
-    .bento-card.expanded-mobile .card-hover-content {
-        padding: 1.25rem;
-        width: 95%;
-    }
-    
-    .bento-card.expanded-mobile .hover-text {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-}
-
-@media (max-width: 480px) {
-    .card-hover-content {
-        width: 96%;
-        padding: 1.25rem;
-        max-width: 350px;
-    }
-    
-    .hover-text {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        font-weight: 500;
-        padding: 0;
-        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
-    }
-    
-    /* Optimisation pour petites cartes ouvertes */
-    .bento-card.expanded-mobile .card-hover-content {
-        padding: 1rem;
-        width: 97%;
-    }
-    
-    .bento-card.expanded-mobile .hover-text {
-        font-size: 0.9rem;
-        line-height: 1.65;
-        max-height: 80%;
-        overflow-y: auto;
-    }
-}
-
-@media (max-width: 360px) {
-    .card-hover-content {
-        padding: 1rem;
-        width: 98%;
-        max-width: 300px;
-    }
-    
-    .hover-text {
-        font-size: 0.85rem;
-        line-height: 1.65;
-        font-weight: 500;
-    }
-    
-    .bento-card.expanded-mobile .hover-text {
-        font-size: 0.82rem;
-        line-height: 1.7;
-    }
-}
-
-/* Version alternative : taille fixe avec overflow */
-@media (max-width: 480px) and (orientation: portrait) {
-    .card-hover-content {
-        max-height: 70vh;
-        overflow-y: auto;
-        padding: 1rem;
-    }
-    
-    .hover-text {
-        max-height: 100%;
-        padding-right: 5px;
-    }
-    
-    /* Scrollbar stylée */
-    .card-hover-content::-webkit-scrollbar {
-        width: 4px;
-    }
-    
-    .card-hover-content::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-    }
-    
-    .card-hover-content::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 2px;
-    }
-}
-
-/* Option : texte responsive basé sur la hauteur de la carte */
-@media (max-width: 768px) {
-    .bento-card.expanded-mobile .hover-text {
-        font-size: min(1rem, 2.5vh); /* Taille basée sur la hauteur */
-        line-height: calc(1.4em + 0.5vh);
-    }
-}
-
-/* ============================================ */
-/* ANCIEN CSS (conservé pour référence) */
-/* ============================================ */
 
 .bento-card.extra-tall {
     flex: 1.2 1 0;
@@ -596,7 +378,6 @@ function getSubtitleParts(item: any): any {
     transition: all 0.3s ease;
 }
 
-/* Couleurs des textes */
 .card-1 .card-title,
 .card-1 .card-subtitle,
 .card-1 .additional-text,
@@ -698,7 +479,51 @@ function getSubtitleParts(item: any): any {
     transition: all 0.3s ease;
 }
 
-/* Overlay */
+.card-hover-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    z-index: 3;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.4s var(--transition-easing);
+    pointer-events: none;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-hover-content.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition-delay: 0.1s;
+}
+
+.hover-text {
+    color: var(--gray-100, #f5f5f5);
+    font-size: 1.25rem;
+    line-height: 1.5;
+    font-weight: 500;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.4s var(--transition-easing);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.card-hover-content.show .hover-text {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
 .card-overlay {
     position: absolute;
     top: 0;
@@ -718,7 +543,6 @@ function getSubtitleParts(item: any): any {
     opacity: 1;
 }
 
-/* Backgrounds */
 .card-1 {
     background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
 }
@@ -772,7 +596,6 @@ function getSubtitleParts(item: any): any {
     background: rgba(0, 0, 0, 0.4);
 }
 
-/* Responsive mobile - cartes */
 @media (max-width: 1024px) {
     :root {
         --mobile-margin: 0.5rem;
@@ -803,7 +626,6 @@ function getSubtitleParts(item: any): any {
         flex: none !important;
         opacity: 1 !important;
         margin-bottom: var(--card-margin);
-        transition: all var(--transition-speed) var(--transition-easing);
         padding: 2rem;
         border-radius: 1.5rem;
     }
@@ -825,7 +647,6 @@ function getSubtitleParts(item: any): any {
         z-index: 100;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
         transform: scale(1.02);
-        margin-bottom: var(--card-margin);
     }
 
     .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile),
@@ -833,35 +654,6 @@ function getSubtitleParts(item: any): any {
         height: 30vh;
         opacity: 0.85;
         filter: brightness(0.9);
-        margin-bottom: var(--card-margin);
-    }
-
-    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        transform: translateY(8px) scale(0.98);
-        margin-bottom: calc(var(--card-margin) - 0.2rem);
-    }
-
-    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile) {
-        transform: translateY(-8px) scale(0.98);
-        margin-bottom: calc(var(--card-margin) + 0.2rem);
-    }
-
-    .bento-card:first-child:not(.expanded-mobile):has(~ .bento-card.expanded-mobile) {
-        transform: translateY(12px) scale(0.98);
-        margin-bottom: var(--card-margin);
-    }
-
-    .bento-card:first-child.expanded-mobile {
-        margin-bottom: var(--card-margin);
-    }
-
-    .bento-card:last-child:not(.expanded-mobile) {
-        transform: translateY(-12px) scale(0.98);
-        margin-bottom: 0;
-    }
-
-    .bento-card:last-child.expanded-mobile {
-        margin-bottom: 0;
     }
 
     .card-content {
@@ -870,37 +662,36 @@ function getSubtitleParts(item: any): any {
         padding: 1.5rem;
     }
 
-	.hover-text{
-		font-size: 1rem;	
-	}
-}
-
-/* Désactiver hover sur mobile */
-@media (hover: none) and (pointer: coarse) {
-    .bento-card.hovered,
-    .bento-card.same-row {
-        flex: none !important;
-        opacity: 1 !important;
+    .card-hover-content {
+        width: 92%;
+        padding: 1.75rem;
+        max-width: 450px;
     }
-
-    .card-overlay.show {
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(10px);
+    
+    .hover-text {
+        font-size: 1rem;
+        line-height: 1.5;
     }
 }
 
-.bento-card:not(.expanded-mobile) {
-    animation: returnToNormal 0.4s var(--transition-easing) forwards;
+@media (max-width: 768px) {
+    .hover-text {
+        font-size: 0.95rem;
+        line-height: 1.55;
+    }
 }
 
-@keyframes returnToNormal {
-    from {
-        opacity: 0.8;
-        transform: scale(0.97);
+@media (max-width: 480px) {
+    .hover-text {
+        font-size: 0.85rem;
+        line-height: 1.6;
     }
-    to {
-        opacity: 1;
-        transform: scale(1);
+}
+
+@media (max-width: 360px) {
+    .hover-text {
+        font-size: 0.75rem;
+        line-height: 1.65;
     }
 }
 </style>

@@ -1,148 +1,82 @@
 <script lang="ts">
-	// --- IMPORTS INCHANGÉS ---
-	import '@fontsource-variable/open-sans';
-	import '@fontsource-variable/raleway';
-	import '@fontsource-variable/inter';
-	import '../app.css';
+	import '@fontsource-variable/open-sans'
+	import '@fontsource-variable/raleway'
+	import '@fontsource-variable/inter'
+	import '../app.css'
+	import { initializeLayoutState, setupNavigationEffect, isClient } from './layout.svelte'
+	import { ModeWatcher, toggleMode } from 'mode-watcher'
+	import Toaster from '$lib/components/shadcn/ui/sonner/sonner.svelte'
+	import SmoothScrollBar from '$lib/components/smoothScrollBar/SmoothScrollBar.svelte'
+	import { firstLoadComplete } from '$lib/store/initialLoaderStore'
+	import { page } from '$app/stores'
+	import SmoothScrollBarStore from '$lib/store/SmoothScrollBarStore'
+	import { setLocale } from '$lib/paraglide/runtime'
+	import Fr from '$lib/components/flag/Fr.svelte'
+	import En from '$lib/components/flag/En.svelte'
+	import Es from '$lib/components/flag/Es.svelte'
+	import It from '$lib/components/flag/It.svelte'
+	import De from '$lib/components/flag/De.svelte'
 
-	import { initializeLayoutState, setupNavigationEffect, isClient } from './layout.svelte';
-	import { ModeWatcher, toggleMode } from 'mode-watcher';
-	import Toaster from '$lib/components/shadcn/ui/sonner/sonner.svelte';
-	import SmoothScrollBar from '$lib/components/smoothScrollBar/SmoothScrollBar.svelte';
-	import {
-		firstLoadComplete,
-		setFirstOpen,
-		setRessourceToValide
-	} from '$lib/store/initialLoaderStore';
-	import { page } from '$app/stores';
-	import SmoothScrollBarStore from '$lib/store/SmoothScrollBarStore';
-
-	// paraglide
-	import { setLocale } from '$lib/paraglide/runtime';
-	import { goto } from '$app/navigation';
-	import Fr from '$lib/components/flag/Fr.svelte';
-	import En from '$lib/components/flag/En.svelte';
-	import Es from '$lib/components/flag/Es.svelte';
-	import It from '$lib/components/flag/It.svelte';
-	import De from '$lib/components/flag/De.svelte';
-	
-	// --- PROPS & STATE INCHANGÉS ---
-	let { children, data } = $props();
+	let { children } = $props()
 	
 	$effect(() => {
-		const unsubscribe = page.subscribe((currentPage) => {
-			initializeLayoutState(currentPage);
-		});
-		setupNavigationEffect();
-		setFirstOpen(true);
-		setRessourceToValide(true);
-		return unsubscribe;
-	});
+		initializeLayoutState($page)
+		setupNavigationEffect()
+	})
 
-	let contentRef: HTMLElement | null = $state(null);
-	let contentHeight = $state(0);
+	let contentRef = $state<HTMLElement | null>(null)
+	let contentHeight = $state(0)
 
 	$effect(() => {
-		if (!contentRef) return;
+		if (!contentRef) return
 		const observer = new ResizeObserver(() => {
-			if (contentRef) {
-				contentHeight = contentRef.clientHeight;
-			}
-			updateSmoothScroll();
-		});
-		observer.observe(contentRef);
-		return () => observer.disconnect();
-	});
+			if (contentRef) contentHeight = contentRef.clientHeight
+			SmoothScrollBarStore.update(state => {
+				if (state.smoothScroll) state.smoothScroll.update()
+				return state
+			})
+		})
+		observer.observe(contentRef)
+		return () => observer.disconnect()
+	})
 
-	function updateSmoothScroll() {
-		let scrollbarInstance;
-		SmoothScrollBarStore.update((state) => {
-			scrollbarInstance = state.smoothScroll;
-			return state;
-		});
-		if (scrollbarInstance) {
-			scrollbarInstance.update();
-		}
-	}
-
-	// État pour la navigation active
-	let currentPath = $state('/');
+	let currentPath = $state('/')
 	$effect(() => {
-		currentPath = $page.url.pathname;
-	});
+		currentPath = $page.url.pathname
+	})
 
-	// Gestion du mode sombre
 	function handleToggleMode(event: MouseEvent) {
-		event.preventDefault();
-		toggleMode();
+		event.preventDefault()
+		toggleMode()
 	}
 
-	// État pour la langue active avec persistance
-	let currentLanguage = $state<'fr' | 'en' | 'es' | 'it' | 'de'>('fr');
-
-	// Initialiser la langue depuis le localStorage
+	let currentLanguage = $state<'fr' | 'en' | 'es' | 'it' | 'de'>('fr')
 	$effect(() => {
 		if (typeof window !== 'undefined') {
-			const savedLanguage = localStorage.getItem('selectedLanguage');
+			const savedLanguage = localStorage.getItem('selectedLanguage')
 			if (savedLanguage && ['fr', 'en', 'es', 'it', 'de'].includes(savedLanguage)) {
-				currentLanguage = savedLanguage as 'fr' | 'en' | 'es' | 'it' | 'de';
-				setLocale(savedLanguage);
+				currentLanguage = savedLanguage as 'fr' | 'en' | 'es' | 'it' | 'de'
+				setLocale(savedLanguage)
 			}
 		}
-	});
+	})
 
-	// Traductions des éléments de menu
-	const translations: Record<string, {home:string, about:string, services:string, products:string, contact:string}> = {
-		fr: {
-			home: 'Accueil',
-			about: 'À propos',
-			services: 'Services',
-			products: 'Produits',
-			contact: 'Contact'
-		},
-		en: {
-			home: 'Home',
-			about: 'About',
-			services: 'Services',
-			products: 'Products',
-			contact: 'Contact'
-		},
-		es: {
-			home: 'Inicio',
-			about: 'Acerca de',
-			services: 'Servicios',
-			products: 'Productos',
-			contact: 'Contacto'
-		},
-		it: {
-			home: 'Inizio',
-			about: 'Chi siamo',
-			services: 'Servizi',
-			products: 'Prodotti',
-			contact: 'Contatto'
-		},
-		de: {
-			home: 'Startseite',
-			about: 'Über uns',
-			services: 'Dienstleistungen',
-			products: 'Produkte',
-			contact: 'Kontakt'
-		}
-	};
+	const translations = {
+		fr: { home:'Accueil', about:'À propos', services:'Services', products:'Produits', contact:'Contact' },
+		en: { home:'Home', about:'About', services:'Services', products:'Products', contact:'Contact' },
+		es: { home:'Inicio', about:'Acerca de', services:'Servicios', products:'Productos', contact:'Contacto' },
+		it: { home:'Inizio', about:'Chi siamo', services:'Servizi', products:'Prodotti', contact:'Contatto' },
+		de: { home:'Startseite', about:'Über uns', services:'Dienstleistungen', products:'Produkte', contact:'Kontakt' }
+	}
 
 	function changeLanguage(lang: 'fr' | 'en' | 'es' | 'it' | 'de') {
-		currentLanguage = lang;
-		setLocale(lang);
-		if (typeof window !== 'undefined') {
-			localStorage.setItem('selectedLanguage', lang);
-		}
+		currentLanguage = lang
+		setLocale(lang)
+		if (typeof window !== 'undefined') localStorage.setItem('selectedLanguage', lang)
 	}
 
-	// État du menu latéral - POUR MOBILE UNIQUEMENT
-	let isSidebarOpen = $state(false);
-
-	// État pour le volet de sélection des drapeaux - POUR MOBILE UNIQUEMENT
-	let isFlagSelectorOpen = $state(false);
+	let isSidebarOpen = $state(false)
+	let isFlagSelectorOpen = $state(false)
 </script>
 
 <svelte:head>
@@ -153,235 +87,190 @@
 </svelte:head>
 
 {#if !$firstLoadComplete}
-	<!-- Loader -->
+<!-- Loader -->
 {/if}
 
 {#if $isClient}
-	<div class="layout-wrapper">
-		<ModeWatcher />
+<div class="layout-wrapper">
+	<ModeWatcher />
 
-		<!-- Overlay pour fermer le menu - MOBILE SEULEMENT -->
-		<div 
-			class="sidebar-overlay" 
-			class:active={isSidebarOpen || isFlagSelectorOpen}
-			on:click={() => { isSidebarOpen = false; isFlagSelectorOpen = false; }}
-			role="button"
-			tabindex="-1">
+	<div 
+		class="sidebar-overlay" 
+		class:active={isSidebarOpen || isFlagSelectorOpen}
+		on:click={() => { isSidebarOpen = false; isFlagSelectorOpen = false; }}
+		role="button"
+		tabindex="-1">
+	</div>
+
+	<aside class="sidebar" class:mobile-expanded={isSidebarOpen}>
+		<div class="sidebar-header">
+			<a href="https://bit.ly/GRG-Group-FnB" target="_blank" class="logo-link">
+				<img src="/image/path1.svg" alt="Logo" class="logo-image">
+			</a>
 		</div>
+		
+		<nav 
+			class="sidebar-nav"
+			on:click={() => isSidebarOpen = !isSidebarOpen}
+			role="button"
+			tabindex="0"
+			on:keydown={(e) => e.key === 'Enter' && (isSidebarOpen = !isSidebarOpen)}>
+			<a 
+				href="/" 
+				class="nav-link" 
+				class:active={currentPath === '/'}
+				on:click|stopPropagation={() => isSidebarOpen = false}>
+				<span class="nav-icon">🏠</span>
+				<span class="nav-text">{translations[currentLanguage].home}</span>
+			</a>
+			<a 
+				href="/propos" 
+				class="nav-link" 
+				class:active={currentPath === '/propos'}
+				on:click|stopPropagation={() => isSidebarOpen = false}>
+				<span class="nav-icon">ℹ️</span>
+				<span class="nav-text">{translations[currentLanguage].about}</span>
+			</a>
+			<a 
+				href="/services-" 
+				class="nav-link" 
+				class:active={currentPath === '/services-'}
+				on:click|stopPropagation={() => isSidebarOpen = false}>
+				<span class="nav-icon">⚙️</span>
+				<span class="nav-text">{translations[currentLanguage].services}</span>
+			</a>
+			<a 
+				href="/produits" 
+				class="nav-link" 
+				class:active={currentPath === '/produits'}
+				on:click|stopPropagation={() => isSidebarOpen = false}>
+				<span class="nav-icon">📦</span>
+				<span class="nav-text">{translations[currentLanguage].products}</span>
+			</a>
+			<a 
+				href="/contact" 
+				class="nav-link" 
+				class:active={currentPath === '/contact'}
+				on:click|stopPropagation={() => isSidebarOpen = false}>
+				<span class="nav-icon">✉️</span>
+				<span class="nav-text">{translations[currentLanguage].contact}</span>
+			</a>
+		</nav>
 
-		<!-- SIDEBAR LATÉRALE -->
-		<aside class="sidebar" class:mobile-expanded={isSidebarOpen}>
-			<!-- Header avec logo - Desktop: toujours visible, Mobile: visible quand déplié -->
-			<div class="sidebar-header">
-				<a href="https://bit.ly/GRG-Group-FnB" target="_blank" class="logo-link">
-					<img src="/image/path1.svg" alt="Logo" class="logo-image">
-				</a>
-			</div>
-			
-			<!-- Navigation - TOUTE LA BARRE EST CLIQUABLE SUR MOBILE -->
-			<nav 
-				class="sidebar-nav"
-				on:click={() => isSidebarOpen = !isSidebarOpen}
-				role="button"
-				tabindex="0"
-				on:keydown={(e) => e.key === 'Enter' && (isSidebarOpen = !isSidebarOpen)}>
-				<a 
-					href="/" 
-					class="nav-link" 
-					class:active={currentPath === '/'}
-					on:click|stopPropagation={() => isSidebarOpen = false}
-					title={translations[currentLanguage].home}
-				>
-					<span class="nav-icon">🏠</span>
-					<span class="nav-text">{translations[currentLanguage].home}</span>
-				</a>
-				<a 
-					href="/propos" 
-					class="nav-link" 
-					class:active={currentPath === '/propos'}
-					on:click|stopPropagation={() => isSidebarOpen = false}
-					title={translations[currentLanguage].about}
-				>
-					<span class="nav-icon">ℹ️</span>
-					<span class="nav-text">{translations[currentLanguage].about}</span>
-				</a>
-				<a 
-					href="/services-" 
-					class="nav-link" 
-					class:active={currentPath === '/services-'}
-					on:click|stopPropagation={() => isSidebarOpen = false}
-					title={translations[currentLanguage].services}
-				>
-					<span class="nav-icon">⚙️</span>
-					<span class="nav-text">{translations[currentLanguage].services}</span>
-				</a>
-				<a 
-					href="/produits" 
-					class="nav-link" 
-					class:active={currentPath === '/produits'}
-					on:click|stopPropagation={() => isSidebarOpen = false}
-					title={translations[currentLanguage].products}
-				>
-					<span class="nav-icon">📦</span>
-					<span class="nav-text">{translations[currentLanguage].products}</span>
-				</a>
-				<a 
-					href="/contact" 
-					class="nav-link" 
-					class:active={currentPath === '/contact'}
-					on:click|stopPropagation={() => isSidebarOpen = false}
-					title={translations[currentLanguage].contact}
-				>
-					<span class="nav-icon">✉️</span>
-					<span class="nav-text">{translations[currentLanguage].contact}</span>
-				</a>
-			</nav>
+		<div class="sidebar-footer">
+			<button class="theme-toggle" on:click={handleToggleMode} type="button">
+				<span class="theme-icon-light">☀️</span>
+				<span class="theme-icon-dark">🌙</span>
+			</button>
 
-			<!-- Footer avec thème et langues -->
-			<div class="sidebar-footer">
-				<button 
-					class="theme-toggle" 
-					on:click={handleToggleMode} 
-					type="button"
-					title="Toggle theme">
-					<span class="theme-icon-light">☀️</span>
-					<span class="theme-icon-dark">🌙</span>
-				</button>
-
-				<!-- Sélecteur de langue -->
-				<div class="language-selector">
-					<!-- Desktop: drapeaux toujours visibles -->
-					<div class="desktop-flags">
-						<button 
-							class="language-button"
-							class:active={currentLanguage === 'fr'}
-							on:click={() => changeLanguage('fr')}
-							type="button"
-							title="Français">
-							<Fr/>
-						</button>
-
-						<button 
-							class="language-button"
-							class:active={currentLanguage === 'en'}
-							on:click={() => changeLanguage('en')}
-							type="button"
-							title="English">
-							<En/>
-						</button>
-
-						<button 
-							class="language-button"
-							class:active={currentLanguage === 'es'}
-							on:click={() => changeLanguage('es')}
-							type="button"
-							title="Español">
-							<Es/>
-						</button>
-
-						<button 
-							class="language-button"
-							class:active={currentLanguage === 'it'}
-							on:click={() => changeLanguage('it')}
-							type="button"
-							title="Italiano">
-							<It/>
-						</button>
-
-						<button 
-							class="language-button"
-							class:active={currentLanguage === 'de'}
-							on:click={() => changeLanguage('de')}
-							type="button"
-							title="Deutsch">
-							<De/>
-						</button>
-					</div>
-
-					<!-- Mobile: bouton engrenage -->
+			<div class="language-selector">
+				<div class="desktop-flags">
 					<button 
-						class="gear-toggle" 
-						on:click|stopPropagation={() => { 
-							isFlagSelectorOpen = !isFlagSelectorOpen; 
-							if (isSidebarOpen) {
-								isSidebarOpen = false;
-							}
-						}}
-						type="button"
-						title="Select language">
-						<span class="gear-icon">⚙️</span>
-					</button>
-				</div>
-			</div>
-		</aside>
-
-		<!-- Volet de sélection des drapeaux - MOBILE SEULEMENT -->
-		{#if isFlagSelectorOpen}
-			<div class="flag-selector-wrapper" on:click|stopPropagation>
-				<div class="flag-selector-panel">
-					<button 
-						class="flag-button"
+						class="language-button"
 						class:active={currentLanguage === 'fr'}
-						on:click|stopPropagation={() => { changeLanguage('fr'); isFlagSelectorOpen = false; }}
-						type="button"
-						title="Français">
+						on:click={() => changeLanguage('fr')}
+						type="button">
 						<Fr/>
 					</button>
-
 					<button 
-						class="flag-button"
+						class="language-button"
 						class:active={currentLanguage === 'en'}
-						on:click|stopPropagation={() => { changeLanguage('en'); isFlagSelectorOpen = false; }}
-						type="button"
-						title="English">
+						on:click={() => changeLanguage('en')}
+						type="button">
 						<En/>
 					</button>
-
 					<button 
-						class="flag-button"
+						class="language-button"
 						class:active={currentLanguage === 'es'}
-						on:click|stopPropagation={() => { changeLanguage('es'); isFlagSelectorOpen = false; }}
-						type="button"
-						title="Español">
+						on:click={() => changeLanguage('es')}
+						type="button">
 						<Es/>
 					</button>
-
 					<button 
-						class="flag-button"
+						class="language-button"
 						class:active={currentLanguage === 'it'}
-						on:click|stopPropagation={() => { changeLanguage('it'); isFlagSelectorOpen = false; }}
-						type="button"
-						title="Italiano">
+						on:click={() => changeLanguage('it')}
+						type="button">
 						<It/>
 					</button>
-
 					<button 
-						class="flag-button"
+						class="language-button"
 						class:active={currentLanguage === 'de'}
-						on:click|stopPropagation={() => { changeLanguage('de'); isFlagSelectorOpen = false; }}
-						type="button"
-						title="Deutsch">
+						on:click={() => changeLanguage('de')}
+						type="button">
 						<De/>
 					</button>
 				</div>
-			</div>
-		{/if}
 
-		<!-- CONTENU PRINCIPAL -->
-		<div class="container">
-			<div class="wrapperScroll">
-				<SmoothScrollBar>
-					<main class="mainLayout">
-						<div class="content" bind:this={contentRef}>
-							{@render children()}
-						</div>
-					</main>
-				</SmoothScrollBar>
+				<button 
+					class="gear-toggle" 
+					on:click|stopPropagation={() => { 
+						isFlagSelectorOpen = !isFlagSelectorOpen
+						if (isSidebarOpen) isSidebarOpen = false
+					}}
+					type="button">
+					<span class="gear-icon">⚙️</span>
+				</button>
 			</div>
 		</div>
+	</aside>
 
-		<Toaster />
+	{#if isFlagSelectorOpen}
+	<div class="flag-selector-wrapper" on:click|stopPropagation>
+		<div class="flag-selector-panel">
+			<button 
+				class="flag-button"
+				class:active={currentLanguage === 'fr'}
+				on:click|stopPropagation={() => { changeLanguage('fr'); isFlagSelectorOpen = false; }}
+				type="button">
+				<Fr/>
+			</button>
+			<button 
+				class="flag-button"
+				class:active={currentLanguage === 'en'}
+				on:click|stopPropagation={() => { changeLanguage('en'); isFlagSelectorOpen = false; }}
+				type="button">
+				<En/>
+			</button>
+			<button 
+				class="flag-button"
+				class:active={currentLanguage === 'es'}
+				on:click|stopPropagation={() => { changeLanguage('es'); isFlagSelectorOpen = false; }}
+				type="button">
+				<Es/>
+			</button>
+			<button 
+				class="flag-button"
+				class:active={currentLanguage === 'it'}
+				on:click|stopPropagation={() => { changeLanguage('it'); isFlagSelectorOpen = false; }}
+				type="button">
+				<It/>
+			</button>
+			<button 
+				class="flag-button"
+				class:active={currentLanguage === 'de'}
+				on:click|stopPropagation={() => { changeLanguage('de'); isFlagSelectorOpen = false; }}
+				type="button">
+				<De/>
+			</button>
+		</div>
 	</div>
+	{/if}
+
+	<div class="container">
+		<div class="wrapperScroll">
+			<SmoothScrollBar>
+				<main class="mainLayout">
+					<div class="content" bind:this={contentRef}>
+						{@render children()}
+					</div>
+				</main>
+			</SmoothScrollBar>
+		</div>
+	</div>
+
+	<Toaster />
+</div>
 {/if}
 
 <style lang="scss">
@@ -396,13 +285,11 @@
   --gray-700: #404040;
   --gray-800: #262626;
   --gray-900: #171717;
-  
-  --sidebar-width: 280px; /* Largeur fixe pour desktop */
-  --sidebar-width-collapsed: 70px; /* Largeur repliée mobile */
-  --sidebar-width-expanded: 280px; /* Augmenté pour accommoder le logo */
+  --sidebar-width: 280px;
+  --sidebar-width-collapsed: 70px;
+  --sidebar-width-expanded: 280px;
 }
 
-/* === STYLES DE BASE === */
 .layout-wrapper {
 	display: flex;
 	width: 100vw;
@@ -420,7 +307,6 @@
 	background: var(--gray-900, #171717);
 }
 
-/* === OVERLAY - MOBILE SEULEMENT === */
 .sidebar-overlay {
 	display: none;
 	position: fixed;
@@ -442,7 +328,6 @@
 	pointer-events: auto;
 }
 
-/* === SIDEBAR - VERSION DESKTOP PAR DÉFAUT === */
 .sidebar {
 	width: var(--sidebar-width);
 	min-width: var(--sidebar-width);
@@ -465,43 +350,41 @@
 	border-right: 1px solid var(--gray-700, #404040);
 }
 
-/* Header avec logo - DESKTOP (LOGO CENTRÉ HORIZONTALEMENT) */
 .sidebar-header {
 	padding: 0 1.5rem 2rem;
 	display: flex;
 	align-items: center;
-	justify-content: center; /* CENTRÉ HORIZONTALEMENT */
+	justify-content: center;
 	flex-shrink: 0;
 }
 
 .logo-link {
 	display: block;
 	width: 100%;
-	text-align: center; /* CENTRÉ HORIZONTALEMENT */
+	text-align: center;
 }
 
 .logo-image {
-	width: auto; /* Largeur automatique */
+	width: auto;
 	height: auto;
 	max-width: 180px;
-	max-height: 200px; /* Limite la hauteur */
-	margin: 0 auto; /* CENTRÉ HORIZONTALEMENT */
+	max-height: 200px;
+	margin: 0 auto;
 	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-	object-fit: contain; /* Préserve les proportions sans crop */
+	object-fit: contain;
 }
 
 :global(.dark) .logo-image {
 	filter: brightness(1.2) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-/* Navigation - DESKTOP (LIENS CENTRÉS VERTICALEMENT DANS L'ESPACE DISPONIBLE) */
 .sidebar-nav {
 	display: flex;
 	flex-direction: column;
-	align-items: center; /* Centre horizontalement */
-	justify-content: center; /* CENTRÉ VERTICALEMENT DANS L'ESPACE DISPONIBLE */
-	gap: 1rem; /* Plus d'espace entre les liens */
-	flex: 1; /* Prend tout l'espace disponible entre header et footer */
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	flex: 1;
 	padding: 0 1.5rem;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -510,19 +393,19 @@
 .nav-link {
 	display: flex;
 	align-items: center;
-	justify-content: center; /* Centre horizontalement */
+	justify-content: center;
 	text-decoration: none;
 	color: var(--gray-600, #525252);
 	font-weight: 600;
-	font-size: 1.1rem; /* Texte légèrement plus grand */
-	padding: 1rem 1.5rem; /* Plus de padding */
+	font-size: 1.1rem;
+	padding: 1rem 1.5rem;
 	border-radius: 12px;
 	transition: all 0.3s ease;
 	white-space: nowrap;
-	min-height: 50px; /* Un peu plus haut */
-	width: 100%; /* Prend toute la largeur disponible */
-	max-width: 200px; /* Mais ne dépasse pas cette largeur */
-	text-align: center; /* Texte centré */
+	min-height: 50px;
+	width: 100%;
+	max-width: 200px;
+	text-align: center;
 }
 
 :global(.dark) .nav-link {
@@ -549,7 +432,6 @@
 	color: white;
 }
 
-/* Icônes - CACHÉES SUR DESKTOP */
 .nav-icon {
 	display: none;
 }
@@ -558,7 +440,6 @@
 	width: auto;
 }
 
-/* Footer - DESKTOP */
 .sidebar-footer {
 	padding: 1.5rem 1.5rem 1rem;
 	border-top: 1px solid var(--gray-200, #e5e5e5);
@@ -566,8 +447,8 @@
 	flex-direction: column;
 	align-items: center;
 	gap: 1rem;
-	flex-shrink: 0; /* Ne se réduit pas */
-	margin-top: auto; /* Pousse vers le bas */
+	flex-shrink: 0;
+	margin-top: auto;
 }
 
 :global(.dark) .sidebar-footer {
@@ -617,7 +498,6 @@
 	display: block;
 }
 
-/* Sélecteur de langue - DESKTOP (drapeaux inline) */
 .language-selector {
 	display: flex;
 	flex-direction: column;
@@ -663,12 +543,10 @@
 	background: var(--gray-700, #404040);
 }
 
-/* Bouton engrenage - CACHÉ SUR DESKTOP */
 .gear-toggle {
 	display: none;
 }
 
-/* === CONTAINER PRINCIPAL - DESKTOP === */
 .container {
 	position: fixed;
 	left: var(--sidebar-width);
@@ -707,11 +585,7 @@
 	background: var(--gray-900, #171717);
 }
 
-/* ============================================ */
-/* VERSION MOBILE (max-width: 768px) */
-/* ============================================ */
 @media (max-width: 768px) {
-	/* SIDEBAR MOBILE - REPLIABLE */
 	.sidebar {
 		width: var(--sidebar-width-collapsed);
 		min-width: var(--sidebar-width-collapsed);
@@ -727,15 +601,14 @@
 		z-index: 1000;
 	}
 	
-	/* Header mobile - visible seulement quand déplié, logo centré et ajusté */
 	.sidebar-header {
 		padding: 1rem 0.75rem;
 		margin: 0 0.5rem 1rem;
 		border-bottom: 1px solid var(--gray-200, #e5e5e5);
-		min-height: 80px; /* Augmenté pour accommoder le logo */
+		min-height: 80px;
 		display: flex;
 		align-items: center;
-		justify-content: center; /* CENTRÉ HORIZONTALEMENT */
+		justify-content: center;
 		flex-shrink: 0;
 	}
 	
@@ -748,37 +621,35 @@
 		max-height: 0;
 		overflow: hidden;
 		transition: opacity 0.3s ease, max-height 0.3s ease;
-		text-align: center; /* CENTRÉ HORIZONTALEMENT */
+		text-align: center;
 		width: 100%;
 	}
 	
 	.sidebar.mobile-expanded .logo-link {
 		opacity: 1;
-		max-height: 120px; /* Augmenté pour accommoder le logo */
+		max-height: 120px;
 	}
 	
 	.logo-image {
-		max-width: 200px; /* Augmenté pour mobile */
-		max-height: 100px; /* Augmenté pour mobile */
-		margin: 0 auto; /* CENTRÉ HORIZONTALEMENT */
+		max-width: 200px;
+		max-height: 100px;
+		margin: 0 auto;
 		width: 100%;
 		height: auto;
-		object-fit: contain; /* Préserve les proportions sans crop */
+		object-fit: contain;
 	}
 	
-	/* Navigation mobile - CENTRÉE VERTICALEMENT DANS L'ESPACE RESTANT */
 	.sidebar-nav {
 		padding: 0 0.75rem;
 		gap: 0.5rem;
-		cursor: pointer; /* Curseur pointer pour indiquer que c'est cliquable */
-		flex: 1; /* Prend tout l'espace restant */
+		cursor: pointer;
+		flex: 1;
 		display: flex;
 		flex-direction: column;
-		align-items: center; /* Centre horizontalement */
-		justify-content: center; /* CENTRÉ VERTICALEMENT DANS L'ESPACE RESTANT */
-		/* Compensation pour équilibrer avec le header et footer */
+		align-items: center;
+		justify-content: center;
 		margin: 0;
-		height: calc(100% - 180px); /* Réserve de l'espace pour header (80px) + footer (100px) */
+		height: calc(100% - 180px);
 		overflow-y: auto;
 	}
 	
@@ -786,15 +657,14 @@
 		padding: 0.75rem 0.5rem;
 		min-height: 44px;
 		gap: 0.75rem;
-		justify-content: flex-start; /* Aligné à gauche */
-		align-items: center; /* Centre verticalement dans le lien */
+		justify-content: flex-start;
+		align-items: center;
 		cursor: pointer;
-		width: 100%; /* Prend toute la largeur */
-		max-width: none; /* Pas de limite de largeur sur mobile */
+		width: 100%;
+		max-width: none;
 		position: relative;
 	}
 	
-	/* Icônes mobile - visibles seulement quand menu fermé */
 	.nav-icon {
 		display: flex;
 		font-size: 1.4rem;
@@ -808,19 +678,17 @@
 		flex-shrink: 0;
 	}
 	
-	/* Cacher les icônes quand le menu est déplié */
 	.sidebar.mobile-expanded .nav-icon {
 		opacity: 0;
 		width: 0;
 		min-width: 0;
-		display: none; /* Complètement cachés quand menu déplié */
+		display: none;
 	}
 	
-	/* Texte mobile - visible seulement quand déplié, plus petit */
 	.nav-text {
 		opacity: 0;
 		width: 0;
-		font-size: 0.9rem; /* Texte plus petit sur mobile */
+		font-size: 0.9rem;
 		font-weight: 500;
 		transition: opacity 0.3s ease, width 0.3s ease;
 		white-space: nowrap;
@@ -831,18 +699,17 @@
 	
 	.sidebar.mobile-expanded .nav-text {
 		opacity: 1;
-		width: 100%; /* Prend toute la largeur disponible */
+		width: 100%;
 		padding-left: 0.5rem;
 	}
 	
-	/* Footer mobile - hauteur fixe */
 	.sidebar-footer {
 		padding: 1rem 0.75rem 0.5rem;
 		gap: 0.75rem;
 		flex-shrink: 0;
 		margin-top: auto;
 		border-top: 1px solid var(--gray-200, #e5e5e5);
-		min-height: 100px; /* Hauteur fixe pour le footer */
+		min-height: 100px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -859,7 +726,6 @@
 		font-size: 1.2rem;
 	}
 	
-	/* Sélecteur de langue mobile */
 	.language-selector {
 		gap: 0.5rem;
 		display: flex;
@@ -869,11 +735,11 @@
 	}
 	
 	.desktop-flags {
-		display: none; /* Cacher les drapeaux inline sur mobile */
+		display: none;
 	}
 	
 	.gear-toggle {
-		display: flex; /* Afficher le bouton engrenage sur mobile */
+		display: flex;
 		background: var(--gray-100, #f5f5f5);
 		border: none;
 		width: 40px;
@@ -899,7 +765,6 @@
 		background: var(--gray-600, #525252);
 	}
 	
-	/* CONTAINER MOBILE */
 	.container {
 		left: var(--sidebar-width-collapsed);
 		width: calc(100vw - var(--sidebar-width-collapsed));
@@ -911,7 +776,6 @@
 		width: calc(100vw - var(--sidebar-width-expanded));
 	}
 	
-	/* Volet de sélection des drapeaux - MOBILE */
 	.flag-selector-wrapper {
 		position: fixed;
 		top: 0;
@@ -984,21 +848,15 @@
 	}
 	
 	@keyframes slideIn {
-		from {
-			opacity: 0;
-			transform: translateY(10px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
+		from { opacity: 0; transform: translateY(10px) }
+		to { opacity: 1; transform: translateY(0) }
 	}
 }
 
-/* Support pour les appareils avec encoche */
 @supports (padding: max(0px)) {
 	.sidebar {
 		padding-top: max(1rem, env(safe-area-inset-top));
 		padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 	}
-}</style>
+}
+</style>
