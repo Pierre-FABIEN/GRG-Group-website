@@ -90,38 +90,14 @@
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
 
-	function getHighlightedText(text: string): any[] {
-		if (!text || text.trim() === '') return [];
-		const words = text.split(' ');
-		if (words.length === 1) return [text];
-		const lastWord = words.pop();
-		const rest = words.join(' ');
-		return [rest + ' ', { type: 'highlight', text: lastWord }];
-	}
-
-	function getForcedHighlightedText(text: string): any[] {
-		if (!text || text.trim() === '') return [];
-		return [{ type: 'highlight', text }];
-	}
-
-	function getTitleParts(item: any): any[] {
-		if (item.id === 1) {
-			const searchTerm = 'GRG GROUPE';
-			if (item.title.includes(searchTerm)) {
-				const parts = item.title.split(searchTerm);
-				return [parts[0], { type: 'highlight', text: searchTerm }, parts[1] || ''].filter(Boolean);
-			}
-			return [item.title];
-		}
-		if (item.id === 3 || item.id === 4) {
-			return getForcedHighlightedText(item.title);
-		}
-		return getHighlightedText(item.title);
-	}
-
 	function getSubtitleParts(item: any): any {
 		if (item.id === 4) {
-			return getHighlightedText(item.subtitle);
+			if (!item.subtitle || item.subtitle.trim() === '') return [];
+			const words = item.subtitle.split(' ');
+			if (words.length === 1) return [item.subtitle];
+			const lastWord = words.pop();
+			const rest = words.join(' ');
+			return [rest + ' ', { type: 'highlight', text: lastWord }];
 		}
 		return item.subtitle;
 	}
@@ -154,13 +130,7 @@
 				>
 					<div class="card-content" class:hide-content={hoveredCard === item.id}>
 						<h3 class="card-title">
-							{#each getTitleParts(item) as part}
-								{#if typeof part === 'object' && part.type === 'highlight'}
-									<span class="highlight-word">{part.text}</span>
-								{:else}
-									{part}
-								{/if}
-							{/each}
+							<span class="highlight-full">{item.title}</span>
 						</h3>
 						<p class="card-subtitle">
 							{#if item.id === 4}
@@ -206,13 +176,7 @@
 				>
 					<div class="card-content" class:hide-content={hoveredCard === item.id}>
 						<h3 class="card-title">
-							{#each getTitleParts(item) as part}
-								{#if typeof part === 'object' && part.type === 'highlight'}
-									<span class="highlight-word">{part.text}</span>
-								{:else}
-									{part}
-								{/if}
-							{/each}
+							<span class="highlight-full">{item.title}</span>
 						</h3>
 						<p class="card-subtitle">
 							{#if item.id === 4}
@@ -356,6 +320,33 @@
     margin: 0 0 0.75rem;
     line-height: 1.2;
     transition: font-size 0.3s ease, opacity 0.3s ease;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.highlight-full {
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+}
+
+.highlight-full::before {
+    content: "";
+    position: absolute;
+    left: -2%;
+    bottom: 5%;
+    width: 104%;
+    height: 50%;
+    background: linear-gradient(90deg, 
+        rgba(255, 85, 85, 0.4) 0%, 
+        rgba(255, 85, 85, 0.5) 50%, 
+        rgba(255, 85, 85, 0.4) 100%
+    );
+    z-index: -1;
+    pointer-events: none;
+    transform: skewY(-0.5deg);
+    transition: all 0.3s ease;
 }
 
 .card-subtitle {
@@ -386,7 +377,7 @@
 .card-3 .additional-text,
 .card-4 .card-title,
 .card-4 .card-subtitle,
-.card-4 .additional-text,
+.card-4 .additionalText,
 .card-5 .card-title,
 .card-5 .card-subtitle,
 .card-5 .additional-text {
@@ -440,19 +431,19 @@
 }
 
 .card-4 .card-title {
-    font-size: clamp(1.2rem, 3vw, 1.5rem);
-    font-weight: 600;
-    opacity: 0.85;
-    line-height: 1.4;
-    margin-bottom: 0;
-}
-
-.card-4 .card-subtitle {
     font-size: clamp(1.6rem, 4vw, 2.2rem);
     font-weight: 800;
     opacity: 1;
     line-height: 1.2;
     margin-bottom: 0.75rem;
+}
+
+.card-4 .card-subtitle {
+    font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+    font-weight: 600;
+    opacity: 0.85;
+    line-height: 1.4;
+    margin-bottom: 0;
 }
 
 .highlight-word {
@@ -660,6 +651,11 @@
         text-align: center;
         align-items: center;
         padding: 1.5rem;
+    }
+
+    .highlight-full::before {
+        height: 40%;
+        bottom: 10%;
     }
 
     .card-hover-content {

@@ -10,6 +10,7 @@
 			title: m.products_item1_title(),
 			subtitle: m.products_item1_subtitle(),
 			hoverText: m.products_item1_hoverText(),
+			icon: '',
 			cardClass: 'card-1', 
 			row: 'top',
 			extraTall: true,
@@ -21,6 +22,7 @@
 			title: m.products_item2_title(),
 			subtitle: m.products_item2_subtitle(),
 			hoverText: m.products_item2_hoverText(),
+			icon: '',
 			cardClass: 'card-2', 
 			row: 'top',
 			link: "https://www.europages.fr/GRG-GROUPE-BOISSONS-ENERGISANTES-PERSONNALISEES-LABEL-PRIVE/00000005551463-001.html",
@@ -31,6 +33,7 @@
 			title: m.products_item3_title(),
 			subtitle: m.products_item3_subtitle(),
 			hoverText: m.products_item3_hoverText(),
+			icon: '',
 			cardClass: 'card-3', 
 			row: 'bottom',
 			link: "https://www.europages.fr/GRG-GROUPE-BOISSONS-ENERGISANTES-PERSONNALISEES-LABEL-PRIVE/00000005551463-001.html",
@@ -41,6 +44,7 @@
 			title: m.products_item4_title(),
 			subtitle: m.products_item4_subtitle(),
 			hoverText: m.products_item4_hoverText(),
+			icon: '',
 			cardClass: 'card-4', 
 			row: 'bottom',
 			link: "https://www.europages.fr/GRG-GROUPE-BOISSONS-ENERGISANTES-PERSONNALISEES-LABEL-PRIVE/00000005551463-001.html",
@@ -51,6 +55,7 @@
 			title: m.products_item5_title(),
 			subtitle: m.products_item5_subtitle(),
 			hoverText: m.products_item5_hoverText(),
+			icon: '',
 			cardClass: 'card-5', 
 			row: 'bottom',
 			needsMargin: true,
@@ -61,44 +66,20 @@
 
 	let hoveredCard: number | null = null;
 	let hoveredRow: string | null = null;
-	let isMobile = false;
-
-	$: if (typeof window !== 'undefined') {
-		isMobile = window.innerWidth <= 1024;
-	}
 
 	function handleCardHover(id: number) {
-		if (isMobile) return;
 		hoveredCard = id;
 		const card = bentoItems.find(item => item.id === id);
 		hoveredRow = card?.row || null;
 	}
 
 	function handleCardLeave() {
-		if (isMobile) return;
 		hoveredCard = null;
 		hoveredRow = null;
 	}
 
 	function handleCardClick(item: any) {
-		if (isMobile) {
-			if (hoveredCard === item.id) {
-				hoveredCard = null;
-				hoveredRow = null;
-			} else {
-				hoveredCard = item.id;
-				hoveredRow = item.row;
-			}
-		} else {
-			if (item.link) {
-				window.location.href = item.link;
-			}
-		}
-	}
-
-	function handleLinkClick(event: MouseEvent, item: any) {
-		event.stopPropagation();
-		event.preventDefault();
+		console.log('Clicked:', item.title);
 		if (item.link) {
 			window.location.href = item.link;
 		}
@@ -108,33 +89,22 @@
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
 
-	function getHighlightedText(text: string): any {
-		if (!text || text.trim() === '') return text;
-		const words = text.split(' ');
-		if (words.length <= 1) return text;
-		const lastWord = words.pop();
-		const rest = words.join(' ');
-		return [rest + (rest ? ' ' : ''), { type: 'highlight', text: lastWord }];
-	}
-
-	function getForcedHighlightedText(text: string): any[] {
-		if (!text || text.trim() === '') return [];
-		return [{ type: 'highlight', text }];
-	}
-
-	function getTitleParts(item: any): any[] {
-		if (item.id === 1) {
-			return [item.title];
+	function handleLinkClick(event: MouseEvent, item: any) {
+		event.stopPropagation();
+		event.preventDefault();
+		
+		if (item.link) {
+			window.location.href = item.link;
 		}
-		if (item.id === 3 || item.id === 4) {
-			return getForcedHighlightedText(item.title);
-		}
-		return getHighlightedText(item.title);
 	}
 
 	function getSubtitleParts(item: any): any {
 		if (item.id === 1) {
-			return getHighlightedText(item.subtitle);
+			const words = item.subtitle.split(' ');
+			if (words.length <= 1) return item.subtitle;
+			const lastWord = words.pop();
+			const rest = words.join(' ');
+			return [rest + (rest ? ' ' : ''), { type: 'highlight', text: lastWord }];
 		}
 		return item.subtitle;
 	}
@@ -143,6 +113,10 @@
 <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
 	GRG Groupe : Solutions Produits
 </h1>
+
+<h2 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
+	Produits alimentaires et nutraceutiques
+</h2>
 
 <div class="page-wrapper">
 	<div class="bento-container">
@@ -153,7 +127,6 @@
 					class:extra-tall={item.extraTall}
 					class:hovered={hoveredCard === item.id}
 					class:same-row={isInSameRow(item)}
-					class:expanded-mobile={hoveredCard === item.id}
 					onmouseenter={() => handleCardHover(item.id)}
 					onmouseleave={handleCardLeave}
 					onclick={() => handleCardClick(item)}
@@ -162,14 +135,12 @@
 					in:scale={{ delay: i * 100, duration: 600 }}
 				>
 					<div class="card-content" class:hide-content={hoveredCard === item.id}>
+						{#if item.icon}
+							<div class="card-icon">{item.icon}</div>
+						{/if}
+						
 						<h3 class="card-title">
-							{#each getTitleParts(item) as part}
-								{#if typeof part === 'object' && part.type === 'highlight'}
-									<span class="highlight-word">{part.text}</span>
-								{:else}
-									{part}
-								{/if}
-							{/each}
+							<span class="highlight-full">{item.title}</span>
 						</h3>
 						<p class="card-subtitle">
 							{#if item.id === 1}
@@ -187,6 +158,7 @@
 					</div>
 					<div class="card-hover-content" class:show={hoveredCard === item.id}>
 						<p class="hover-text">{@html item.hoverText}</p>
+						
 						{#if item.link && item.buttonText}
 							<a 
 								href={item.link}
@@ -210,7 +182,6 @@
 					class:needs-margin={item.needsMargin}
 					class:hovered={hoveredCard === item.id}
 					class:same-row={isInSameRow(item)}
-					class:expanded-mobile={hoveredCard === item.id}
 					onmouseenter={() => handleCardHover(item.id)}
 					onmouseleave={handleCardLeave}
 					onclick={() => handleCardClick(item)}
@@ -219,19 +190,18 @@
 					in:scale={{ delay: i * 100, duration: 600 }}
 				>
 					<div class="card-content" class:hide-content={hoveredCard === item.id}>
+						{#if item.icon}
+							<div class="card-icon">{item.icon}</div>
+						{/if}
 						<h3 class="card-title">
-							{#each getTitleParts(item) as part}
-								{#if typeof part === 'object' && part.type === 'highlight'}
-									<span class="highlight-word">{part.text}</span>
-								{:else}
-									{part}
-								{/if}
-							{/each}
+							<span class="highlight-full">{item.title}</span>
 						</h3>
 						<p class="card-subtitle">{item.subtitle}</p>
 					</div>
+
 					<div class="card-hover-content" class:show={hoveredCard === item.id}>
 						<p class="hover-text">{@html item.hoverText}</p>
+						
 						{#if item.link && item.buttonText}
 							<a 
 								href={item.link}
@@ -243,6 +213,7 @@
 							</a>
 						{/if}
 					</div>
+
 					<div class="card-overlay" class:show={hoveredCard === item.id}></div>
 				</div>
 			{/each}
@@ -258,10 +229,12 @@
     --contrast-dark-1: #404040;
     --contrast-dark-2: #525252;
     --contrast-dark-3: #737373;
+    
     --mobile-margin: 1rem;
     --mobile-gap: 0.75rem;
     --card-margin: 0.75rem;
     --container-padding: 1rem;
+    
     --transition-speed: 0.30s;
     --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -363,6 +336,33 @@
     margin: 0 0 0.75rem;
     line-height: 1.2;
     transition: font-size 0.3s ease, opacity 0.3s ease;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.highlight-full {
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+}
+
+.highlight-full::before {
+    content: "";
+    position: absolute;
+    left: -2%;
+    bottom: 5%;
+    width: 104%;
+    height: 50%;
+    background: linear-gradient(90deg, 
+        rgba(255, 85, 85, 0.4) 0%, 
+        rgba(255, 85, 85, 0.5) 50%, 
+        rgba(255, 85, 85, 0.4) 100%
+    );
+    z-index: -1;
+    pointer-events: none;
+    transform: skewY(-0.5deg);
+    transition: all 0.3s ease;
 }
 
 .card-subtitle {
@@ -389,38 +389,6 @@
     opacity: 1 !important;
     line-height: 1.2 !important;
     margin: 0 0 0.75rem !important;
-}
-
-.card-1 .card-title,
-.card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5) !important;
-}
-
-.card-2 .card-title,
-.card-2 .card-subtitle,
-.card-3 .card-title,
-.card-3 .card-subtitle,
-.card-4 .card-title,
-.card-4 .card-subtitle,
-.card-5 .card-title,
-.card-5 .card-subtitle {
-    color: var(--gray-900, #171717);
-}
-
-:global(.dark) .card-2 .card-title,
-:global(.dark) .card-2 .card-subtitle,
-:global(.dark) .card-3 .card-title,
-:global(.dark) .card-3 .card-subtitle,
-:global(.dark) .card-4 .card-title,
-:global(.dark) .card-4 .card-subtitle,
-:global(.dark) .card-5 .card-title,
-:global(.dark) .card-5 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
-}
-
-:global(.dark) .card-1 .card-title,
-:global(.dark) .card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5) !important;
 }
 
 .highlight-word {
@@ -464,6 +432,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: auto;
+    min-height: 0;
 }
 
 .card-hover-content.show {
@@ -483,6 +453,8 @@
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.4s var(--transition-easing);
+    width: 100%;
+    max-width: 100%;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -512,6 +484,7 @@
     cursor: pointer;
     opacity: 0;
     transform: translateY(10px);
+    transition: all 0.4s var(--transition-easing);
 }
 
 .card-hover-content.show .discover-link {
@@ -600,6 +573,38 @@
     background: rgba(0, 0, 0, 0.4);
 }
 
+.card-1 .card-title,
+.card-1 .card-subtitle {
+    color: var(--gray-100, #f5f5f5) !important;
+}
+
+.card-2 .card-title,
+.card-2 .card-subtitle,
+.card-3 .card-title,
+.card-3 .card-subtitle,
+.card-4 .card-title,
+.card-4 .card-subtitle,
+.card-5 .card-title,
+.card-5 .card-subtitle {
+    color: var(--gray-900, #171717);
+}
+
+:global(.dark) .card-2 .card-title,
+:global(.dark) .card-2 .card-subtitle,
+:global(.dark) .card-3 .card-title,
+:global(.dark) .card-3 .card-subtitle,
+:global(.dark) .card-4 .card-title,
+:global(.dark) .card-4 .card-subtitle,
+:global(.dark) .card-5 .card-title,
+:global(.dark) .card-5 .card-subtitle {
+    color: var(--gray-100, #f5f5f5);
+}
+
+:global(.dark) .card-1 .card-title,
+:global(.dark) .card-1 .card-subtitle {
+    color: var(--gray-100, #f5f5f5) !important;
+}
+
 @media (max-width: 1024px) {
     :root {
         --mobile-margin: 0.5rem;
@@ -618,27 +623,31 @@
     }
 
     .bento-row {
-        display: contents;
+        display: flex;
+        flex-direction: column;
         margin-bottom: 0;
+        height: auto;
+        gap: var(--mobile-gap);
     }
 
     .bento-card {
-        width: calc(100% - (var(--container-padding) * 2));
-        margin-left: auto;
-        margin-right: auto;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
         height: 30vh;
         flex: none !important;
         opacity: 1 !important;
-        margin-bottom: var(--card-margin);
+        margin-bottom: var(--mobile-gap);
         padding: 2rem;
         border-radius: 1.5rem;
     }
 
-    .bento-card.expanded-mobile {
-        height: 50vh;
-        z-index: 100;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-        transform: scale(1.02);
+    .bento-card.extra-tall {
+        height: 30vh;
+    }
+
+    .bento-card.needs-margin {
+        margin-bottom: var(--mobile-gap);
     }
 
     .card-content {
@@ -647,6 +656,17 @@
         padding: 1.5rem;
     }
 
+    .highlight-full::before {
+        height: 40%;
+        bottom: 10%;
+    }
+
+    .card-hover-content {
+        width: 92%;
+        padding: 1.75rem;
+        max-width: 450px;
+    }
+    
     .hover-text {
         font-size: 1rem;
         line-height: 1.5;
@@ -660,9 +680,16 @@
 }
 
 @media (max-width: 768px) {
+    .card-hover-content {
+        width: 94%;
+        padding: 1.5rem;
+        max-width: 400px;
+    }
+    
     .hover-text {
         font-size: 0.95rem;
         line-height: 1.55;
+        padding: 0 0.5rem;
         margin-bottom: 0.9rem;
     }
     
@@ -670,12 +697,35 @@
         font-size: 0.85rem;
         padding: 0.55rem 1rem;
     }
+    
+    .card-title {
+        font-size: clamp(1.6rem, 4.2vw, 2rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.1rem, 2.8vw, 1.4rem);
+    }
+    
+    .card-1 .card-title {
+        font-size: clamp(1.1rem, 2.8vw, 1.4rem) !important;
+    }
+    
+    .card-1 .card-subtitle {
+        font-size: clamp(1.6rem, 4.2vw, 2rem) !important;
+    }
 }
 
 @media (max-width: 480px) {
+    .card-hover-content {
+        width: 96%;
+        padding: 1.25rem;
+        max-width: 350px;
+    }
+    
     .hover-text {
         font-size: 0.85rem;
         line-height: 1.6;
+        padding: 0;
         margin-bottom: 0.8rem;
     }
     
@@ -683,9 +733,34 @@
         font-size: 0.8rem;
         padding: 0.5rem 0.9rem;
     }
+
+    .card-title {
+        font-size: clamp(1.4rem, 3.8vw, 1.8rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1rem, 2.6vw, 1.3rem);
+        line-height: 1.25;
+    }
+    
+    .card-1 .card-title {
+        font-size: clamp(1rem, 2.6vw, 1.3rem) !important;
+        line-height: 1.25 !important;
+    }
+    
+    .card-1 .card-subtitle {
+        font-size: clamp(1.4rem, 3.8vw, 1.8rem) !important;
+        line-height: 1.25 !important;
+    }
 }
 
 @media (max-width: 360px) {
+    .card-hover-content {
+        padding: 1rem;
+        width: 98%;
+        max-width: 300px;
+    }
+    
     .hover-text {
         font-size: 0.75rem;
         line-height: 1.65;
@@ -695,6 +770,22 @@
     .discover-link {
         font-size: 0.75rem;
         padding: 0.45rem 0.8rem;
+    }
+
+    .card-title {
+        font-size: clamp(1.2rem, 3.2vw, 1.6rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(0.9rem, 2.4vw, 1.2rem);
+    }
+    
+    .card-1 .card-title {
+        font-size: clamp(0.9rem, 2.4vw, 1.2rem) !important;
+    }
+    
+    .card-1 .card-subtitle {
+        font-size: clamp(1.2rem, 3.2vw, 1.6rem) !important;
     }
 }
 </style>

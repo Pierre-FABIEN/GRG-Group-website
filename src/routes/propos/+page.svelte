@@ -85,21 +85,13 @@
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
 
-	function getHighlightedText(text: string): any {
-		const words = text.split(' ');
-		if (words.length <= 1) return text;
-		const lastWord = words.pop();
-		const rest = words.join(' ');
-		return [rest + (rest ? ' ' : ''), { type: 'highlight', text: lastWord }];
-	}
-
-	function getTitleParts(item: any): any {
-		return getHighlightedText(item.title);
-	}
-
 	function getSubtitleParts(item: any): any {
 		if (item.id === 2) {
-			return getHighlightedText(item.subtitle);
+			const words = item.subtitle.split(' ');
+			if (words.length <= 1) return item.subtitle;
+			const lastWord = words.pop();
+			const rest = words.join(' ');
+			return [rest + (rest ? ' ' : ''), { type: 'highlight', text: lastWord }];
 		}
 		return item.subtitle;
 	}
@@ -128,8 +120,10 @@
 				>
 					<div class="card-content" class:hide-content={hoveredCard === item.id}>
 						{#if item.id === 2}
-							<p class="card-subtitle styled-as-title">{item.title}</p>
-							<h3 class="card-title styled-as-subtitle">
+							<h3 class="card-title">
+								<span class="highlight-full">{item.title}</span>
+							</h3>
+							<p class="card-subtitle">
 								{#each getSubtitleParts(item) as part}
 									{#if typeof part === 'object' && part.type === 'highlight'}
 										<span class="highlight-word">{part.text}</span>
@@ -137,16 +131,10 @@
 										{part}
 									{/if}
 								{/each}
-							</h3>
+							</p>
 						{:else}
 							<h3 class="card-title">
-								{#each getTitleParts(item) as part}
-									{#if typeof part === 'object' && part.type === 'highlight'}
-										<span class="highlight-word">{part.text}</span>
-									{:else}
-										{part}
-									{/if}
-								{/each}
+								<span class="highlight-full">{item.title}</span>
 							</h3>
 							<p class="card-subtitle">{item.subtitle}</p>
 						{/if}
@@ -189,13 +177,7 @@
 				>
 					<div class="card-content" class:hide-content={hoveredCard === item.id}>
 						<h3 class="card-title">
-							{#each getTitleParts(item) as part}
-								{#if typeof part === 'object' && part.type === 'highlight'}
-									<span class="highlight-word">{part.text}</span>
-								{:else}
-									{part}
-								{/if}
-							{/each}
+							<span class="highlight-full">{item.title}</span>
 						</h3>
 						<p class="card-subtitle">{item.subtitle}</p>
 					</div>
@@ -335,6 +317,33 @@
     margin: 0 0 0.75rem;
     line-height: 1.2;
     transition: font-size 0.3s ease, opacity 0.3s ease;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.highlight-full {
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+}
+
+.highlight-full::before {
+    content: "";
+    position: absolute;
+    left: -2%;
+    bottom: 5%;
+    width: 104%;
+    height: 50%;
+    background: linear-gradient(90deg, 
+        rgba(255, 85, 85, 0.4) 0%, 
+        rgba(255, 85, 85, 0.5) 50%, 
+        rgba(255, 85, 85, 0.4) 100%
+    );
+    z-index: -1;
+    pointer-events: none;
+    transform: skewY(-0.5deg);
+    transition: all 0.3s ease;
 }
 
 .card-subtitle {
@@ -347,26 +356,10 @@
     transition: font-size 0.3s ease, opacity 0.3s ease;
 }
 
-.styled-as-title {
-    font-size: clamp(1.1rem, 3.2vw, 1.5rem) !important;
-    font-weight: 600 !important;
-    opacity: 0.85 !important;
-    line-height: 1.4 !important;
-    margin: 0 0 0.5rem !important;
-}
-
-.styled-as-subtitle {
-    font-size: clamp(1.8rem, 4.5vw, 2.5rem) !important;
-    font-weight: 800 !important;
-    opacity: 1 !important;
-    line-height: 1.2 !important;
-    margin: 0 0 0.75rem !important;
-}
-
 .card-1 .card-title,
 .card-1 .card-subtitle,
-.card-2 .styled-as-title,
-.card-2 .styled-as-subtitle,
+.card-2 .card-title,
+.card-2 .card-subtitle,
 .card-3 .card-title,
 .card-3 .card-subtitle,
 .card-4 .card-title,
@@ -378,8 +371,8 @@
 
 :global(.dark) .card-1 .card-title,
 :global(.dark) .card-1 .card-subtitle,
-:global(.dark) .card-2 .styled-as-title,
-:global(.dark) .card-2 .styled-as-subtitle,
+:global(.dark) .card-2 .card-title,
+:global(.dark) .card-2 .card-subtitle,
 :global(.dark) .card-3 .card-title,
 :global(.dark) .card-3 .card-subtitle,
 :global(.dark) .card-4 .card-title,
@@ -387,6 +380,7 @@
 :global(.dark) .card-5 .card-title,
 :global(.dark) .card-5 .card-subtitle {
     color: var(--gray-100, #f5f5f5);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7); /* OMBRE AJOUTÉE - EXACTEMENT COMME LE PREMIER COMPOSANT */
 }
 
 .highlight-word {
@@ -572,6 +566,11 @@
         text-align: center;
         align-items: center;
         padding: 1.5rem;
+    }
+
+    .highlight-full::before {
+        height: 40%;
+        bottom: 10%;
     }
 
     .hover-text {

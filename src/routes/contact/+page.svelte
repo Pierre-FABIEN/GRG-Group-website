@@ -37,9 +37,9 @@
 		},
 		{ 
 			id: 4, 
-			title: m.contact_item5_title(),
-			subtitle: m.contact_item5_subtitle(),
-			hoverText: m.contact_item5_hoverText(),
+			title: m.contact_item2_title(),
+			subtitle: m.contact_item2_subtitle(),
+			hoverText: m.contact_item2_hoverText(),
 			cardClass: 'card-4', 
 			row: 'bottom',
 			link: "mailto:hub@grggroupe.com",
@@ -104,26 +104,6 @@
 	function isInSameRow(item: any): boolean {
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
 	}
-
-	function getHighlightedText(text: string): any {
-		if (!text || text.trim() === '') return text;
-		const words = text.split(' ');
-		if (words.length <= 1) return text;
-		const lastWord = words.pop();
-		const rest = words.join(' ');
-		return [rest + (rest ? ' ' : ''), { type: 'highlight', text: lastWord }];
-	}
-
-	function getTitleParts(item: any): any {
-		if (item.id === 1 || item.id === 2) {
-			const result = getHighlightedText(item.title);
-			if (typeof result === 'string') {
-				return [{ type: 'highlight', text: result }];
-			}
-			return result;
-		}
-		return getHighlightedText(item.title);
-	}
 </script>
 
 <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap">
@@ -148,13 +128,7 @@
 				>
 					<div class="card-content" class:hide-content={hoveredCard === item.id}>
 						<h3 class="card-title">
-							{#each getTitleParts(item) as part}
-								{#if typeof part === 'object' && part.type === 'highlight'}
-									<span class="highlight-word">{part.text}</span>
-								{:else}
-									{part}
-								{/if}
-							{/each}
+							<span class="highlight-full">{item.title}</span>
 						</h3>
 						<p class="card-subtitle">{item.subtitle}</p>
 					</div>
@@ -198,13 +172,7 @@
 					{:else}
 						<div class="card-content" class:hide-content={hoveredCard === item.id}>
 							<h3 class="card-title">
-								{#each getTitleParts(item) as part}
-									{#if typeof part === 'object' && part.type === 'highlight'}
-										<span class="highlight-word">{part.text}</span>
-									{:else}
-										{part}
-									{/if}
-								{/each}
+								<span class="highlight-full">{item.title}</span>
 							</h3>
 							<p class="card-subtitle">{item.subtitle}</p>
 						</div>
@@ -385,6 +353,33 @@
     line-height: 1.2;
     text-transform: uppercase;
     transition: font-size 0.3s ease, opacity 0.3s ease;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.highlight-full {
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+}
+
+.highlight-full::before {
+    content: "";
+    position: absolute;
+    left: -2%;
+    bottom: 5%;
+    width: 104%;
+    height: 50%;
+    background: linear-gradient(90deg, 
+        rgba(255, 85, 85, 0.4) 0%, 
+        rgba(255, 85, 85, 0.5) 50%, 
+        rgba(255, 85, 85, 0.4) 100%
+    );
+    z-index: -1;
+    pointer-events: none;
+    transform: skewY(-0.5deg);
+    transition: all 0.3s ease;
 }
 
 .card-subtitle {
@@ -435,30 +430,6 @@
 :global(.dark) .card-4 .card-title,
 :global(.dark) .card-4 .card-subtitle {
     color: var(--gray-100, #f5f5f5);
-}
-
-.highlight-word {
-    position: relative;
-    display: inline-block;
-    z-index: 2;
-}
-
-.highlight-word::before {
-    content: "";
-    position: absolute;
-    left: -2%;
-    bottom: 0;
-    width: 104%;
-    height: 45%;
-    background: linear-gradient(90deg, 
-        rgba(255, 85, 85, 0.35) 0%, 
-        rgba(255, 85, 85, 0.4) 50%, 
-        rgba(255, 85, 85, 0.35) 100%
-    );
-    z-index: -1;
-    pointer-events: none;
-    transform: skewY(-1deg);
-    transition: all 0.3s ease;
 }
 
 .card-hover-content {
@@ -532,6 +503,7 @@
     cursor: pointer;
     opacity: 0;
     transform: translateY(10px);
+    transition: all 0.4s var(--transition-easing);
 }
 
 .card-hover-content.show .discover-link {
@@ -670,6 +642,11 @@
         padding: 0;
         justify-content: center;
         align-items: center;
+    }
+
+    .highlight-full::before {
+        height: 40%;
+        bottom: 10%;
     }
 
     .logo-image {
