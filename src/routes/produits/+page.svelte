@@ -85,28 +85,29 @@
 		hoveredRow = null;
 	}
 
-	function handleCardClick(item: any) {
-		if (!isMobile) return;
-		if (hoveredCard === item.id) {
-			hoveredCard = null;
-			hoveredRow = null;
-		} else {
-			hoveredCard = item.id;
-			hoveredRow = item.row;
+	function handleCardClick(event: MouseEvent, item: any) {
+		// En mobile, le clic sur la carte la déploie seulement
+		if (isMobile) {
+			// Vérifier si le clic provient du lien
+			const target = event.target as HTMLElement;
+			if (target.closest('.discover-link')) {
+				// Laisser le lien gérer la navigation
+				return;
+			}
+			
+			// Sinon, déployer/replier la carte
+			if (hoveredCard === item.id) {
+				hoveredCard = null;
+				hoveredRow = null;
+			} else {
+				hoveredCard = item.id;
+				hoveredRow = item.row;
+			}
 		}
 	}
 
 	function isInSameRow(item: any): boolean {
 		return hoveredRow !== null && item.row === hoveredRow && hoveredCard !== item.id;
-	}
-
-	function handleLinkClick(event: MouseEvent, item: any) {
-		event.stopPropagation();
-		event.preventDefault();
-		
-		if (item.link) {
-			window.location.href = item.link;
-		}
 	}
 
 	function getSubtitleParts(item: any): any {
@@ -141,7 +142,7 @@
 					class:expanded-mobile={hoveredCard === item.id}
 					onmouseenter={() => handleCardHover(item.id)}
 					onmouseleave={handleCardLeave}
-					onclick={() => handleCardClick(item)}
+					onclick={(e) => handleCardClick(e, item)}
 					role="button"
 					tabindex="0"
 					in:scale={{ delay: i * 100, duration: 600 }}
@@ -177,8 +178,9 @@
 									<a 
 										href={item.link}
 										class="discover-link"
-										onclick={(e) => handleLinkClick(e, item)}
 										aria-label="{item.buttonText}"
+										target="_blank"
+										rel="noopener noreferrer"
 									>
 										<span class="link-text">{item.buttonText}</span>
 										<svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -204,7 +206,7 @@
 					class:expanded-mobile={hoveredCard === item.id}
 					onmouseenter={() => handleCardHover(item.id)}
 					onmouseleave={handleCardLeave}
-					onclick={() => handleCardClick(item)}
+					onclick={(e) => handleCardClick(e, item)}
 					role="button"
 					tabindex="0"
 					in:scale={{ delay: i * 100, duration: 600 }}
@@ -228,8 +230,9 @@
 									<a 
 										href={item.link}
 										class="discover-link"
-										onclick={(e) => handleLinkClick(e, item)}
 										aria-label="{item.buttonText}"
+										target="_blank"
+										rel="noopener noreferrer"
 									>
 										<span class="link-text">{item.buttonText}</span>
 										<svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -355,7 +358,7 @@
 }
 
 .card-title {
-    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
     font-weight: 800;
     text-transform: uppercase;
     margin: 0 0 0.75rem;
@@ -391,7 +394,7 @@
 }
 
 .card-subtitle {
-    font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
     font-weight: 600;
     text-transform: uppercase;
     margin: 0;
@@ -483,6 +486,7 @@
 
 .card-hover-content.show {
     opacity: 1;
+    pointer-events: auto;
     transition-delay: 0.1s;
 }
 
@@ -722,6 +726,14 @@
         padding: 1.5rem;
     }
 
+    .card-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+    }
+
     .highlight-full::before {
         height: 40%;
         bottom: 10%;
@@ -757,6 +769,14 @@
 }
 
 @media (max-width: 768px) {
+    .card-title {
+        font-size: clamp(1.8rem, 4.8vw, 2.5rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.2rem, 3.3vw, 1.6rem);
+    }
+
     .card-hover-content {
         width: 94%;
         max-width: 400px;
@@ -785,17 +805,18 @@
         width: 12px;
         height: 12px;
     }
-    
-    .card-title {
-        font-size: clamp(1.6rem, 4.2vw, 2rem);
-    }
-
-    .card-subtitle {
-        font-size: clamp(1.1rem, 2.8vw, 1.4rem);
-    }
 }
 
 @media (max-width: 480px) {
+    .card-title {
+        font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.1rem, 3vw, 1.5rem);
+        line-height: 1.25;
+    }
+
     .card-hover-content {
         width: 96%;
         max-width: 350px;
@@ -824,18 +845,17 @@
         width: 10px;
         height: 10px;
     }
-
-    .card-title {
-        font-size: clamp(1.4rem, 3.8vw, 1.8rem);
-    }
-
-    .card-subtitle {
-        font-size: clamp(1rem, 2.6vw, 1.3rem);
-        line-height: 1.25;
-    }
 }
 
 @media (max-width: 360px) {
+    .card-title {
+        font-size: clamp(1.4rem, 4.2vw, 2rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1rem, 2.8vw, 1.4rem);
+    }
+
     .card-hover-content {
         width: 98%;
         max-width: 300px;
@@ -862,14 +882,6 @@
     .link-arrow {
         width: 8px;
         height: 8px;
-    }
-
-    .card-title {
-        font-size: clamp(1.2rem, 3.2vw, 1.6rem);
-    }
-
-    .card-subtitle {
-        font-size: clamp(0.9rem, 2.4vw, 1.2rem);
     }
 }
 </style>

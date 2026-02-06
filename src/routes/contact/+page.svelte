@@ -78,8 +78,17 @@
 		hoveredRow = null;
 	}
 
-	function handleCardClick(item: any) {
+	function handleCardClick(event: MouseEvent, item: any) {
+		// En mobile, le clic sur la carte la déploie seulement
 		if (isMobile) {
+			// Vérifier si le clic provient du lien
+			const target = event.target as HTMLElement;
+			if (target.closest('.discover-link')) {
+				// Laisser le lien gérer la navigation
+				return;
+			}
+			
+			// Sinon, déployer/replier la carte
 			if (hoveredCard === item.id) {
 				hoveredCard = null;
 				hoveredRow = null;
@@ -87,17 +96,6 @@
 				hoveredCard = item.id;
 				hoveredRow = item.row;
 			}
-		}
-	}
-
-	function handleLinkClick(event: MouseEvent, item: any) {
-		if (!item.link) return;
-		event.stopPropagation();
-		event.preventDefault();
-		if (item.target === "_blank") {
-			window.open(item.link, '_blank', 'noopener,noreferrer');
-		} else {
-			window.location.href = item.link;
 		}
 	}
 
@@ -121,7 +119,7 @@
 					class:expanded-mobile={hoveredCard === item.id}
 					onmouseenter={() => handleCardHover(item.id)}
 					onmouseleave={handleCardLeave}
-					onclick={() => handleCardClick(item)}
+					onclick={(e) => handleCardClick(e, item)}
 					role="article"
 					tabindex="0"
 					in:scale={{ delay: i * 100, duration: 600 }}
@@ -140,9 +138,9 @@
 									<a 
 										href={item.link}
 										class="discover-link"
-										onclick={(e) => handleLinkClick(e, item)}
 										aria-label="{item.buttonText}"
 										target={item.target || "_self"}
+										rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
 									>
 										<span class="link-text">{item.buttonText}</span>
 										<svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -168,7 +166,7 @@
 					class:logo-card={item.isLogo}
 					onmouseenter={item.isLogo ? undefined : () => handleCardHover(item.id)}
 					onmouseleave={item.isLogo ? undefined : handleCardLeave}
-					onclick={item.isLogo ? undefined : () => handleCardClick(item)}
+					onclick={item.isLogo ? undefined : (e) => handleCardClick(e, item)}
 					role={item.isLogo ? "presentation" : "article"}
 					tabindex={item.isLogo ? "-1" : "0"}
 					in:scale={{ delay: i * 100, duration: 600 }}
@@ -192,9 +190,9 @@
 										<a 
 											href={item.link}
 											class="discover-link"
-											onclick={(e) => handleLinkClick(e, item)}
 											aria-label="{item.buttonText}"
 											target={item.target || "_self"}
+											rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
 										>
 											<span class="link-text">{item.buttonText}</span>
 											<svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -363,11 +361,11 @@
 }
 
 .card-title {
-    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
     font-weight: 800;
+    text-transform: uppercase;
     margin: 0 0 0.75rem;
     line-height: 1.2;
-    text-transform: uppercase;
     transition: font-size 0.3s ease, opacity 0.3s ease;
     position: relative;
     display: inline-block;
@@ -399,7 +397,7 @@
 }
 
 .card-subtitle {
-    font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
     font-weight: 600;
     margin: 0;
     opacity: 0.85;
@@ -684,6 +682,14 @@
         align-items: center;
     }
 
+    .card-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+    }
+
     .highlight-full::before {
         height: 40%;
         bottom: 10%;
@@ -694,7 +700,7 @@
     }
 
     .bento-card.expanded-mobile {
-        height: 50vh;
+        height: 50vh !important;
         z-index: 100;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
         transform: scale(1.02);
@@ -707,7 +713,7 @@
     }
 
     .bento-card.card-4.expanded-mobile {
-        height: 50vh;
+        height: 50vh !important;
     }
 
     .card-content {
@@ -741,6 +747,14 @@
 }
 
 @media (max-width: 768px) {
+    .card-title {
+        font-size: clamp(1.8rem, 4.8vw, 2.5rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.2rem, 3.3vw, 1.6rem);
+    }
+
     .bento-card.card-logo {
         height: 100px !important;
         min-height: 100px !important;
@@ -776,6 +790,14 @@
 }
 
 @media (max-width: 480px) {
+    .card-title {
+        font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.1rem, 3vw, 1.5rem);
+    }
+
     .bento-card.card-logo {
         height: 80px !important;
         min-height: 80px !important;
@@ -812,6 +834,14 @@
 }
 
 @media (max-width: 360px) {
+    .card-title {
+        font-size: clamp(1.4rem, 4.2vw, 2rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1rem, 2.8vw, 1.4rem);
+    }
+
     .bento-card.card-logo {
         height: 60px !important;
         min-height: 60px !important;

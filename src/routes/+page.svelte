@@ -314,7 +314,7 @@
 }
 
 .card-title {
-    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
     font-weight: 800;
     text-transform: uppercase;
     margin: 0 0 0.75rem;
@@ -324,6 +324,7 @@
     display: inline-block;
     width: 100%;
 }
+
 
 .highlight-full {
     position: relative;
@@ -350,7 +351,7 @@
 }
 
 .card-subtitle {
-    font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
     font-weight: 600;
     text-transform: uppercase;
     margin: 0;
@@ -422,30 +423,6 @@
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-.card-1 .card-title {
-    font-size: clamp(2rem, 5vw, 3rem);
-}
-
-.card-1 .card-subtitle {
-    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
-}
-
-.card-4 .card-title {
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
-    font-weight: 800;
-    opacity: 1;
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
-}
-
-.card-4 .card-subtitle {
-    font-size: clamp(1.1rem, 3.2vw, 1.5rem);
-    font-weight: 600;
-    opacity: 0.85;
-    line-height: 1.4;
-    margin-bottom: 0;
-}
-
 .highlight-word {
     position: relative;
     display: inline-block;
@@ -474,7 +451,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
+    transform: translate(-50%, -50%);
     z-index: 3;
     width: 90%;
     max-width: 500px;
@@ -490,7 +467,6 @@
 
 .card-hover-content.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
     transition-delay: 0.1s;
 }
 
@@ -653,6 +629,14 @@
         padding: 1.5rem;
     }
 
+    .card-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+    }
+
     .highlight-full::before {
         height: 40%;
         bottom: 10%;
@@ -671,6 +655,14 @@
 }
 
 @media (max-width: 768px) {
+    .card-title {
+        font-size: clamp(1.8rem, 4.8vw, 2.5rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.2rem, 3.3vw, 1.6rem);
+    }
+
     .hover-text {
         font-size: 0.95rem;
         line-height: 1.55;
@@ -678,6 +670,14 @@
 }
 
 @media (max-width: 480px) {
+    .card-title {
+        font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.1rem, 3vw, 1.5rem);
+    }
+
     .hover-text {
         font-size: 0.85rem;
         line-height: 1.6;
@@ -685,6 +685,14 @@
 }
 
 @media (max-width: 360px) {
+    .card-title {
+        font-size: clamp(1.4rem, 4.2vw, 2rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1rem, 2.8vw, 1.4rem);
+    }
+
     .hover-text {
         font-size: 0.75rem;
         line-height: 1.65;
