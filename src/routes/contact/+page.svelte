@@ -18,9 +18,9 @@
 		},
 		{ 
 			id: 2, 
-			title: "EUROPAGES",
-			subtitle: m.contact_item3_subtitle(),
-			hoverText: m.contact_item3_hoverText(),
+			title: m.contact_item2_title(),
+			subtitle: m.contact_item2_subtitle(),
+			hoverText: m.contact_item2_hoverText(),
 			cardClass: 'card-2', 
 			row: 'top',
 			link: "https://www.europages.fr/fr/request/create?companySlug=grg-groupe-food-beverage-label-prive-22269045&source=WEB_COMPANY_PROFILE",
@@ -29,20 +29,20 @@
 		},
 		{ 
 			id: 3, 
-			title: m.contact_item4_title(),
-			subtitle: m.contact_item4_subtitle(),
-			hoverText: m.contact_item4_hoverText(),
+			title: m.contact_item3_title(),
+			subtitle: m.contact_item3_subtitle(),
+			hoverText: m.contact_item3_hoverText(),
 			cardClass: 'card-3', 
 			row: 'top'
 		},
 		{ 
 			id: 4, 
-			title: m.contact_item2_title(),
-			subtitle: m.contact_item2_subtitle(),
-			hoverText: m.contact_item2_hoverText(),
+			title: m.contact_item4_title(),
+			subtitle: m.contact_item4_subtitle(),
+			hoverText: m.contact_item4_hoverText(),
 			cardClass: 'card-4', 
 			row: 'bottom',
-			link: "mailto:hub@grggroupe.com",
+			link: "mailto:hub@grg-groupe.com",
 			target: "_self",
 			buttonText: "Nous contacter"
 		}
@@ -133,17 +133,25 @@
 						<p class="card-subtitle">{item.subtitle}</p>
 					</div>
 					<div class="card-hover-content" class:show={hoveredCard === item.id}>
-						<p class="hover-text">{@html item.hoverText}</p>
-						{#if item.link && item.buttonText}
-							<a 
-								href={item.link}
-								class="discover-link"
-								onclick={(e) => handleLinkClick(e, item)}
-								aria-label="{item.buttonText}"
-							>
-								{item.buttonText}
-							</a>
-						{/if}
+						<div class="hover-content-wrapper">
+							<p class="hover-text">{@html item.hoverText}</p>
+							{#if item.link && item.buttonText}
+								<div class="link-wrapper">
+									<a 
+										href={item.link}
+										class="discover-link"
+										onclick={(e) => handleLinkClick(e, item)}
+										aria-label="{item.buttonText}"
+										target={item.target || "_self"}
+									>
+										<span class="link-text">{item.buttonText}</span>
+										<svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</a>
+								</div>
+							{/if}
+						</div>
 					</div>
 					<div class="card-overlay" class:show={hoveredCard === item.id}></div>
 				</div>
@@ -177,17 +185,25 @@
 							<p class="card-subtitle">{item.subtitle}</p>
 						</div>
 						<div class="card-hover-content" class:show={hoveredCard === item.id}>
-							<p class="hover-text">{@html item.hoverText}</p>
-							{#if item.link && item.buttonText}
-								<a 
-									href={item.link}
-									class="discover-link"
-									onclick={(e) => handleLinkClick(e, item)}
-									aria-label="{item.buttonText}"
-								>
-									{item.buttonText}
-								</a>
-							{/if}
+							<div class="hover-content-wrapper">
+								<p class="hover-text">{@html item.hoverText}</p>
+								{#if item.link && item.buttonText}
+									<div class="link-wrapper">
+										<a 
+											href={item.link}
+											class="discover-link"
+											onclick={(e) => handleLinkClick(e, item)}
+											aria-label="{item.buttonText}"
+											target={item.target || "_self"}
+										>
+											<span class="link-text">{item.buttonText}</span>
+											<svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</a>
+									</div>
+								{/if}
+							</div>
 						</div>
 						<div class="card-overlay" class:show={hoveredCard === item.id}></div>
 					{/if}
@@ -436,26 +452,30 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
+    transform: translate(-50%, -50%);
     z-index: 3;
     width: 90%;
     max-width: 500px;
-    text-align: center;
     opacity: 0;
     transition: all 0.4s var(--transition-easing);
     pointer-events: none;
-    padding: 2rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 .card-hover-content.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
     transition-delay: 0.1s;
     pointer-events: auto;
+}
+
+.hover-content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
 .hover-text {
@@ -464,13 +484,14 @@
     line-height: 1.5;
     font-weight: 500;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-    margin: 0 0 1.5rem 0;
+    margin: 0;
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.4s var(--transition-easing);
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
+    text-align: center;
 }
 
 .card-hover-content.show .hover-text {
@@ -485,50 +506,68 @@
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
 }
 
-.discover-link {
-    display: inline-block;
-    color: var(--gray-100, #f5f5f5);
-    font-size: 1rem;
-    font-weight: 700;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 0.75rem 1.5rem;
-    border: 2px solid var(--gray-100, #f5f5f5);
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    pointer-events: auto;
-    cursor: pointer;
+.link-wrapper {
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.4s var(--transition-easing);
 }
 
-.card-hover-content.show .discover-link {
+.card-hover-content.show .link-wrapper {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.3s;
 }
 
-.card-4 .discover-link {
-    border: 2px solid var(--gray-100, #f5f5f5) !important;
-    background: rgba(255, 255, 255, 0.1) !important;
+.discover-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--gray-100, #f5f5f5);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.discover-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.3s ease;
 }
 
 .discover-link:hover {
-    background: rgba(255, 255, 255, 0.2);
     color: var(--gray-50, #fafafa);
-    border-color: var(--gray-50, #fafafa);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.card-4 .discover-link:hover {
-    color: var(--gray-50, #fafafa) !important;
-    border-color: var(--gray-50, #fafafa) !important;
-    background: rgba(255, 255, 255, 0.2) !important;
+.discover-link:hover::after {
+    width: 100%;
+}
+
+.discover-link:hover .link-arrow {
+    transform: translateX(4px);
+}
+
+.link-text {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.link-arrow {
+    transition: transform 0.3s ease;
+    stroke: currentColor;
 }
 
 .card-overlay {
@@ -636,6 +675,7 @@
         justify-content: center;
         align-items: center;
         order: 999;
+        margin-top: 0.5rem;
     }
 
     .logo-content {
@@ -660,38 +700,78 @@
         transform: scale(1.02);
     }
 
+    .bento-card.card-logo.expanded-mobile {
+        height: 120px !important;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .bento-card.card-4.expanded-mobile {
+        height: 50vh;
+    }
+
     .card-content {
         text-align: center;
         align-items: center;
         padding: 1.5rem;
     }
 
+    .hover-content-wrapper {
+        gap: 1.5rem;
+    }
+
     .hover-text {
         font-size: 1rem;
         line-height: 1.5;
-        margin-bottom: 1rem;
+        margin-bottom: 0;
     }
-    
+
     .discover-link {
         font-size: 0.9rem;
-        padding: 0.6rem 1.2rem;
+    }
+
+    .link-text {
+        font-size: 0.9rem;
+    }
+
+    .link-arrow {
+        width: 14px;
+        height: 14px;
     }
 }
 
 @media (max-width: 768px) {
+    .bento-card.card-logo {
+        height: 100px !important;
+        min-height: 100px !important;
+        max-height: 100px !important;
+    }
+
     .logo-image {
         height: clamp(50px, 7vh, 60px);
+    }
+
+    .hover-content-wrapper {
+        gap: 1.25rem;
     }
 
     .hover-text {
         font-size: 0.95rem;
         line-height: 1.55;
-        margin-bottom: 0.9rem;
     }
-    
+
     .discover-link {
         font-size: 0.85rem;
-        padding: 0.55rem 1rem;
+        gap: 0.5rem;
+    }
+
+    .link-text {
+        font-size: 0.85rem;
+    }
+
+    .link-arrow {
+        width: 12px;
+        height: 12px;
     }
 }
 
@@ -707,15 +787,27 @@
         height: clamp(40px, 6vh, 50px);
     }
 
+    .hover-content-wrapper {
+        gap: 1rem;
+    }
+
     .hover-text {
         font-size: 0.85rem;
         line-height: 1.6;
-        margin-bottom: 0.8rem;
     }
-    
+
     .discover-link {
         font-size: 0.8rem;
-        padding: 0.5rem 0.9rem;
+        gap: 0.4rem;
+    }
+
+    .link-text {
+        font-size: 0.8rem;
+    }
+
+    .link-arrow {
+        width: 10px;
+        height: 10px;
     }
 }
 
@@ -731,15 +823,27 @@
         height: clamp(35px, 5vh, 45px);
     }
 
+    .hover-content-wrapper {
+        gap: 0.8rem;
+    }
+
     .hover-text {
         font-size: 0.75rem;
         line-height: 1.65;
-        margin-bottom: 0.7rem;
     }
-    
+
     .discover-link {
         font-size: 0.75rem;
-        padding: 0.45rem 0.8rem;
+        gap: 0.3rem;
+    }
+
+    .link-text {
+        font-size: 0.75rem;
+    }
+
+    .link-arrow {
+        width: 8px;
+        height: 8px;
     }
 }
 </style>

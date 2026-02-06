@@ -169,18 +169,25 @@
 						</p>
 					</div>
 					<div class="card-hover-content" class:show={hoveredCard === item.id}>
-						<p class="hover-text">{@html item.hoverText}</p>
-						
-						{#if item.link && item.buttonText}
-							<a 
-								href={item.link}
-								class="discover-link"
-								onclick={(e) => handleLinkClick(e, item)}
-								aria-label="{item.buttonText}"
-							>
-								{item.buttonText}
-							</a>
-						{/if}
+						<div class="hover-content-wrapper">
+							<p class="hover-text">{@html item.hoverText}</p>
+							
+							{#if item.link && item.buttonText}
+								<div class="link-wrapper">
+									<a 
+										href={item.link}
+										class="discover-link"
+										onclick={(e) => handleLinkClick(e, item)}
+										aria-label="{item.buttonText}"
+									>
+										<span class="link-text">{item.buttonText}</span>
+										<svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</a>
+								</div>
+							{/if}
+						</div>
 					</div>
 					<div class="card-overlay" class:show={hoveredCard === item.id}></div>
 				</div>
@@ -213,18 +220,25 @@
 					</div>
 
 					<div class="card-hover-content" class:show={hoveredCard === item.id}>
-						<p class="hover-text">{@html item.hoverText}</p>
-						
-						{#if item.link && item.buttonText}
-							<a 
-								href={item.link}
-								class="discover-link"
-								onclick={(e) => handleLinkClick(e, item)}
-								aria-label="{item.buttonText}"
-							>
-								{item.buttonText}
-							</a>
-						{/if}
+						<div class="hover-content-wrapper">
+							<p class="hover-text">{@html item.hoverText}</p>
+							
+							{#if item.link && item.buttonText}
+								<div class="link-wrapper">
+									<a 
+										href={item.link}
+										class="discover-link"
+										onclick={(e) => handleLinkClick(e, item)}
+										aria-label="{item.buttonText}"
+									>
+										<span class="link-text">{item.buttonText}</span>
+										<svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</a>
+								</div>
+							{/if}
+						</div>
 					</div>
 
 					<div class="card-overlay" class:show={hoveredCard === item.id}></div>
@@ -386,61 +400,45 @@
     transition: font-size 0.3s ease, opacity 0.3s ease;
 }
 
-.card-1 .card-title {
-    font-size: clamp(1.1rem, 3.2vw, 1.5rem) !important;
-    font-weight: 600 !important;
-    opacity: 0.85 !important;
-    line-height: 1.4 !important;
-    margin: 0 0 0.5rem !important;
-}
-
-.card-1 .card-subtitle {
-    font-size: clamp(1.8rem, 4.5vw, 2.5rem) !important;
-    font-weight: 800 !important;
-    opacity: 1 !important;
-    line-height: 1.2 !important;
-    margin: 0 0 0.75rem !important;
-}
-
-/* Mode clair - Cartes 1, 2, 3, 4, 5 : texte noir */
 .card-1 .card-title,
-.card-1 .card-subtitle,
 .card-2 .card-title,
-.card-2 .card-subtitle,
 .card-3 .card-title,
-.card-3 .card-subtitle,
 .card-4 .card-title,
+.card-5 .card-title {
+    color: var(--gray-900, #171717);
+}
+
+.card-1 .card-subtitle,
+.card-2 .card-subtitle,
+.card-3 .card-subtitle,
 .card-4 .card-subtitle,
-.card-5 .card-title,
 .card-5 .card-subtitle {
     color: var(--gray-900, #171717);
 }
 
-/* Mode sombre - Cartes 1, 2, 3, 4, 5 : texte blanc AVEC OMBRE (comme Home) */
 :global(.dark) .card-1 .card-title,
-:global(.dark) .card-1 .card-subtitle,
 :global(.dark) .card-2 .card-title,
-:global(.dark) .card-2 .card-subtitle,
 :global(.dark) .card-3 .card-title,
-:global(.dark) .card-3 .card-subtitle,
 :global(.dark) .card-4 .card-title,
-:global(.dark) .card-4 .card-subtitle,
 :global(.dark) .card-5 .card-title,
+:global(.dark) .card-1 .card-subtitle,
+:global(.dark) .card-2 .card-subtitle,
+:global(.dark) .card-3 .card-subtitle,
+:global(.dark) .card-4 .card-subtitle,
 :global(.dark) .card-5 .card-subtitle {
     color: var(--gray-100, #f5f5f5);
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7); /* OMBRE AJOUTÉE */
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-/* Correction spéciale pour la carte 1 en mode clair */
 .card-1 .card-title,
 .card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5) !important; /* Texte blanc en mode clair */
+    color: var(--gray-100, #f5f5f5) !important;
 }
 
 :global(.dark) .card-1 .card-title,
 :global(.dark) .card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5) !important; /* Texte blanc en mode sombre */
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7) !important; /* OMBRE AJOUTÉE */
+    color: var(--gray-100, #f5f5f5) !important;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7) !important;
 }
 
 .highlight-word {
@@ -471,15 +469,13 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
+    transform: translate(-50%, -50%);
     z-index: 3;
     width: 90%;
     max-width: 500px;
-    text-align: center;
     opacity: 0;
     transition: all 0.4s var(--transition-easing);
     pointer-events: none;
-    padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -487,8 +483,15 @@
 
 .card-hover-content.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
     transition-delay: 0.1s;
+}
+
+.hover-content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
 .hover-text {
@@ -504,6 +507,7 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
+    text-align: center;
 }
 
 .card-hover-content.show .hover-text {
@@ -512,39 +516,68 @@
     transition-delay: 0.2s;
 }
 
-.discover-link {
-    display: inline-block;
-    color: var(--gray-100, #f5f5f5);
-    font-size: 1rem;
-    font-weight: 700;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 0.75rem 1.5rem;
-    border: 2px solid var(--gray-100, #f5f5f5);
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    pointer-events: auto;
-    cursor: pointer;
+.link-wrapper {
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.4s var(--transition-easing);
 }
 
-.card-hover-content.show .discover-link {
+.card-hover-content.show .link-wrapper {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.3s;
 }
 
+.discover-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--gray-100, #f5f5f5);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.discover-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.3s ease;
+}
+
 .discover-link:hover {
-    background: rgba(255, 255, 255, 0.2);
     color: var(--gray-50, #fafafa);
-    border-color: var(--gray-50, #fafafa);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.discover-link:hover::after {
+    width: 100%;
+}
+
+.discover-link:hover .link-arrow {
+    transform: translateX(4px);
+}
+
+.link-text {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.link-arrow {
+    transition: transform 0.3s ease;
+    stroke: currentColor;
 }
 
 .card-overlay {
@@ -586,7 +619,6 @@
     background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
 }
 
-/* Mode sombre - mêmes couleurs que Home */
 :global(.dark) .card-1 { 
     background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.25)), url('/aluminium.png') center/cover no-repeat;
 }
@@ -697,39 +729,61 @@
 
     .card-hover-content {
         width: 92%;
-        padding: 1.75rem;
         max-width: 450px;
+    }
+    
+    .hover-content-wrapper {
+        gap: 1.5rem;
     }
     
     .hover-text {
         font-size: 1rem;
         line-height: 1.5;
-        margin-bottom: 1rem;
+        margin-bottom: 0;
     }
     
     .discover-link {
         font-size: 0.9rem;
-        padding: 0.6rem 1.2rem;
+    }
+    
+    .link-text {
+        font-size: 0.9rem;
+    }
+    
+    .link-arrow {
+        width: 14px;
+        height: 14px;
     }
 }
 
 @media (max-width: 768px) {
     .card-hover-content {
         width: 94%;
-        padding: 1.5rem;
         max-width: 400px;
+    }
+    
+    .hover-content-wrapper {
+        gap: 1.25rem;
     }
     
     .hover-text {
         font-size: 0.95rem;
         line-height: 1.55;
         padding: 0 0.5rem;
-        margin-bottom: 0.9rem;
     }
     
     .discover-link {
         font-size: 0.85rem;
-        padding: 0.55rem 1rem;
+        gap: 0.5rem;
+    }
+    
+    .link-text {
+        font-size: 0.85rem;
+    }
+    
+    .link-arrow {
+        width: 12px;
+        height: 12px;
     }
     
     .card-title {
@@ -739,33 +793,36 @@
     .card-subtitle {
         font-size: clamp(1.1rem, 2.8vw, 1.4rem);
     }
-    
-    .card-1 .card-title {
-        font-size: clamp(1.1rem, 2.8vw, 1.4rem) !important;
-    }
-    
-    .card-1 .card-subtitle {
-        font-size: clamp(1.6rem, 4.2vw, 2rem) !important;
-    }
 }
 
 @media (max-width: 480px) {
     .card-hover-content {
         width: 96%;
-        padding: 1.25rem;
         max-width: 350px;
+    }
+    
+    .hover-content-wrapper {
+        gap: 1rem;
     }
     
     .hover-text {
         font-size: 0.85rem;
         line-height: 1.6;
         padding: 0;
-        margin-bottom: 0.8rem;
     }
     
     .discover-link {
         font-size: 0.8rem;
-        padding: 0.5rem 0.9rem;
+        gap: 0.4rem;
+    }
+    
+    .link-text {
+        font-size: 0.8rem;
+    }
+    
+    .link-arrow {
+        width: 10px;
+        height: 10px;
     }
 
     .card-title {
@@ -776,34 +833,35 @@
         font-size: clamp(1rem, 2.6vw, 1.3rem);
         line-height: 1.25;
     }
-    
-    .card-1 .card-title {
-        font-size: clamp(1rem, 2.6vw, 1.3rem) !important;
-        line-height: 1.25 !important;
-    }
-    
-    .card-1 .card-subtitle {
-        font-size: clamp(1.4rem, 3.8vw, 1.8rem) !important;
-        line-height: 1.25 !important;
-    }
 }
 
 @media (max-width: 360px) {
     .card-hover-content {
-        padding: 1rem;
         width: 98%;
         max-width: 300px;
+    }
+    
+    .hover-content-wrapper {
+        gap: 0.8rem;
     }
     
     .hover-text {
         font-size: 0.75rem;
         line-height: 1.65;
-        margin-bottom: 0.7rem;
     }
     
     .discover-link {
         font-size: 0.75rem;
-        padding: 0.45rem 0.8rem;
+        gap: 0.3rem;
+    }
+    
+    .link-text {
+        font-size: 0.75rem;
+    }
+    
+    .link-arrow {
+        width: 8px;
+        height: 8px;
     }
 
     .card-title {
@@ -812,14 +870,6 @@
 
     .card-subtitle {
         font-size: clamp(0.9rem, 2.4vw, 1.2rem);
-    }
-    
-    .card-1 .card-title {
-        font-size: clamp(0.9rem, 2.4vw, 1.2rem) !important;
-    }
-    
-    .card-1 .card-subtitle {
-        font-size: clamp(1.2rem, 3.2vw, 1.6rem) !important;
     }
 }
 </style>
