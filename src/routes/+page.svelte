@@ -325,20 +325,20 @@
     width: 100%;
 }
 
-
 .highlight-full {
     position: relative;
-    display: inline-block;
-    z-index: 2;
+    display: inline;
+    line-height: 1.3;
+    z-index: 1;
 }
 
 .highlight-full::before {
     content: "";
     position: absolute;
-    left: -2%;
-    bottom: 5%;
-    width: 104%;
-    height: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0.05em;
+    height: 0.5em;
     background: linear-gradient(90deg, 
         rgba(255, 85, 85, 0.4) 0%, 
         rgba(255, 85, 85, 0.5) 50%, 
@@ -348,6 +348,27 @@
     pointer-events: none;
     transform: skewY(-0.5deg);
     transition: all 0.3s ease;
+    border-radius: 0.08em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+.card-1 .highlight-full,
+.card-3 .highlight-full,
+.card-4 .highlight-full,
+.card-5 .highlight-full {
+    color: var(--gray-900, #171717);
+}
+
+.card-2 .highlight-full {
+    color: var(--gray-100, #f5f5f5);
+}
+
+:global(.dark) .card-1 .highlight-full,
+:global(.dark) .card-3 .highlight-full,
+:global(.dark) .card-4 .highlight-full,
+:global(.dark) .card-5 .highlight-full {
+    color: var(--gray-100, #f5f5f5);
 }
 
 .card-subtitle {
@@ -370,21 +391,6 @@
     transition: all 0.3s ease;
 }
 
-.card-1 .card-title,
-.card-1 .card-subtitle,
-.card-1 .additional-text,
-.card-3 .card-title,
-.card-3 .card-subtitle,
-.card-3 .additional-text,
-.card-4 .card-title,
-.card-4 .card-subtitle,
-.card-4 .additionalText,
-.card-5 .card-title,
-.card-5 .card-subtitle,
-.card-5 .additional-text {
-    color: var(--gray-900, #171717);
-}
-
 .card-1 .additional-text,
 .card-3 .additional-text,
 .card-4 .additional-text,
@@ -392,29 +398,14 @@
     text-shadow: 0 2px 12px rgba(255, 255, 255, 0.7);
 }
 
-.card-2 .card-title,
-.card-2 .card-subtitle,
-.card-2 .additional-text {
-    color: var(--gray-100, #f5f5f5);
-}
-
 .card-2 .additional-text {
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-:global(.dark) .card-1 .card-title,
-:global(.dark) .card-1 .card-subtitle,
 :global(.dark) .card-1 .additional-text,
-:global(.dark) .card-3 .card-title,
-:global(.dark) .card-3 .card-subtitle,
 :global(.dark) .card-3 .additional-text,
-:global(.dark) .card-4 .card-title,
-:global(.dark) .card-4 .card-subtitle,
 :global(.dark) .card-4 .additional-text,
-:global(.dark) .card-5 .card-title,
-:global(.dark) .card-5 .card-subtitle,
 :global(.dark) .card-5 .additional-text {
-    color: var(--gray-100, #f5f5f5);
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
@@ -638,8 +629,8 @@
     }
 
     .highlight-full::before {
-        height: 40%;
-        bottom: 10%;
+        height: 0.4em;
+        bottom: 0.08em;
     }
 
     .card-hover-content {

@@ -451,15 +451,7 @@
     transition-delay: 0.2s;
 }
 
-.hover-text.multiline {
-    text-align: left;
-    padding: 0 1rem;
-}
 
-.hover-text.multiline br {
-    display: block;
-    margin-bottom: 0.5rem;
-}
 
 .card-overlay {
     position: absolute;
@@ -585,11 +577,6 @@
         line-height: 1.5;
     }
 
-    .hover-text.multiline {
-        font-size: 0.95rem;
-        line-height: 1.4;
-        padding: 0.5rem;
-    }
 }
 
 @media (max-width: 768px) {
@@ -605,12 +592,7 @@
         font-size: 0.95rem;
         line-height: 1.55;
     }
-    
-    .hover-text.multiline {
-        font-size: 0.9rem;
-        line-height: 1.5;
-        padding: 0.4rem;
-    }
+
 }
 
 @media (max-width: 480px) {
@@ -623,14 +605,8 @@
     }
 
     .hover-text {
-        font-size: 0.85rem;
+        font-size: 1rem;
         line-height: 1.6;
-    }
-    
-    .hover-text.multiline {
-        font-size: 0.8rem;
-        line-height: 1.5;
-        padding: 0.3rem;
     }
 }
 
@@ -644,14 +620,8 @@
     }
 
     .hover-text {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         line-height: 1.65;
-    }
-    
-    .hover-text.multiline {
-        font-size: 0.7rem;
-        line-height: 1.6;
-        padding: 0.25rem;
     }
 }
 </style>
