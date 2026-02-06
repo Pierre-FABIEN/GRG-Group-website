@@ -66,22 +66,33 @@
 
 	let hoveredCard: number | null = null;
 	let hoveredRow: string | null = null;
+	let isMobile = false;
+
+	$: if (typeof window !== 'undefined') {
+		isMobile = window.innerWidth <= 1024;
+	}
 
 	function handleCardHover(id: number) {
+		if (isMobile) return;
 		hoveredCard = id;
 		const card = bentoItems.find(item => item.id === id);
 		hoveredRow = card?.row || null;
 	}
 
 	function handleCardLeave() {
+		if (isMobile) return;
 		hoveredCard = null;
 		hoveredRow = null;
 	}
 
 	function handleCardClick(item: any) {
-		console.log('Clicked:', item.title);
-		if (item.link) {
-			window.location.href = item.link;
+		if (!isMobile) return;
+		if (hoveredCard === item.id) {
+			hoveredCard = null;
+			hoveredRow = null;
+		} else {
+			hoveredCard = item.id;
+			hoveredRow = item.row;
 		}
 	}
 
@@ -127,6 +138,7 @@
 					class:extra-tall={item.extraTall}
 					class:hovered={hoveredCard === item.id}
 					class:same-row={isInSameRow(item)}
+					class:expanded-mobile={hoveredCard === item.id}
 					onmouseenter={() => handleCardHover(item.id)}
 					onmouseleave={handleCardLeave}
 					onclick={() => handleCardClick(item)}
@@ -182,6 +194,7 @@
 					class:needs-margin={item.needsMargin}
 					class:hovered={hoveredCard === item.id}
 					class:same-row={isInSameRow(item)}
+					class:expanded-mobile={hoveredCard === item.id}
 					onmouseenter={() => handleCardHover(item.id)}
 					onmouseleave={handleCardLeave}
 					onclick={() => handleCardClick(item)}
@@ -229,12 +242,10 @@
     --contrast-dark-1: #404040;
     --contrast-dark-2: #525252;
     --contrast-dark-3: #737373;
-    
     --mobile-margin: 1rem;
     --mobile-gap: 0.75rem;
     --card-margin: 0.75rem;
     --container-padding: 1rem;
-    
     --transition-speed: 0.30s;
     --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -391,6 +402,47 @@
     margin: 0 0 0.75rem !important;
 }
 
+/* Mode clair - Cartes 1, 2, 3, 4, 5 : texte noir */
+.card-1 .card-title,
+.card-1 .card-subtitle,
+.card-2 .card-title,
+.card-2 .card-subtitle,
+.card-3 .card-title,
+.card-3 .card-subtitle,
+.card-4 .card-title,
+.card-4 .card-subtitle,
+.card-5 .card-title,
+.card-5 .card-subtitle {
+    color: var(--gray-900, #171717);
+}
+
+/* Mode sombre - Cartes 1, 2, 3, 4, 5 : texte blanc AVEC OMBRE (comme Home) */
+:global(.dark) .card-1 .card-title,
+:global(.dark) .card-1 .card-subtitle,
+:global(.dark) .card-2 .card-title,
+:global(.dark) .card-2 .card-subtitle,
+:global(.dark) .card-3 .card-title,
+:global(.dark) .card-3 .card-subtitle,
+:global(.dark) .card-4 .card-title,
+:global(.dark) .card-4 .card-subtitle,
+:global(.dark) .card-5 .card-title,
+:global(.dark) .card-5 .card-subtitle {
+    color: var(--gray-100, #f5f5f5);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7); /* OMBRE AJOUTÉE */
+}
+
+/* Correction spéciale pour la carte 1 en mode clair */
+.card-1 .card-title,
+.card-1 .card-subtitle {
+    color: var(--gray-100, #f5f5f5) !important; /* Texte blanc en mode clair */
+}
+
+:global(.dark) .card-1 .card-title,
+:global(.dark) .card-1 .card-subtitle {
+    color: var(--gray-100, #f5f5f5) !important; /* Texte blanc en mode sombre */
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7) !important; /* OMBRE AJOUTÉE */
+}
+
 .highlight-word {
     position: relative;
     display: inline-block;
@@ -429,18 +481,14 @@
     pointer-events: none;
     padding: 2rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: auto;
-    min-height: 0;
 }
 
 .card-hover-content.show {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
     transition-delay: 0.1s;
-    pointer-events: auto;
 }
 
 .hover-text {
@@ -449,12 +497,10 @@
     line-height: 1.5;
     font-weight: 500;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-    margin: 0 0 1.5rem 0;
+    margin: 0;
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.4s var(--transition-easing);
-    width: 100%;
-    max-width: 100%;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -540,6 +586,11 @@
     background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
 }
 
+/* Mode sombre - mêmes couleurs que Home */
+:global(.dark) .card-1 { 
+    background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.25)), url('/aluminium.png') center/cover no-repeat;
+}
+
 :global(.dark) .card-2 {
     background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
 }
@@ -573,38 +624,6 @@
     background: rgba(0, 0, 0, 0.4);
 }
 
-.card-1 .card-title,
-.card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5) !important;
-}
-
-.card-2 .card-title,
-.card-2 .card-subtitle,
-.card-3 .card-title,
-.card-3 .card-subtitle,
-.card-4 .card-title,
-.card-4 .card-subtitle,
-.card-5 .card-title,
-.card-5 .card-subtitle {
-    color: var(--gray-900, #171717);
-}
-
-:global(.dark) .card-2 .card-title,
-:global(.dark) .card-2 .card-subtitle,
-:global(.dark) .card-3 .card-title,
-:global(.dark) .card-3 .card-subtitle,
-:global(.dark) .card-4 .card-title,
-:global(.dark) .card-4 .card-subtitle,
-:global(.dark) .card-5 .card-title,
-:global(.dark) .card-5 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
-}
-
-:global(.dark) .card-1 .card-title,
-:global(.dark) .card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5) !important;
-}
-
 @media (max-width: 1024px) {
     :root {
         --mobile-margin: 0.5rem;
@@ -623,21 +642,18 @@
     }
 
     .bento-row {
-        display: flex;
-        flex-direction: column;
+        display: contents;
         margin-bottom: 0;
-        height: auto;
-        gap: var(--mobile-gap);
     }
 
     .bento-card {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
+        width: calc(100% - (var(--container-padding) * 2));
+        margin-left: auto;
+        margin-right: auto;
         height: 30vh;
         flex: none !important;
         opacity: 1 !important;
-        margin-bottom: var(--mobile-gap);
+        margin-bottom: var(--card-margin);
         padding: 2rem;
         border-radius: 1.5rem;
     }
@@ -647,7 +663,25 @@
     }
 
     .bento-card.needs-margin {
-        margin-bottom: var(--mobile-gap);
+        margin-bottom: var(--card-margin);
+    }
+
+    .bento-card:not(:last-child) {
+        margin-bottom: var(--card-margin);
+    }
+
+    .bento-card.expanded-mobile {
+        height: 50vh;
+        z-index: 100;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        transform: scale(1.02);
+    }
+
+    .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile),
+    .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
+        height: 30vh;
+        opacity: 0.85;
+        filter: brightness(0.9);
     }
 
     .card-content {
