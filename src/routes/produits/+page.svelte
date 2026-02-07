@@ -86,16 +86,12 @@
 	}
 
 	function handleCardClick(event: MouseEvent, item: any) {
-		// En mobile, le clic sur la carte la déploie seulement
 		if (isMobile) {
-			// Vérifier si le clic provient du lien
 			const target = event.target as HTMLElement;
-			if (target.closest('.discover-link')) {
-				// Laisser le lien gérer la navigation
+			if (target.closest('.discover-link') || target.closest('a')) {
 				return;
 			}
 			
-			// Sinon, déployer/replier la carte
 			if (hoveredCard === item.id) {
 				hoveredCard = null;
 				hoveredRow = null;
@@ -357,7 +353,6 @@
     transition: opacity 0.25s ease, transform 0.3s ease;
 }
 
-
 .card-title {
     font-size: clamp(1.6rem, 4vw, 2.2rem);
     font-weight: 800;
@@ -398,10 +393,7 @@
 .card-2 .card-title,
 .card-3 .card-title,
 .card-4 .card-title,
-.card-5 .card-title {
-    color: var(--gray-900, #171717);
-}
-
+.card-5 .card-title,
 .card-1 .card-subtitle,
 .card-2 .card-subtitle,
 .card-3 .card-subtitle,
@@ -424,6 +416,16 @@
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
+.card-1 .card-title,
+.card-1 .card-subtitle {
+    color: var(--gray-100, #f5f5f5) !important;
+}
+
+:global(.dark) .card-1 .card-title,
+:global(.dark) .card-1 .card-subtitle {
+    color: var(--gray-100, #f5f5f5) !important;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7) !important;
+}
 
 .highlight-word {
     position: relative;
@@ -505,12 +507,14 @@
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.4s var(--transition-easing);
+    pointer-events: none;
 }
 
 .card-hover-content.show .link-wrapper {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.3s;
+    transition-delay: 0.5s;
+    pointer-events: auto;
 }
 
 .discover-link {
@@ -530,6 +534,7 @@
     cursor: pointer;
     background: transparent;
     border: none;
+    z-index: 4;
 }
 
 .discover-link::after {
@@ -585,7 +590,7 @@
 }
 
 .card-1 {
-    background:  url('/aluminium.png') center/cover no-repeat;
+    background: url('/aluminium.png') center/cover no-repeat;
 }
 
 .card-2 {
@@ -624,9 +629,22 @@
     background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
 }
 
+.card-1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 1.75rem;
+    z-index: 1;
+    transition: background 0.3s ease;
+}
 
-
-
+.card-1:hover::before {
+    background: rgba(0, 0, 0, 0.4);
+}
 
 @media (max-width: 1024px) {
     :root {
@@ -700,11 +718,6 @@
 
     .card-subtitle {
         font-size: clamp(1.3rem, 3.5vw, 1.7rem);
-    }
-
-    .highlight-full::before {
-        height: 40%;
-        bottom: 10%;
     }
 
     .card-hover-content {
