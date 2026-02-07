@@ -365,35 +365,25 @@
     font-weight: 800;
     text-transform: uppercase;
     margin: 0 0 0.75rem;
-    line-height: 1.2;
+    line-height: 1.4;
     transition: font-size 0.3s ease, opacity 0.3s ease;
     position: relative;
-    display: inline-block;
+    display: block;
     width: 100%;
 }
 
 .highlight-full {
     position: relative;
-    display: inline-block;
-    z-index: 2;
-}
-
-.highlight-full::before {
-    content: "";
-    position: absolute;
-    left: -2%;
-    bottom: 5%;
-    width: 104%;
-    height: 50%;
-    background: linear-gradient(90deg, 
-        rgba(255, 85, 85, 0.4) 0%, 
-        rgba(255, 85, 85, 0.5) 50%, 
-        rgba(255, 85, 85, 0.4) 100%
-    );
-    z-index: -1;
-    pointer-events: none;
-    transform: skewY(-0.5deg);
-    transition: all 0.3s ease;
+    display: inline;
+    background-image: 
+        linear-gradient(transparent 0%, transparent 60%, rgba(255, 85, 85, 0.45) 60%, rgba(255, 85, 85, 0.5) 70%, rgba(255, 85, 85, 0.45) 80%, transparent 80%),
+        linear-gradient(transparent 0%, transparent 55%, rgba(255, 85, 85, 0.4) 55%, rgba(255, 85, 85, 0.5) 65%, rgba(255, 85, 85, 0.4) 75%, transparent 75%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: 0.1em 0.2em;
+    line-height: 1.4;
 }
 
 .card-subtitle {

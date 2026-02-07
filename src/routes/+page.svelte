@@ -318,58 +318,66 @@
     font-weight: 800;
     text-transform: uppercase;
     margin: 0 0 0.75rem;
-    line-height: 1.2;
+    line-height: 1.4;
     transition: font-size 0.3s ease, opacity 0.3s ease;
     position: relative;
-    display: inline-block;
+    display: block;
     width: 100%;
 }
 
 .highlight-full {
     position: relative;
     display: inline;
-    line-height: 1.3;
-    z-index: 1;
-}
-
-.highlight-full::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0.05em;
-    height: 0.5em;
-    background: linear-gradient(90deg, 
-        rgba(255, 85, 85, 0.4) 0%, 
-        rgba(255, 85, 85, 0.5) 50%, 
-        rgba(255, 85, 85, 0.4) 100%
-    );
-    z-index: -1;
-    pointer-events: none;
-    transform: skewY(-0.5deg);
-    transition: all 0.3s ease;
-    border-radius: 0.08em;
+    background-image: 
+        linear-gradient(transparent 0%, transparent 60%, rgba(255, 85, 85, 0.45) 60%, rgba(255, 85, 85, 0.5) 70%, rgba(255, 85, 85, 0.45) 80%, transparent 80%),
+        linear-gradient(transparent 0%, transparent 55%, rgba(255, 85, 85, 0.4) 55%, rgba(255, 85, 85, 0.5) 65%, rgba(255, 85, 85, 0.4) 75%, transparent 75%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+    padding: 0.1em 0.2em;
+    line-height: 1.4;
 }
 
-.card-1 .highlight-full,
-.card-3 .highlight-full,
-.card-4 .highlight-full,
-.card-5 .highlight-full {
-    color: var(--gray-900, #171717);
-}
+// .highlight-full::before {
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     bottom: 0.05em;
+//     height: 0.5em;
+//     background: linear-gradient(90deg, 
+//         rgba(255, 85, 85, 0.4) 0%, 
+//         rgba(255, 85, 85, 0.5) 50%, 
+//         rgba(255, 85, 85, 0.4) 100%
+//     );
+//     z-index: -1;
+//     pointer-events: none;
+//     transform: skewY(-0.5deg);
+//     transition: all 0.3s ease;
+//     border-radius: 0.08em;
+//     box-decoration-break: clone;
+//     -webkit-box-decoration-break: clone;
+// }
 
-.card-2 .highlight-full {
-    color: var(--gray-100, #f5f5f5);
-}
-
-:global(.dark) .card-1 .highlight-full,
-:global(.dark) .card-3 .highlight-full,
-:global(.dark) .card-4 .highlight-full,
-:global(.dark) .card-5 .highlight-full {
-    color: var(--gray-100, #f5f5f5);
-}
+// .highlight-full::after {
+//     content: '';
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     bottom: 0.12em;
+//     height: 0.45em;
+//     background: linear-gradient(90deg, 
+//         rgba(255, 85, 85, 0.4) 0%, 
+//         rgba(255, 85, 85, 0.5) 50%, 
+//         rgba(255, 85, 85, 0.4) 100%
+//     );
+//     z-index: -1;
+//     transform: skewY(-0.5deg);
+//     border-radius: 0.08em;
+//     box-decoration-break: clone;
+//     -webkit-box-decoration-break: clone;
+// }
 
 .card-subtitle {
     font-size: clamp(1.3rem, 3.5vw, 1.7rem);
@@ -506,7 +514,7 @@
 }
 
 .card-2 {
-    background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.25)), url('/grgFB.png') center/cover no-repeat;
+    background: url('/grgFB.png') center/cover no-repeat;
 }
 
 .card-3 { 
@@ -628,11 +636,7 @@
         font-size: clamp(1.3rem, 3.5vw, 1.7rem);
     }
 
-    .highlight-full::before {
-        height: 0.4em;
-        bottom: 0.08em;
-    }
-
+   
     .card-hover-content {
         width: 92%;
         padding: 1.75rem;
