@@ -459,7 +459,7 @@
     max-width: 500px;
     opacity: 0;
     transition: all 0.4s var(--transition-easing);
-    pointer-events: none;
+    pointer-events: none;  // ✨ Désactivé par défaut - les clics passent à travers
     display: flex;
     align-items: center;
     justify-content: center;
@@ -467,10 +467,9 @@
 
 .card-hover-content.show {
     opacity: 1;
-    pointer-events: auto;
+    pointer-events: auto;  // ✨ Activé quand visible - les clics sont captés
     transition-delay: 0.1s;
 }
-
 .hover-content-wrapper {
     width: 100%;
     display: flex;
@@ -478,7 +477,6 @@
     align-items: center;
     gap: 2rem;
 }
-
 .hover-text {
     color: var(--gray-100, #f5f5f5);
     font-size: 1.25rem;
@@ -506,7 +504,6 @@
     transform: translateY(10px);
     transition: all 0.4s var(--transition-easing);
 }
-
 .card-hover-content.show .link-wrapper {
     opacity: 1;
     transform: translateY(0);
@@ -526,10 +523,11 @@
     padding: 0.5rem 0;
     position: relative;
     transition: all 0.3s ease;
-    pointer-events: auto;
+    pointer-events: auto;  // ✨ Le lien reste toujours cliquable
     cursor: pointer;
     background: transparent;
     border: none;
+    z-index: 4;  // ✨ Au-dessus du reste
 }
 
 .discover-link::after {
