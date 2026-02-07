@@ -457,7 +457,7 @@
     text-align: center;
     opacity: 0;
     transition: all 0.4s var(--transition-easing);
-    pointer-events: none;
+    pointer-events: none;  
     padding: 2rem;
     display: flex;
     align-items: center;
@@ -467,6 +467,15 @@
 .card-hover-content.show {
     opacity: 1;
     transition-delay: 0.1s;
+    pointer-events: auto;  
+}
+
+
+.discover-link {
+    pointer-events: auto; 
+    cursor: pointer;
+    position: relative;
+    z-index: 4;
 }
 
 .hover-text {
