@@ -353,7 +353,6 @@
     transition: opacity 0.25s ease, transform 0.3s ease;
 }
 
-
 .card-title {
     font-size: clamp(1.6rem, 4vw, 2.2rem);
     font-weight: 800;
@@ -420,7 +419,6 @@
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-
 .highlight-word {
     position: relative;
     display: inline-block;
@@ -486,18 +484,12 @@
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.4s var(--transition-easing);
-    
-    
     hyphens: none;
     -webkit-hyphens: none;
     -moz-hyphens: none;
-    
-   
     word-break: break-word; 
     overflow-wrap: break-word; 
     word-wrap: break-word;
-    
- 
     white-space: normal;
 }
 
@@ -591,7 +583,11 @@
 }
 
 .card-1 {
-    background:  url('/aluminium.png') center/cover no-repeat;
+    background: url('/aluminium.svg') center/cover no-repeat;
+}
+
+:global(.dark) .card-1 {
+    filter: invert(1) hue-rotate(180deg) brightness(0.85);
 }
 
 .card-2 {
@@ -608,10 +604,6 @@
 
 .card-5 {
     background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
-}
-
-:global(.dark) .card-1 { 
-    background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.25)), url('/aluminium.png') center/cover no-repeat;
 }
 
 :global(.dark) .card-2 {
@@ -642,11 +634,37 @@
     z-index: 1;
     transition: background 0.3s ease;
 }
+.card-1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/aluminium.svg') center/cover no-repeat;
+    border-radius: 1.75rem;
+    z-index: 0;
+    opacity: 0;
+    filter: invert(1) hue-rotate(180deg) brightness(0.85);
+    transition: opacity var(--transition-speed) var(--transition-easing);
+    pointer-events: none;
+}
+
+
+:global(.dark) .card-1::before {
+    background: rgba(0, 0, 0, 0.3);
+}
 
 .card-1:hover::before {
     background: rgba(0, 0, 0, 0.4);
 }
 
+:global(.dark) .card-1::after {
+    opacity: 1;
+}
+:global(.dark) .card-1:hover::before {
+    background: rgba(0, 0, 0, 0.5);
+}
 @media (max-width: 1024px) {
     :root {
         --mobile-margin: 0.5rem;

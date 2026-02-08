@@ -77,6 +77,14 @@
 
 	let isSidebarOpen = $state(false)
 	let isFlagSelectorOpen = $state(false)
+
+	const flagComponents = {
+		fr: Fr,
+		en: En,
+		es: Es,
+		it: It,
+		de: De
+	}
 </script>
 
 <svelte:head>
@@ -87,7 +95,6 @@
 </svelte:head>
 
 {#if !$firstLoadComplete}
-<!-- Loader -->
 {/if}
 
 {#if $isClient}
@@ -203,13 +210,15 @@
 				</div>
 
 				<button 
-					class="gear-toggle" 
+					class="flag-toggle" 
 					on:click|stopPropagation={() => { 
 						isFlagSelectorOpen = !isFlagSelectorOpen
 						if (isSidebarOpen) isSidebarOpen = false
 					}}
 					type="button">
-					<span class="gear-icon">⚙️</span>
+					<span class="flag-icon">
+						<svelte:component this={flagComponents[currentLanguage]} />
+					</span>
 				</button>
 			</div>
 		</div>
@@ -543,8 +552,16 @@
 	background: var(--gray-700, #404040);
 }
 
-.gear-toggle {
+.flag-toggle {
 	display: none;
+}
+
+.flag-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
 }
 
 .container {
@@ -738,30 +755,31 @@
 		display: none;
 	}
 	
-	.gear-toggle {
+	.flag-toggle {
 		display: flex;
 		background: var(--gray-100, #f5f5f5);
 		border: none;
 		width: 40px;
 		height: 40px;
 		border-radius: 50%;
-		font-size: 1.2rem;
 		cursor: pointer;
 		transition: all 0.3s ease;
 		align-items: center;
 		justify-content: center;
+		padding: 4px;
+		overflow: hidden;
 	}
 	
-	:global(.dark) .gear-toggle {
+	:global(.dark) .flag-toggle {
 		background: var(--gray-700, #404040);
 	}
 	
-	.gear-toggle:hover {
+	.flag-toggle:hover {
 		background: var(--gray-300, #d4d4d4);
-		transform: rotate(90deg) scale(1.1);
+		transform: scale(1.1);
 	}
 	
-	:global(.dark) .gear-toggle:hover {
+	:global(.dark) .flag-toggle:hover {
 		background: var(--gray-600, #525252);
 	}
 	
