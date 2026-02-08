@@ -79,16 +79,12 @@
 	}
 
 	function handleCardClick(event: MouseEvent, item: any) {
-		// En mobile, le clic sur la carte la déploie seulement
 		if (isMobile) {
-			// Vérifier si le clic provient du lien
 			const target = event.target as HTMLElement;
 			if (target.closest('.discover-link')) {
-				// Laisser le lien gérer la navigation
 				return;
 			}
 			
-			// Sinon, déployer/replier la carte
 			if (hoveredCard === item.id) {
 				hoveredCard = null;
 				hoveredRow = null;
@@ -447,6 +443,7 @@
     opacity: 0;
     transition: all 0.4s var(--transition-easing);
     pointer-events: none;
+    padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -712,12 +709,18 @@
         padding: 1.5rem;
     }
 
+    .card-hover-content {
+        width: 90%;
+        max-width: 500px;
+        padding: 2rem;
+    }
+
     .hover-content-wrapper {
         gap: 1.5rem;
     }
 
     .hover-text {
-        font-size: 1rem;
+        font-size: 1.1rem;
         line-height: 1.5;
         margin-bottom: 0;
     }
@@ -755,13 +758,9 @@
         height: clamp(50px, 7vh, 60px);
     }
 
-    .hover-content-wrapper {
-        gap: 1.25rem;
-    }
-
     .hover-text {
-        font-size: 0.95rem;
-        line-height: 1.55;
+        font-size: 1rem;
+        line-height: 1.5;
     }
 
     .discover-link {
@@ -799,13 +798,9 @@
         height: clamp(40px, 6vh, 50px);
     }
 
-    .hover-content-wrapper {
-        gap: 1rem;
-    }
-
     .hover-text {
-        font-size: 0.85rem;
-        line-height: 1.6;
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
 
     .discover-link {
@@ -843,13 +838,9 @@
         height: clamp(35px, 5vh, 45px);
     }
 
-    .hover-content-wrapper {
-        gap: 0.8rem;
-    }
-
     .hover-text {
-        font-size: 0.75rem;
-        line-height: 1.65;
+        font-size: 0.85rem;
+        line-height: 1.5;
     }
 
     .discover-link {

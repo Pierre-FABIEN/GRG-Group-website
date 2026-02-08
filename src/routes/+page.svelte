@@ -339,46 +339,6 @@
     line-height: 1.4;
 }
 
-// .highlight-full::before {
-//     content: "";
-//     position: absolute;
-//     left: 0;
-//     right: 0;
-//     bottom: 0.05em;
-//     height: 0.5em;
-//     background: linear-gradient(90deg, 
-//         rgba(255, 85, 85, 0.4) 0%, 
-//         rgba(255, 85, 85, 0.5) 50%, 
-//         rgba(255, 85, 85, 0.4) 100%
-//     );
-//     z-index: -1;
-//     pointer-events: none;
-//     transform: skewY(-0.5deg);
-//     transition: all 0.3s ease;
-//     border-radius: 0.08em;
-//     box-decoration-break: clone;
-//     -webkit-box-decoration-break: clone;
-// }
-
-// .highlight-full::after {
-//     content: '';
-//     position: absolute;
-//     left: 0;
-//     right: 0;
-//     bottom: 0.12em;
-//     height: 0.45em;
-//     background: linear-gradient(90deg, 
-//         rgba(255, 85, 85, 0.4) 0%, 
-//         rgba(255, 85, 85, 0.5) 50%, 
-//         rgba(255, 85, 85, 0.4) 100%
-//     );
-//     z-index: -1;
-//     transform: skewY(-0.5deg);
-//     border-radius: 0.08em;
-//     box-decoration-break: clone;
-//     -webkit-box-decoration-break: clone;
-// }
-
 .card-subtitle {
     font-size: clamp(1.3rem, 3.5vw, 1.7rem);
     font-weight: 600;
@@ -638,13 +598,13 @@
 
    
     .card-hover-content {
-        width: 92%;
-        padding: 1.75rem;
-        max-width: 450px;
+        width: 90%;
+        max-width: 500px;
+        padding: 2rem;
     }
     
     .hover-text {
-        font-size: 1rem;
+        font-size: 1.1rem;
         line-height: 1.5;
     }
 }
@@ -659,8 +619,8 @@
     }
 
     .hover-text {
-        font-size: 0.95rem;
-        line-height: 1.55;
+        font-size: 1rem;
+        line-height: 1.5;
     }
 }
 
@@ -674,8 +634,8 @@
     }
 
     .hover-text {
-        font-size: 0.85rem;
-        line-height: 1.6;
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
 }
 
@@ -689,8 +649,8 @@
     }
 
     .hover-text {
-        font-size: 0.75rem;
-        line-height: 1.65;
+        font-size: 0.85rem;
+        line-height: 1.5;
     }
 }
 </style>

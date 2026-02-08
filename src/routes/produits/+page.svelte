@@ -88,7 +88,7 @@
 	function handleCardClick(event: MouseEvent, item: any) {
 		if (isMobile) {
 			const target = event.target as HTMLElement;
-			if (target.closest('.discover-link') || target.closest('a')) {
+			if (target.closest('.discover-link')) {
 				return;
 			}
 			
@@ -353,6 +353,7 @@
     transition: opacity 0.25s ease, transform 0.3s ease;
 }
 
+
 .card-title {
     font-size: clamp(1.6rem, 4vw, 2.2rem);
     font-weight: 800;
@@ -393,7 +394,10 @@
 .card-2 .card-title,
 .card-3 .card-title,
 .card-4 .card-title,
-.card-5 .card-title,
+.card-5 .card-title {
+    color: var(--gray-900, #171717);
+}
+
 .card-1 .card-subtitle,
 .card-2 .card-subtitle,
 .card-3 .card-subtitle,
@@ -416,16 +420,6 @@
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
-.card-1 .card-title,
-.card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5) !important;
-}
-
-:global(.dark) .card-1 .card-title,
-:global(.dark) .card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5) !important;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7) !important;
-}
 
 .highlight-word {
     position: relative;
@@ -462,6 +456,7 @@
     opacity: 0;
     transition: all 0.4s var(--transition-easing);
     pointer-events: none;
+    padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -507,14 +502,12 @@
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.4s var(--transition-easing);
-    pointer-events: none;
 }
 
 .card-hover-content.show .link-wrapper {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.5s;
-    pointer-events: auto;
+    transition-delay: 0.3s;
 }
 
 .discover-link {
@@ -534,7 +527,6 @@
     cursor: pointer;
     background: transparent;
     border: none;
-    z-index: 4;
 }
 
 .discover-link::after {
@@ -590,7 +582,7 @@
 }
 
 .card-1 {
-    background: url('/aluminium.png') center/cover no-repeat;
+    background:  url('/aluminium.png') center/cover no-repeat;
 }
 
 .card-2 {
@@ -720,9 +712,15 @@
         font-size: clamp(1.3rem, 3.5vw, 1.7rem);
     }
 
+    .highlight-full::before {
+        height: 40%;
+        bottom: 10%;
+    }
+
     .card-hover-content {
-        width: 92%;
-        max-width: 450px;
+        width: 90%;
+        max-width: 500px;
+        padding: 2rem;
     }
     
     .hover-content-wrapper {
@@ -730,7 +728,7 @@
     }
     
     .hover-text {
-        font-size: 1rem;
+        font-size: 1.1rem;
         line-height: 1.5;
         margin-bottom: 0;
     }
@@ -757,20 +755,10 @@
     .card-subtitle {
         font-size: clamp(1.2rem, 3.3vw, 1.6rem);
     }
-
-    .card-hover-content {
-        width: 94%;
-        max-width: 400px;
-    }
-    
-    .hover-content-wrapper {
-        gap: 1.25rem;
-    }
     
     .hover-text {
-        font-size: 0.95rem;
-        line-height: 1.55;
-        padding: 0 0.5rem;
+        font-size: 1rem;
+        line-height: 1.5;
     }
     
     .discover-link {
@@ -797,20 +785,10 @@
         font-size: clamp(1.1rem, 3vw, 1.5rem);
         line-height: 1.25;
     }
-
-    .card-hover-content {
-        width: 96%;
-        max-width: 350px;
-    }
-    
-    .hover-content-wrapper {
-        gap: 1rem;
-    }
     
     .hover-text {
-        font-size: 0.85rem;
-        line-height: 1.6;
-        padding: 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
     
     .discover-link {
@@ -836,19 +814,10 @@
     .card-subtitle {
         font-size: clamp(1rem, 2.8vw, 1.4rem);
     }
-
-    .card-hover-content {
-        width: 98%;
-        max-width: 300px;
-    }
-    
-    .hover-content-wrapper {
-        gap: 0.8rem;
-    }
     
     .hover-text {
-        font-size: 0.75rem;
-        line-height: 1.65;
+        font-size: 0.85rem;
+        line-height: 1.5;
     }
     
     .discover-link {

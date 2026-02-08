@@ -396,6 +396,7 @@
     opacity: 0;
     transition: all 0.4s var(--transition-easing);
     pointer-events: none;
+    padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -550,12 +551,13 @@
     }
 
     .card-hover-content {
-        width: 92%;
-        max-width: 450px;
+        width: 90%;
+        max-width: 500px;
+        padding: 2rem;
     }
     
     .hover-text {
-        font-size: 1rem;
+        font-size: 1.1rem;
         line-height: 1.5;
     }
 }
@@ -568,15 +570,10 @@
     .card-subtitle {
         font-size: clamp(1.2rem, 3.3vw, 1.6rem);
     }
-
-    .card-hover-content {
-        width: 94%;
-        max-width: 400px;
-    }
     
     .hover-text {
-        font-size: 0.95rem;
-        line-height: 1.55;
+        font-size: 1rem;
+        line-height: 1.5;
     }
 }
 
@@ -589,15 +586,10 @@
         font-size: clamp(1.1rem, 3vw, 1.5rem);
         line-height: 1.25;
     }
-
-    .card-hover-content {
-        width: 96%;
-        max-width: 350px;
-    }
     
     .hover-text {
-        font-size: 0.85rem;
-        line-height: 1.6;
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
 }
 
@@ -609,15 +601,10 @@
     .card-subtitle {
         font-size: clamp(1rem, 2.8vw, 1.4rem);
     }
-
-    .card-hover-content {
-        width: 98%;
-        max-width: 300px;
-    }
     
     .hover-text {
-        font-size: 0.75rem;
-        line-height: 1.65;
+        font-size: 0.85rem;
+        line-height: 1.5;
     }
 }
 </style>

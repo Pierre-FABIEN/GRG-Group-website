@@ -563,8 +563,14 @@
         bottom: 10%;
     }
 
+    .card-hover-content {
+        width: 90%;
+        max-width: 500px;
+        padding: 2rem;
+    }
+
     .hover-text {
-        font-size: 1rem;
+        font-size: 1.1rem;
         line-height: 1.5;
     }
 
@@ -580,8 +586,8 @@
     }
 
     .hover-text {
-        font-size: 0.95rem;
-        line-height: 1.55;
+        font-size: 1rem;
+        line-height: 1.5;
     }
 
 }
@@ -596,8 +602,8 @@
     }
 
     .hover-text {
-        font-size: 1rem;
-        line-height: 1.6;
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
 }
 
@@ -612,7 +618,7 @@
 
     .hover-text {
         font-size: 0.85rem;
-        line-height: 1.65;
+        line-height: 1.5;
     }
 }
 </style>
