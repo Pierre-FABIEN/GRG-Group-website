@@ -439,9 +439,19 @@
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.4s var(--transition-easing);
+    
+    
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    
+   
+    word-break: break-word; 
+    overflow-wrap: break-word; 
     word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
+    
+ 
+    white-space: normal;
 }
 
 .card-hover-content.show .hover-text {

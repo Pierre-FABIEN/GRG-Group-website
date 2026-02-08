@@ -473,10 +473,19 @@
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.4s var(--transition-easing);
+    
+    
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    
+   
+    word-break: break-word; 
+    overflow-wrap: break-word; 
     word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    text-align: center;
+    
+ 
+    white-space: normal;
 }
 
 .card-hover-content.show .hover-text {
@@ -575,11 +584,11 @@
 }
 
 .card-1 {
-    background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%);
+    background: linear-gradient(135deg, var(--contrast-dark-1, #949494) 0%, var(--contrast-dark-2, #525252) 100%);
 }
 
 .card-2 {
-    background: #002e1f;
+    background: #236952;
 }
 
 .card-3 {
