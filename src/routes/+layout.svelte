@@ -604,9 +604,9 @@
 
 @media (max-width: 768px) {
 	.sidebar {
-		width: 60px;
-		min-width: 60px;
-		padding: 0.75rem 0;
+		width: var(--sidebar-width-collapsed);
+		min-width: var(--sidebar-width-collapsed);
+		padding: 1rem 0;
 		transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		display: flex;
 		flex-direction: column;
@@ -619,10 +619,10 @@
 	}
 	
 	.sidebar-header {
-		padding: 0.75rem 0.5rem;
-		margin: 0 0.25rem 0.75rem;
+		padding: 1rem 0.75rem;
+		margin: 0 0.5rem 1rem;
 		border-bottom: 1px solid var(--gray-200, #e5e5e5);
-		min-height: 60px;
+		min-height: 80px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -657,8 +657,8 @@
 	}
 	
 	.sidebar-nav {
-		padding: 0 0.5rem;
-		gap: 0.4rem;
+		padding: 0 0.75rem;
+		gap: 0.5rem;
 		cursor: pointer;
 		flex: 1;
 		display: flex;
@@ -666,13 +666,13 @@
 		align-items: center;
 		justify-content: center;
 		margin: 0;
-		height: calc(100% - 140px);
+		height: calc(100% - 180px);
 		overflow-y: auto;
 	}
 	
 	.nav-link {
-		padding: 0.6rem 0.4rem;
-		min-height: 38px;
+		padding: 0.75rem 0.5rem;
+		min-height: 44px;
 		gap: 0.75rem;
 		justify-content: flex-start;
 		align-items: center;
@@ -684,10 +684,10 @@
 	
 	.nav-icon {
 		display: flex;
-		font-size: 1.25rem;
-		min-width: 1.25rem;
-		width: 1.25rem;
-		height: 1.25rem;
+		font-size: 1.4rem;
+		min-width: 1.5rem;
+		width: 1.5rem;
+		height: 1.5rem;
 		align-items: center;
 		justify-content: center;
 		opacity: 1;
@@ -705,7 +705,7 @@
 	.nav-text {
 		opacity: 0;
 		width: 0;
-		font-size: 0.85rem;
+		font-size: 0.9rem;
 		font-weight: 500;
 		transition: opacity 0.3s ease, width 0.3s ease;
 		white-space: nowrap;
@@ -721,12 +721,12 @@
 	}
 	
 	.sidebar-footer {
-		padding: 0.75rem 0.5rem 0.5rem;
-		gap: 0.6rem;
+		padding: 1rem 0.75rem 0.5rem;
+		gap: 0.75rem;
 		flex-shrink: 0;
 		margin-top: auto;
 		border-top: 1px solid var(--gray-200, #e5e5e5);
-		min-height: 80px;
+		min-height: 100px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -738,13 +738,13 @@
 	}
 	
 	.theme-toggle {
-		width: 36px;
-		height: 36px;
-		font-size: 1.1rem;
+		width: 40px;
+		height: 40px;
+		font-size: 1.2rem;
 	}
 	
 	.language-selector {
-		gap: 0.4rem;
+		gap: 0.5rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -759,14 +759,14 @@
 		display: flex;
 		background: var(--gray-100, #f5f5f5);
 		border: none;
-		width: 36px;
-		height: 36px;
+		width: 40px;
+		height: 40px;
 		border-radius: 50%;
 		cursor: pointer;
 		transition: all 0.3s ease;
 		align-items: center;
 		justify-content: center;
-		padding: 3px;
+		padding: 4px;
 		overflow: hidden;
 	}
 	
@@ -784,8 +784,8 @@
 	}
 	
 	.container {
-		left: 60px;
-		width: calc(100vw - 60px);
+		left: var(--sidebar-width-collapsed);
+		width: calc(100vw - var(--sidebar-width-collapsed));
 		transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 	
@@ -806,7 +806,7 @@
 		align-items: flex-end;
 		justify-content: flex-start;
 		padding-bottom: 1rem;
-		padding-left: 60px;
+		padding-left: var(--sidebar-width-collapsed);
 		pointer-events: none;
 	}
 	
@@ -817,13 +817,13 @@
 	.flag-selector-panel {
 		background: #ffffff;
 		border: 1px solid var(--gray-200, #e5e5e5);
-		border-radius: 8px;
-		padding: 0.6rem;
+		border-radius: 10px;
+		padding: 0.75rem;
 		display: flex;
 		flex-direction: column;
-		gap: 0.6rem;
+		gap: 0.75rem;
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-		min-width: 120px;
+		min-width: 140px;
 		margin-left: 0.5rem;
 		pointer-events: auto;
 		animation: slideIn 0.2s ease-out;
@@ -845,8 +845,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 32px;
-		height: 32px;
+		width: 36px;
+		height: 36px;
 		opacity: 0.6;
 		margin: 0 auto;
 	}
@@ -868,6 +868,13 @@
 	@keyframes slideIn {
 		from { opacity: 0; transform: translateY(10px) }
 		to { opacity: 1; transform: translateY(0) }
+	}
+}
+
+@supports (padding: max(0px)) {
+	.sidebar {
+		padding-top: max(1rem, env(safe-area-inset-top));
+		padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 	}
 }
 </style>

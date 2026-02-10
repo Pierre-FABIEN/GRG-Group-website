@@ -688,6 +688,9 @@
         margin-bottom: 0;
     }
 
+    .bento-card:last-child {
+        margin-bottom: 2rem;
+    }
     .bento-card {
         width: calc(100% - (var(--container-padding) * 2));
         margin-left: auto;

@@ -758,10 +758,16 @@
         font-size: clamp(1.15rem, 3.1vw, 1.55rem);
     }
 
-    .bento-card.card-logo {
-        height: 85px !important;
-        min-height: 85px !important;
-        max-height: 85px !important;
+     .bento-card.card-logo {
+        height: 100px !important;
+        min-height: 100px !important;
+        max-height: 100px !important;
+        padding: 1rem !important;
+        justify-content: center;
+        align-items: center;
+        order: 999;
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
     }
 
     .logo-image {

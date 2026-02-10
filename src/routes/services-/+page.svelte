@@ -537,7 +537,9 @@
         padding: 1.5rem;
         border-radius: 1.5rem;
     }
-
+.bento-card:last-child {
+        margin-bottom: 2rem;
+    }
     .bento-card.expanded-mobile {
         height: 50vh;
         z-index: 100;
