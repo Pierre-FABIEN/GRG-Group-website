@@ -294,9 +294,8 @@
   --gray-700: #404040;
   --gray-800: #262626;
   --gray-900: #171717;
-  --sidebar-width: 220px;
-  --sidebar-width-collapsed: 60px;
-  --sidebar-width-expanded: 220px;
+  --sidebar-width: 300px;
+
 }
 
 .layout-wrapper {
@@ -376,9 +375,9 @@
 .logo-image {
 	width: auto;
 	height: auto;
-	max-width: 140px;
-	max-height: 150px;
-	margin: 0 auto;
+	max-width: 180px;
+	max-height: 180px;
+	margin: 2rem auto;
 	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 	object-fit: contain;
 }
