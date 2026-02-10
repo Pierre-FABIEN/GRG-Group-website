@@ -688,7 +688,7 @@
         margin-bottom: 0;
     }
 
-    .bento-card:last-child {
+    .bento-card .card-5 {
         margin-bottom: 6rem;
     }
     .bento-card {

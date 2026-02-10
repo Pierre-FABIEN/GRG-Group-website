@@ -565,7 +565,7 @@
         padding: 1.5rem;
         border-radius: 1.5rem;
     }
- .bento-card:last-child {
+ .bento-card .card-5 {
         margin-bottom: 6rem;
     }
     .bento-card.extra-tall {
