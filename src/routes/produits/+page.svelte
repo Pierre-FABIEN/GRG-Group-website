@@ -665,9 +665,10 @@
 :global(.dark) .card-1:hover::before {
     background: rgba(0, 0, 0, 0.5);
 }
+
 @media (max-width: 1024px) {
     :root {
-        --mobile-margin: 0.5rem;
+        --mobile-margin: 0.25rem;
         --mobile-gap: 0.5rem;
         --card-margin: 0.5rem;
         --container-padding: 0.5rem;
@@ -691,16 +692,16 @@
         width: calc(100% - (var(--container-padding) * 2));
         margin-left: auto;
         margin-right: auto;
-        height: 30vh;
+        height: 28vh;
         flex: none !important;
         opacity: 1 !important;
         margin-bottom: var(--card-margin);
-        padding: 2rem;
+        padding: 1.5rem;
         border-radius: 1.5rem;
     }
 
     .bento-card.extra-tall {
-        height: 30vh;
+        height: 28vh;
     }
 
     .bento-card.needs-margin {
@@ -720,7 +721,7 @@
 
     .bento-card.expanded-mobile ~ .bento-card:not(.expanded-mobile),
     .bento-card:has(~ .bento-card.expanded-mobile):not(.expanded-mobile) {
-        height: 30vh;
+        height: 28vh;
         opacity: 0.85;
         filter: brightness(0.9);
     }
@@ -728,15 +729,16 @@
     .card-content {
         text-align: center;
         align-items: center;
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
     .card-title {
-        font-size: clamp(2rem, 5vw, 3rem);
+        font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+        margin-bottom: 0.5rem;
     }
 
     .card-subtitle {
-        font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+        font-size: clamp(1.2rem, 3.2vw, 1.6rem);
     }
 
     .highlight-full::before {
@@ -745,23 +747,82 @@
     }
 
     .card-hover-content {
-        width: 90%;
+        width: 95%;
         max-width: 500px;
-        padding: 2rem;
+        padding: 1.5rem;
     }
     
     .hover-content-wrapper {
-        gap: 1.5rem;
+        gap: 1.25rem;
+    }
+    
+    .hover-text {
+        font-size: 1.3rem;
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+    
+    .discover-link {
+        font-size: 1rem;
+    }
+    
+    .link-text {
+        font-size: 1rem;
+    }
+    
+    .link-arrow {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-title {
+        font-size: clamp(1.7rem, 4.3vw, 2.3rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.15rem, 3.1vw, 1.55rem);
+    }
+    
+    .hover-text {
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+    
+    .discover-link {
+        font-size: 0.95rem;
+        gap: 0.55rem;
+    }
+    
+    .link-text {
+        font-size: 0.95rem;
+    }
+    
+    .link-arrow {
+        width: 13px;
+        height: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-title {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .card-subtitle {
+        font-size: clamp(1.05rem, 2.8vw, 1.45rem);
+        line-height: 1.25;
     }
     
     .hover-text {
         font-size: 1.1rem;
         line-height: 1.5;
-        margin-bottom: 0;
     }
     
     .discover-link {
         font-size: 0.9rem;
+        gap: 0.45rem;
     }
     
     .link-text {
@@ -769,18 +830,18 @@
     }
     
     .link-arrow {
-        width: 14px;
-        height: 14px;
+        width: 11px;
+        height: 11px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 360px) {
     .card-title {
-        font-size: clamp(1.8rem, 4.8vw, 2.5rem);
+        font-size: clamp(1.3rem, 3.8vw, 1.8rem);
     }
 
     .card-subtitle {
-        font-size: clamp(1.2rem, 3.3vw, 1.6rem);
+        font-size: clamp(0.95rem, 2.6vw, 1.3rem);
     }
     
     .hover-text {
@@ -790,7 +851,7 @@
     
     .discover-link {
         font-size: 0.85rem;
-        gap: 0.5rem;
+        gap: 0.35rem;
     }
     
     .link-text {
@@ -798,67 +859,8 @@
     }
     
     .link-arrow {
-        width: 12px;
-        height: 12px;
-    }
-}
-
-@media (max-width: 480px) {
-    .card-title {
-        font-size: clamp(1.6rem, 4.5vw, 2.2rem);
-    }
-
-    .card-subtitle {
-        font-size: clamp(1.1rem, 3vw, 1.5rem);
-        line-height: 1.25;
-    }
-    
-    .hover-text {
-        font-size: 0.95rem;
-        line-height: 1.5;
-    }
-    
-    .discover-link {
-        font-size: 0.8rem;
-        gap: 0.4rem;
-    }
-    
-    .link-text {
-        font-size: 0.8rem;
-    }
-    
-    .link-arrow {
-        width: 10px;
-        height: 10px;
-    }
-}
-
-@media (max-width: 360px) {
-    .card-title {
-        font-size: clamp(1.4rem, 4.2vw, 2rem);
-    }
-
-    .card-subtitle {
-        font-size: clamp(1rem, 2.8vw, 1.4rem);
-    }
-    
-    .hover-text {
-        font-size: 0.85rem;
-        line-height: 1.5;
-    }
-    
-    .discover-link {
-        font-size: 0.75rem;
-        gap: 0.3rem;
-    }
-    
-    .link-text {
-        font-size: 0.75rem;
-    }
-    
-    .link-arrow {
-        width: 8px;
-        height: 8px;
+        width: 9px;
+        height: 9px;
     }
 }
 </style>
