@@ -409,7 +409,11 @@
 :global(.dark) .card-2 .card-title,
 :global(.dark) .card-3 .card-title,
 :global(.dark) .card-4 .card-title,
-:global(.dark) .card-5 .card-title,
+:global(.dark) .card-5 .card-title {
+    color: var(--gray-100, #f5f5f5);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
 :global(.dark) .card-1 .card-subtitle,
 :global(.dark) .card-2 .card-subtitle,
 :global(.dark) .card-3 .card-subtitle,
@@ -582,12 +586,11 @@
     opacity: 1;
 }
 
+
+
+
 .card-1 {
     background: url('/aluminium.svg') center/cover no-repeat;
-}
-
-:global(.dark) .card-1 {
-    filter: invert(1) hue-rotate(180deg) brightness(0.85);
 }
 
 .card-2 {
