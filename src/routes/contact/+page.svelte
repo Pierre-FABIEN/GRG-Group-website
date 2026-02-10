@@ -767,7 +767,7 @@
         align-items: center;
         order: 999;
         margin-top: 0.5rem;
-        margin-bottom: 2rem;
+        margin-bottom: 4rem;
     }
 
     .logo-image {
