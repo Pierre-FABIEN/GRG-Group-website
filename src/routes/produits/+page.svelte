@@ -689,7 +689,7 @@
     }
 
     .bento-card:last-child {
-        margin-bottom: 4rem;
+        margin-bottom: 6rem;
     }
     .bento-card {
         width: calc(100% - (var(--container-padding) * 2));
