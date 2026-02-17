@@ -112,7 +112,7 @@
 	<aside class="sidebar" class:mobile-expanded={isSidebarOpen}>
 		<div class="sidebar-header">
 			<a href="https://bit.ly/GRG-Group-FnB" target="_blank" class="logo-link">
-				<img src="/image/path1.svg" alt="Logo" class="logo-image">
+				<img src="/image/g53.svg" alt="Logo" class="logo-image">
 			</a>
 		</div>
 		
@@ -260,7 +260,7 @@
 				class:active={currentLanguage === 'de'}
 				on:click|stopPropagation={() => { changeLanguage('de'); isFlagSelectorOpen = false; }}
 				type="button">
-				<De/>
+					<De/>
 			</button>
 		</div>
 	</div>
@@ -295,7 +295,6 @@
   --gray-800: #262626;
   --gray-900: #171717;
   --sidebar-width: 300px;
-
 }
 
 .layout-wrapper {
@@ -376,21 +375,20 @@
 	width: auto;
 	height: auto;
 	max-width: 180px;
-	max-height: 180px;
-	margin: 2rem auto;
-	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+	max-height: 380px;
+	margin: 1.5rem auto;
 	object-fit: contain;
 }
 
 :global(.dark) .logo-image {
-	filter: brightness(1.2) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+	filter: invert(1);
 }
 
 .sidebar-nav {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: start;
 	gap: 0.75rem;
 	flex: 1;
 	padding: 0 1rem;
@@ -666,13 +664,11 @@
 		transition: opacity 0.3s ease, max-height 0.3s ease;
 		text-align: center;
 		width: 100%;
-	
 	}
 	
 	.sidebar.mobile-expanded .logo-link {
 		opacity: 1;
 		max-height: 90px;
-		
 	}
 	
 	.logo-image {

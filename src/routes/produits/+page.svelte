@@ -586,11 +586,12 @@
     opacity: 1;
 }
 
-
-
-
 .card-1 {
     background: url('/aluminium.svg') center/cover no-repeat;
+}
+
+:global(.dark) .card-1 {
+    filter: invert(1) hue-rotate(180deg) brightness(0.85);
 }
 
 .card-2 {
