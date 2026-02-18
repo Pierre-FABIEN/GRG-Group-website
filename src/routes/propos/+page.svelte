@@ -477,7 +477,7 @@
 }
 
 .card-2 {
-    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
+    background: url('/image/bouteilles.jpg') center/cover no-repeat;
 }
 
 .card-3 { 
@@ -497,7 +497,7 @@
 }
 
 :global(.dark) .card-2 {
-    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
+    background: url('/image/bouteilles.jpg') center/cover no-repeat;
 }
 
 :global(.dark) .card-3 { 
@@ -510,6 +510,26 @@
 
 :global(.dark) .card-5 { 
     background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
+}
+
+.card-2 .card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.card-2 .card-content::before {
+    content: '';
+    position: absolute;
+    inset: -2.5rem -2.5rem;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 1.75rem;
+    z-index: -1;
+}
+
+:global(.dark) .card-2 .card-content::before {
+    background: rgba(0, 0, 0, 0.45);
 }
 
 @media (max-width: 1024px) {

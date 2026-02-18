@@ -112,7 +112,7 @@
 	<aside class="sidebar" class:mobile-expanded={isSidebarOpen}>
 		<div class="sidebar-header">
 			<a href="https://bit.ly/GRG-Group-FnB" target="_blank" class="logo-link">
-				<img src="/image/g53.svg" alt="Logo" class="logo-image">
+				<img src="/image/logo.svg" alt="Logo" class="logo-image">
 			</a>
 		</div>
 		
@@ -374,7 +374,7 @@
 .logo-image {
 	width: auto;
 	height: auto;
-	max-width: 180px;
+	max-width: 250px;
 	max-height: 380px;
 	margin: 1.5rem auto;
 	object-fit: contain;
@@ -388,7 +388,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: start;
+	justify-content: center;
 	gap: 0.75rem;
 	flex: 1;
 	padding: 0 1rem;
@@ -673,7 +673,7 @@
 	
 	.logo-image {
 		max-width: 150px;
-		max-height: 80px;
+		max-height: 150px;
 		margin: 0 auto;
 		width: 100%;
 		height: auto;

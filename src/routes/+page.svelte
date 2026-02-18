@@ -355,7 +355,6 @@
     font-weight: 500;
     margin-top: 1rem;
     margin-bottom: 0;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
     transition: all 0.3s ease;
 }
 
@@ -439,18 +438,12 @@
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.4s var(--transition-easing);
-    
-    
     hyphens: none;
     -webkit-hyphens: none;
     -moz-hyphens: none;
-    
-   
     word-break: break-word; 
     overflow-wrap: break-word; 
     word-wrap: break-word;
-    
- 
     white-space: normal;
 }
 
@@ -480,11 +473,86 @@
 }
 
 .card-1 {
-    background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
+    background: url('/image/signature.svg') center/cover no-repeat;
+}
+
+.card-1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 1.75rem;
+    z-index: 1;
+    transition: background 0.3s ease;
+}
+
+.card-1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/image/signature.svg') center/cover no-repeat;
+    border-radius: 1.75rem;
+    z-index: 0;
+    opacity: 0;
+    filter: invert(1) hue-rotate(180deg) brightness(1.4);
+    transition: opacity var(--transition-speed) var(--transition-easing);
+    pointer-events: none;
+}
+
+
+.card-1:hover::before {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+:global(.dark) .card-1 {
+    background: url('/image/signature.svg') center/cover no-repeat;
+    background-color: var(--contrast-dark-1, #404040);
+}
+
+:global(.dark) .card-1::before {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+:global(.dark) .card-1::after {
+    opacity: 1;
+}
+
+:global(.dark) .card-1:hover::before {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .card-2 {
-    background: url('/grgFB.png') center/cover no-repeat;
+    background: url('/image/canettes.jpg') center/cover no-repeat;
+}
+
+:global(.dark) .card-2 {
+    background: url('/image/canettes.jpg') center/cover no-repeat;
+}
+
+.card-2 .card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.card-2 .card-content::before {
+    content: '';
+    position: absolute;
+    inset: -2.5rem -2.5rem;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 1.75rem;
+    z-index: -1;
+}
+
+:global(.dark) .card-2 .card-content::before {
+    background: rgba(0, 0, 0, 0.45);
 }
 
 .card-3 { 
@@ -499,10 +567,6 @@
     background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
 }
 
-:global(.dark) .card-1 { 
-    background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%); 
-}
-
 :global(.dark) .card-3 { 
     background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
 }
@@ -513,23 +577,6 @@
 
 :global(.dark) .card-5 { 
     background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
-}
-
-.card-2::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 1.75rem;
-    z-index: 1;
-    transition: background 0.4s ease;
-}
-
-.card-2:hover::before {
-    background: rgba(0, 0, 0, 0.4);
 }
 
 @media (max-width: 1024px) {
@@ -565,9 +612,11 @@
         padding: 1.5rem;
         border-radius: 1.5rem;
     }
- .bento-card .card-5 {
+
+    .bento-card .card-5 {
         margin-bottom: 6rem;
     }
+
     .bento-card.extra-tall {
         height: 28vh;
     }
@@ -609,7 +658,6 @@
         font-size: clamp(1.2rem, 3.2vw, 1.6rem);
     }
 
-   
     .card-hover-content {
         width: 95%;
         max-width: 500px;

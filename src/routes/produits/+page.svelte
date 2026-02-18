@@ -393,10 +393,7 @@
 .card-2 .card-title,
 .card-3 .card-title,
 .card-4 .card-title,
-.card-5 .card-title {
-    color: var(--gray-900, #171717);
-}
-
+.card-5 .card-title,
 .card-1 .card-subtitle,
 .card-2 .card-subtitle,
 .card-3 .card-subtitle,
@@ -409,11 +406,7 @@
 :global(.dark) .card-2 .card-title,
 :global(.dark) .card-3 .card-title,
 :global(.dark) .card-4 .card-title,
-:global(.dark) .card-5 .card-title {
-    color: var(--gray-100, #f5f5f5);
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
-}
-
+:global(.dark) .card-5 .card-title,
 :global(.dark) .card-1 .card-subtitle,
 :global(.dark) .card-2 .card-subtitle,
 :global(.dark) .card-3 .card-subtitle,
@@ -491,8 +484,8 @@
     hyphens: none;
     -webkit-hyphens: none;
     -moz-hyphens: none;
-    word-break: break-word; 
-    overflow-wrap: break-word; 
+    word-break: break-word;
+    overflow-wrap: break-word;
     word-wrap: break-word;
     white-space: normal;
 }
@@ -586,44 +579,9 @@
     opacity: 1;
 }
 
+/* ── card-1 : SVG adaptatif via ::after ── */
 .card-1 {
     background: url('/aluminium.svg') center/cover no-repeat;
-}
-
-:global(.dark) .card-1 {
-    filter: invert(1) hue-rotate(180deg) brightness(0.85);
-}
-
-.card-2 {
-    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
-}
-
-.card-3 { 
-    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%); 
-}
-
-.card-4 {
-    background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
-}
-
-.card-5 {
-    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
-}
-
-:global(.dark) .card-2 {
-    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
-}
-
-:global(.dark) .card-3 { 
-    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
-}
-
-:global(.dark) .card-4 { 
-    background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%); 
-}
-
-:global(.dark) .card-5 { 
-    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%); 
 }
 
 .card-1::before {
@@ -638,6 +596,7 @@
     z-index: 1;
     transition: background 0.3s ease;
 }
+
 .card-1::after {
     content: '';
     position: absolute;
@@ -654,20 +613,58 @@
     pointer-events: none;
 }
 
-
-:global(.dark) .card-1::before {
-    background: rgba(0, 0, 0, 0.3);
-}
-
 .card-1:hover::before {
     background: rgba(0, 0, 0, 0.4);
+}
+
+:global(.dark) .card-1 {
+    background: url('/aluminium.svg') center/cover no-repeat;
+    background-color: var(--contrast-dark-1, #404040);
+}
+:global(.dark) .card-1::before {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 :global(.dark) .card-1::after {
     opacity: 1;
 }
+
 :global(.dark) .card-1:hover::before {
     background: rgba(0, 0, 0, 0.5);
+}
+
+/* ── cards 2–5 ── */
+.card-2 {
+    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
+}
+
+.card-3 {
+    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
+}
+
+.card-4 {
+    background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
+}
+
+.card-5 {
+    background: linear-gradient(135deg, var(--contrast-light-2, #d4d4d4) 0%, var(--contrast-light-3, #a3a3a3) 100%);
+}
+
+
+:global(.dark) .card-2 {
+    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
+}
+
+:global(.dark) .card-3 {
+    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
+}
+
+:global(.dark) .card-4 {
+    background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%);
+}
+
+:global(.dark) .card-5 {
+    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
 }
 
 @media (max-width: 1024px) {
@@ -695,6 +692,7 @@
     .bento-card .card-5 {
         margin-bottom: 6rem;
     }
+
     .bento-card {
         width: calc(100% - (var(--container-padding) * 2));
         margin-left: auto;
@@ -758,25 +756,25 @@
         max-width: 500px;
         padding: 1.5rem;
     }
-    
+
     .hover-content-wrapper {
         gap: 1.25rem;
     }
-    
+
     .hover-text {
         font-size: 1.3rem;
         line-height: 1.6;
         margin-bottom: 0;
     }
-    
+
     .discover-link {
         font-size: 1rem;
     }
-    
+
     .link-text {
         font-size: 1rem;
     }
-    
+
     .link-arrow {
         width: 15px;
         height: 15px;
@@ -791,21 +789,21 @@
     .card-subtitle {
         font-size: clamp(1.15rem, 3.1vw, 1.55rem);
     }
-    
+
     .hover-text {
         font-size: 1.2rem;
         line-height: 1.6;
     }
-    
+
     .discover-link {
         font-size: 0.95rem;
         gap: 0.55rem;
     }
-    
+
     .link-text {
         font-size: 0.95rem;
     }
-    
+
     .link-arrow {
         width: 13px;
         height: 13px;
@@ -821,21 +819,21 @@
         font-size: clamp(1.05rem, 2.8vw, 1.45rem);
         line-height: 1.25;
     }
-    
+
     .hover-text {
         font-size: 1.1rem;
         line-height: 1.5;
     }
-    
+
     .discover-link {
         font-size: 0.9rem;
         gap: 0.45rem;
     }
-    
+
     .link-text {
         font-size: 0.9rem;
     }
-    
+
     .link-arrow {
         width: 11px;
         height: 11px;
@@ -850,24 +848,23 @@
     .card-subtitle {
         font-size: clamp(0.95rem, 2.6vw, 1.3rem);
     }
-    
+
     .hover-text {
         font-size: 1rem;
         line-height: 1.5;
     }
-    
+
     .discover-link {
         font-size: 0.85rem;
         gap: 0.35rem;
     }
-    
+
     .link-text {
         font-size: 0.85rem;
     }
-    
+
     .link-arrow {
         width: 9px;
         height: 9px;
     }
-}
-</style>
+}</style>

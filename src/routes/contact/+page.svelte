@@ -169,7 +169,7 @@
 				>
 					{#if item.isLogo}
 						<div class="logo-content">
-							<img src="/GRG®_2026_large_2c.png" alt="GRG Groupe" class="logo-image" />
+							<img src="/GRG®_2026_large.png" alt="GRG Groupe" class="logo-image" />
 						</div>
 					{:else}
 						<div class="card-content" class:hide-content={hoveredCard === item.id}>
@@ -342,7 +342,6 @@
     height: 10rem;
     width: auto;
     opacity: 0.9;
-    filter: brightness(0) saturate(100%) invert(12%) sepia(78%) saturate(1535%) hue-rotate(155deg) brightness(95%) contrast(101%);
     transition: all 0.3s ease;
 }
 
