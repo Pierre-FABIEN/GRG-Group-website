@@ -580,6 +580,10 @@
 }
 
 @media (max-width: 1024px) {
+
+     .card-2 .card-content::before {
+        inset: -1.5rem -1.5rem;
+    }
     :root {
         --mobile-margin: 0.25rem;
         --mobile-gap: 0.5rem;

@@ -608,7 +608,7 @@
     border-radius: 1.75rem;
     z-index: 0;
     opacity: 0;
-    filter: invert(1) hue-rotate(180deg) brightness(0.85);
+    filter: invert(1) hue-rotate(180deg) brightness(1.4);
     transition: opacity var(--transition-speed) var(--transition-easing);
     pointer-events: none;
 }
