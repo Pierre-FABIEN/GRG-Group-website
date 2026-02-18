@@ -534,7 +534,8 @@
 
 @media (max-width: 1024px) {
      .card-2 .card-content::before {
-        inset: -1.5rem -1.5rem;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
     }
     :root {
         --mobile-margin: 0.25rem;
