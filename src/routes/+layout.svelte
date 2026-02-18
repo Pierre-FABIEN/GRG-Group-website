@@ -673,7 +673,7 @@
 	
 	.logo-image {
 		max-width: 150px;
-		max-height: 150px;
+		max-height: 250px;
 		margin: 0 auto;
 		width: 100%;
 		height: auto;

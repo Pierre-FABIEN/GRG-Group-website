@@ -581,10 +581,7 @@
 
 @media (max-width: 1024px) {
 
-     .card-2 .card-content::before {
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-    }
+    
     :root {
         --mobile-margin: 0.25rem;
         --mobile-gap: 0.5rem;
@@ -676,6 +673,10 @@
 }
 
 @media (max-width: 768px) {
+       .card-2 .card-content::before {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
     .card-title {
         font-size: clamp(1.7rem, 4.3vw, 2.3rem);
     }
