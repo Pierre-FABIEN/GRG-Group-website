@@ -545,8 +545,8 @@
     position: absolute;
     inset: -2.5rem -2.5rem;
     background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     border-radius: 1.75rem;
     z-index: -1;
 }
