@@ -514,8 +514,8 @@
     position: absolute;
     inset: -2.5rem -2.5rem;
     background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+       backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border-radius: 1.75rem;
     z-index: -1;
 }
@@ -596,10 +596,7 @@
 }
 
 @media (max-width: 768px) {
-    .card-2 .card-content::before {
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-    }
+
     .card-subtitle {
         font-size: clamp(1.15rem, 3.1vw, 1.55rem);
     }
