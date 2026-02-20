@@ -16,6 +16,7 @@
 	import Es from '$lib/components/flag/Es.svelte'
 	import It from '$lib/components/flag/It.svelte'
 	import De from '$lib/components/flag/De.svelte'
+	import Logo from '$lib/components/Logo.svelte'
 
 	let { children } = $props()
 	
@@ -112,7 +113,7 @@
 	<aside class="sidebar" class:mobile-expanded={isSidebarOpen}>
 		<div class="sidebar-header">
 			<a href="https://bit.ly/GRG-Group-FnB" target="_blank" class="logo-link">
-				<img src="/image/logo.svg" alt="Logo" class="logo-image">
+				<Logo />
 			</a>
 		</div>
 		
@@ -380,9 +381,6 @@
 	object-fit: contain;
 }
 
-:global(.dark) .logo-image {
-	filter: invert(1);
-}
 
 .sidebar-nav {
 	display: flex;

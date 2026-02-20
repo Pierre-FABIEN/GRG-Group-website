@@ -599,7 +599,7 @@
 }
 
 :global(.dark) .card-1 {
-    background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%);
+    background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
 }
 
 :global(.dark) .card-2 {
