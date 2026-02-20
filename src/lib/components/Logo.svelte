@@ -40,7 +40,7 @@
     max-width: 250px;
     max-height: 380px;
     display: block;
-    margin: 1.5rem auto;
+    margin: 0.5rem auto 1.5rem;
 }
 
 :global(.dark) .logo-svg {

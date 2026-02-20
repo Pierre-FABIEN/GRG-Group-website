@@ -25,7 +25,7 @@
 			row: 'top',
 			link: "https://www.europages.fr/fr/request/create?companySlug=grg-groupe-food-beverage-label-prive-22269045&source=WEB_COMPANY_PROFILE",
 			target: "_blank",
-			buttonText: "Voir sur Europages"
+			buttonText: "Voir sur la plateforme"
 		},
 		{ 
 			id: 3, 
@@ -391,41 +391,25 @@
     transition: font-size 0.3s ease, opacity 0.3s ease;
 }
 
+/* Mode clair : toutes les cards ont un fond clair → texte foncé */
 .card-1 .card-title,
-.card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
-}
-
+.card-1 .card-subtitle,
 .card-2 .card-title,
-.card-2 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
-}
-
+.card-2 .card-subtitle,
 .card-3 .card-title,
-.card-3 .card-subtitle {
-    color: var(--gray-900, #171717);
-}
-
+.card-3 .card-subtitle,
 .card-4 .card-title,
 .card-4 .card-subtitle {
     color: var(--gray-900, #171717);
 }
 
+/* Mode sombre : toutes les cards ont un fond sombre → texte clair */
 :global(.dark) .card-1 .card-title,
-:global(.dark) .card-1 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
-}
-
+:global(.dark) .card-1 .card-subtitle,
 :global(.dark) .card-2 .card-title,
-:global(.dark) .card-2 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
-}
-
+:global(.dark) .card-2 .card-subtitle,
 :global(.dark) .card-3 .card-title,
-:global(.dark) .card-3 .card-subtitle {
-    color: var(--gray-100, #f5f5f5);
-}
-
+:global(.dark) .card-3 .card-subtitle,
 :global(.dark) .card-4 .card-title,
 :global(.dark) .card-4 .card-subtitle {
     color: var(--gray-100, #f5f5f5);
@@ -472,18 +456,12 @@
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.4s var(--transition-easing);
-    
-    
     hyphens: none;
     -webkit-hyphens: none;
     -moz-hyphens: none;
-    
-   
-    word-break: break-word; 
-    overflow-wrap: break-word; 
+    word-break: break-word;
+    overflow-wrap: break-word;
     word-wrap: break-word;
-    
- 
     white-space: normal;
 }
 
@@ -491,12 +469,6 @@
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.2s;
-}
-
-.card-4 .hover-text,
-.card-4 .discover-link {
-    color: var(--gray-100, #f5f5f5) !important;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
 }
 
 .link-wrapper {
@@ -582,34 +554,30 @@
     opacity: 1;
 }
 
+/* Backgrounds mode clair */
 .card-1 {
-    background: linear-gradient(135deg, var(--contrast-dark-1, #949494) 0%, var(--contrast-dark-2, #525252) 100%);
+   background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
 }
-
 .card-2 {
-    background: #236952;
+   background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
 }
-
 .card-3 {
     background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
 }
-
 .card-4 {
     background: linear-gradient(135deg, var(--contrast-light-1, #e5e5e5) 0%, var(--contrast-light-2, #d4d4d4) 100%);
 }
 
+/* Backgrounds mode sombre */
 :global(.dark) .card-1 {
     background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
 }
-
 :global(.dark) .card-2 {
-    background: #002e1f;
+    background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%);
 }
-
 :global(.dark) .card-3 {
     background: linear-gradient(135deg, var(--contrast-dark-2, #525252) 0%, var(--contrast-dark-3, #737373) 100%);
 }
-
 :global(.dark) .card-4 {
     background: linear-gradient(135deg, var(--contrast-dark-1, #404040) 0%, var(--contrast-dark-2, #525252) 100%);
 }
@@ -757,7 +725,7 @@
         font-size: clamp(1.15rem, 3.1vw, 1.55rem);
     }
 
-     .bento-card.card-logo {
+    .bento-card.card-logo {
         height: 100px !important;
         min-height: 100px !important;
         max-height: 100px !important;

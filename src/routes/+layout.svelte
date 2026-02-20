@@ -111,6 +111,7 @@
 	</div>
 
 	<aside class="sidebar" class:mobile-expanded={isSidebarOpen}>
+		<div class="sidebar-toggle-hint">›</div>
 		<div class="sidebar-header">
 			<a href="https://bit.ly/GRG-Group-FnB" target="_blank" class="logo-link">
 				<Logo />
@@ -619,6 +620,43 @@
 	}
 }
 
+.sidebar-toggle-hint {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar-toggle-hint {
+        display: flex;
+        position: relative;
+        right: -12px;
+        top: 80%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        background: #ffffff;
+        border: 1px solid var(--gray-200, #e5e5e5);
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        color: var(--gray-500, #737373);
+        box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, rotate 0.3s ease;
+        pointer-events: none;
+        z-index: 2000;
+    }
+
+    :global(.dark) .sidebar-toggle-hint {
+        background: var(--gray-800, #262626);
+        border-color: var(--gray-700, #404040);
+        color: var(--gray-400, #a3a3a3);
+    }
+
+    .sidebar.mobile-expanded .sidebar-toggle-hint {
+        rotate: 180deg;
+    }
+}
+
 @media (max-width: 768px) {
 	:root {
 		--sidebar-width-collapsed: 50px;
@@ -666,12 +704,11 @@
 	
 	.sidebar.mobile-expanded .logo-link {
 		opacity: 1;
-		max-height: 90px;
+		max-height: 120px;
 	}
 	
 	.logo-image {
 		max-width: 150px;
-		max-height: 250px;
 		margin: 0 auto;
 		width: 100%;
 		height: auto;
