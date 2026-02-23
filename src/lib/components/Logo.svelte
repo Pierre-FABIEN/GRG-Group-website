@@ -44,6 +44,6 @@
 }
 
 :global(.dark) .logo-svg {
-    color: #E8D2BB;
+    color: #FD6262;
 }
 </style>
