@@ -113,8 +113,7 @@
 	<aside class="sidebar" class:mobile-expanded={isSidebarOpen}>
 		<div class="sidebar-toggle-hint">›</div>
 		<div class="sidebar-header">
-			<a href="https://bit.ly/GRG-Group-FnB" target="_blank" class="logo-link">
-				<Logo />
+		<a href="/" class="logo-link">
 			</a>
 		</div>
 		
