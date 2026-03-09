@@ -114,7 +114,8 @@
 		<div class="sidebar-toggle-hint">›</div>
 		<div class="sidebar-header">
 		<a href="/" class="logo-link">
-			</a>
+			<Logo />
+		</a>
 		</div>
 		
 		<nav 
